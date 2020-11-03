@@ -1,0 +1,28 @@
+import './App.css';
+import Login from './components/auth/Login';
+import Register from './components/auth/Register';
+import {BrowserRouter as Router,Route,Switch} from 'react-router-dom';
+import Landing from './components/layers/Landing';
+
+//import Home from './components/Home';
+function App() {
+  return (
+
+    <Router>
+      <Switch>
+    <div className="App">
+    <Route exact path="/" component={Landing}></Route>
+      <section className="container">
+      <Route exact path="/register" component={Register}></Route>
+      <Route exact path="/login" component={Login}></Route>
+      </section>
+    </div>
+    </Switch>
+    </Router>
+
+    /*<Home/>*/
+
+  );
+}
+
+export default App;

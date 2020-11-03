@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://blanke:10235010@cluster0.xdev7.mongodb.net/DEFAULT?retryWrites=true&w=majority",
+  "jwtSecret": "token-sodi"
+}

@@ -1,0 +1,100 @@
+/* Utilities */
+
+.landing {
+  position: relative;
+  background: url('./img/loginpic.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+
+.dark-overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.landing-inner {
+  color: rgb(255, 255, 255);
+  height: 100%;
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Text Styles*/
+.x-large {
+  font-size: 4rem;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.lead {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+.btn {
+  padding: 0.4rem 1.3rem;
+  font-size: 1rem;
+  margin-right: 0.5rem;
+}
+
+/******************************************************/
+/*login page*/
+.login {
+  position: relative;
+
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.loginform {
+  padding: 90px;
+  margin: auto;
+  width: 500px;
+}
+
+/******************************************************/
+/******************************************************/
+/*register page*/
+
+.register {
+  position: relative;
+  background: url('./img/register.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.registerform {
+  padding: 40px;
+  margin: auto;
+  width: 400px;
+}
+
+/******************************************************/
+
+.Menu {
+  margin-top: 15%;
+  vertical-align: middle;
+}
+
+.search {
+  position: absolute;
+  top: 20%;
+  right: 40%;
+}
+
+.profile {
+  position: absolute;
+  top: 20%;
+  right: 20px;
+}
+#basic-nav-dropdown {
+  color: white;
+}
