@@ -6,7 +6,7 @@ import Menu from './layers/Menu';
 
 function Home() {
   return (
-    <div className="Home">
+    <div className="home">
       <Navebar/>
       <Menu/>
     

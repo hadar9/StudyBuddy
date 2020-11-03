@@ -55,7 +55,7 @@
   background-size: cover;
 }
 .loginform {
-  padding: 90px;
+  padding: 87px;
   margin: auto;
   width: 500px;
 }
@@ -64,7 +64,8 @@
 /******************************************************/
 /*register page*/
 
-.register {
+.register,
+.login {
   position: relative;
   background: url('./img/register.jpg');
   background-repeat: no-repeat;
