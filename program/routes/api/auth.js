@@ -38,7 +38,7 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { name, email, password } = req.body;
+    const {email, password } = req.body;
 
     try {
       //Check if user exists
@@ -54,7 +54,7 @@ router.post(
       if (!isMatch) {
         return res
           .status(400)
-          .json({ errors: [{ msg: "Invalid username/password." }] });
+          .json({ errors: [{ msg: "Invalid email/password." }] });
       }
 
       //Return jsonwebtoken

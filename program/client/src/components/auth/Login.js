@@ -39,7 +39,7 @@ import {Link} from 'react-router-dom';
                     </div>
                     </Form>
                     <p className="text-center my-3">
-    Already have an account? <Link to="/login">Sign in</Link>
+    Don't have an account yet? <Link to="/register">register</Link>
   </p>
     </div>
 </div>
