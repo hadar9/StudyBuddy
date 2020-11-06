@@ -9,15 +9,15 @@ function App() {
   return (
 
     <Router>
-      <Switch>
     <div className="App">
     <Route exact path="/" component={Landing}></Route>
       <section className="container">
+      <Switch>
       <Route exact path="/register" component={Register}></Route>
       <Route exact path="/login" component={Login}></Route>
+      </Switch>
       </section>
     </div>
-    </Switch>
     </Router>
 
     /*<Home/>*/

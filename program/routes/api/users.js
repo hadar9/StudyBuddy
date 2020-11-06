@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
-const gravatar = require("gravatar");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const config = require("config");
@@ -16,7 +15,7 @@ const User = require("../../models/User");
 router.post(
   "/",
   [
-    check("name", "Name is required").not().isEmpty(),
+    check("username", "username is required").not().isEmpty(),
     check("email", "Please include a valid email.").isEmail(),
     check(
       "password",
@@ -29,27 +28,27 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { name, email, password } = req.body;
+    const { username, email, password } = req.body;
 
     try {
       //Check if user exists
-      let user = await User.findOne({ email });
-      if (user) {
+      let emailcheck = await User.findOne({ email});
+      let user = await User.findOne({ username});
+      
+      if (emailcheck) {
         return res
           .status(400)
           .json({ errors: [{ msg: "User Already exists." }] });
       }
-      //Get users gravatar
-      const avatar = gravatar.url(email, {
-        s: "200",
-        r: "pg",
-        d: "mm",
-      });
-
-      user = new User({
-        name,
+      if (user){
+      return res
+        .status(400)
+        .json({ errors: [{ msg: "User name Already taken" }] });
+    }
+     
+    user = new User({
+        username,
         email,
-        avatar,
         password,
       });
 
