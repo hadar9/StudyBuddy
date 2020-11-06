@@ -11,7 +11,7 @@ function Menu() {
   <Button  className="bg-dark text-light">Other drives</Button>
   <Button  className="bg-dark text-light">Favorite drives</Button>
   <Button className="bg-dark text-light">Chat groups</Button>
-  <Button className="bg-dark text-light">Recycelebin</Button>
+  <Button className="bg-dark text-light">My Buddies</Button>
 </ButtonGroup>
       </div>
     );
