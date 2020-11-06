@@ -1,5 +1,5 @@
 import Navebar from './layers/Navebar';
-import Menu from './layers/Menu';
+import HomeMenu from './layers/HomeMenu';
 
 
 
@@ -8,8 +8,7 @@ function Home() {
   return (
     <div className="home">
       <Navebar/>
-      <Menu/>
-    
+      <HomeMenu/>
     </div>
   );
 }

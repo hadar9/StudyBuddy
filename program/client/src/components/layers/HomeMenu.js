@@ -2,10 +2,10 @@ import { Button,ButtonGroup} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 
 
-function Menu() {
+function HomeMenu() {
     return (
 
-      <div className="Menu">
+      <div className="homemenu">
      <ButtonGroup vertical >
   <Button className="bg-dark text-light">My drives</Button>
   <Button  className="bg-dark text-light">Other drives</Button>
@@ -17,5 +17,5 @@ function Menu() {
     );
   }
   
-  export default Menu;
+  export default HomeMenu;
   
