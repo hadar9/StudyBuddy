@@ -1,13 +1,17 @@
 import { Button,Form,FormControl,Nav,Navbar,NavDropdown} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
+import {Link } from 'react-router-dom';
+
+
 
 
 
 function Navebar() {
     return (
+ 
       <div className="NaveBar">
       <Navbar bg="dark" variant="dark">
-    <Navbar.Brand href="#home">StudyBuddy</Navbar.Brand>
+      <Link to="/home"><Navbar.Brand>StudyBuddy</Navbar.Brand></Link>
     <Form inline className="search">
       <FormControl type="text" placeholder="Search"/>
       <NavDropdown title="by" id="basic-nav-dropdown">
@@ -16,11 +20,13 @@ function Navebar() {
     </NavDropdown>
       <Button variant="outline-info">Search</Button>
     </Form>
-    <Nav className="profile">
-      <Nav.Link href="#home">Profile</Nav.Link>
+    <Nav className="navbtn">
+      <Nav.Link  as={Link} to="/profile">Profile</Nav.Link>
+      <Nav.Link as={Link} to="/">log out</Nav.Link>
       </Nav>
   </Navbar>
       </div>
+     
     );
   }
   
