@@ -47,22 +47,7 @@
 }
 
 /******************************************************/
-/*login page*/
-.login {
-  position: relative;
-
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-.loginform {
-  padding: 87px;
-  margin: auto;
-  width: 500px;
-}
-
-/******************************************************/
-/******************************************************/
-/*register page*/
+/*register and login page*/
 
 .register,
 .login {
@@ -70,6 +55,7 @@
   background: url('./img/register.jpg');
   background-repeat: no-repeat;
   background-size: cover;
+  height: 100vh;
 }
 
 .registerform {
@@ -78,11 +64,30 @@
   width: 400px;
 }
 
+.loginform {
+  padding: 87px;
+  margin: auto;
+  width: 500px;
+}
+
 /******************************************************/
 
 .homemenu {
-  margin-top: 15%;
-  vertical-align: middle;
+  vertical-align: left;
+  margin: -500px 0px 50px 0px;
+}
+.home {
+  background-color: #ced4da;
+  height: 150vh;
+}
+
+.content {
+  margin: 60px 50px 50px 200px;
+  width: 80%;
+  border-radius: 25px;
+  background-color: white;
+  border: 3px solid #343a40;
+  height: 120vh;
 }
 
 .search {
