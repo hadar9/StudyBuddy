@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Alert } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Link } from 'react-router-dom';
 import { register } from '../../actions/auth';
@@ -12,8 +12,9 @@ function Register({ register }) {
     email: '',
     password: '',
     confirmpassword: '',
+    alert: false,
   });
-  const { username, email, password, confirmpassword } = formData;
+  const { username, email, password, confirmpassword, alert } = formData;
 
   const onchange = (e) =>
     setForm({ ...formData, [e.target.name]: e.target.value });
@@ -21,12 +22,18 @@ function Register({ register }) {
     e.preventDefault();
 
     if (password !== confirmpassword) {
-      console.log('passwrod do not match');
+      setForm({ ...formData, alert: true });
+      setTimeout(() => {
+        setForm({ ...formData, alert: false });
+      }, 3000);
     } else register({ username, email, password });
   };
   return (
     <div className='register'>
       <div className='registerform text-center'>
+        <Alert show={alert} variant='danger'>
+          passwords don't match!
+        </Alert>
         <h1 className='x-large'>Register</h1>
         <Form onSubmit={(e) => onsubmit(e)}>
           <Form.Group controlId='formBasicusename'>
