@@ -49,14 +49,10 @@ router.post(
       let emailcheck = await User.findOne({ email });
       let user = await User.findOne({ username });
       if (emailcheck) {
-        return res
-          .status(400)
-          .json({ errors: [{ msg: 'User Already exists.' }] });
+        return res.status(400).json({ msg: 'User Already exists.' });
       }
       if (user) {
-        return res
-          .status(400)
-          .json({ errors: [{ msg: 'User name Already taken' }] });
+        return res.status(400).json({ msg: 'User name Already taken' });
       }
 
       user = new User({
@@ -116,17 +112,13 @@ router.post(
       //Check if user exists
       let user = await User.findOne({ email });
       if (!user) {
-        return res
-          .status(400)
-          .json({ errors: [{ msg: 'Invalid username/password.' }] });
+        return res.status(400).json({ msg: 'Invalid username/password.' });
       }
 
       const isMatch = await bcrypt.compare(password, user.password);
 
       if (!isMatch) {
-        return res
-          .status(400)
-          .json({ errors: [{ msg: 'Invalid email/password.' }] });
+        return res.status(400).json({ msg: 'Invalid email/password.' });
       }
 
       //Return jsonwebtoken

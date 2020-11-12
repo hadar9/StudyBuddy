@@ -3,18 +3,18 @@ import { Button, Form, Alert } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Link } from 'react-router-dom';
 import { register } from '../../actions/auth';
+import { setalert, deletealert } from '../../actions/alert';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-function Register({ register }) {
+function Register({ register, setalert, deletealert, alerts }) {
   const [formData, setForm] = useState({
     username: '',
     email: '',
     password: '',
     confirmpassword: '',
-    alert: false,
   });
-  const { username, email, password, confirmpassword, alert } = formData;
+  const { username, email, password, confirmpassword } = formData;
 
   const onchange = (e) =>
     setForm({ ...formData, [e.target.name]: e.target.value });
@@ -22,18 +22,14 @@ function Register({ register }) {
     e.preventDefault();
 
     if (password !== confirmpassword) {
-      setForm({ ...formData, alert: true });
-      setTimeout(() => {
-        setForm({ ...formData, alert: false });
-      }, 3000);
+      setalert('passwords dont match!', 'danger');
+      deletealert();
     } else register({ username, email, password });
   };
   return (
     <div className='register'>
       <div className='registerform text-center'>
-        <Alert show={alert} variant='danger'>
-          passwords don't match!
-        </Alert>
+        <Alert variant={alerts.mtype}>{alerts.msg}</Alert>
         <h1 className='x-large'>Register</h1>
         <Form onSubmit={(e) => onsubmit(e)}>
           <Form.Group controlId='formBasicusename'>
@@ -96,7 +92,17 @@ function Register({ register }) {
     </div>
   );
 }
+
 Register.propTypes = {
   register: PropTypes.func.isRequired,
+  setalert: PropTypes.func.isRequired,
+  deletealert: PropTypes.func.isRequired,
+  alerts: PropTypes.object.isRequired,
 };
-export default connect(null, { register })(Register);
+
+const mapStateToProps = (state) => ({
+  alerts: state.alert,
+});
+export default connect(mapStateToProps, { register, setalert, deletealert })(
+  Register
+);
