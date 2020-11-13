@@ -23,7 +23,6 @@ function Register({ register, setalert, deletealert, alerts }) {
 
     if (password !== confirmpassword) {
       setalert('passwords dont match!', 'danger');
-      deletealert();
     } else register({ username, email, password });
   };
   return (
