@@ -3,7 +3,7 @@ import { SET_ALERT, DELET_ALERT } from '../actions/types';
 export const setalert = (msg, mtype) => (dispatch) => {
   dispatch({
     type: SET_ALERT,
-    playload: { msg, mtype },
+    payload: { msg, mtype },
   });
   dispatch(deletealert());
 };

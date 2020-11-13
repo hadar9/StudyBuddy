@@ -6,14 +6,14 @@ const initialState = {
 };
 
 export default function (state = initialState, action) {
-  const { type, playload } = action;
-  
+  const { type, payload } = action;
+
   switch (type) {
     case SET_ALERT:
       return {
         ...state,
-        msg: playload.msg,
-        mtype: playload.mtype,
+        msg: payload.msg,
+        mtype: payload.mtype,
       };
     case DELET_ALERT:
       return {

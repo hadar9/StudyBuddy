@@ -17,15 +17,16 @@ export const register = ({ username, email, password }) => async (dispatch) => {
 
   try {
     const res = await axios.post('api/auth/register', body, config);
-    dispatch(setalert('register success!', 'success'));
+
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data,
     });
+    dispatch(setalert('register success!', 'success'));
   } catch (error) {
-    dispatch(setalert(error.response.data.msg, 'danger'));
     dispatch({
       type: REGISTER_FAIL,
     });
+    dispatch(setalert(error.response.data.msg, 'danger'));
   }
 };

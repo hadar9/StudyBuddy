@@ -8,20 +8,18 @@ const initialState = {
 };
 
 export default function (state = initialState, action) {
-  const { type, playload } = action;
-
+  const { type, payload } = action;
   switch (type) {
     case REGISTER_SUCCESS:
-      localStorage.setItem('token', playload);
+      localStorage.setItem('token', payload);
       return {
         ...state,
-        ...playload,
+        ...payload,
         isAuthenticated: true,
         loading: true,
       };
     case REGISTER_FAIL:
       localStorage.removeItem('token');
-      console.log(type);
       return {
         ...state,
         token: null,
