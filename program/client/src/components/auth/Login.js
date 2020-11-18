@@ -53,6 +53,7 @@ function Login({ login, alerts, isAuthenticated }) {
               name='password'
               value={password}
               onChange={(e) => onchange(e)}
+              required
             />
           </Form.Group>
           <div className='text-center'>
