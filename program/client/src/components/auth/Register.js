@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Button, Form, Alert } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { register } from '../../actions/auth';
 import { setalert, deletealert } from '../../actions/alert';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-function Register({ register, setalert, deletealert, alerts }) {
+function Register({ register, setalert, alerts, isAuthenticated }) {
   const [formData, setForm] = useState({
     username: '',
     email: '',
@@ -25,6 +25,11 @@ function Register({ register, setalert, deletealert, alerts }) {
       setalert('passwords dont match!', 'danger');
     } else register({ username, email, password });
   };
+
+  if (isAuthenticated) {
+    return <Redirect to='/home'></Redirect>;
+  }
+
   return (
     <div className='register'>
       <div className='registerform text-center'>
@@ -97,10 +102,12 @@ Register.propTypes = {
   setalert: PropTypes.func.isRequired,
   deletealert: PropTypes.func.isRequired,
   alerts: PropTypes.object.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   alerts: state.alert,
+  isAuthenticated: state.auth.isAuthenticated,
 });
 export default connect(mapStateToProps, { register, setalert, deletealert })(
   Register

@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Alert } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { login } from '../../actions/auth';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-function Login() {
+function Login({ login, alerts, isAuthenticated }) {
   const [formData, setForm] = useState({
     email: '',
     password: '',
@@ -12,13 +15,20 @@ function Login() {
 
   const onchange = (e) =>
     setForm({ ...formData, [e.target.name]: e.target.value });
+
   const onsubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    login({ email, password });
   };
+
+  if (isAuthenticated) {
+    return <Redirect to='/home'></Redirect>;
+  }
+
   return (
     <div className='login'>
       <div className='loginform text-center'>
+        <Alert variant={alerts.mtype}>{alerts.msg}</Alert>
         <h1 className='x-large'>Sign in</h1>
         <Form onSubmit={(e) => onsubmit(e)}>
           <Form.Group controlId='formBasicEmail'>
@@ -58,4 +68,14 @@ function Login() {
     </div>
   );
 }
-export default Login;
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+  alerts: PropTypes.object.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  alerts: state.alert,
+  isAuthenticated: state.auth.isAuthenticated,
+});
+export default connect(mapStateToProps, { login })(Login);
