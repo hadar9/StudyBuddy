@@ -26,12 +26,12 @@ function App() {
       <Router>
         <div className='App'>
           <Route exact path='/' component={Landing}></Route>
-          <Route exact path='/home' component={Home}></Route>
-          <Route exact path='/profile' component={Profile}></Route>
           <section className='container'>
             <Switch>
               <Route exact path='/register' component={Register}></Route>
               <Route exact path='/login' component={Login}></Route>
+              <Route exact path='/home' component={Home}></Route>
+              <Route exact path='/profile' component={Profile}></Route>
             </Switch>
           </section>
         </div>
