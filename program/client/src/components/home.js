@@ -19,7 +19,7 @@ function Home({ isAuthenticated }) {
   );
 }
 
-Navebar.propTypes = {
+Home.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
 };
 const mapStateToProps = (state) => ({
