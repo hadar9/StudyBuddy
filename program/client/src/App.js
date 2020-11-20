@@ -8,6 +8,7 @@ import Home from './components/Home';
 import Profile from './components/Profile';
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
+import PrivateRoute from './components/routing/PrivateRoute';
 //Redux
 import { Provider } from 'react-redux';
 import store from './store/store';
@@ -30,7 +31,7 @@ function App() {
             <Switch>
               <Route exact path='/register' component={Register}></Route>
               <Route exact path='/login' component={Login}></Route>
-              <Route exact path='/home' component={Home}></Route>
+              <PrivateRoute exact path='/home' component={Home}></PrivateRoute>
               <Route exact path='/profile' component={Profile}></Route>
             </Switch>
           </section>
