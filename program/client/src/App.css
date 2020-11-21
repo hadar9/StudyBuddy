@@ -104,3 +104,9 @@
 #basic-nav-dropdown {
   color: white;
 }
+.profileform {
+  position: relative;
+  left: 45%;
+  top: 20%;
+  width: 800px;
+}

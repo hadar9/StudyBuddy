@@ -66,6 +66,19 @@ router.post(
       user.password = await bcrypt.hash(password, salt);
       await user.save();
 
+      // Create profile
+      profileFields = {};
+      profileFields.user = user.id;
+      profileFields.username = '';
+      profileFields.firstname = '';
+      profileFields.avatar = 'holder.js/171x180';
+      profileFields.lastname = '';
+      profileFields.studyat = '';
+      profileFields.studyfield = '';
+
+      profile = new Profile(profileFields);
+      await profile.save();
+
       //Return jsonwebtoken
       const payload = {
         user: {

@@ -11,8 +11,11 @@ import { Link } from 'react-router-dom';
 import { logout } from '../../actions/auth';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { getmyprofile } from '../../actions/profile';
 
-function Navebar({ logout }) {
+function Navebar({ logout, getmyprofile }) {
+  getmyprofile();
+
   return (
     <div className='NaveBar'>
       <Navbar bg='dark' variant='dark'>
@@ -42,6 +45,7 @@ function Navebar({ logout }) {
 
 Navebar.propTypes = {
   logout: PropTypes.func.isRequired,
+  getmyprofile: PropTypes.func.isRequired,
 };
 
-export default connect(null, { logout })(Navebar);
+export default connect(null, { logout, getmyprofile })(Navebar);
