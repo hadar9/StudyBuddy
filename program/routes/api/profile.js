@@ -57,11 +57,27 @@ router.post('/', auth, async (req, res) => {
   }
 });
 
-//@route    GET api/profile
+//@route    GET api/profile/user/:user_id
+//@desc     Get current users profile
+//@access   Private
+
+router.get('user/:user_id', auth, async (req, res) => {
+  try {
+    const profile = await Profile.findOne({
+      user: req.params.user_id,
+    }).populate('user', 'username');
+    res.json(profile);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error.');
+  }
+});
+
+//@route    GET api/profiles
 //@desc     Get all profiles
 //@access   Public
 
-router.get('/', async (req, res) => {
+router.get('/profiels', async (req, res) => {
   try {
     const profiles = await Profile.find();
     res.json(profiles);

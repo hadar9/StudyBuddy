@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Image, Form, Button, Col, Row } from 'react-bootstrap';
+import { Image, Form, Button, Col, Row, Alert } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import { updateprofile, getmyprofile } from '../actions/profile';
 import { connect } from 'react-redux';
@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 function Profile({
   getmyprofile,
   updateprofile,
+  alerts,
   profile: { profile, loading },
 }) {
   const [formData, setForm] = useState({
@@ -18,7 +19,6 @@ function Profile({
     studyat: profile.studyat,
     studyfield: profile.studyfield,
     publicdrives: profile.publicdrives,
-    buddies: profile.buddies,
     edit: false,
     editname: 'Edit',
   });
@@ -30,7 +30,6 @@ function Profile({
     studyat,
     studyfield,
     publicdrives,
-    buddies,
     edit,
     editname,
   } = formData;
@@ -47,7 +46,6 @@ function Profile({
       studyat: profile.studyat,
       studyfield: profile.studyfield,
       publicdrives: profile.publicdrives,
-      buddies: profile.buddies,
       edit: !edit,
       editname: butn,
     });
@@ -68,6 +66,7 @@ function Profile({
 
   return (
     <div className='profile'>
+      <Alert variant={alerts.mtype}>{alerts.msg}</Alert>
       {edit ? (
         <div className='profileform '>
           <h1>{username}</h1>
@@ -160,10 +159,6 @@ function Profile({
             <strong>public drives: </strong>
             {publicdrives}
           </p>
-          <p>
-            <strong>buddies: </strong>
-            {buddies}
-          </p>
         </div>
       )}
       <Button
@@ -185,6 +180,7 @@ Profile.propTypes = {
 
 const mapStateToProps = (state) => ({
   profile: state.profile,
+  alerts: state.alert,
 });
 
 export default connect(mapStateToProps, { getmyprofile, updateprofile })(

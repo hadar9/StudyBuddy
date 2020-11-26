@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { setalert } from './alert';
 import { GET_PROFILE, PROFILE_ERROR, UPDATE_PROFILE } from '../actions/types';
 
 //get my profile
@@ -47,6 +48,7 @@ export const updateprofile = ({
       type: UPDATE_PROFILE,
       payload: res.data,
     });
+    dispatch(setalert('changes saved!', 'success'));
   } catch (error) {
     dispatch({
       type: PROFILE_ERROR,
@@ -55,5 +57,6 @@ export const updateprofile = ({
         status: error.response.status,
       },
     });
+    dispatch(setalert('Error editing!', 'danger'));
   }
 };
