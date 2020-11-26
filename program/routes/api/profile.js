@@ -32,15 +32,19 @@ router.post('/', auth, async (req, res) => {
   const { avatar, firstname, lastname, studyat, studyfield } = req.body;
   profileFields = {};
   profileFields.user = req.user.id;
-  if (firstname) profileFields.firstname = firstname;
-  if (avatar) {
-    profileFields.avatar = avatar;
-  } else {
-    profileFields.avatar = 'holder.js/171x180';
-  }
-  if (lastname) profileFields.lastname = lastname;
-  if (studyat) profileFields.studyat = studyat;
-  if (studyfield) profileFields.studyfield = studyfield;
+  firstname
+    ? (profileFields.firstname = firstname)
+    : (profileFields.firstname = '');
+  avatar
+    ? (profileFields.avatar = avatar)
+    : (profileFields.avatar = 'holder.js/171x180');
+  lastname
+    ? (profileFields.lastname = lastname)
+    : (profileFields.lastname = '');
+  studyat ? (profileFields.studyat = studyat) : (profileFields.studyat = '');
+  studyfield
+    ? (profileFields.studyfield = studyfield)
+    : (profileFields.studyfield = '');
 
   try {
     let profile = await Profile.findOne({ user: req.user.id });

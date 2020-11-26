@@ -25,8 +25,12 @@ function Navebar({ logout, getmyprofile }) {
         <Form inline className='search'>
           <FormControl type='text' placeholder='Search' />
           <NavDropdown title='by' id='basic-nav-dropdown'>
-            <NavDropdown.Item href='#action/3.1'>Drive name</NavDropdown.Item>
-            <NavDropdown.Item href='#action/3.2'>User name</NavDropdown.Item>
+            <NavDropdown.Item href='#action/Drivename'>
+              Drive name
+            </NavDropdown.Item>
+            <NavDropdown.Item href='#action/username'>
+              User name
+            </NavDropdown.Item>
           </NavDropdown>
           <Button variant='outline-info'>Search</Button>
         </Form>
