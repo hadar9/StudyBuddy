@@ -14,9 +14,13 @@ import PropTypes from 'prop-types';
 import { getmyprofile } from '../../actions/profile';
 import Popup from 'reactjs-popup';
 import Profile from '../Profile';
+import React, { useEffect } from 'react';
 
 function Navebar({ logout, getmyprofile }) {
-  getmyprofile();
+  useEffect(() => {
+    getmyprofile();
+  }, []);
+
   return (
     <div className='NaveBar'>
       <Navbar bg='dark' variant='dark'>

@@ -7,15 +7,10 @@ import Landing from './components/Landing';
 import Home from './components/Home';
 import Profile from './components/Profile';
 import { loadUser } from './actions/auth';
-import setAuthToken from './utils/setAuthToken';
 import PrivateRoute from './components/routing/PrivateRoute';
 //Redux
 import { Provider } from 'react-redux';
 import store from './store/store';
-
-if (localStorage.token) {
-  setAuthToken(localStorage.token);
-}
 
 function App() {
   useEffect(() => {

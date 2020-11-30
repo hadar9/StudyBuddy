@@ -5,8 +5,9 @@ import { Link, Redirect } from 'react-router-dom';
 import { login } from '../../actions/auth';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { loadUser } from '../../actions/auth';
 
-function Login({ login, alerts, isAuthenticated }) {
+function Login({ login, alerts, isAuthenticated, loadUser }) {
   const [formData, setForm] = useState({
     email: '',
     password: '',
@@ -22,6 +23,7 @@ function Login({ login, alerts, isAuthenticated }) {
   };
 
   if (isAuthenticated) {
+    loadUser();
     return <Redirect to='/home'></Redirect>;
   }
 
@@ -73,10 +75,11 @@ Login.propTypes = {
   login: PropTypes.func.isRequired,
   alerts: PropTypes.object.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
+  loadUser: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   alerts: state.alert,
   isAuthenticated: state.auth.isAuthenticated,
 });
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, { login, loadUser })(Login);

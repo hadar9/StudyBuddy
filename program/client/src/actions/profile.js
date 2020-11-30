@@ -1,6 +1,11 @@
 import axios from 'axios';
 import { setalert } from './alert';
-import { GET_PROFILE, PROFILE_ERROR, UPDATE_PROFILE } from '../actions/types';
+import {
+  GET_PROFILE,
+  PROFILE_ERROR,
+  UPDATE_PROFILE,
+  CLEAR_PROFILE,
+} from '../actions/types';
 
 //get my profile
 export const getmyprofile = () => async (dispatch) => {
@@ -59,4 +64,10 @@ export const updateprofile = ({
     });
     dispatch(setalert('Error editing!', 'danger'));
   }
+};
+
+export const clearprofile = () => async (dispatch) => {
+  dispatch({
+    type: CLEAR_PROFILE,
+  });
 };

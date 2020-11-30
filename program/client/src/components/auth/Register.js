@@ -6,8 +6,9 @@ import { register } from '../../actions/auth';
 import { setalert, deletealert } from '../../actions/alert';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { loadUser } from '../../actions/auth';
 
-function Register({ register, setalert, alerts, isAuthenticated }) {
+function Register({ register, setalert, alerts, isAuthenticated, loadUser }) {
   const [formData, setForm] = useState({
     username: '',
     email: '',
@@ -27,6 +28,7 @@ function Register({ register, setalert, alerts, isAuthenticated }) {
   };
 
   if (isAuthenticated) {
+    loadUser();
     return <Redirect to='/home'></Redirect>;
   }
 
@@ -103,12 +105,16 @@ Register.propTypes = {
   deletealert: PropTypes.func.isRequired,
   alerts: PropTypes.object.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
+  loadUser: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   alerts: state.alert,
   isAuthenticated: state.auth.isAuthenticated,
 });
-export default connect(mapStateToProps, { register, setalert, deletealert })(
-  Register
-);
+export default connect(mapStateToProps, {
+  register,
+  setalert,
+  deletealert,
+  loadUser,
+})(Register);

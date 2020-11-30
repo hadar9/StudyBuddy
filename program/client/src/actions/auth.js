@@ -9,10 +9,12 @@ import {
 } from '../actions/types';
 import axios from 'axios';
 import { setalert } from './alert';
+import { clearprofile } from './profile';
 import setAuthToken from '../utils/setAuthToken';
 
 //Load User
 export const loadUser = () => async (dispatch) => {
+ 
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -86,6 +88,7 @@ export const login = ({ email, password }) => async (dispatch) => {
 
 //Logout
 export const logout = () => async (dispatch) => {
+  dispatch(clearprofile());
   dispatch({
     type: LOGOUT,
   });
