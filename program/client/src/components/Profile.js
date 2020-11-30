@@ -39,13 +39,13 @@ function Profile({
     let butn = '';
     edit ? (butn = 'Edit') : (butn = 'Cancel edit');
     setForm({
-      avatar: profile.avatar,
-      username: profile.user.username,
-      firstname: profile.firstname,
-      lastname: profile.lastname,
-      studyat: profile.studyat,
-      studyfield: profile.studyfield,
-      publicdrives: profile.publicdrives,
+      avatar: loading ? profile.avatar : '',
+      username: loading ? profile.user.username : '',
+      firstname: loading ? profile.firstname : '',
+      lastname: loading ? profile.lastname : '',
+      studyat: loading ? profile.studyat : '',
+      studyfield: loading ? profile.studyfield : '',
+      publicdrives: loading ? profile.publicdrives : '',
       edit: !edit,
       editname: butn,
     });
