@@ -12,10 +12,11 @@ import { logout } from '../../actions/auth';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getmyprofile } from '../../actions/profile';
+import Popup from 'reactjs-popup';
+import Profile from '../Profile';
 
 function Navebar({ logout, getmyprofile }) {
   getmyprofile();
-
   return (
     <div className='NaveBar'>
       <Navbar bg='dark' variant='dark'>
@@ -35,9 +36,14 @@ function Navebar({ logout, getmyprofile }) {
           <Button variant='outline-info'>Search</Button>
         </Form>
         <Nav className='navbtn'>
-          <Nav.Link as={Link} to='/profile'>
-            Profile
-          </Nav.Link>
+          <Popup
+            className='popup'
+            trigger={<Button className='popupbtn'> Profile</Button>}
+          >
+            <div className='popupcontent'>
+              <Profile />
+            </div>
+          </Popup>
           <Nav.Link as={Link} onClick={logout} to='/'>
             log out
           </Nav.Link>

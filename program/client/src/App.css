@@ -74,7 +74,6 @@
 
 .homemenu {
   vertical-align: left;
-  margin: -500px 0px 50px 0px;
 }
 .home {
   background-color: #ced4da;
@@ -82,7 +81,7 @@
 }
 
 .content {
-  margin: 60px 50px 50px 200px;
+  margin: 0 auto;
   width: 80%;
   border-radius: 25px;
   background-color: white;
@@ -104,9 +103,22 @@
 #basic-nav-dropdown {
   color: white;
 }
+
 .profileform {
-  position: relative;
-  left: 45%;
-  top: 20%;
+  margin-left: 25%;
+  margin-right: 25%;
   width: 800px;
+}
+
+.popupcontent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 25px;
+  background-color: rgb(183, 183, 184);
+  border: 3px solid #343a40;
+  color: rgb(0, 0, 5);
+  width: 500px;
+  margin-left: -650px;
+  margin-top: 60px;
 }

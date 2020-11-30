@@ -65,16 +65,19 @@ function Profile({
   };
 
   return (
-    <div className='profile'>
+    <div className='profile text-center'>
       <Alert variant={alerts.mtype}>{alerts.msg}</Alert>
       {edit ? (
-        <div className='profileform '>
+        <div>
           <h1>{username}</h1>
           <Col xs={6} md={4}>
             <Image src={avatar} roundedCircle />
           </Col>
 
-          <Form onSubmit={(e) => onsubmit(e)}>
+          <Form
+            className='profileform text-center'
+            onSubmit={(e) => onsubmit(e)}
+          >
             <Form.Group>
               <Form.File
                 className='position-relative'
@@ -126,11 +129,9 @@ function Profile({
               />
             </Form.Group>
 
-            <div className='text-center'>
-              <Button variant='dark' type='submit'>
-                Submit
-              </Button>
-            </div>
+            <Button variant='dark' type='submit'>
+              Submit
+            </Button>
           </Form>
         </div>
       ) : (
