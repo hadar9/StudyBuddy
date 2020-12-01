@@ -53,7 +53,7 @@ router.post('/', auth, async (req, res) => {
       { user: req.user.id },
       { $set: profileFields },
       { new: true }
-    );
+    ).populate('user', 'username');
     return res.json(profile);
   } catch (err) {
     console.error(err);

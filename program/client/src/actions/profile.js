@@ -9,6 +9,7 @@ import {
 
 //get my profile
 export const getmyprofile = () => async (dispatch) => {
+
   try {
     const res = await axios.get('/api/profile/me');
     dispatch({
