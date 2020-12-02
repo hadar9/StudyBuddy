@@ -3,6 +3,7 @@ import { setalert } from './alert';
 import {
   GET_PROFILE,
   PROFILE_ERROR,
+  UPDATE_PROFILE_PICTUER,
   UPDATE_PROFILE,
   CLEAR_PROFILE,
   GET_PROFILES_WITH_USERNAME,
@@ -26,10 +27,38 @@ export const getmyprofile = () => async (dispatch) => {
     });
   }
 };
+// update profile pictuer
+export const updateprofilepictuer = (avatar) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({
+      avatar,
+    });
+
+    const res = await axios.post('/api/profile/pictuer', body, config);
+    dispatch({
+      type: UPDATE_PROFILE_PICTUER,
+      payload: res.data,
+    });
+    dispatch(setalert('changes saved!', 'success'));
+  } catch (error) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+    dispatch(setalert('Error editing!', 'danger'));
+  }
+};
 
 // update profile
 export const updateprofile = ({
-  avatar,
   firstname,
   lastname,
   studyat,
@@ -42,7 +71,6 @@ export const updateprofile = ({
       },
     };
     const body = JSON.stringify({
-      avatar,
       firstname,
       lastname,
       studyat,

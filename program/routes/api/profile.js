@@ -20,6 +20,32 @@ router.get('/me', auth, async (req, res) => {
     res.status(500).send('Server Error.');
   }
 });
+//@route    POST api/profile/pictuer
+//@desc     update user profile
+//@access   Private
+router.post('/pictuer', auth, async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  let avatar = req.body;
+
+  avatar ? (avatar = avatar) : (avatar = 'holder.js/171x180');
+  console.log(avatar);
+  try {
+    let profile = await Profile.findOne({ user: req.user.id });
+    // Update
+    profile = await Profile.findOneAndUpdate(
+      { user: req.user.id },
+      { $set: avatar },
+      { new: true }
+    );
+    return res.json(profile);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error.');
+  }
+});
 
 //@route    POST api/profile
 //@desc     update user profile
@@ -29,15 +55,12 @@ router.post('/', auth, async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  const { avatar, firstname, lastname, studyat, studyfield } = req.body;
+  const { firstname, lastname, studyat, studyfield } = req.body;
   profileFields = {};
   profileFields.user = req.user.id;
   firstname
     ? (profileFields.firstname = firstname)
     : (profileFields.firstname = '');
-  avatar
-    ? (profileFields.avatar = avatar)
-    : (profileFields.avatar = 'holder.js/171x180');
   lastname
     ? (profileFields.lastname = lastname)
     : (profileFields.lastname = '');
@@ -74,7 +97,10 @@ router.post('/profiels', auth, async (req, res) => {
 
     const profiles = [];
     for (i = 0; i < users.length; i++) {
-      let profile = await Profile.find({ user: users[i]._id });
+      let profile = await Profile.findOne({ user: users[i]._id }).populate(
+        'user',
+        'username'
+      );
       profiles.push(profile);
     }
     if (profiles === null) {
