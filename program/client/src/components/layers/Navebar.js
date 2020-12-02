@@ -1,44 +1,87 @@
-import {
-  Button,
-  Form,
-  FormControl,
-  Nav,
-  Navbar,
-  NavDropdown,
-} from 'react-bootstrap';
+import { Button, Form, FormControl, Nav, Navbar, Alert } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Link } from 'react-router-dom';
 import { logout } from '../../actions/auth';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getmyprofile } from '../../actions/profile';
+import { getmyprofile, getprofiels } from '../../actions/profile';
 import Popup from 'reactjs-popup';
-import Profile from '../Profile';
-import React, { useEffect } from 'react';
+import Profile from '../profile/Profile';
+import Profiels from '../profile/Profiels';
+import React, { useState, useEffect } from 'react';
+import Select from 'react-select';
+import { setalert } from '../../actions/alert';
 
-function Navebar({ logout, getmyprofile }) {
+function Navebar({ logout, getmyprofile, getprofiels, setalert, alerts }) {
+  const [formData, setForm] = useState({
+    search: '',
+    byvalue: 'by',
+    bylabel: 'by',
+  });
+
+  const options = [
+    { value: 'by', label: 'by' },
+    { value: 'username', label: 'user name' },
+    { value: 'drivename', label: 'drive name' },
+  ];
+  const { search, byvalue, bylabel } = formData;
+
+  const bychange = (selected) => {
+    setForm({ ...formData, byvalue: selected.value, bylabel: selected.label });
+  };
+  const onchange = (e) => setForm({ ...formData, search: e.target.value });
+
+  const onsubmit = (e) => {
+    e.preventDefault();
+    if (byvalue === 'username') {
+      getprofiels(search);
+    } else if (byvalue === 'drivename') {
+      //add drive search
+    } else {
+      setalert('you need to choose by', 'danger');
+    }
+  };
   useEffect(() => {
     getmyprofile();
   }, []);
 
   return (
     <div className='NaveBar'>
+      <Alert variant={alerts.mtype}>{alerts.msg}</Alert>
       <Navbar bg='dark' variant='dark'>
         <Link to='/home'>
           <Navbar.Brand>StudyBuddy</Navbar.Brand>
         </Link>
-        <Form inline className='search'>
-          <FormControl type='text' placeholder='Search' />
-          <NavDropdown title='by' id='basic-nav-dropdown'>
-            <NavDropdown.Item href='#action/Drivename'>
-              Drive name
-            </NavDropdown.Item>
-            <NavDropdown.Item href='#action/username'>
-              User name
-            </NavDropdown.Item>
-          </NavDropdown>
-          <Button variant='outline-info'>Search</Button>
+        <Select
+          className='col-md-2 col-offset-1'
+          options={options}
+          placeholder='by'
+          onChange={(selected) => bychange(selected)}
+          value={byvalue}
+        ></Select>
+        <Form inline onSubmit={(e) => onsubmit(e)}>
+          <FormControl
+            type='text'
+            placeholder='Search'
+            name='search'
+            value={search}
+            onChange={(e) => onchange(e)}
+            required
+          />
+          <Popup
+            className='popup'
+            trigger={
+              <Button type='submit' variant='outline-info'>
+                Search
+              </Button>
+            }
+          >
+            <div className='popupprofiels'>
+              <Profiels />
+            </div>
+          </Popup>
         </Form>
+
         <Nav className='navbtn'>
           <Popup
             className='popup'
@@ -60,6 +103,18 @@ function Navebar({ logout, getmyprofile }) {
 Navebar.propTypes = {
   logout: PropTypes.func.isRequired,
   getmyprofile: PropTypes.func.isRequired,
+  getprofiels: PropTypes.func.isRequired,
+  setalert: PropTypes.func.isRequired,
+  alerts: PropTypes.object.isRequired,
 };
 
-export default connect(null, { logout, getmyprofile })(Navebar);
+const mapStateToProps = (state) => ({
+  alerts: state.alert,
+  profile: state.profile,
+});
+export default connect(mapStateToProps, {
+  logout,
+  getmyprofile,
+  getprofiels,
+  setalert,
+})(Navebar);

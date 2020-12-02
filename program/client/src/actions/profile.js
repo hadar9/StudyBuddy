@@ -5,11 +5,11 @@ import {
   PROFILE_ERROR,
   UPDATE_PROFILE,
   CLEAR_PROFILE,
+  GET_PROFILES_WITH_USERNAME,
 } from '../actions/types';
 
 //get my profile
 export const getmyprofile = () => async (dispatch) => {
-
   try {
     const res = await axios.get('/api/profile/me');
     dispatch({
@@ -64,6 +64,33 @@ export const updateprofile = ({
       },
     });
     dispatch(setalert('Error editing!', 'danger'));
+  }
+};
+//Get all profiles with the username
+export const getprofiels = (username) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({
+      username,
+    });
+
+    const res = await axios.post('/api/profile/profiels', body, config);
+    dispatch({
+      type: GET_PROFILES_WITH_USERNAME,
+      payload: res.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
   }
 };
 

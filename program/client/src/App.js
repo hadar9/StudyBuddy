@@ -5,7 +5,7 @@ import Register from './components/auth/Register';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Landing from './components/Landing';
 import Home from './components/Home';
-import Profile from './components/Profile';
+import Profile from './components/profile/Profile';
 import { loadUser } from './actions/auth';
 import PrivateRoute from './components/routing/PrivateRoute';
 //Redux

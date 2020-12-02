@@ -61,6 +61,31 @@ router.post('/', auth, async (req, res) => {
   }
 });
 
+//@route    Post api/profile/profiels
+//@desc     post all profiles with the username
+//@access   Public
+
+router.post('/profiels', auth, async (req, res) => {
+  try {
+    username = req.body;
+    const users = await User.find({
+      username: new RegExp('^' + username.username, 'i'),
+    });
+
+    const profiles = [];
+    for (i = 0; i < users.length; i++) {
+      let profile = await Profile.find({ user: users[i]._id });
+      profiles.push(profile);
+    }
+    if (profiles === null) {
+      return res.status(400).json({ msg: 'Username is not correct!' });
+    }
+    res.json(profiles);
+  } catch (err) {
+    res.status(500).send('Server Error');
+  }
+});
+
 //@route    GET api/profile/user/:user_id
 //@desc     Get current users profile
 //@access   Private
@@ -74,20 +99,6 @@ router.get('user/:user_id', auth, async (req, res) => {
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error.');
-  }
-});
-
-//@route    GET api/profiles
-//@desc     Get all profiles
-//@access   Public
-
-router.get('/profiels', async (req, res) => {
-  try {
-    const profiles = await Profile.find();
-    res.json(profiles);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
   }
 });
 
