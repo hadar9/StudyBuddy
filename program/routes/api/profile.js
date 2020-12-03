@@ -30,8 +30,10 @@ router.post('/pictuer', auth, async (req, res) => {
   }
   let avatar = req.body;
 
-  avatar ? (avatar = avatar) : (avatar = 'holder.js/171x180');
-  console.log(avatar);
+  avatar
+    ? (avatar = avatar)
+    : (avatar = URL.createObjectURL('holder.js/171x180'));
+
   try {
     let profile = await Profile.findOne({ user: req.user.id });
     // Update
@@ -112,19 +114,20 @@ router.post('/profiels', auth, async (req, res) => {
   }
 });
 
-//@route    GET api/profile/user/:user_id
-//@desc     Get current users profile
+//@route    POST api/profile/userprofile
+//@desc     Get current user profile
 //@access   Private
 
-router.get('user/:user_id', auth, async (req, res) => {
+router.post('/userprofile', auth, async (req, res) => {
   try {
-    const profile = await Profile.findOne({
-      user: req.params.user_id,
-    }).populate('user', 'username');
+    id = req.body;
+    let profile = await Profile.findOne({ user: id.id }).populate(
+      'user',
+      'username'
+    );
     res.json(profile);
   } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error.');
+    res.status(500).send('Server Error');
   }
 });
 

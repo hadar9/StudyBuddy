@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Image, Form, Button, Col, Row } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import {
@@ -21,7 +21,6 @@ function ProfileEdit({
     lastname: profile.lastname,
     studyat: profile.studyat,
     studyfield: profile.studyfield,
-    src: '',
   });
   const {
     avatar,
@@ -31,14 +30,15 @@ function ProfileEdit({
     studyat,
     studyfield,
   } = formData;
-  let src = '';
-  const onchangepic = (e) =>
-    setForm({ ...formData, avatar: e.target.files[0] });
+  const onchangepic = (e) => {
+    let src = e.target.files[0];
+    let temp = URL.createObjectURL(src);
+    setForm({ ...formData, avatar: temp });
+  };
 
   const onsubmitpic = (e) => {
     e.preventDefault();
-    src = URL.createObjectURL(avatar);
-    updateprofilepictuer(src);
+    updateprofilepictuer(avatar);
   };
 
   const onchange = (e) => {
@@ -58,7 +58,7 @@ function ProfileEdit({
   return (
     <div>
       <Col>
-        <Image src={avatar} roundedCircle />
+        <Image className='profilepic' src={avatar} roundedCircle />
       </Col>
       <h1>{username}</h1>
       <Form onSubmit={(e) => onsubmitpic(e)}>

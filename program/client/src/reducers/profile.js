@@ -1,5 +1,6 @@
 import {
   GET_PROFILE,
+  GET_USER_PROFILE,
   PROFILE_ERROR,
   UPDATE_PROFILE_PICTUER,
   UPDATE_PROFILE,
@@ -12,6 +13,8 @@ const initialState = {
   profiels: [],
   profielsloading: false,
   loading: false,
+  userprofile: null,
+  userloading: false,
   error: {},
 };
 
@@ -22,6 +25,8 @@ export default function (state = initialState, action) {
     case UPDATE_PROFILE:
     case UPDATE_PROFILE_PICTUER:
       return { ...state, profile: payload, loading: true };
+    case GET_USER_PROFILE:
+      return { ...state, userprofile: payload, userloading: true };
     case GET_PROFILES_WITH_USERNAME:
       return { ...state, profielsloading: true, profiels: payload };
     case PROFILE_ERROR:

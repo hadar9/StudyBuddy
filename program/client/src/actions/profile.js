@@ -2,6 +2,7 @@ import axios from 'axios';
 import { setalert } from './alert';
 import {
   GET_PROFILE,
+  GET_USER_PROFILE,
   PROFILE_ERROR,
   UPDATE_PROFILE_PICTUER,
   UPDATE_PROFILE,
@@ -122,6 +123,33 @@ export const getprofiels = (username) => async (dispatch) => {
   }
 };
 
+//Get specific profile with the user id
+export const getuserprofile = (id) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({
+      id,
+    });
+
+    const res = await axios.post('/api/profile/userprofile', body, config);
+    dispatch({
+      type: GET_USER_PROFILE,
+      payload: res.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+  }
+};
 export const clearprofile = () => async (dispatch) => {
   dispatch({
     type: CLEAR_PROFILE,

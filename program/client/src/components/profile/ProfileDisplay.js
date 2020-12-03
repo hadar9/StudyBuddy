@@ -15,8 +15,8 @@ function ProfileDisplay({ profiles: { profile } }) {
 
   return (
     <div className='displayprofile text-center'>
-      <Col xs={6} md={4}>
-        <Image src={avatar} roundedCircle />
+      <Col>
+        <Image className='profilepic' src={avatar} roundedCircle />
       </Col>
       <h1>{username}</h1>
       <p>
