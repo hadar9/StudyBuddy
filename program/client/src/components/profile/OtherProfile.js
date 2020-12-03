@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Col } from 'react-bootstrap';
+import { Image, Col, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -19,6 +19,9 @@ function OtherProfile({ profiles: { userprofile, userloading } }) {
           <Image className='profilepic' src={avatar} roundedCircle />
         </Col>
         <h1>{username}</h1>
+        <Button variant='dark' type='submit'>
+          Add Buddy
+        </Button>
         <p>
           <strong>first name: </strong>
           {firstname}
