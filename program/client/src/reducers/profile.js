@@ -1,6 +1,7 @@
 import {
   GET_PROFILE,
   GET_USER_PROFILE,
+  CLOSE_USER_PROFILE,
   PROFILE_ERROR,
   UPDATE_PROFILE_PICTUER,
   UPDATE_PROFILE,
@@ -28,6 +29,8 @@ export default function (state = initialState, action) {
       return { ...state, profile: payload, loading: true };
     case GET_USER_PROFILE:
       return { ...state, userprofile: payload, userloading: true };
+    case CLOSE_USER_PROFILE:
+      return { ...state, userprofile: null, userloading: false };
     case GET_PROFILES_WITH_USERNAME:
       return { ...state, profielsloading: true, profiels: payload };
     case CLOSE_PROFILES_WITH_USERNAME:

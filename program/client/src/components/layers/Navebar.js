@@ -15,7 +15,7 @@ import PropTypes from 'prop-types';
 import {
   getmyprofile,
   getprofiels,
-  clearprofiles,
+  closeprofiles,
 } from '../../actions/profile';
 import Profile from '../profile/Profile';
 import Profiels from '../profile/Profiels';
@@ -27,20 +27,19 @@ function Navebar({
   logout,
   getmyprofile,
   getprofiels,
-  clearprofiles,
+  closeprofiles,
   setalert,
   alerts,
 }) {
   const [formData, setForm] = useState({
     search: '',
-    byvalue: 'by',
-    bylabel: 'by',
+    byvalue: 'username',
+    bylabel: 'user name',
     showmyprofile: false,
     showprofiles: false,
   });
 
   const options = [
-    { value: 'by', label: 'by' },
     { value: 'username', label: 'user name' },
     { value: 'drivename', label: 'drive name' },
   ];
@@ -55,18 +54,16 @@ function Navebar({
     e.preventDefault();
     if (byvalue === 'username') {
       getprofiels(search);
-      setForm({ showprofiles: true });
-    } else if (byvalue === 'drivename') {
-      //add drive search
+      setForm({ showprofiles: true, search: '' });
     } else {
-      setalert('you need to choose by', 'danger');
+      //add drive search
     }
   };
   const handleCloseMyProfile = () => setForm({ showmyprofile: false });
-  const handleShowMySProfile = () => setForm({ showmyprofile: true });
+  const handleShowMyProfile = () => setForm({ showmyprofile: true });
   const handleCloseProfiels = () => {
     setForm({ showprofiles: false });
-    clearprofiles();
+    closeprofiles();
   };
 
   useEffect(() => {
@@ -83,10 +80,12 @@ function Navebar({
         <Select
           className='col-md-2 col-offset-1'
           options={options}
-          placeholder='by'
+          placeholder={bylabel}
           onChange={(selected) => bychange(selected)}
           value={byvalue}
-        ></Select>
+        >
+          {bylabel}
+        </Select>
         <Form inline onSubmit={(e) => onsubmit(e)}>
           <FormControl
             type='text'
@@ -113,7 +112,7 @@ function Navebar({
           </Modal.Body>
         </Modal>
 
-        <Button variant='outline-info' onClick={handleShowMySProfile}>
+        <Button variant='outline-info' onClick={handleShowMyProfile}>
           Profile
         </Button>
 
@@ -143,7 +142,7 @@ Navebar.propTypes = {
   logout: PropTypes.func.isRequired,
   getmyprofile: PropTypes.func.isRequired,
   getprofiels: PropTypes.func.isRequired,
-  clearprofiles: PropTypes.func.isRequired,
+  closeprofiles: PropTypes.func.isRequired,
   setalert: PropTypes.func.isRequired,
   alerts: PropTypes.object.isRequired,
 };
@@ -156,5 +155,5 @@ export default connect(mapStateToProps, {
   getmyprofile,
   getprofiels,
   setalert,
-  clearprofiles,
+  closeprofiles,
 })(Navebar);

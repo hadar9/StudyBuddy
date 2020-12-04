@@ -3,12 +3,13 @@ import { setalert } from './alert';
 import {
   GET_PROFILE,
   GET_USER_PROFILE,
+  CLOSE_USER_PROFILE,
   PROFILE_ERROR,
   UPDATE_PROFILE_PICTUER,
   UPDATE_PROFILE,
-  CLEAR_PROFILE,
   GET_PROFILES_WITH_USERNAME,
   CLOSE_PROFILES_WITH_USERNAME,
+  CLEAR_PROFILE,
 } from '../actions/types';
 
 //get my profile
@@ -123,7 +124,9 @@ export const getprofiels = (username) => async (dispatch) => {
     });
   }
 };
-export const clearprofiles = () => async (dispatch) => {
+
+//close all profiels
+export const closeprofiles = () => async (dispatch) => {
   dispatch({
     type: CLOSE_PROFILES_WITH_USERNAME,
   });
@@ -156,6 +159,13 @@ export const getuserprofile = (id) => async (dispatch) => {
     });
   }
 };
+//close spesfic user profiel
+export const closeuserprofile = () => async (dispatch) => {
+  dispatch({
+    type: CLOSE_USER_PROFILE,
+  });
+};
+
 export const clearprofile = () => async (dispatch) => {
   dispatch({
     type: CLEAR_PROFILE,

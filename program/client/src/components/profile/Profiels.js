@@ -1,19 +1,27 @@
 import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Figure, Row, Button } from 'react-bootstrap';
-import { getuserprofile } from '../../actions/profile';
+import { Figure, Row, Button, Modal } from 'react-bootstrap';
+import { getuserprofile, closeuserprofile } from '../../actions/profile';
 import 'bootstrap/dist/css/bootstrap.css';
 import OtherProfile from './OtherProfile';
 
-function Profiels({ getuserprofile, profile: { loading, profiels } }) {
+function Profiels({
+  closeuserprofile,
+  getuserprofile,
+  profile: { userloading, profiels },
+}) {
   const [formData, setForm] = useState({
     profilenotchoose: false,
   });
 
   const { profilenotchoose } = formData;
 
-  const onclick = (e) => {
+  const handleCloseProfile = () => {
+    closeuserprofile();
+    setForm({ profilenotchoose: false });
+  };
+  const handleShowProfile = (e) => {
     getuserprofile(e.target.value);
     setForm({ profilenotchoose: true });
   };
@@ -31,7 +39,8 @@ function Profiels({ getuserprofile, profile: { loading, profiels } }) {
               key={pro._id}
               value={pro.user._id}
               size='sm'
-              onClick={(e) => onclick(e)}
+              variant='outline-info'
+              onClick={(e) => handleShowProfile(e)}
             >
               show profile
             </Button>
@@ -40,10 +49,20 @@ function Profiels({ getuserprofile, profile: { loading, profiels } }) {
       </Fragment>
     );
   });
-  if (profilenotchoose === true && loading === true) {
+  if (profilenotchoose === true && userloading === true) {
     return (
       <div>
-        <OtherProfile />
+        <Modal
+          show={profilenotchoose}
+          onHide={handleCloseProfile}
+          backdrop='static'
+          keyboard={false}
+        >
+          <Modal.Header closeButton></Modal.Header>
+          <Modal.Body>
+            <OtherProfile />
+          </Modal.Body>
+        </Modal>
       </div>
     );
   } else {
@@ -54,8 +73,11 @@ function Profiels({ getuserprofile, profile: { loading, profiels } }) {
 Profiels.propTypes = {
   profile: PropTypes.object.isRequired,
   getuserprofile: PropTypes.func.isRequired,
+  closeuserprofile: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   profile: state.profile,
 });
-export default connect(mapStateToProps, { getuserprofile })(Profiels);
+export default connect(mapStateToProps, { getuserprofile, closeuserprofile })(
+  Profiels
+);
