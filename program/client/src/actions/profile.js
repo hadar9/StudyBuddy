@@ -8,6 +8,7 @@ import {
   UPDATE_PROFILE,
   CLEAR_PROFILE,
   GET_PROFILES_WITH_USERNAME,
+  CLOSE_PROFILES_WITH_USERNAME,
 } from '../actions/types';
 
 //get my profile
@@ -121,6 +122,11 @@ export const getprofiels = (username) => async (dispatch) => {
       },
     });
   }
+};
+export const clearprofiles = () => async (dispatch) => {
+  dispatch({
+    type: CLOSE_PROFILES_WITH_USERNAME,
+  });
 };
 
 //Get specific profile with the user id

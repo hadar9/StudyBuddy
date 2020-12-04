@@ -6,6 +6,7 @@ import {
   UPDATE_PROFILE,
   CLEAR_PROFILE,
   GET_PROFILES_WITH_USERNAME,
+  CLOSE_PROFILES_WITH_USERNAME,
 } from '../actions/types';
 
 const initialState = {
@@ -29,16 +30,29 @@ export default function (state = initialState, action) {
       return { ...state, userprofile: payload, userloading: true };
     case GET_PROFILES_WITH_USERNAME:
       return { ...state, profielsloading: true, profiels: payload };
+    case CLOSE_PROFILES_WITH_USERNAME:
+      return { ...state, profielsloading: false, profiels: [] };
     case PROFILE_ERROR:
       return {
-        ...state,
-        loading: false,
-        profielsloading: false,
-        error: payload,
+        profile: null,
         profiels: [],
+        profielsloading: false,
+        loading: false,
+        userprofile: null,
+        userloading: false,
+        error: payload,
       };
     case CLEAR_PROFILE:
-      return { ...state, profile: null, loading: false };
+      return {
+        ...state,
+        profile: null,
+        profiels: [],
+        profielsloading: false,
+        loading: false,
+        userprofile: null,
+        userloading: false,
+        error: {},
+      };
     default:
       return state;
   }
