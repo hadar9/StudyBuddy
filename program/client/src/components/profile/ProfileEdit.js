@@ -21,6 +21,7 @@ function ProfileEdit({
     lastname: profile.lastname,
     studyat: profile.studyat,
     studyfield: profile.studyfield,
+    src: '',
   });
   const {
     avatar,
@@ -29,11 +30,10 @@ function ProfileEdit({
     lastname,
     studyat,
     studyfield,
+    src,
   } = formData;
   const onchangepic = (e) => {
-    let src = e.target.files[0];
-    let temp = URL.createObjectURL(src);
-    setForm({ ...formData, avatar: temp });
+    setForm({ ...formData, avatar: e.target.value });
   };
 
   const onsubmitpic = (e) => {

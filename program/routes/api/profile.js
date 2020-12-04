@@ -30,9 +30,7 @@ router.post('/pictuer', auth, async (req, res) => {
   }
   let avatar = req.body;
 
-  avatar
-    ? (avatar = avatar)
-    : (avatar = URL.createObjectURL('holder.js/171x180'));
+  avatar ? (avatar = avatar) : (avatar = 'holder.js/171x180');
 
   try {
     let profile = await Profile.findOne({ user: req.user.id });

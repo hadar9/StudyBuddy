@@ -52,9 +52,13 @@ function Navebar({
 
   const onsubmit = (e) => {
     e.preventDefault();
+    console.log(bylabel);
     if (byvalue === 'username') {
       getprofiels(search);
-      setForm({ showprofiles: true, search: '' });
+      setForm({
+        showprofiles: true,
+        search: '',
+      });
     } else {
       //add drive search
     }
@@ -95,7 +99,7 @@ function Navebar({
             onChange={(e) => onchange(e)}
             required
           />
-          <Button type='submit' variant='outline-info'>
+          <Button className='ml-2' type='submit' variant='outline-info'>
             Search
           </Button>
         </Form>
@@ -112,9 +116,14 @@ function Navebar({
           </Modal.Body>
         </Modal>
 
-        <Button variant='outline-info' onClick={handleShowMyProfile}>
-          Profile
-        </Button>
+        <Nav className='navbtn'>
+          <Button variant='outline-info' onClick={handleShowMyProfile}>
+            Profile
+          </Button>
+          <Nav.Link as={Link} onClick={logout} to='/'>
+            log out
+          </Nav.Link>
+        </Nav>
 
         <Modal
           show={showmyprofile}
@@ -127,12 +136,6 @@ function Navebar({
             <Profile />
           </Modal.Body>
         </Modal>
-
-        <Nav className='navbtn'>
-          <Nav.Link as={Link} onClick={logout} to='/'>
-            log out
-          </Nav.Link>
-        </Nav>
       </Navbar>
     </div>
   );
