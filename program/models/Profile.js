@@ -33,6 +33,9 @@ const ProfileSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, //Foreign key
         ref: 'profile',
       },
+      status: {
+        type: String,
+      },
     },
   ],
   date: {
