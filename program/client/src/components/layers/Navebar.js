@@ -12,13 +12,10 @@ import { Link } from 'react-router-dom';
 import { logout } from '../../actions/auth';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {
-  getmyprofile,
-  getprofiels,
-  closeprofiles,
-} from '../../actions/profile';
+import { getprofiels, closeprofiles } from '../../actions/buddies';
+import { getmyprofile } from '../../actions/profile';
 import Profile from '../profile/Profile';
-import Profiels from '../profile/Profiels';
+import Profiels from '../buddies/Profiels';
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import { setalert } from '../../actions/alert';

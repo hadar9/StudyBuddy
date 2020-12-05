@@ -2,13 +2,9 @@ import axios from 'axios';
 import { setalert } from './alert';
 import {
   GET_PROFILE,
-  GET_USER_PROFILE,
-  CLOSE_USER_PROFILE,
   PROFILE_ERROR,
   UPDATE_PROFILE_PICTUER,
   UPDATE_PROFILE,
-  GET_PROFILES_WITH_USERNAME,
-  CLOSE_PROFILES_WITH_USERNAME,
   CLEAR_PROFILE,
 } from '../actions/types';
 
@@ -96,74 +92,6 @@ export const updateprofile = ({
     });
     dispatch(setalert('Error editing!', 'danger'));
   }
-};
-//Get all profiles with the username
-export const getprofiels = (username) => async (dispatch) => {
-  try {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    const body = JSON.stringify({
-      username,
-    });
-
-    const res = await axios.post('/api/profile/profiels', body, config);
-    dispatch({
-      type: GET_PROFILES_WITH_USERNAME,
-      payload: res.data,
-    });
-  } catch (error) {
-    dispatch({
-      type: PROFILE_ERROR,
-      payload: {
-        msg: error.response.statusText,
-        status: error.response.status,
-      },
-    });
-  }
-};
-
-//close all profiels
-export const closeprofiles = () => async (dispatch) => {
-  dispatch({
-    type: CLOSE_PROFILES_WITH_USERNAME,
-  });
-};
-
-//Get specific profile with the user id
-export const getuserprofile = (id) => async (dispatch) => {
-  try {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    const body = JSON.stringify({
-      id,
-    });
-
-    const res = await axios.post('/api/profile/userprofile', body, config);
-    dispatch({
-      type: GET_USER_PROFILE,
-      payload: res.data,
-    });
-  } catch (error) {
-    dispatch({
-      type: PROFILE_ERROR,
-      payload: {
-        msg: error.response.statusText,
-        status: error.response.status,
-      },
-    });
-  }
-};
-//close spesfic user profiel
-export const closeuserprofile = () => async (dispatch) => {
-  dispatch({
-    type: CLOSE_USER_PROFILE,
-  });
 };
 
 export const clearprofile = () => async (dispatch) => {

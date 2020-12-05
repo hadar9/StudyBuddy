@@ -84,49 +84,4 @@ router.post('/', auth, async (req, res) => {
   }
 });
 
-//@route    Post api/profile/profiels
-//@desc     post all profiles with the username
-//@access   Public
-
-router.post('/profiels', auth, async (req, res) => {
-  try {
-    username = req.body;
-    const users = await User.find({
-      username: new RegExp('^' + username.username, 'i'),
-    });
-
-    const profiles = [];
-    for (i = 0; i < users.length; i++) {
-      let profile = await Profile.findOne({ user: users[i]._id }).populate(
-        'user',
-        'username'
-      );
-      profiles.push(profile);
-    }
-    if (profiles === null) {
-      return res.status(400).json({ msg: 'Username is not correct!' });
-    }
-    res.json(profiles);
-  } catch (err) {
-    res.status(500).send('Server Error');
-  }
-});
-
-//@route    POST api/profile/userprofile
-//@desc     Get current user profile
-//@access   Private
-
-router.post('/userprofile', auth, async (req, res) => {
-  try {
-    id = req.body;
-    let profile = await Profile.findOne({ user: id.id }).populate(
-      'user',
-      'username'
-    );
-    res.json(profile);
-  } catch (err) {
-    res.status(500).send('Server Error');
-  }
-});
-
 module.exports = router;
