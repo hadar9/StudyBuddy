@@ -76,6 +76,10 @@
   background-color: #ced4da;
   height: 150vh;
 }
+.homemenu {
+  position: fixed;
+  top: 50%;
+}
 
 .content {
   margin: 0 auto;
