@@ -5,18 +5,23 @@ import {
   getuserprofile,
   closeuserprofile,
   deletebuddy,
+  confirmbuddy,
 } from '../../actions/buddies';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import OtherProfile from './OtherProfile';
 
-function MyBuddies({
+function ConfirmRequest({
   deletebuddy,
   getuserprofile,
+  confirmbuddy,
   buddiess: { userloading, mybuddies, mybuddieslsloading },
 }) {
   const handleShowProfile = (e) => {
     getuserprofile(e.target.value);
+  };
+  const handleConfimBuddy = (e) => {
+    confirmbuddy(e.target.value);
   };
 
   const handleDeleteBuddy = (e) => {
@@ -52,6 +57,15 @@ function MyBuddies({
                 value={buddy.user._id}
                 size='sm'
                 variant='outline-info'
+                onClick={(e) => handleConfimBuddy(e)}
+              >
+                confim buddy
+              </Button>
+              <Button
+                key={buddy._id}
+                value={buddy.user._id}
+                size='sm'
+                variant='outline-info'
                 onClick={(e) => handleDeleteBuddy(e)}
               >
                 delete buddy
@@ -73,11 +87,12 @@ function MyBuddies({
   }
 }
 
-MyBuddies.propTypes = {
+ConfirmRequest.propTypes = {
   buddiess: PropTypes.object.isRequired,
   getuserprofile: PropTypes.func.isRequired,
   closeuserprofile: PropTypes.func.isRequired,
   deletebuddy: PropTypes.func.isRequired,
+  confirmbuddy: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   buddiess: state.buddies,
@@ -86,4 +101,5 @@ export default connect(mapStateToProps, {
   getuserprofile,
   closeuserprofile,
   deletebuddy,
-})(MyBuddies);
+  confirmbuddy,
+})(ConfirmRequest);

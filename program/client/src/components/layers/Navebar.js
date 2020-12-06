@@ -15,7 +15,7 @@ import PropTypes from 'prop-types';
 import { getprofiels, closeprofiles } from '../../actions/buddies';
 import { getmyprofile } from '../../actions/profile';
 import Profile from '../profile/Profile';
-import Profiels from '../buddies/Profiels';
+import SearchBuddies from '../buddies/SearchBuddies';
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import { setalert } from '../../actions/alert';
@@ -109,7 +109,7 @@ function Navebar({
         >
           <Modal.Header closeButton></Modal.Header>
           <Modal.Body>
-            <Profiels />
+            <SearchBuddies />
           </Modal.Body>
         </Modal>
 

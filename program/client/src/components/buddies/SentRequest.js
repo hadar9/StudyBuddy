@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import OtherProfile from './OtherProfile';
 
-function MyBuddies({
+function SentRequest({
   deletebuddy,
   getuserprofile,
   buddiess: { userloading, mybuddies, mybuddieslsloading },
@@ -54,7 +54,7 @@ function MyBuddies({
                 variant='outline-info'
                 onClick={(e) => handleDeleteBuddy(e)}
               >
-                delete buddy
+                delete request
               </Button>
             </Row>
           </div>
@@ -73,7 +73,7 @@ function MyBuddies({
   }
 }
 
-MyBuddies.propTypes = {
+SentRequest.propTypes = {
   buddiess: PropTypes.object.isRequired,
   getuserprofile: PropTypes.func.isRequired,
   closeuserprofile: PropTypes.func.isRequired,
@@ -86,4 +86,4 @@ export default connect(mapStateToProps, {
   getuserprofile,
   closeuserprofile,
   deletebuddy,
-})(MyBuddies);
+})(SentRequest);

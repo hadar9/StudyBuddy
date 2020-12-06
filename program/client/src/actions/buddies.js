@@ -7,6 +7,10 @@ import {
   GET_PROFILES_WITH_USERNAME,
   CLOSE_PROFILES_WITH_USERNAME,
   GET_MYBUDDIES,
+  ADD_BUDDY,
+  CONFIRM_BUDDY,
+  DELETE_BUDDY,
+  BUDDIES_ERROR,
 } from '../actions/types';
 
 //Get all profiles with the username
@@ -37,9 +41,18 @@ export const getprofiels = (username) => async (dispatch) => {
   }
 };
 //Get all my buddies
-export const getmybuddies = () => async (dispatch) => {
+export const getmybuddies = (key) => async (dispatch) => {
   try {
-    const res = await axios.get('/api/buddies/mybuddies');
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({
+      key,
+    });
+
+    const res = await axios.post('/api/buddies/mybuddies', body, config);
     dispatch({
       type: GET_MYBUDDIES,
       payload: res.data,
@@ -95,7 +108,7 @@ export const closeuserprofile = () => async (dispatch) => {
     type: CLOSE_USER_PROFILE,
   });
 };
-/*
+
 // add buddy
 export const addbuddy = (id) => async (dispatch) => {
   try {
@@ -107,13 +120,11 @@ export const addbuddy = (id) => async (dispatch) => {
     const body = JSON.stringify({
       id,
     });
-
     const res = await axios.post('api/buddies/addbuddy', body, config);
     dispatch({
       type: ADD_BUDDY,
       payload: res.data,
     });
-    dispatch(setalert('changes saved!', 'success'));
   } catch (error) {
     dispatch({
       type: BUDDIES_ERROR,
@@ -159,7 +170,7 @@ export const deletebuddy = (id) => async (dispatch) => {
 
     const res = await axios.post('api/buddies/deletebuddy', body, config);
     dispatch({
-      type: DELET_BUDDY,
+      type: DELETE_BUDDY,
       payload: res.data,
     });
   } catch (error) {
@@ -168,4 +179,3 @@ export const deletebuddy = (id) => async (dispatch) => {
     });
   }
 };
-*/
