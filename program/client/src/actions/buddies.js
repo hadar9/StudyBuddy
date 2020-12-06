@@ -51,7 +51,6 @@ export const getmybuddies = (key) => async (dispatch) => {
     const body = JSON.stringify({
       key,
     });
-
     const res = await axios.post('/api/buddies/mybuddies', body, config);
     dispatch({
       type: GET_MYBUDDIES,

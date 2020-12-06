@@ -26,9 +26,6 @@ export default function (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
     case GET_USER_PROFILE:
-    case ADD_BUDDY:
-    case CONFIRM_BUDDY:
-    case DELETE_BUDDY:
       return {
         ...state,
         userprofile: payload,
@@ -39,6 +36,9 @@ export default function (state = initialState, action) {
     case CLOSE_PROFILES_WITH_USERNAME:
       return { ...state, searchloading: false, searchbuddies: [] };
     case CLOSE_USER_PROFILE:
+    case ADD_BUDDY:
+    case CONFIRM_BUDDY:
+    case DELETE_BUDDY:
       return { ...state, userprofile: null, userloading: false };
     case GET_MYBUDDIES:
       return { ...state, mybuddieslsloading: true, mybuddies: payload };

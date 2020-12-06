@@ -71,10 +71,6 @@ router.post('/mybuddies', auth, async (req, res) => {
         profiles.push(profile);
       }
     }
-
-    if (profiles === null) {
-      return res.status(400).json({ msg: 'Username is not correct!' });
-    }
     res.json(profiles);
   } catch (err) {
     res.status(500).send('Server Error');
