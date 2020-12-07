@@ -4,6 +4,7 @@ const auth = require('../../middleware/auth');
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 const { check, validationResult } = require('express-validator');
+const e = require('express');
 
 //@route    Post api/buddies/profiels
 //@desc     show(from th search) all profiles with the username
@@ -12,22 +13,44 @@ const { check, validationResult } = require('express-validator');
 router.post('/profiels', auth, async (req, res) => {
   try {
     username = req.body;
+    let profilewithstatus;
+
     const users = await User.find({
       username: new RegExp('^' + username.username, 'i'),
     });
 
+    let myprofile = await Profile.findOne({ user: req.user.id });
     const profiles = [];
     for (i = 0; i < users.length; i++) {
       let profile = await Profile.findOne({ user: users[i]._id }).populate(
         'user',
         'username'
       );
-      profiles.push(profile);
+
+      let hasbuddy = -1;
+      for (j = 0; j < myprofile.buddies.length; ++j) {
+        if (
+          JSON.stringify(myprofile.buddies[j].user) ===
+          JSON.stringify(users[i]._id)
+        ) {
+          hasbuddy = j;
+          break;
+        }
+      }
+
+      if (hasbuddy === -1) {
+        profilewithstatus = { profile: profile, status: 'nothing' };
+      } else {
+        profilewithstatus = {
+          profile: profile,
+          status: myprofile.buddies[hasbuddy].status,
+        };
+      }
+      profiles.push(profilewithstatus);
     }
     if (profiles === null) {
       return res.status(400).json({ msg: 'Username is not correct!' });
     }
-
     res.json(profiles);
   } catch (err) {
     res.status(500).send('Server Error');
@@ -62,6 +85,7 @@ router.post('/mybuddies', auth, async (req, res) => {
     const myprofile = await Profile.findOne({
       user: req.user.id,
     }).populate('user', 'username');
+
     const profiles = [];
     for (i = 0; i < myprofile.buddies.length; i++) {
       if (myprofile.buddies[i].status === key.key) {
@@ -160,7 +184,7 @@ router.post('/deletebuddy', auth, async (req, res) => {
     myprofile.save();
     userprofile.save();
 
-    res.json(userprofile);
+    res.send('buddy deleted!');
   } catch (err) {
     res.status(500).send('Server Error');
   }

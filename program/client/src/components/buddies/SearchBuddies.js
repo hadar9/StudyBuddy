@@ -2,40 +2,193 @@ import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Figure, Row, Button } from 'react-bootstrap';
-import { getuserprofile } from '../../actions/buddies';
+import {
+  getuserprofile,
+  addbuddy,
+  confirmbuddy,
+  deletebuddy,
+} from '../../actions/buddies';
 import 'bootstrap/dist/css/bootstrap.css';
 import OtherProfile from './OtherProfile';
 
 function SearchBuddies({
   getuserprofile,
-  buddiess: { userloading, searchbuddies },
+  addbuddy,
+  confirmbuddy,
+  deletebuddy,
+  buddiess: { userloading, searchbuddies, searchloading },
 }) {
   const handleShowProfile = (e) => {
     getuserprofile(e.target.value);
   };
-  const pros = searchbuddies.map((pro) => {
-    return (
-      <Fragment>
-        <div key={pro._id}>
-          <Row>
-            <Figure>
-              <Figure.Image width={100} height={180} src={pro.avatar} rounded />
-            </Figure>
-            <h4>{pro.user.username}</h4>
-            <Button
-              key={pro._id}
-              value={pro.user._id}
-              size='sm'
-              variant='outline-info'
-              onClick={(e) => handleShowProfile(e)}
-            >
-              show profile
-            </Button>
-          </Row>
-        </div>
-      </Fragment>
-    );
-  });
+  const handleAddBuddy = (e) => {
+    addbuddy(e.target.value);
+  };
+  const handleconfirmBuddy = (e) => {
+    confirmbuddy(e.target.value);
+  };
+  const handledeleteBuddy = (e) => {
+    deletebuddy(e.target.value);
+  };
+  let pros;
+  if (searchloading) {
+    pros = searchbuddies.map((pro) => {
+      if (pro.status === 'nothing') {
+        return (
+          <Fragment>
+            <div key={pro.profile._id}>
+              <Row>
+                <Button
+                  key={pro.profile._id}
+                  value={pro.profile.user._id}
+                  size='sm'
+                  variant='outline-info'
+                  onClick={(e) => handleAddBuddy(e)}
+                >
+                  Add buddy
+                </Button>
+                <Button
+                  key={pro.profile._id}
+                  value={pro.profile.user._id}
+                  size='sm'
+                  variant='outline-info'
+                  onClick={(e) => handleShowProfile(e)}
+                >
+                  show profile
+                </Button>
+                <h4>{pro.profile.user.username}</h4>
+                <Figure>
+                  <Figure.Image
+                    width={100}
+                    height={180}
+                    src={pro.profile.avatar}
+                    rounded
+                  />
+                </Figure>
+              </Row>
+            </div>
+          </Fragment>
+        );
+      } else if (pro.status === 'mybuddy') {
+        return (
+          <Fragment>
+            <div key={pro.profile._id}>
+              <Row>
+                <Button
+                  key={pro.profile._id}
+                  value={pro.profile.user._id}
+                  size='sm'
+                  variant='outline-info'
+                  onClick={(e) => handledeleteBuddy(e)}
+                >
+                  delete buddy
+                </Button>
+                <Button
+                  key={pro.profile._id}
+                  value={pro.profile.user._id}
+                  size='sm'
+                  variant='outline-info'
+                  onClick={(e) => handleShowProfile(e)}
+                >
+                  show profile
+                </Button>
+                <h4>{pro.profile.user.username}</h4>
+                <Figure>
+                  <Figure.Image
+                    width={100}
+                    height={180}
+                    src={pro.profile.avatar}
+                    rounded
+                  />
+                </Figure>
+              </Row>
+            </div>
+          </Fragment>
+        );
+      } else if (pro.status === 'sent') {
+        return (
+          <Fragment>
+            <div key={pro.profile._id}>
+              <Row>
+                <Button
+                  key={pro.profile._id}
+                  value={pro.profile.user._id}
+                  size='sm'
+                  variant='outline-info'
+                  onClick={(e) => handledeleteBuddy(e)}
+                >
+                  delete request
+                </Button>
+                <Button
+                  key={pro.profile._id}
+                  value={pro.profile.user._id}
+                  size='sm'
+                  variant='outline-info'
+                  onClick={(e) => handleShowProfile(e)}
+                >
+                  show profile
+                </Button>
+                <h4>{pro.profile.user.username}</h4>
+                <Figure>
+                  <Figure.Image
+                    width={100}
+                    height={180}
+                    src={pro.profile.avatar}
+                    rounded
+                  />
+                </Figure>
+              </Row>
+            </div>
+          </Fragment>
+        );
+      } else {
+        return (
+          <Fragment>
+            <div key={pro.profile._id}>
+              <Row>
+                <Button
+                  key={pro.profile._id}
+                  value={pro.profile.user._id}
+                  size='sm'
+                  variant='outline-info'
+                  onClick={(e) => handledeleteBuddy(e)}
+                >
+                  delete request
+                </Button>
+                <Button
+                  key={pro.profile._id}
+                  value={pro.profile.user._id}
+                  size='sm'
+                  variant='outline-info'
+                  onClick={(e) => handleconfirmBuddy(e)}
+                >
+                  confirm buddy
+                </Button>
+                <Button
+                  key={pro.profile._id}
+                  value={pro.profile.user._id}
+                  size='sm'
+                  variant='outline-info'
+                  onClick={(e) => handleShowProfile(e)}
+                >
+                  show profile
+                </Button>
+                <h4>{pro.profile.user.username}</h4>
+                <Figure>
+                  <Figure.Image
+                    width={100}
+                    height={180}
+                    src={pro.profile.avatar}
+                    rounded
+                  />
+                </Figure>
+              </Row>
+            </div>
+          </Fragment>
+        );
+      }
+    });
+  }
 
   if (userloading === true) {
     return (
@@ -51,8 +204,16 @@ function SearchBuddies({
 SearchBuddies.propTypes = {
   buddiess: PropTypes.object.isRequired,
   getuserprofile: PropTypes.func.isRequired,
+  addbuddy: PropTypes.func.isRequired,
+  confirmbuddy: PropTypes.func.isRequired,
+  deletebuddy: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   buddiess: state.buddies,
 });
-export default connect(mapStateToProps, { getuserprofile })(SearchBuddies);
+export default connect(mapStateToProps, {
+  getuserprofile,
+  addbuddy,
+  confirmbuddy,
+  deletebuddy,
+})(SearchBuddies);

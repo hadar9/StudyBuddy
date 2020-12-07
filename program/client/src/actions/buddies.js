@@ -7,6 +7,7 @@ import {
   GET_PROFILES_WITH_USERNAME,
   CLOSE_PROFILES_WITH_USERNAME,
   GET_MYBUDDIES,
+  CLOSE_MYBUDDIES,
   ADD_BUDDY,
   CONFIRM_BUDDY,
   DELETE_BUDDY,
@@ -40,33 +41,6 @@ export const getprofiels = (username) => async (dispatch) => {
     });
   }
 };
-//Get all my buddies
-export const getmybuddies = (key) => async (dispatch) => {
-  try {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    const body = JSON.stringify({
-      key,
-    });
-    const res = await axios.post('/api/buddies/mybuddies', body, config);
-    dispatch({
-      type: GET_MYBUDDIES,
-      payload: res.data,
-    });
-  } catch (error) {
-    dispatch({
-      type: PROFILE_ERROR,
-      payload: {
-        msg: error.response.statusText,
-        status: error.response.status,
-      },
-    });
-  }
-};
-
 //close all profiels
 export const closeprofiles = () => async (dispatch) => {
   dispatch({
@@ -105,6 +79,39 @@ export const getuserprofile = (id) => async (dispatch) => {
 export const closeuserprofile = () => async (dispatch) => {
   dispatch({
     type: CLOSE_USER_PROFILE,
+  });
+};
+
+//Get all my buddies
+export const getmybuddies = (key) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({
+      key,
+    });
+    const res = await axios.post('/api/buddies/mybuddies', body, config);
+    dispatch({
+      type: GET_MYBUDDIES,
+      payload: res.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+  }
+};
+//close my buddies
+export const closemybuddies = () => async (dispatch) => {
+  dispatch({
+    type: CLOSE_MYBUDDIES,
   });
 };
 

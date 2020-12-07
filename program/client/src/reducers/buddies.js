@@ -6,10 +6,12 @@ import {
   GET_PROFILES_WITH_USERNAME,
   CLOSE_PROFILES_WITH_USERNAME,
   GET_MYBUDDIES,
+  CLOSE_MYBUDDIES,
   ADD_BUDDY,
   CONFIRM_BUDDY,
   DELETE_BUDDY,
   BUDDIES_ERROR,
+  
 } from '../actions/types';
 
 const initialState = {
@@ -42,6 +44,8 @@ export default function (state = initialState, action) {
       return { ...state, userprofile: null, userloading: false };
     case GET_MYBUDDIES:
       return { ...state, mybuddieslsloading: true, mybuddies: payload };
+    case CLOSE_MYBUDDIES:
+      return { ...state, mybuddieslsloading: false, mybuddies: [] };
     case BUDDIES_ERROR:
     case CLEAR_BUDDY:
       return {

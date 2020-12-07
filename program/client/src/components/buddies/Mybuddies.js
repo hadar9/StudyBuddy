@@ -29,24 +29,6 @@ function MyBuddies({
         <Fragment className='text-center'>
           <div key={buddy._id}>
             <Row>
-              <Figure>
-                <Figure.Image
-                  width={100}
-                  height={180}
-                  src={buddy.avatar}
-                  rounded
-                />
-              </Figure>
-              <h4>{buddy.user.username}</h4>
-              <Button
-                key={buddy._id}
-                value={buddy.user._id}
-                size='sm'
-                variant='outline-info'
-                onClick={(e) => handleShowProfile(e)}
-              >
-                show profile
-              </Button>
               <Button
                 key={buddy._id}
                 value={buddy.user._id}
@@ -56,6 +38,24 @@ function MyBuddies({
               >
                 delete buddy
               </Button>
+              <Button
+                key={buddy._id}
+                value={buddy.user._id}
+                size='sm'
+                variant='outline-info'
+                onClick={(e) => handleShowProfile(e)}
+              >
+                show profile
+              </Button>
+              <h4>{buddy.user.username}</h4>
+              <Figure>
+                <Figure.Image
+                  width={100}
+                  height={180}
+                  src={buddy.avatar}
+                  rounded
+                />
+              </Figure>
             </Row>
           </div>
         </Fragment>
