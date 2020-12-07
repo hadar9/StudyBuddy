@@ -23,13 +23,25 @@ function BuddiesTab({ getmybuddies, closeprofiles }) {
         activeKey={key}
         onSelect={(k) => onclick(k)}
       >
-        <Tab className='tabcontent' eventKey='mybuddy' title='My buddies'>
+        <Tab
+          className='tabcontainercontent'
+          eventKey='mybuddy'
+          title='My buddies'
+        >
           <MyBuddies />
         </Tab>
-        <Tab className='tabcontent' eventKey='sent' title='Sent request'>
+        <Tab
+          className='tabcontainercontent'
+          eventKey='sent'
+          title='Sent request'
+        >
           <SentRequest />
         </Tab>
-        <Tab className='tabcontent' eventKey='request' title='Buddy request'>
+        <Tab
+          className='tabcontainercontent'
+          eventKey='request'
+          title='Buddy request'
+        >
           <ConfirmRequest />
         </Tab>
       </Tabs>

@@ -129,8 +129,12 @@
   margin-right: 200px;
   margin-left: 200px;
 }
-.tabcontent {
+.tabcontainercontent {
   float: right;
   margin-top: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
+}
+.tabcontent {
+  padding-top: 50%;
+  padding-bottom: 50%;
 }

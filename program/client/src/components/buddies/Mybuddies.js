@@ -26,7 +26,7 @@ function MyBuddies({
   if (mybuddieslsloading) {
     content = mybuddies.map((buddy) => {
       return (
-        <Fragment className='text-center'>
+        <Fragment className='tabcontent'>
           <div key={buddy._id}>
             <Row>
               <Button

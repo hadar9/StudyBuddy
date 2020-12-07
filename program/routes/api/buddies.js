@@ -133,7 +133,7 @@ router.post('/addbuddy', auth, async (req, res) => {
     myprofile.save();
     userprofile.save();
 
-    res.json(userprofile);
+    res.send('added succses');
   } catch (err) {
     res.status(500).send('Server Error');
   }
@@ -160,7 +160,7 @@ router.post('/confirmbuddy', auth, async (req, res) => {
     myprofile.save();
     userprofile.save();
 
-    res.json(userprofile);
+    res.send('confirm succses');
   } catch (err) {
     res.status(500).send('Server Error');
   }
