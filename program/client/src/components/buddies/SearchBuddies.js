@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Figure, Row, Button } from 'react-bootstrap';
@@ -7,6 +7,7 @@ import {
   addbuddy,
   confirmbuddy,
   deletebuddy,
+  closeprofiles,
 } from '../../actions/buddies';
 import 'bootstrap/dist/css/bootstrap.css';
 import OtherProfile from './OtherProfile';
@@ -30,6 +31,7 @@ function SearchBuddies({
   const handledeleteBuddy = (e) => {
     deletebuddy(e.target.value);
   };
+
   let pros;
   if (searchloading) {
     pros = searchbuddies.map((pro) => {
