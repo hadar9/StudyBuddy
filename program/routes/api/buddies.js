@@ -18,8 +18,8 @@ router.post('/profiels', auth, async (req, res) => {
     const users = await User.find({
       username: new RegExp('^' + username.username, 'i'),
     });
-
     let myprofile = await Profile.findOne({ user: req.user.id });
+
     const profiles = [];
     for (i = 0; i < users.length; i++) {
       let profile = await Profile.findOne({ user: users[i]._id }).populate(
@@ -36,20 +36,23 @@ router.post('/profiels', auth, async (req, res) => {
           hasbuddy = j;
           break;
         }
+        if (JSON.stringify(myprofile.user) === JSON.stringify(users[i]._id)) {
+          hasbuddy = -2;
+          break;
+        }
       }
 
       if (hasbuddy === -1) {
         profilewithstatus = { profile: profile, status: 'nothing' };
-      } else {
+      } else if (hasbuddy !== -2) {
         profilewithstatus = {
           profile: profile,
           status: myprofile.buddies[hasbuddy].status,
         };
       }
-      profiles.push(profilewithstatus);
-    }
-    if (profiles === null) {
-      return res.status(400).json({ msg: 'Username is not correct!' });
+      if (hasbuddy !== -2) {
+        profiles.push(profilewithstatus);
+      }
     }
     res.json(profiles);
   } catch (err) {
