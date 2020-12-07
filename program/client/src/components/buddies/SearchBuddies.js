@@ -36,7 +36,7 @@ function SearchBuddies({
       if (pro.status === 'nothing') {
         return (
           <Fragment>
-            <div key={pro.profile._id}>
+            <div className='searchcontent' key={pro.profile._id}>
               <Row>
                 <Button
                   key={pro.profile._id}
@@ -72,7 +72,7 @@ function SearchBuddies({
       } else if (pro.status === 'mybuddy') {
         return (
           <Fragment>
-            <div key={pro.profile._id}>
+            <div className='searchcontent' key={pro.profile._id}>
               <Row>
                 <Button
                   key={pro.profile._id}
@@ -108,7 +108,7 @@ function SearchBuddies({
       } else if (pro.status === 'sent') {
         return (
           <Fragment>
-            <div key={pro.profile._id}>
+            <div className='searchcontent' key={pro.profile._id}>
               <Row>
                 <Button
                   key={pro.profile._id}
@@ -144,7 +144,7 @@ function SearchBuddies({
       } else {
         return (
           <Fragment>
-            <div key={pro.profile._id}>
+            <div className='searchcontent' key={pro.profile._id}>
               <Row>
                 <Button
                   key={pro.profile._id}

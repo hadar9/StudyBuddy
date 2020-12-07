@@ -90,11 +90,19 @@
   color: black;
   height: 120vh;
 }
-
+.modaltitle {
+  position: absolute;
+  right: 40%;
+}
 .search {
   position: absolute;
   top: 20%;
   right: 40%;
+}
+.searchcontent {
+  float: right;
+  margin-top: 4px;
+  margin-bottom: 12px;
 }
 
 .navbtn {
@@ -115,4 +123,14 @@
 .profilepic {
   width: 50%;
   height: 50%;
+}
+.buddiestabs {
+  margin-top: 20px;
+  margin-right: 200px;
+  margin-left: 200px;
+}
+.tabcontent {
+  float: right;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }

@@ -28,11 +28,7 @@ function Profile({ getmyprofile, alerts }) {
   return (
     <div className='profile text-center'>
       {edit ? <ProfileEdit /> : <ProfileDisplay />}
-      <Button
-        className='text-center'
-        variant='dark'
-        onClick={(e) => onclick(e)}
-      >
+      <Button className='my-4' variant='dark' onClick={(e) => onclick(e)}>
         {editname}
       </Button>
     </div>

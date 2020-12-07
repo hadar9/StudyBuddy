@@ -17,19 +17,19 @@ function BuddiesTab({ getmybuddies, closeprofiles }) {
   };
 
   return (
-    <div className='text-center'>
+    <div className='buddiestabs'>
       <Tabs
         id='controlled-tab-example'
         activeKey={key}
         onSelect={(k) => onclick(k)}
       >
-        <Tab eventKey='mybuddy' title='My buddies'>
+        <Tab className='tabcontent' eventKey='mybuddy' title='My buddies'>
           <MyBuddies />
         </Tab>
-        <Tab eventKey='sent' title='Sent request'>
+        <Tab className='tabcontent' eventKey='sent' title='Sent request'>
           <SentRequest />
         </Tab>
-        <Tab eventKey='request' title='Buddy request'>
+        <Tab className='tabcontent' eventKey='request' title='Buddy request'>
           <ConfirmRequest />
         </Tab>
       </Tabs>

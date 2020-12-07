@@ -21,9 +21,6 @@ function OtherProfile({
   const handleCloseProfile = () => {
     closeuserprofile();
   };
-  const onclick = () => {
-    addbuddy(userprofile.user);
-  };
 
   if (userloading) {
     return (
@@ -41,7 +38,7 @@ function OtherProfile({
               <Image className='profilepic' src={avatar} roundedCircle />
             </Col>
             <h1>{username}</h1>
-            <Button onClick={(e) => onclick(e)}>add buddy</Button>
+
             <p>
               <strong>first name: </strong>
               {firstname}

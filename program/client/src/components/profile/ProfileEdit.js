@@ -61,22 +61,25 @@ function ProfileEdit({
         <Image className='profilepic' src={avatar} roundedCircle />
       </Col>
       <h1>{username}</h1>
-      <Form onSubmit={(e) => onsubmitpic(e)}>
-        <Row>
-          <Form.Group>
-            <Form.File
-              className='position-relative'
-              name='avatar'
-              onChange={(e) => onchangepic(e)}
-            />
-          </Form.Group>
-          <Button variant='dark' type='submit'>
-            Upload
-          </Button>
-        </Row>
+      <Form className='mx-auto' onSubmit={(e) => onsubmitpic(e)}>
+        <Form.Group>
+          <Form.File
+            className='mx-auto'
+            name='avatar'
+            onChange={(e) => onchangepic(e)}
+          />
+        </Form.Group>
+        <Button variant='dark' type='submit'>
+          Upload
+        </Button>
       </Form>
-      <Form className='profileform text-center' onSubmit={(e) => onsubmit(e)}>
-        <Form.Group as={Col} md='4' controlId='formBasicFirstName'>
+      <Form className='mx-auto' onSubmit={(e) => onsubmit(e)}>
+        <Form.Group
+          className='mx-auto'
+          as={Col}
+          sm='6'
+          controlId='formBasicFirstName'
+        >
           <Form.Label>First Name</Form.Label>
           <Form.Control
             type='text'
@@ -86,7 +89,12 @@ function ProfileEdit({
             onChange={(e) => onchange(e)}
           />
         </Form.Group>
-        <Form.Group as={Col} md='4' controlId='formBasicLastName'>
+        <Form.Group
+          className='mx-auto'
+          as={Col}
+          md='6'
+          controlId='formBasicLastName'
+        >
           <Form.Label>Last Name</Form.Label>
           <Form.Control
             type='text'
@@ -96,7 +104,12 @@ function ProfileEdit({
             onChange={(e) => onchange(e)}
           />
         </Form.Group>
-        <Form.Group as={Col} md='4' controlId='formGridStudyAt'>
+        <Form.Group
+          className='mx-auto'
+          as={Col}
+          md='6'
+          controlId='formGridStudyAt'
+        >
           <Form.Label>Study at</Form.Label>
           <Form.Control
             type='text'
@@ -106,7 +119,12 @@ function ProfileEdit({
             onChange={(e) => onchange(e)}
           />
         </Form.Group>
-        <Form.Group as={Col} md='4' controlId='formGridField'>
+        <Form.Group
+          className='mx-auto'
+          as={Col}
+          md='6'
+          controlId='formGridField'
+        >
           <Form.Label>Study Field</Form.Label>
           <Form.Control
             type='text'

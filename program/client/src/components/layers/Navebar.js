@@ -107,7 +107,9 @@ function Navebar({
           backdrop='static'
           keyboard={false}
         >
-          <Modal.Header closeButton></Modal.Header>
+          <Modal.Header closeButton>
+            <Modal.Title className='modaltitle'>Search Results:</Modal.Title>
+          </Modal.Header>
           <Modal.Body>
             <SearchBuddies />
           </Modal.Body>
@@ -128,7 +130,10 @@ function Navebar({
           backdrop='static'
           keyboard={false}
         >
-          <Modal.Header closeButton></Modal.Header>
+          <Modal.Header closeButton>
+            {' '}
+            <Modal.Title className='modaltitle'>My Profile</Modal.Title>
+          </Modal.Header>
           <Modal.Body>
             <Profile />
           </Modal.Body>
