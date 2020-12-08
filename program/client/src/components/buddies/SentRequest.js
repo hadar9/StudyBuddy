@@ -31,8 +31,8 @@ function SentRequest({
   if (mybuddieslsloading) {
     content = mybuddies.map((buddy) => {
       return (
-        <Fragment className='tabcontent'>
-          <div key={`1+${buddy._id}`}>
+        <Fragment>
+          <div className='tabcontent' key={`1+${buddy._id}`}>
             <Row>
               <Button
                 key={`3+${buddy._id}`}

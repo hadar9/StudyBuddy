@@ -31,8 +31,8 @@ function ConfirmRequest({
   if (mybuddieslsloading) {
     content = mybuddies.map((buddy) => {
       return (
-        <Fragment className='tabcontent'>
-          <div key={buddy._id}>
+        <Fragment>
+          <div className='tabcontent' key={buddy._id}>
             <Row>
               <Button
                 key={buddy._id}
