@@ -25,8 +25,8 @@ function Navebar({
   getmyprofile,
   getprofiels,
   closeprofiles,
-  setalert,
   alerts,
+  buddies: { searchloading },
 }) {
   const [formData, setForm] = useState({
     search: '',
@@ -49,7 +49,6 @@ function Navebar({
 
   const onsubmit = (e) => {
     e.preventDefault();
-    console.log(bylabel);
     if (byvalue === 'username') {
       getprofiels(search);
       setForm({
@@ -102,7 +101,7 @@ function Navebar({
         </Form>
 
         <Modal
-          show={showprofiles}
+          show={showprofiles && searchloading}
           onHide={handleCloseProfiels}
           backdrop='static'
           keyboard={false}
@@ -150,10 +149,12 @@ Navebar.propTypes = {
   closeprofiles: PropTypes.func.isRequired,
   setalert: PropTypes.func.isRequired,
   alerts: PropTypes.object.isRequired,
+  buddies: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   alerts: state.alert,
+  buddies: state.buddies,
 });
 export default connect(mapStateToProps, {
   logout,

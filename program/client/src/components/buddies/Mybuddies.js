@@ -6,6 +6,7 @@ import {
   closeuserprofile,
   deletebuddy,
   getmybuddies,
+  closemybuddies,
 } from '../../actions/buddies';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -14,14 +15,16 @@ import OtherProfile from './OtherProfile';
 function MyBuddies({
   deletebuddy,
   getuserprofile,
+  getmybuddies,
   buddiess: { userloading, mybuddies, mybuddieslsloading },
 }) {
   const handleShowProfile = (e) => {
     getuserprofile(e.target.value);
   };
 
-  const HandleDeleteBuddy = (e) => {
+  const HandleDeleteBuddy = async (e) => {
     deletebuddy(e.target.value);
+    getmybuddies('mybuddy');
   };
   let content = '';
   if (mybuddieslsloading) {
@@ -78,6 +81,8 @@ MyBuddies.propTypes = {
   buddiess: PropTypes.object.isRequired,
   getuserprofile: PropTypes.func.isRequired,
   closeuserprofile: PropTypes.func.isRequired,
+  closemybuddies: PropTypes.func.isRequired,
+  getmybuddies: PropTypes.func.isRequired,
   deletebuddy: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
@@ -87,4 +92,6 @@ export default connect(mapStateToProps, {
   getuserprofile,
   closeuserprofile,
   deletebuddy,
+  closemybuddies,
+  getmybuddies,
 })(MyBuddies);

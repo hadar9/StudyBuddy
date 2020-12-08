@@ -4,15 +4,16 @@ import 'bootstrap/dist/css/bootstrap.css';
 import MyBuddies from './MyBuddies';
 import SentRequest from './SentRequest';
 import ConfirmRequest from './ConfirmRequest';
-import { getmybuddies, closeprofiles } from '../../actions/buddies';
+import { getmybuddies, closemybuddies } from '../../actions/buddies';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-function BuddiesTab({ getmybuddies, closeprofiles }) {
+function BuddiesTab({ getmybuddies, closemybuddies }) {
   const [key, setKey] = useState('mybuddy');
 
   const onclick = (k) => {
     setKey(k);
+    closemybuddies();
     getmybuddies(k);
   };
 
@@ -51,11 +52,10 @@ function BuddiesTab({ getmybuddies, closeprofiles }) {
 BuddiesTab.propTypes = {
   buddiess: PropTypes.object.isRequired,
   getmybuddies: PropTypes.func.isRequired,
-  closeprofiles: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   buddiess: state.buddies,
 });
-export default connect(mapStateToProps, { getmybuddies, closeprofiles })(
+export default connect(mapStateToProps, { getmybuddies, closemybuddies })(
   BuddiesTab
 );

@@ -6,6 +6,7 @@ import {
   closeuserprofile,
   deletebuddy,
   confirmbuddy,
+  getmybuddies,
 } from '../../actions/buddies';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -15,6 +16,7 @@ function ConfirmRequest({
   deletebuddy,
   getuserprofile,
   confirmbuddy,
+  getmybuddies,
   buddiess: { userloading, mybuddies, mybuddieslsloading },
 }) {
   const handleShowProfile = (e) => {
@@ -22,10 +24,12 @@ function ConfirmRequest({
   };
   const handleConfimBuddy = (e) => {
     confirmbuddy(e.target.value);
+    getmybuddies('request');
   };
 
   const handleDeleteBuddy = (e) => {
     deletebuddy(e.target.value);
+    getmybuddies('request');
   };
   let content = '';
   if (mybuddieslsloading) {
@@ -94,6 +98,7 @@ ConfirmRequest.propTypes = {
   closeuserprofile: PropTypes.func.isRequired,
   deletebuddy: PropTypes.func.isRequired,
   confirmbuddy: PropTypes.func.isRequired,
+  getmybuddies: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   buddiess: state.buddies,
@@ -103,4 +108,5 @@ export default connect(mapStateToProps, {
   closeuserprofile,
   deletebuddy,
   confirmbuddy,
+  getmybuddies,
 })(ConfirmRequest);

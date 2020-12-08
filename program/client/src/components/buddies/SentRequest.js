@@ -16,6 +16,7 @@ function SentRequest({
   deletebuddy,
   getuserprofile,
   closemybuddies,
+  getmybuddies,
   buddiess: { userloading, mybuddies, mybuddieslsloading },
 }) {
   const handleShowProfile = (e) => {
@@ -84,6 +85,7 @@ SentRequest.propTypes = {
   closeuserprofile: PropTypes.func.isRequired,
   deletebuddy: PropTypes.func.isRequired,
   closemybuddies: PropTypes.func.isRequired,
+  getmybuddies: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   buddiess: state.buddies,
@@ -93,4 +95,5 @@ export default connect(mapStateToProps, {
   closeuserprofile,
   deletebuddy,
   closemybuddies,
+  getmybuddies,
 })(SentRequest);

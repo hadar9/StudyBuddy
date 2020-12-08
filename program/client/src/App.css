@@ -135,6 +135,7 @@
   margin-bottom: 40px;
 }
 .tabcontent {
+  display: flex;
   margin-top: 4px;
   margin-bottom: 22px;
 }

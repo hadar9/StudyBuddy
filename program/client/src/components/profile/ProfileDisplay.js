@@ -13,7 +13,6 @@ function ProfileDisplay({ profiles: { profile } }) {
   const studyat = profile.studyat;
   const studyfield = profile.studyfield;
 
-  console.log(avatar);
   return (
     <div className='displayprofile text-center'>
       <Col>
