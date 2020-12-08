@@ -1,10 +1,11 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Row, Figure, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import {
   getuserprofile,
   closeuserprofile,
   deletebuddy,
+  getmybuddies,
 } from '../../actions/buddies';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -19,7 +20,7 @@ function MyBuddies({
     getuserprofile(e.target.value);
   };
 
-  const handleDeleteBuddy = (e) => {
+  const HandleDeleteBuddy = (e) => {
     deletebuddy(e.target.value);
   };
   let content = '';
@@ -34,7 +35,7 @@ function MyBuddies({
                 value={buddy.user._id}
                 size='sm'
                 variant='outline-info'
-                onClick={(e) => handleDeleteBuddy(e)}
+                onClick={(e) => HandleDeleteBuddy(e)}
               >
                 delete buddy
               </Button>

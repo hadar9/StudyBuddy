@@ -4,7 +4,6 @@ const auth = require('../../middleware/auth');
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 const { check, validationResult } = require('express-validator');
-const e = require('express');
 
 //@route    Post api/buddies/profiels
 //@desc     show(from th search) all profiles with the username
@@ -13,46 +12,43 @@ const e = require('express');
 router.post('/profiels', auth, async (req, res) => {
   try {
     username = req.body;
-    let profilewithstatus;
-
+    let myprofile = await Profile.findOne({ user: req.user.id });
     const users = await User.find({
       username: new RegExp('^' + username.username, 'i'),
     });
-    let myprofile = await Profile.findOne({ user: req.user.id });
+
+    const withoutmyprofile = users.filter(
+      (user) => JSON.stringify(myprofile.user) !== JSON.stringify(user._id)
+    );
 
     const profiles = [];
-    for (i = 0; i < users.length; i++) {
-      let profile = await Profile.findOne({ user: users[i]._id }).populate(
-        'user',
-        'username'
-      );
+
+    for (i = 0; i < withoutmyprofile.length; i++) {
+      let profile = await Profile.findOne({
+        user: withoutmyprofile[i]._id,
+      }).populate('user', 'username');
 
       let hasbuddy = -1;
+      let profilewithstatus;
+
       for (j = 0; j < myprofile.buddies.length; ++j) {
         if (
           JSON.stringify(myprofile.buddies[j].user) ===
-          JSON.stringify(users[i]._id)
+          JSON.stringify(withoutmyprofile[i]._id)
         ) {
           hasbuddy = j;
           break;
         }
-        if (JSON.stringify(myprofile.user) === JSON.stringify(users[i]._id)) {
-          hasbuddy = -2;
-          break;
-        }
       }
-
       if (hasbuddy === -1) {
         profilewithstatus = { profile: profile, status: 'nothing' };
-      } else if (hasbuddy !== -2) {
+      } else {
         profilewithstatus = {
           profile: profile,
           status: myprofile.buddies[hasbuddy].status,
         };
       }
-      if (hasbuddy !== -2) {
-        profiles.push(profilewithstatus);
-      }
+      profiles.push(profilewithstatus);
     }
     res.json(profiles);
   } catch (err) {
