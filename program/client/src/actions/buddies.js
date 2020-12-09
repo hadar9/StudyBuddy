@@ -29,7 +29,7 @@ export const getprofiels = (username) => async (dispatch) => {
     const res = await axios.post('/api/buddies/profiels', body, config);
     dispatch({
       type: GET_PROFILES_WITH_USERNAME,
-      payload: res.data,
+      payload: { profiels: res.data, username: username },
     });
   } catch (error) {
     dispatch({
@@ -184,4 +184,10 @@ export const deletebuddy = (id) => async (dispatch) => {
       type: BUDDIES_ERROR,
     });
   }
+};
+//close my buddies
+export const clearbuddy = () => async (dispatch) => {
+  dispatch({
+    type: CLEAR_BUDDY,
+  });
 };

@@ -8,6 +8,7 @@ import {
   confirmbuddy,
   deletebuddy,
   closeprofiles,
+  getprofiels,
 } from '../../actions/buddies';
 import 'bootstrap/dist/css/bootstrap.css';
 import OtherProfile from './OtherProfile';
@@ -17,19 +18,23 @@ function SearchBuddies({
   addbuddy,
   confirmbuddy,
   deletebuddy,
-  buddiess: { userloading, searchbuddies, searchloading },
+  getprofiels,
+  buddiess: { userloading, searchbuddies, searchloading, searchusername },
 }) {
   const handleShowProfile = (e) => {
     getuserprofile(e.target.value);
   };
   const handleAddBuddy = (e) => {
     addbuddy(e.target.value);
+    getprofiels(searchusername);
   };
   const handleconfirmBuddy = (e) => {
     confirmbuddy(e.target.value);
+    getprofiels(searchusername);
   };
   const handledeleteBuddy = (e) => {
     deletebuddy(e.target.value);
+    getprofiels(searchusername);
   };
 
   let pros;
@@ -38,10 +43,10 @@ function SearchBuddies({
       if (pro.status === 'nothing') {
         return (
           <Fragment>
-            <div className='searchcontent' key={pro.profile._id}>
+            <div className='searchcontent' key={`1${pro.profile._id}`}>
               <Row>
                 <Button
-                  key={pro.profile._id}
+                  key={`2${pro.profile._id}`}
                   value={pro.profile.user._id}
                   size='sm'
                   variant='outline-info'
@@ -50,7 +55,7 @@ function SearchBuddies({
                   Add buddy
                 </Button>
                 <Button
-                  key={pro.profile._id}
+                  key={`3${pro.profile._id}`}
                   value={pro.profile.user._id}
                   size='sm'
                   variant='outline-info'
@@ -74,10 +79,10 @@ function SearchBuddies({
       } else if (pro.status === 'mybuddy') {
         return (
           <Fragment>
-            <div className='searchcontent' key={pro.profile._id}>
+            <div className='searchcontent' key={`4${pro.profile._id}`}>
               <Row>
                 <Button
-                  key={pro.profile._id}
+                  key={`5${pro.profile._id}`}
                   value={pro.profile.user._id}
                   size='sm'
                   variant='outline-info'
@@ -86,7 +91,7 @@ function SearchBuddies({
                   delete buddy
                 </Button>
                 <Button
-                  key={pro.profile._id}
+                  key={`6${pro.profile._id}`}
                   value={pro.profile.user._id}
                   size='sm'
                   variant='outline-info'
@@ -110,10 +115,10 @@ function SearchBuddies({
       } else if (pro.status === 'sent') {
         return (
           <Fragment>
-            <div className='searchcontent' key={pro.profile._id}>
+            <div className='searchcontent' key={`7${pro.profile._id}`}>
               <Row>
                 <Button
-                  key={pro.profile._id}
+                  key={`8${pro.profile._id}`}
                   value={pro.profile.user._id}
                   size='sm'
                   variant='outline-info'
@@ -122,7 +127,7 @@ function SearchBuddies({
                   delete request
                 </Button>
                 <Button
-                  key={pro.profile._id}
+                  key={`9${pro.profile._id}`}
                   value={pro.profile.user._id}
                   size='sm'
                   variant='outline-info'
@@ -146,10 +151,10 @@ function SearchBuddies({
       } else {
         return (
           <Fragment>
-            <div className='searchcontent' key={pro.profile._id}>
+            <div className='searchcontent' key={`10${pro.profile._id}`}>
               <Row>
                 <Button
-                  key={pro.profile._id}
+                  key={`11${pro.profile._id}`}
                   value={pro.profile.user._id}
                   size='sm'
                   variant='outline-info'
@@ -158,7 +163,7 @@ function SearchBuddies({
                   delete request
                 </Button>
                 <Button
-                  key={pro.profile._id}
+                  key={`12${pro.profile._id}`}
                   value={pro.profile.user._id}
                   size='sm'
                   variant='outline-info'
@@ -167,7 +172,7 @@ function SearchBuddies({
                   confirm buddy
                 </Button>
                 <Button
-                  key={pro.profile._id}
+                  key={`14${pro.profile._id}`}
                   value={pro.profile.user._id}
                   size='sm'
                   variant='outline-info'
@@ -209,6 +214,7 @@ SearchBuddies.propTypes = {
   addbuddy: PropTypes.func.isRequired,
   confirmbuddy: PropTypes.func.isRequired,
   deletebuddy: PropTypes.func.isRequired,
+  getprofiels: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   buddiess: state.buddies,
@@ -218,4 +224,5 @@ export default connect(mapStateToProps, {
   addbuddy,
   confirmbuddy,
   deletebuddy,
+  getprofiels,
 })(SearchBuddies);

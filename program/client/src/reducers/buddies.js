@@ -17,6 +17,7 @@ import {
 const initialState = {
   searchbuddies: [],
   searchloading: false,
+  searchusername:'',
   mybuddies: [],
   mybuddieslsloading: false,
   userprofile: null,
@@ -34,9 +35,19 @@ export default function (state = initialState, action) {
         userloading: true,
       };
     case GET_PROFILES_WITH_USERNAME:
-      return { ...state, searchloading: true, searchbuddies: payload };
+      return {
+        ...state,
+        searchloading: true,
+        searchbuddies: payload.profiels,
+        searchusername:payload.username
+      };
     case CLOSE_PROFILES_WITH_USERNAME:
-      return { ...state, searchloading: false, searchbuddies: [] };
+      return {
+        ...state,
+        searchloading: false,
+        searchbuddies: [],
+        searchusername:''
+      };
     case CLOSE_USER_PROFILE:
     case ADD_BUDDY:
     case CONFIRM_BUDDY:
@@ -51,6 +62,7 @@ export default function (state = initialState, action) {
       return {
         searchbuddies: [],
         searchloading: false,
+        searchusername:'',
         mybuddies: [],
         mybuddieslsloading: false,
         userprofile: null,

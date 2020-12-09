@@ -10,6 +10,7 @@ import {
 import axios from 'axios';
 import { setalert } from './alert';
 import { clearprofile } from './profile';
+import { clearbuddy } from './buddies';
 import setAuthToken from '../utils/setAuthToken';
 
 //Load User
@@ -88,6 +89,7 @@ export const login = ({ email, password }) => async (dispatch) => {
 //Logout
 export const logout = () => async (dispatch) => {
   dispatch(clearprofile());
+  dispatch(clearbuddy());
   dispatch({
     type: LOGOUT,
   });
