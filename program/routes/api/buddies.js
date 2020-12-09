@@ -115,21 +115,30 @@ router.post('/addbuddy', auth, async (req, res) => {
       user: req.user.id,
       status: 'request',
     };
-
-    let userprofile = await Profile.findOneAndUpdate(
-      { user: id.id },
-      { $push: { buddies: userconfirmequest } }
-    );
-    //get the current user
-    let myprofile = await Profile.findOneAndUpdate(
-      { user: req.user.id },
-      { $push: { buddies: mybuddyrequest } }
-    );
-
-    myprofile.save();
-    userprofile.save();
-
-    res.send('added succses');
+    let myprofile = await Profile.findOne({ user: req.user.id });
+    let hasbuddy = -1;
+    for (j = 0; j < myprofile.buddies.length; ++j) {
+      if (JSON.stringify(myprofile.buddies[j].user) === JSON.stringify(id.id)) {
+        hasbuddy = 0;
+        break;
+      }
+    }
+    if (hasbuddy === -1) {
+      let userprofile = await Profile.findOneAndUpdate(
+        { user: id.id },
+        { $push: { buddies: userconfirmequest } }
+      );
+      //get the current user
+      let myprofile = await Profile.findOneAndUpdate(
+        { user: req.user.id },
+        { $push: { buddies: mybuddyrequest } }
+      );
+      myprofile.save();
+      userprofile.save();
+      res.send('added succses');
+    } else {
+      res.send('already added ');
+    }
   } catch (err) {
     res.status(500).send('Server Error');
   }
