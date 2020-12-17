@@ -71,7 +71,8 @@ router.post(
       profileFields.user = user.id;
       profileFields.username = '';
       profileFields.firstname = '';
-      profileFields.avatar = 'holder.js/171x180';
+      profileFields.avatar =
+        'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
       profileFields.lastname = '';
       profileFields.studyat = '';
       profileFields.studyfield = '';

@@ -46,28 +46,31 @@ function SearchBuddies({
             <div className='searchcontent' key={`1${pro.profile._id}`}>
               <Row>
                 <Button
+                  className='mt-2 h-75'
                   key={`2${pro.profile._id}`}
                   value={pro.profile.user._id}
-                  size='sm'
+                  size='m'
                   variant='outline-info'
                   onClick={(e) => handleAddBuddy(e)}
                 >
                   Add buddy
                 </Button>
                 <Button
+                  className='mt-2 h-75'
                   key={`3${pro.profile._id}`}
                   value={pro.profile.user._id}
-                  size='sm'
+                  size='m'
                   variant='outline-info'
                   onClick={(e) => handleShowProfile(e)}
                 >
                   show profile
                 </Button>
-                <h4>{pro.profile.user.username}</h4>
+                <h4 className='mt-2'>{pro.profile.user.username}</h4>
                 <Figure>
                   <Figure.Image
-                    width={100}
-                    height={180}
+                    className='ml-2'
+                    width={50}
+                    height={50}
                     src={pro.profile.avatar}
                     rounded
                   />
@@ -82,28 +85,30 @@ function SearchBuddies({
             <div className='searchcontent' key={`4${pro.profile._id}`}>
               <Row>
                 <Button
+                  className='mt-2 h-75'
                   key={`5${pro.profile._id}`}
                   value={pro.profile.user._id}
-                  size='sm'
+                  size='m'
                   variant='outline-info'
                   onClick={(e) => handledeleteBuddy(e)}
                 >
                   delete buddy
                 </Button>
                 <Button
+                  className='mt-2 h-75'
                   key={`6${pro.profile._id}`}
                   value={pro.profile.user._id}
-                  size='sm'
+                  size='m'
                   variant='outline-info'
                   onClick={(e) => handleShowProfile(e)}
                 >
                   show profile
                 </Button>
-                <h4>{pro.profile.user.username}</h4>
+                <h4 className='mt-2'>{pro.profile.user.username}</h4>
                 <Figure>
                   <Figure.Image
-                    width={100}
-                    height={180}
+                    width={50}
+                    height={50}
                     src={pro.profile.avatar}
                     rounded
                   />
@@ -118,28 +123,30 @@ function SearchBuddies({
             <div className='searchcontent' key={`7${pro.profile._id}`}>
               <Row>
                 <Button
+                  className='mt-2 h-75'
                   key={`8${pro.profile._id}`}
                   value={pro.profile.user._id}
-                  size='sm'
+                  size='m'
                   variant='outline-info'
                   onClick={(e) => handledeleteBuddy(e)}
                 >
                   delete request
                 </Button>
                 <Button
+                  className='mt-2 h-75'
                   key={`9${pro.profile._id}`}
                   value={pro.profile.user._id}
-                  size='sm'
+                  size='m'
                   variant='outline-info'
                   onClick={(e) => handleShowProfile(e)}
                 >
                   show profile
                 </Button>
-                <h4>{pro.profile.user.username}</h4>
+                <h4 className='mt-2'>{pro.profile.user.username}</h4>
                 <Figure>
                   <Figure.Image
-                    width={100}
-                    height={180}
+                    width={50}
+                    height={50}
                     src={pro.profile.avatar}
                     rounded
                   />
@@ -154,37 +161,40 @@ function SearchBuddies({
             <div className='searchcontent' key={`10${pro.profile._id}`}>
               <Row>
                 <Button
+                  className='mt-2 h-75'
                   key={`11${pro.profile._id}`}
                   value={pro.profile.user._id}
-                  size='sm'
+                  size='m'
                   variant='outline-info'
                   onClick={(e) => handledeleteBuddy(e)}
                 >
                   delete request
                 </Button>
                 <Button
+                  className='mt-2 h-75'
                   key={`12${pro.profile._id}`}
                   value={pro.profile.user._id}
-                  size='sm'
+                  size='m'
                   variant='outline-info'
                   onClick={(e) => handleconfirmBuddy(e)}
                 >
                   confirm buddy
                 </Button>
                 <Button
+                  className='mt-2 h-75'
                   key={`14${pro.profile._id}`}
                   value={pro.profile.user._id}
-                  size='sm'
+                  size='m'
                   variant='outline-info'
                   onClick={(e) => handleShowProfile(e)}
                 >
                   show profile
                 </Button>
-                <h4>{pro.profile.user.username}</h4>
+                <h4 className='mt-2'>{pro.profile.user.username}</h4>
                 <Figure>
                   <Figure.Image
-                    width={100}
-                    height={180}
+                    width={50}
+                    height={50}
                     src={pro.profile.avatar}
                     rounded
                   />

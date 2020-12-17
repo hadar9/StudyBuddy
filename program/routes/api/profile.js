@@ -30,7 +30,10 @@ router.post('/pictuer', auth, async (req, res) => {
   }
   let avatar = req.body;
 
-  avatar ? (avatar = avatar) : (avatar = 'holder.js/171x180');
+  avatar
+    ? (avatar = avatar)
+    : (avatar =
+        'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png');
 
   try {
     let profile = await Profile.findOne({ user: req.user.id });
