@@ -22,11 +22,11 @@ function App() {
       <Router>
         <div className='App'>
           <Route exact path='/' component={Landing}></Route>
+          <PrivateRoute exact path='/home' component={Home}></PrivateRoute>
           <section className='container'>
             <Switch>
               <Route exact path='/register' component={Register}></Route>
               <Route exact path='/login' component={Login}></Route>
-              <PrivateRoute exact path='/home' component={Home}></PrivateRoute>
               <PrivateRoute
                 exact
                 path='/profile'
