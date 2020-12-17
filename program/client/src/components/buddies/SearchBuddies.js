@@ -193,6 +193,7 @@ function SearchBuddies({
                 <h4 className='mt-2'>{pro.profile.user.username}</h4>
                 <Figure>
                   <Figure.Image
+                    className='ml-2'
                     width={50}
                     height={50}
                     src={pro.profile.avatar}

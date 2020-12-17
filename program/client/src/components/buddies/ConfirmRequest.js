@@ -39,9 +39,10 @@ function ConfirmRequest({
           <div className='tabcontent' key={buddy._id}>
             <Row>
               <Button
+                className='mt-2 h-75'
                 key={buddy._id}
                 value={buddy.user._id}
-                size='sm'
+                size='m'
                 variant='outline-info'
                 onClick={(e) => handleDeleteBuddy(e)}
               >
@@ -49,28 +50,31 @@ function ConfirmRequest({
               </Button>
 
               <Button
+                className='mt-2 h-75'
                 key={buddy._id}
                 value={buddy.user._id}
-                size='sm'
+                size='m'
                 variant='outline-info'
                 onClick={(e) => handleConfimBuddy(e)}
               >
                 confim buddy
               </Button>
               <Button
+                className='mt-2 h-75'
                 key={buddy._id}
                 value={buddy.user._id}
-                size='sm'
+                size='m'
                 variant='outline-info'
                 onClick={(e) => handleShowProfile(e)}
               >
                 show profile
               </Button>
-              <h4>{buddy.user.username}</h4>
+              <h5 className='mt-2'>{buddy.user.username}</h5>
               <Figure>
                 <Figure.Image
-                  width={100}
-                  height={180}
+                  className='ml-2'
+                  width={50}
+                  height={50}
                   src={buddy.avatar}
                   rounded
                 />

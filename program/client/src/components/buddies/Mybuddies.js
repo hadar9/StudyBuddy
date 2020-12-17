@@ -34,28 +34,31 @@ function MyBuddies({
           <div className='tabcontent' key={buddy._id}>
             <Row>
               <Button
+                className='mt-2 h-75'
                 key={buddy._id}
                 value={buddy.user._id}
-                size='sm'
+                size='m'
                 variant='outline-info'
                 onClick={(e) => HandleDeleteBuddy(e)}
               >
                 delete buddy
               </Button>
               <Button
+                className='mt-2 h-75'
                 key={buddy._id}
                 value={buddy.user._id}
-                size='sm'
+                size='m'
                 variant='outline-info'
                 onClick={(e) => handleShowProfile(e)}
               >
                 show profile
               </Button>
-              <h4>{buddy.user.username}</h4>
+              <h4 className='mt-2'>{buddy.user.username}</h4>
               <Figure>
                 <Figure.Image
-                  width={100}
-                  height={180}
+                  className='ml-2'
+                  width={50}
+                  height={50}
                   src={buddy.avatar}
                   rounded
                 />
