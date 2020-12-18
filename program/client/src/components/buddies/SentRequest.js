@@ -1,12 +1,10 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import { Row, Figure, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import {
   getuserprofile,
-  closeuserprofile,
   deletebuddy,
   getmybuddies,
-  closemybuddies,
 } from '../../actions/buddies';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -15,7 +13,6 @@ import OtherProfile from './OtherProfile';
 function SentRequest({
   deletebuddy,
   getuserprofile,
-  closemybuddies,
   getmybuddies,
   buddiess: { userloading, mybuddies, mybuddieslsloading },
 }) {
@@ -85,9 +82,7 @@ function SentRequest({
 SentRequest.propTypes = {
   buddiess: PropTypes.object.isRequired,
   getuserprofile: PropTypes.func.isRequired,
-  closeuserprofile: PropTypes.func.isRequired,
   deletebuddy: PropTypes.func.isRequired,
-  closemybuddies: PropTypes.func.isRequired,
   getmybuddies: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
@@ -95,8 +90,6 @@ const mapStateToProps = (state) => ({
 });
 export default connect(mapStateToProps, {
   getuserprofile,
-  closeuserprofile,
   deletebuddy,
-  closemybuddies,
   getmybuddies,
 })(SentRequest);

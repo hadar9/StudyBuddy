@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import MyBuddies from './MyBuddies';
@@ -52,6 +52,7 @@ function BuddiesTab({ getmybuddies, closemybuddies }) {
 BuddiesTab.propTypes = {
   buddiess: PropTypes.object.isRequired,
   getmybuddies: PropTypes.func.isRequired,
+  closemybuddies: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   buddiess: state.buddies,

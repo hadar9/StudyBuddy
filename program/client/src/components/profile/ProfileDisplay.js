@@ -5,39 +5,31 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 function ProfileDisplay({ profiles: { profile } }) {
-  const avatar = profile.avatar;
-  const username = profile.user.username;
-  const firstname = profile.firstname;
-  const lastname = profile.lastname;
-  const publicdrives = profile.publicdrives;
-  const studyat = profile.studyat;
-  const studyfield = profile.studyfield;
-
   return (
     <div className='displayprofile text-center'>
       <Col>
-        <Image className='profilepic' src={avatar} roundedCircle />
+        <Image className='profilepic' src={profile.avatar} roundedCircle />
       </Col>
-      <h1>{username}</h1>
+      <h1>{profile.user.username}</h1>
       <p>
         <strong>first name: </strong>
-        {firstname}
+        {profile.firstname}
       </p>
       <p>
         <strong>last name: </strong>
-        {lastname}
+        {profile.lastname}
       </p>
       <p>
         <strong>study at: </strong>
-        {studyat}
+        {profile.studyat}
       </p>
       <p>
         <strong>study field: </strong>
-        {studyfield}
+        {profile.studyfield}
       </p>
       <p>
         <strong>public drives: </strong>
-        {publicdrives}
+        {profile.publicdrives}
       </p>
     </div>
   );

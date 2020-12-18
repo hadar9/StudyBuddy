@@ -1,12 +1,10 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment } from 'react';
 import { Row, Figure, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import {
   getuserprofile,
-  closeuserprofile,
   deletebuddy,
   getmybuddies,
-  closemybuddies,
 } from '../../actions/buddies';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -83,8 +81,6 @@ function MyBuddies({
 MyBuddies.propTypes = {
   buddiess: PropTypes.object.isRequired,
   getuserprofile: PropTypes.func.isRequired,
-  closeuserprofile: PropTypes.func.isRequired,
-  closemybuddies: PropTypes.func.isRequired,
   getmybuddies: PropTypes.func.isRequired,
   deletebuddy: PropTypes.func.isRequired,
 };
@@ -93,8 +89,6 @@ const mapStateToProps = (state) => ({
 });
 export default connect(mapStateToProps, {
   getuserprofile,
-  closeuserprofile,
   deletebuddy,
-  closemybuddies,
   getmybuddies,
 })(MyBuddies);

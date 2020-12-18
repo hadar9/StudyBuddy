@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Figure, Row, Button } from 'react-bootstrap';
@@ -7,7 +7,6 @@ import {
   addbuddy,
   confirmbuddy,
   deletebuddy,
-  closeprofiles,
   getprofiels,
 } from '../../actions/buddies';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -43,7 +42,7 @@ function SearchBuddies({
       if (pro.status === 'nothing') {
         return (
           <Fragment>
-            <div className='searchcontent' key={`1${pro.profile._id}`}>
+            <div key={`1${pro.profile._id}`}>
               <Row>
                 <Button
                   className='mt-2 h-75'
@@ -82,7 +81,7 @@ function SearchBuddies({
       } else if (pro.status === 'mybuddy') {
         return (
           <Fragment>
-            <div className='searchcontent' key={`4${pro.profile._id}`}>
+            <div key={`4${pro.profile._id}`}>
               <Row>
                 <Button
                   className='mt-2 h-75'
@@ -120,7 +119,7 @@ function SearchBuddies({
       } else if (pro.status === 'sent') {
         return (
           <Fragment>
-            <div className='searchcontent' key={`7${pro.profile._id}`}>
+            <div key={`7${pro.profile._id}`}>
               <Row>
                 <Button
                   className='mt-2 h-75'
@@ -158,7 +157,7 @@ function SearchBuddies({
       } else {
         return (
           <Fragment>
-            <div className='searchcontent' key={`10${pro.profile._id}`}>
+            <div key={`10${pro.profile._id}`}>
               <Row>
                 <Button
                   className='mt-2 h-75'
@@ -215,7 +214,7 @@ function SearchBuddies({
       </div>
     );
   } else {
-    return <div>{pros}</div>;
+    return <div className='searchcontent'>{pros}</div>;
   }
 }
 

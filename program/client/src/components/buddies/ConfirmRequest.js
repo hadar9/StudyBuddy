@@ -1,9 +1,8 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import { Row, Figure, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import {
   getuserprofile,
-  closeuserprofile,
   deletebuddy,
   confirmbuddy,
   getmybuddies,
@@ -99,7 +98,6 @@ function ConfirmRequest({
 ConfirmRequest.propTypes = {
   buddiess: PropTypes.object.isRequired,
   getuserprofile: PropTypes.func.isRequired,
-  closeuserprofile: PropTypes.func.isRequired,
   deletebuddy: PropTypes.func.isRequired,
   confirmbuddy: PropTypes.func.isRequired,
   getmybuddies: PropTypes.func.isRequired,
@@ -109,7 +107,6 @@ const mapStateToProps = (state) => ({
 });
 export default connect(mapStateToProps, {
   getuserprofile,
-  closeuserprofile,
   deletebuddy,
   confirmbuddy,
   getmybuddies,
