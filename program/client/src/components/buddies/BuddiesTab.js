@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-import MyBuddies from './MyBuddies';
+import MyBuddies from './MybBuddies';
 import SentRequest from './SentRequest';
 import ConfirmRequest from './ConfirmRequest';
 import { getmybuddies, closemybuddies } from '../../actions/buddies';

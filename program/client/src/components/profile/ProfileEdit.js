@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Image, Form, Button, Col, Row } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Image, Form, Button, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import {
   updateprofile,
