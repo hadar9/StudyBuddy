@@ -26,14 +26,13 @@ function MyBuddies({
   };
   let content = '';
   if (mybuddieslsloading) {
-    content = mybuddies.map((buddy) => {
+    content = mybuddies.map((buddy, index) => {
       return (
-        <Fragment>
-          <div className='tabcontent' key={buddy._id}>
+        <Fragment key={index}>
+          <div className='tabcontent'>
             <Row>
               <Button
                 className='mt-2 h-75'
-                key={buddy._id}
                 value={buddy.user._id}
                 size='m'
                 variant='outline-info'
@@ -43,7 +42,6 @@ function MyBuddies({
               </Button>
               <Button
                 className='mt-2 h-75'
-                key={buddy._id}
                 value={buddy.user._id}
                 size='m'
                 variant='outline-info'

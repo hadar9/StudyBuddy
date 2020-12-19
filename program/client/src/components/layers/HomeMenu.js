@@ -9,10 +9,9 @@ import Mydrives from '../Drives/Mydrives';
 
 function HomeMenu({ getmybuddies, closeprofiles }) {
   const [key, setKey] = useState({
-    name: 'MyDrives',
     components: <Mydrives />,
   });
-  const { name, components } = key;
+  const { components } = key;
   const onclick = (e) => {
     let temp;
     if (e.target.value === 'MyDrives') {
@@ -35,7 +34,7 @@ function HomeMenu({ getmybuddies, closeprofiles }) {
     if (e.target.value === 'Recyclebin') {
       temp = <BuddiesTab />;
     }
-    setKey({ name: e.target.value, components: temp });
+    setKey({ components: temp });
   };
   return (
     <div>

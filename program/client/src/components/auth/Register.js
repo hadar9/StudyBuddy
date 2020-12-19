@@ -72,6 +72,7 @@ function Register({ register, setalert, alerts, isAuthenticated, loadUser }) {
               value={password}
               onChange={(e) => onchange(e)}
               minLength='6'
+              autoComplete='off'
             />
           </Form.Group>
           <Form.Group controlId='formBasicConfirmPassword'>
@@ -83,6 +84,7 @@ function Register({ register, setalert, alerts, isAuthenticated, loadUser }) {
               value={confirmpassword}
               onChange={(e) => onchange(e)}
               minLength='6'
+              autoComplete='off'
             />
           </Form.Group>
           <div className='text-center'>
