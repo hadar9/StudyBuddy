@@ -38,15 +38,14 @@ function SearchBuddies({
 
   let pros;
   if (searchloading) {
-    pros = searchbuddies.map((pro) => {
+    pros = searchbuddies.map((pro, index) => {
       if (pro.status === 'nothing') {
         return (
-          <Fragment>
-            <div key={`1${pro.profile._id}`}>
+          <Fragment key={index}>
+            <div>
               <Row>
                 <Button
                   className='mt-2 h-75'
-                  key={`2${pro.profile._id}`}
                   value={pro.profile.user._id}
                   size='m'
                   variant='outline-info'
@@ -56,7 +55,6 @@ function SearchBuddies({
                 </Button>
                 <Button
                   className='mt-2 h-75'
-                  key={`3${pro.profile._id}`}
                   value={pro.profile.user._id}
                   size='m'
                   variant='outline-info'
@@ -80,12 +78,11 @@ function SearchBuddies({
         );
       } else if (pro.status === 'mybuddy') {
         return (
-          <Fragment>
-            <div key={`4${pro.profile._id}`}>
+          <Fragment key={index}>
+            <div>
               <Row>
                 <Button
                   className='mt-2 h-75'
-                  key={`5${pro.profile._id}`}
                   value={pro.profile.user._id}
                   size='m'
                   variant='outline-info'
@@ -95,7 +92,6 @@ function SearchBuddies({
                 </Button>
                 <Button
                   className='mt-2 h-75'
-                  key={`6${pro.profile._id}`}
                   value={pro.profile.user._id}
                   size='m'
                   variant='outline-info'
@@ -118,12 +114,11 @@ function SearchBuddies({
         );
       } else if (pro.status === 'sent') {
         return (
-          <Fragment>
-            <div key={`7${pro.profile._id}`}>
+          <Fragment key={index}>
+            <div>
               <Row>
                 <Button
                   className='mt-2 h-75'
-                  key={`8${pro.profile._id}`}
                   value={pro.profile.user._id}
                   size='m'
                   variant='outline-info'
@@ -133,7 +128,6 @@ function SearchBuddies({
                 </Button>
                 <Button
                   className='mt-2 h-75'
-                  key={`9${pro.profile._id}`}
                   value={pro.profile.user._id}
                   size='m'
                   variant='outline-info'
@@ -156,12 +150,11 @@ function SearchBuddies({
         );
       } else {
         return (
-          <Fragment>
-            <div key={`10${pro.profile._id}`}>
+          <Fragment key={index}>
+            <div>
               <Row>
                 <Button
                   className='mt-2 h-75'
-                  key={`11${pro.profile._id}`}
                   value={pro.profile.user._id}
                   size='m'
                   variant='outline-info'
@@ -171,7 +164,6 @@ function SearchBuddies({
                 </Button>
                 <Button
                   className='mt-2 h-75'
-                  key={`12${pro.profile._id}`}
                   value={pro.profile.user._id}
                   size='m'
                   variant='outline-info'
@@ -181,7 +173,6 @@ function SearchBuddies({
                 </Button>
                 <Button
                   className='mt-2 h-75'
-                  key={`14${pro.profile._id}`}
                   value={pro.profile.user._id}
                   size='m'
                   variant='outline-info'

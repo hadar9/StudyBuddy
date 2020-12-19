@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Alert } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import { getmyprofile } from '../../actions/profile';
 import { connect } from 'react-redux';
@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import ProfileDisplay from '../profile/ProfileDisplay';
 import ProfileEdit from '../profile/ProfileEdit';
 
-function Profile({ getmyprofile, alerts }) {
+function Profile({ getmyprofile }) {
   const [formData, setForm] = useState({
     edit: false,
     editname: 'Edit',
@@ -16,9 +16,14 @@ function Profile({ getmyprofile, alerts }) {
   const { edit, editname } = formData;
 
   const onclick = (e) => {
-    getmyprofile();
     let butn = '';
-    edit ? (butn = 'Edit') : (butn = 'Cancel edit');
+    if (edit) {
+      butn = 'Edit';
+    } else {
+      getmyprofile();
+
+      butn = 'Cancel edit';
+    }
     setForm({
       edit: !edit,
       editname: butn,
@@ -39,8 +44,4 @@ Profile.propTypes = {
   getmyprofile: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  alerts: state.alert,
-});
-
-export default connect(mapStateToProps, { getmyprofile })(Profile);
+export default connect(null, { getmyprofile })(Profile);

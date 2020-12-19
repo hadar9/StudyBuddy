@@ -56,6 +56,7 @@ function Login({ login, alerts, isAuthenticated, loadUser }) {
               value={password}
               onChange={(e) => onchange(e)}
               required
+              autoComplete='off'
             />
           </Form.Group>
           <div className='text-center'>

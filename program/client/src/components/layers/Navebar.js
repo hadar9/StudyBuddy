@@ -16,7 +16,7 @@ import { getprofiels, closeprofiles } from '../../actions/buddies';
 import { getmyprofile } from '../../actions/profile';
 import Profile from '../profile/Profile';
 import SearchBuddies from '../buddies/SearchBuddies';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Select from 'react-select';
 import { setalert } from '../../actions/alert';
 
@@ -27,6 +27,7 @@ function Navebar({
   closeprofiles,
   alerts,
   buddies: { searchloading },
+  profile: { loading },
 }) {
   const [formData, setForm] = useState({
     search: '',
@@ -60,15 +61,14 @@ function Navebar({
     }
   };
   const handleCloseMyProfile = () => setForm({ showmyprofile: false });
-  const handleShowMyProfile = () => setForm({ showmyprofile: true });
+  const handleShowMyProfile = () => {
+    getmyprofile();
+    setForm({ showmyprofile: true });
+  };
   const handleCloseProfiels = () => {
     setForm({ showprofiles: false });
     closeprofiles();
   };
-
-  useEffect(() => {
-    getmyprofile();
-  }, []);
 
   return (
     <div className='NaveBar'>
@@ -125,7 +125,7 @@ function Navebar({
         </Nav>
 
         <Modal
-          show={showmyprofile}
+          show={showmyprofile && loading}
           onHide={handleCloseMyProfile}
           backdrop='static'
           keyboard={false}
@@ -151,11 +151,13 @@ Navebar.propTypes = {
   setalert: PropTypes.func.isRequired,
   alerts: PropTypes.object.isRequired,
   buddies: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   alerts: state.alert,
   buddies: state.buddies,
+  profile: state.profile,
 });
 export default connect(mapStateToProps, {
   logout,
