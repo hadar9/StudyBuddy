@@ -23,17 +23,15 @@ function App() {
         <div className='App'>
           <Route exact path='/' component={Landing}></Route>
           <PrivateRoute exact path='/home' component={Home}></PrivateRoute>
-          <section className='container'>
-            <Switch>
-              <Route exact path='/register' component={Register}></Route>
-              <Route exact path='/login' component={Login}></Route>
-              <PrivateRoute
-                exact
-                path='/profile'
-                component={Profile}
-              ></PrivateRoute>
-            </Switch>
-          </section>
+          <Switch>
+            <Route exact path='/register' component={Register}></Route>
+            <Route exact path='/login' component={Login}></Route>
+            <PrivateRoute
+              exact
+              path='/profile'
+              component={Profile}
+            ></PrivateRoute>
+          </Switch>
         </div>
       </Router>
     </Provider>

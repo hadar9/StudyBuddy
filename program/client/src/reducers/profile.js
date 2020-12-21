@@ -8,6 +8,7 @@ import {
 
 const initialState = {
   profile: null,
+  loading: false,
   error: {},
 };
 
@@ -21,6 +22,7 @@ export default function (state = initialState, action) {
     case PROFILE_ERROR:
       return {
         profile: null,
+        loading: false,
         error: payload,
       };
     case CLEAR_PROFILE:
