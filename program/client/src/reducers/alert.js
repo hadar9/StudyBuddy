@@ -5,7 +5,7 @@ const initialState = {
   mtype: '',
 };
 
-export default function (state = initialState, action) {
+export default function alert(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {

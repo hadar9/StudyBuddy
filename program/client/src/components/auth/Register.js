@@ -28,7 +28,6 @@ function Register({ register, setalert, alerts, isAuthenticated, loadUser }) {
   };
 
   if (isAuthenticated) {
-    loadUser();
     return <Redirect to='/home'></Redirect>;
   }
 
