@@ -26,6 +26,7 @@ function SentRequest({
   };
 
   let content = '';
+  console.log(mybuddies);
   if (mybuddieslsloading) {
     content = mybuddies.map((buddy, index) => {
       return (

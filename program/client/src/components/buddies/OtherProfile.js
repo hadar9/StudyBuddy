@@ -17,7 +17,6 @@ function OtherProfile({
     return (
       <div className='displayprofile text-center'>
         <Modal
-          Modal
           show={true}
           onHide={handleCloseProfile}
           backdrop='static'
