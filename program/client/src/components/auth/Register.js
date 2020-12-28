@@ -46,6 +46,7 @@ function Register({ register, setalert, alerts, isAuthenticated, loadUser }) {
               value={username}
               onChange={(e) => onchange(e)}
               required
+              maxLength='7'
             />
           </Form.Group>
           <Form.Group controlId='formBasicEmail'>

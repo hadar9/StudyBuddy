@@ -101,6 +101,21 @@
   right: 40%;
 }
 
+.custom-modal-style {
+  max-height: 60vh;
+  max-width: 700px;
+  overflow-y: auto;
+}
+::-webkit-scrollbar {
+  width: 15px;
+}
+::-webkit-scrollbar-track {
+  background: #292b2c;
+}
+::-webkit-scrollbar-thumb {
+  background-image: linear-gradient(#17a2b8, rgb(9, 199, 247));
+  border-radius: 15px;
+}
 .row {
   float: right;
 }
