@@ -80,7 +80,7 @@ function SearchBuddies({
         return (
           <Fragment key={index}>
             <div>
-              <Row>
+              <Row className='row'>
                 <Button
                   className='mt-2 h-75'
                   value={pro.profile.user._id}
@@ -116,7 +116,7 @@ function SearchBuddies({
         return (
           <Fragment key={index}>
             <div>
-              <Row>
+              <Row className='row'>
                 <Button
                   className='mt-2 h-75'
                   value={pro.profile.user._id}
@@ -152,7 +152,7 @@ function SearchBuddies({
         return (
           <Fragment key={index}>
             <div>
-              <Row>
+              <Row className='row'>
                 <Button
                   className='mt-2 h-75'
                   value={pro.profile.user._id}

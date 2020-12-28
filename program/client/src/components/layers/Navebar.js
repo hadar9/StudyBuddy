@@ -102,7 +102,7 @@ function Navebar({
 
         <Modal
           show={showprofiles && searchloading}
-          className='modal'
+          size='lg'
           onHide={handleCloseProfiels}
           backdrop='static'
           keyboard={false}
