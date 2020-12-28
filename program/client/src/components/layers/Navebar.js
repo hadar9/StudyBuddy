@@ -6,6 +6,7 @@ import {
   Navbar,
   Alert,
   Modal,
+  Spinner,
 } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Link } from 'react-router-dom';
@@ -99,7 +100,9 @@ function Navebar({
             Search
           </Button>
         </Form>
-
+        {showprofiles && searchloading === false ? (
+          <Spinner animation='border' variant='info' />
+        ) : null}
         <Modal
           show={showprofiles && searchloading}
           size='lg'
