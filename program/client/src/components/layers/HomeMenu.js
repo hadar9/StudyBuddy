@@ -12,72 +12,52 @@ function HomeMenu({ getmybuddies, closeprofiles }) {
     components: <Mydrives />,
   });
   const { components } = key;
-  const onclick = (e) => {
-    let temp;
-    if (e.target.value === 'MyDrives') {
-      temp = <Mydrives />;
-    }
 
-    if (e.target.value === 'Otherdrives') {
-      temp = <BuddiesTab />;
-    }
-    if (e.target.value === 'Favoritedrives') {
-      temp = <BuddiesTab />;
-    }
-    if (e.target.value === 'Chatgroups') {
-      temp = <BuddiesTab />;
-    }
-    if (e.target.value === 'Mybuddies') {
-      temp = <BuddiesTab />;
-      getmybuddies('mybuddy');
-    }
-    if (e.target.value === 'Recyclebin') {
-      temp = <BuddiesTab />;
-    }
-    setKey({ components: temp });
-  };
   return (
     <div>
       <div className='homemenu'>
         <ButtonGroup vertical>
           <Button
             value='MyDrives'
-            onClick={(e) => onclick(e)}
+            onClick={(e) => setKey({ components: <Mydrives /> })}
             className='bg-dark text-light'
           >
             My drives
           </Button>
           <Button
             value='Otherdrives'
-            onClick={(e) => onclick(e)}
+            onClick={(e) => setKey({ components: <Mydrives /> })}
             className='bg-dark text-light'
           >
             Other drives
           </Button>
           <Button
             value='Favoritedrives'
-            onClick={(e) => onclick(e)}
+            onClick={(e) => setKey({ components: <Mydrives /> })}
             className='bg-dark text-light'
           >
             Favorite drives
           </Button>
           <Button
             value='Chatgroups'
-            onClick={(e) => onclick(e)}
+            onClick={(e) => setKey({ components: <Mydrives /> })}
             className='bg-dark text-light'
           >
             Chat groups
           </Button>
           <Button
             value='Mybuddies'
-            onClick={(e) => onclick(e)}
+            onClick={(e) => {
+              setKey({ components: <BuddiesTab /> });
+              getmybuddies('mybuddy');
+            }}
             className='bg-dark text-light'
           >
             My buddies
           </Button>
           <Button
             value='Recyclebin'
-            onClick={(e) => onclick(e)}
+            onClick={(e) => setKey({ components: <Mydrives /> })}
             className='bg-dark text-light'
           >
             Recycle bin
