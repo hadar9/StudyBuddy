@@ -47,7 +47,7 @@ function SearchBuddies({
                 <Button
                   className='mt-2 h-75'
                   value={pro.profile.user._id}
-                  size='m'
+                  size='sm'
                   variant='outline-info'
                   onClick={(e) => handleAddBuddy(e)}
                 >
@@ -56,7 +56,7 @@ function SearchBuddies({
                 <Button
                   className='mt-2 h-75'
                   value={pro.profile.user._id}
-                  size='m'
+                  size='sm'
                   variant='outline-info'
                   onClick={(e) => handleShowProfile(e)}
                 >
@@ -84,7 +84,7 @@ function SearchBuddies({
                 <Button
                   className='mt-2 h-75'
                   value={pro.profile.user._id}
-                  size='m'
+                  size='sm'
                   variant='outline-info'
                   onClick={(e) => handledeleteBuddy(e)}
                 >
@@ -93,7 +93,7 @@ function SearchBuddies({
                 <Button
                   className='mt-2 h-75'
                   value={pro.profile.user._id}
-                  size='m'
+                  size='sm'
                   variant='outline-info'
                   onClick={(e) => handleShowProfile(e)}
                 >
@@ -120,7 +120,7 @@ function SearchBuddies({
                 <Button
                   className='mt-2 h-75'
                   value={pro.profile.user._id}
-                  size='m'
+                  size='sm'
                   variant='outline-info'
                   onClick={(e) => handledeleteBuddy(e)}
                 >
@@ -129,7 +129,7 @@ function SearchBuddies({
                 <Button
                   className='mt-2 h-75'
                   value={pro.profile.user._id}
-                  size='m'
+                  size='sm'
                   variant='outline-info'
                   onClick={(e) => handleShowProfile(e)}
                 >
@@ -154,9 +154,9 @@ function SearchBuddies({
             <div>
               <Row className='row'>
                 <Button
-                  className='mt-2 h-75'
+                  className='mt-2 h-75 '
                   value={pro.profile.user._id}
-                  size='m'
+                  size='sm'
                   variant='outline-info'
                   onClick={(e) => handledeleteBuddy(e)}
                 >
@@ -165,7 +165,7 @@ function SearchBuddies({
                 <Button
                   className='mt-2 h-75'
                   value={pro.profile.user._id}
-                  size='m'
+                  size='sm'
                   variant='outline-info'
                   onClick={(e) => handleconfirmBuddy(e)}
                 >
@@ -174,7 +174,7 @@ function SearchBuddies({
                 <Button
                   className='mt-2 h-75'
                   value={pro.profile.user._id}
-                  size='m'
+                  size='sm'
                   variant='outline-info'
                   onClick={(e) => handleShowProfile(e)}
                 >
