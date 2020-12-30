@@ -144,6 +144,11 @@
   margin-right: 200px;
   margin-left: 200px;
 }
+.tabbudspinner {
+  position: fixed;
+  top: 60%;
+  left: 50%;
+}
 .tabcontainercontent {
   float: right;
   margin-top: 20px;

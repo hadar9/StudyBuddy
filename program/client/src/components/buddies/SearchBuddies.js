@@ -1,41 +1,18 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Figure, Row, Button } from 'react-bootstrap';
-import {
-  getuserprofile,
-  addbuddy,
-  confirmbuddy,
-  deletebuddy,
-  getprofiels,
-} from '../../actions/buddies';
+import { Figure, Row } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import OtherProfile from './OtherProfile';
+import Add from './opertaions/Add';
+import Confirm from './opertaions/Confirm';
+import DeleteBud from './opertaions/DeleteBud';
+import DeleteReq from './opertaions/DeleteReq';
+import Show from './opertaions/Show';
 
 function SearchBuddies({
-  getuserprofile,
-  addbuddy,
-  confirmbuddy,
-  deletebuddy,
-  getprofiels,
-  buddiess: { userloading, searchbuddies, searchloading, searchusername },
+  buddiess: { userloading, searchbuddies, searchloading },
 }) {
-  const handleShowProfile = (e) => {
-    getuserprofile(e.target.value);
-  };
-  const handleAddBuddy = (e) => {
-    addbuddy(e.target.value);
-    getprofiels(searchusername);
-  };
-  const handleconfirmBuddy = (e) => {
-    confirmbuddy(e.target.value);
-    getprofiels(searchusername);
-  };
-  const handledeleteBuddy = (e) => {
-    deletebuddy(e.target.value);
-    getprofiels(searchusername);
-  };
-
   let pros;
   if (searchloading) {
     pros = searchbuddies.map((pro, index) => {
@@ -44,24 +21,8 @@ function SearchBuddies({
           <Fragment key={index}>
             <div>
               <Row>
-                <Button
-                  className='mt-2 h-75'
-                  value={pro.profile.user._id}
-                  size='sm'
-                  variant='outline-info'
-                  onClick={(e) => handleAddBuddy(e)}
-                >
-                  Add buddy
-                </Button>
-                <Button
-                  className='mt-2 h-75'
-                  value={pro.profile.user._id}
-                  size='sm'
-                  variant='outline-info'
-                  onClick={(e) => handleShowProfile(e)}
-                >
-                  show profile
-                </Button>
+                <Add selecteduser={pro.profile.user._id} />
+                <Show selecteduser={pro.profile.user._id} />
                 <h4 className='mt-2'>{pro.profile.user.username}</h4>
                 <Figure>
                   <Figure.Image
@@ -81,24 +42,8 @@ function SearchBuddies({
           <Fragment key={index}>
             <div>
               <Row className='row'>
-                <Button
-                  className='mt-2 h-75'
-                  value={pro.profile.user._id}
-                  size='sm'
-                  variant='outline-info'
-                  onClick={(e) => handledeleteBuddy(e)}
-                >
-                  delete buddy
-                </Button>
-                <Button
-                  className='mt-2 h-75'
-                  value={pro.profile.user._id}
-                  size='sm'
-                  variant='outline-info'
-                  onClick={(e) => handleShowProfile(e)}
-                >
-                  show profile
-                </Button>
+                <DeleteBud selecteduser={pro.profile.user._id} />
+                <Show selecteduser={pro.profile.user._id} />
                 <h4 className='mt-2'>{pro.profile.user.username}</h4>
                 <Figure>
                   <Figure.Image
@@ -117,24 +62,8 @@ function SearchBuddies({
           <Fragment key={index}>
             <div>
               <Row className='row'>
-                <Button
-                  className='mt-2 h-75'
-                  value={pro.profile.user._id}
-                  size='sm'
-                  variant='outline-info'
-                  onClick={(e) => handledeleteBuddy(e)}
-                >
-                  delete request
-                </Button>
-                <Button
-                  className='mt-2 h-75'
-                  value={pro.profile.user._id}
-                  size='sm'
-                  variant='outline-info'
-                  onClick={(e) => handleShowProfile(e)}
-                >
-                  show profile
-                </Button>
+                <DeleteReq selecteduser={pro.profile.user._id} />
+                <Show selecteduser={pro.profile.user._id} />
                 <h4 className='mt-2'>{pro.profile.user.username}</h4>
                 <Figure>
                   <Figure.Image
@@ -153,33 +82,12 @@ function SearchBuddies({
           <Fragment key={index}>
             <div>
               <Row className='row'>
-                <Button
-                  className='mt-2 h-75 '
-                  value={pro.profile.user._id}
-                  size='sm'
-                  variant='outline-info'
-                  onClick={(e) => handledeleteBuddy(e)}
-                >
-                  delete request
-                </Button>
-                <Button
-                  className='mt-2 h-75'
-                  value={pro.profile.user._id}
-                  size='sm'
-                  variant='outline-info'
-                  onClick={(e) => handleconfirmBuddy(e)}
-                >
-                  confirm buddy
-                </Button>
-                <Button
-                  className='mt-2 h-75'
-                  value={pro.profile.user._id}
-                  size='sm'
-                  variant='outline-info'
-                  onClick={(e) => handleShowProfile(e)}
-                >
-                  show profile
-                </Button>
+                <DeleteReq
+                  selecteduser={pro.profile.user._id}
+                  type={'Search'}
+                />
+                <Confirm selecteduser={pro.profile.user._id} type={'Search'} />
+                <Show selecteduser={pro.profile.user._id} />
                 <h4 className='mt-2'>{pro.profile.user.username}</h4>
                 <Figure>
                   <Figure.Image
@@ -211,19 +119,8 @@ function SearchBuddies({
 
 SearchBuddies.propTypes = {
   buddiess: PropTypes.object.isRequired,
-  getuserprofile: PropTypes.func.isRequired,
-  addbuddy: PropTypes.func.isRequired,
-  confirmbuddy: PropTypes.func.isRequired,
-  deletebuddy: PropTypes.func.isRequired,
-  getprofiels: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   buddiess: state.buddies,
 });
-export default connect(mapStateToProps, {
-  getuserprofile,
-  addbuddy,
-  confirmbuddy,
-  deletebuddy,
-  getprofiels,
-})(SearchBuddies);
+export default connect(mapStateToProps, {})(SearchBuddies);
