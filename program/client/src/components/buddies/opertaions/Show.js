@@ -5,16 +5,16 @@ import { getuserprofile } from '../../../actions/buddies';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-function Show(props) {
+function Show({ getuserprofile, selecteduser }) {
   const handleShowProfile = (e) => {
-    props.getuserprofile(e.target.value);
+    getuserprofile(e.target.value);
   };
 
   return (
     <div>
       <Button
         className='mt-2 h-50'
-        value={props.selecteduser}
+        value={selecteduser}
         size='sm'
         variant='outline-info'
         onClick={(e) => handleShowProfile(e)}

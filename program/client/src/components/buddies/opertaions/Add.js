@@ -5,20 +5,25 @@ import { addbuddy, getprofiels } from '../../../actions/buddies';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-function Add(props) {
+function Add({
+  addbuddy,
+  getprofiels,
+  buddies: { searchusername },
+  selecteduser,
+}) {
   const [clicked, setclick] = useState(false);
 
   const handleAddBuddy = (e) => {
-    props.addbuddy(e.target.value);
+    addbuddy(e.target.value);
     setclick(true);
-    props.getprofiels(props.buddies.searchusername);
+    getprofiels(searchusername);
   };
   return (
     <div>
       {' '}
       <Button
         className='mt-2 h-50'
-        value={props.selecteduser}
+        value={selecteduser}
         size='sm'
         variant='outline-info'
         onClick={(e) => handleAddBuddy(e)}

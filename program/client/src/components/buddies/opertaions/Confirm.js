@@ -9,16 +9,24 @@ import {
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-function Confirm(props) {
+function Confirm({
+  confirmbuddy,
+  getmybuddies,
+  getprofiels,
+  buddies: { searchusername },
+  type,
+  selecteduser,
+}) {
   const [clicked, setclick] = useState(false);
 
   const handleConfimBuddy = (e) => {
-    props.confirmbuddy(e.target.value);
-    setclick(true);
-    if (props.type === 'Tabs') {
-      props.getmybuddies('request');
+    confirmbuddy(e.target.value);
+
+    if (type === 'Tabs') {
+      getmybuddies('request');
     } else {
-      props.getprofiels(props.buddies.searchusername);
+      getprofiels(searchusername);
+      setclick(true);
     }
   };
   return (
@@ -26,7 +34,7 @@ function Confirm(props) {
       {' '}
       <Button
         className='mt-2 h-50'
-        value={props.selecteduser}
+        value={selecteduser}
         size='sm'
         variant='outline-info'
         onClick={(e) => handleConfimBuddy(e)}

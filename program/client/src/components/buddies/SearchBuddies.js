@@ -42,7 +42,10 @@ function SearchBuddies({
           <Fragment key={index}>
             <div>
               <Row className='row'>
-                <DeleteBud selecteduser={pro.profile.user._id} />
+                <DeleteBud
+                  selecteduser={pro.profile.user._id}
+                  type={'Search'}
+                />
                 <Show selecteduser={pro.profile.user._id} />
                 <h4 className='mt-2'>{pro.profile.user.username}</h4>
                 <Figure>
@@ -62,7 +65,10 @@ function SearchBuddies({
           <Fragment key={index}>
             <div>
               <Row className='row'>
-                <DeleteReq selecteduser={pro.profile.user._id} />
+                <DeleteReq
+                  selecteduser={pro.profile.user._id}
+                  type={'Search'}
+                />
                 <Show selecteduser={pro.profile.user._id} />
                 <h4 className='mt-2'>{pro.profile.user.username}</h4>
                 <Figure>

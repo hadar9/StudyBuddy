@@ -9,15 +9,24 @@ import {
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-function DeleteReq(props) {
+function DeleteReq({
+  deletebuddy,
+  getmybuddies,
+  getprofiels,
+  buddies: { searchusername },
+  type,
+  selecteduser,
+}) {
   const [clicked, setclick] = useState(false);
+  console.log(clicked);
   const handleDeleteBuddy = (e) => {
-    props.deletebuddy(e.target.value);
-    setclick(true);
-    if (props.type === 'Tabs') {
-      props.getmybuddies('sent');
+    deletebuddy(e.target.value);
+
+    if (type === 'Tabs') {
+      getmybuddies('sent');
     } else {
-      props.getprofiels(props.buddies.searchusername);
+      getprofiels(searchusername);
+      setclick(true);
     }
   };
   return (
@@ -25,7 +34,7 @@ function DeleteReq(props) {
       {' '}
       <Button
         className='mt-2 h-50'
-        value={props.selecteduser}
+        value={selecteduser}
         size='sm'
         variant='outline-info'
         onClick={(e) => handleDeleteBuddy(e)}
