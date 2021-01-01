@@ -2,8 +2,8 @@ import React from 'react';
 
 function Mydrives() {
   return (
-    <div>
-      <p>My Drive</p>
+    <div className="mydrives">
+      <h1 className="mydrives-title">My Drives</h1>
     </div>
   );
 }
