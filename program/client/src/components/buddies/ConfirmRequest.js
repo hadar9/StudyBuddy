@@ -18,7 +18,11 @@ function ConfirmRequest({
         <Fragment key={index}>
           <div className='tabcontent'>
             <Row>
-              <DeleteReq selecteduser={buddy.user._id} type={'Tabs'} />
+              <DeleteReq
+                selecteduser={buddy.user._id}
+                type={'Tabs'}
+                reqtype={'request'}
+              />
               <Confirm selecteduser={buddy.user._id} type={'Tabs'} />
               <Show selecteduser={buddy.user._id} />
               <h5 className='mt-2'>{buddy.user.username}</h5>

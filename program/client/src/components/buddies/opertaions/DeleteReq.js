@@ -16,6 +16,7 @@ function DeleteReq({
   buddies: { searchusername },
   type,
   selecteduser,
+  reqtype,
 }) {
   const [clicked, setclick] = useState(false);
   console.log(clicked);
@@ -23,7 +24,7 @@ function DeleteReq({
     deletebuddy(e.target.value);
 
     if (type === 'Tabs') {
-      getmybuddies('sent');
+      getmybuddies(reqtype);
     } else {
       getprofiels(searchusername);
       setclick(true);

@@ -18,7 +18,7 @@ function SentRequest({
         <Fragment key={index}>
           <div className='tabcontent'>
             <Row>
-              <DeleteReq selecteduser={buddy.user._id} type={'Tabs'} />
+              <DeleteReq selecteduser={buddy.user._id} type={'Tabs'} reqtype={'sent'} />
               <Show selecteduser={buddy.user._id} type={'Tabs'} />
               <h4 className='mt-2'>{buddy.user.username}</h4>
               <Figure>
