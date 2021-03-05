@@ -1,6 +1,6 @@
-import Navebar from './layers/Navebar';
-import HomeMenu from './layers/HomeMenu';
-import Chat from './layers/Chat';
+import Navebar from './navebar/Navebar';
+import HomeMenu from './homemenue/HomeMenu';
+import Chat from './chat/Chat';
 
 function Home() {
   return (

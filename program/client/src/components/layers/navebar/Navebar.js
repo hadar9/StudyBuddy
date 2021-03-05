@@ -10,16 +10,16 @@ import {
 } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Link } from 'react-router-dom';
-import { logout } from '../../actions/auth';
+import { logout } from '../../../actions/auth';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getprofiels, closeprofiles } from '../../actions/buddies';
-import { getmyprofile } from '../../actions/profile';
-import Profile from '../profile/Profile';
-import SearchBuddies from '../buddies/SearchBuddies';
+import { getprofiels, closeprofiles } from '../../../actions/buddies';
+import { getmyprofile } from '../../../actions/profile';
+import Profile from './profile/Profile';
+import SearchBuddies from './search/SearchBuddies';
 import React, { useState } from 'react';
 import Select from 'react-select';
-import { setalert } from '../../actions/alert';
+import { setalert } from '../../../actions/alert';
 
 function Navebar({
   logout,

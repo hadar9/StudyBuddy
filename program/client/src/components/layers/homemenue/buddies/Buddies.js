@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-import MyBuddies from './MyBuddies';
-import SentRequest from './SentRequest';
-import ConfirmRequest from './ConfirmRequest';
-import { getmybuddies, closemybuddies } from '../../actions/buddies';
+import MyBuddies from './tabs/MyBuddies';
+import SentRequest from './tabs/SentRequest';
+import ConfirmRequest from './tabs/ConfirmRequest';
+import { getmybuddies, closemybuddies } from '../../../../actions/buddies';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-function BuddiesTab({ getmybuddies, closemybuddies }) {
+function Buddies({ getmybuddies, closemybuddies }) {
   const [key, setKey] = useState('mybuddy');
 
   const onclick = (k) => {
@@ -49,7 +49,7 @@ function BuddiesTab({ getmybuddies, closemybuddies }) {
     </div>
   );
 }
-BuddiesTab.propTypes = {
+Buddies.propTypes = {
   buddiess: PropTypes.object.isRequired,
   getmybuddies: PropTypes.func.isRequired,
   closemybuddies: PropTypes.func.isRequired,
@@ -58,5 +58,5 @@ const mapStateToProps = (state) => ({
   buddiess: state.buddies,
 });
 export default connect(mapStateToProps, { getmybuddies, closemybuddies })(
-  BuddiesTab
+  Buddies
 );

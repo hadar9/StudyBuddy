@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import { Button, Form, Alert } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Link, Redirect } from 'react-router-dom';
-import { register } from '../../actions/auth';
+import { register, loadUser } from '../../actions/auth';
 import { setalert, deletealert } from '../../actions/alert';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { loadUser } from '../../actions/auth';
 
 function Register({ register, setalert, alerts, isAuthenticated, loadUser }) {
   const [formData, setForm] = useState({

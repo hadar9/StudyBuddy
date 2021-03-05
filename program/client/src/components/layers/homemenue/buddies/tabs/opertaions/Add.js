@@ -1,33 +1,22 @@
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-import {
-  confirmbuddy,
-  getmybuddies,
-  getprofiels,
-} from '../../../actions/buddies';
+import { addbuddy, getprofiels } from '../../../../../../actions/buddies';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-function Confirm({
-  confirmbuddy,
-  getmybuddies,
+function Add({
+  addbuddy,
   getprofiels,
   buddies: { searchusername },
-  type,
   selecteduser,
 }) {
   const [clicked, setclick] = useState(false);
 
-  const handleConfimBuddy = (e) => {
-    confirmbuddy(e.target.value);
-
-    if (type === 'Tabs') {
-      getmybuddies('request');
-    } else {
-      getprofiels(searchusername);
-      setclick(true);
-    }
+  const handleAddBuddy = (e) => {
+    addbuddy(e.target.value);
+    setclick(true);
+    getprofiels(searchusername);
   };
   return (
     <div>
@@ -37,18 +26,18 @@ function Confirm({
         value={selecteduser}
         size='sm'
         variant='outline-info'
-        onClick={(e) => handleConfimBuddy(e)}
+        onClick={(e) => handleAddBuddy(e)}
         disabled={clicked}
       >
-        confirm buddy
+        Add buddy
       </Button>
     </div>
   );
 }
 
-Confirm.propTypes = {
-  confirmbuddy: PropTypes.func.isRequired,
-  getmybuddies: PropTypes.func.isRequired,
+Add.propTypes = {
+  buddiess: PropTypes.object.isRequired,
+  addbuddy: PropTypes.func.isRequired,
   getprofiels: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
@@ -56,7 +45,6 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  confirmbuddy,
-  getmybuddies,
+  addbuddy,
   getprofiels,
-})(Confirm);
+})(Add);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-import { getuserprofile } from '../../../actions/buddies';
+import { getuserprofile } from '../../../../../../actions/buddies';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 

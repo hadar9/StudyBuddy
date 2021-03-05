@@ -1,22 +1,31 @@
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-import { addbuddy, getprofiels } from '../../../actions/buddies';
+import {
+  deletebuddy,
+  getmybuddies,
+  getprofiels,
+} from '../../../../../../actions/buddies';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-function Add({
-  addbuddy,
+function DeleteBud({
+  deletebuddy,
+  getmybuddies,
   getprofiels,
   buddies: { searchusername },
+  type,
   selecteduser,
 }) {
   const [clicked, setclick] = useState(false);
-
-  const handleAddBuddy = (e) => {
-    addbuddy(e.target.value);
-    setclick(true);
-    getprofiels(searchusername);
+  const handleDeleteBuddy = (e) => {
+    deletebuddy(e.target.value);
+    if (type === 'Tabs') {
+      getmybuddies('mybuddy');
+    } else {
+      getprofiels(searchusername);
+      setclick(true);
+    }
   };
   return (
     <div>
@@ -26,25 +35,25 @@ function Add({
         value={selecteduser}
         size='sm'
         variant='outline-info'
-        onClick={(e) => handleAddBuddy(e)}
+        onClick={(e) => handleDeleteBuddy(e)}
         disabled={clicked}
       >
-        Add buddy
+        Delete buddy
       </Button>
     </div>
   );
 }
 
-Add.propTypes = {
-  buddiess: PropTypes.object.isRequired,
-  addbuddy: PropTypes.func.isRequired,
+DeleteBud.propTypes = {
+  deletebuddy: PropTypes.func.isRequired,
+  getmybuddies: PropTypes.func.isRequired,
   getprofiels: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   buddies: state.buddies,
 });
-
 export default connect(mapStateToProps, {
-  addbuddy,
+  deletebuddy,
+  getmybuddies,
   getprofiels,
-})(Add);
+})(DeleteBud);

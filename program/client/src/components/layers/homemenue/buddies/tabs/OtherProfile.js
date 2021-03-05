@@ -3,7 +3,7 @@ import { Image, Col, Modal } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { closeuserprofile } from '../../actions/buddies';
+import { closeuserprofile } from '../../../../../actions/buddies';
 
 function OtherProfile({
   closeuserprofile,

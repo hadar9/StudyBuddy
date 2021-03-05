@@ -5,7 +5,7 @@ import {
   updateprofile,
   getmyprofile,
   updateprofilepictuer,
-} from '../../actions/profile';
+} from '../../../../actions/profile';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 

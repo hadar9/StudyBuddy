@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-import { getmyprofile } from '../../actions/profile';
+import { getmyprofile } from '../../../../actions/profile';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import ProfileDisplay from '../profile/ProfileDisplay';
-import ProfileEdit from '../profile/ProfileEdit';
+import ProfileDisplay from './ProfileDisplay';
+import ProfileEdit from './ProfileEdit';
 
 function Profile({ getmyprofile }) {
   const [formData, setForm] = useState({

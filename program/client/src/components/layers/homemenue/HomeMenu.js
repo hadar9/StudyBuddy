@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Button, ButtonGroup } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-import BuddiesTab from '../buddies/BuddiesTab';
-import { getmybuddies, closeprofiles } from '../../actions/buddies';
+import Buddies from './buddies/Buddies';
+import { getmybuddies, closeprofiles } from '../../../actions/buddies';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Mydrives from '../Drives/Mydrives';
+import MyDrives from './mydrives/MyDrives';
 
 function HomeMenu({ getmybuddies, closeprofiles }) {
   const [key, setKey] = useState({
-    components: <Mydrives />,
+    components: <MyDrives />,
   });
   const { components } = key;
 
@@ -19,28 +19,28 @@ function HomeMenu({ getmybuddies, closeprofiles }) {
         <ButtonGroup vertical>
           <Button
             value='MyDrives'
-            onClick={(e) => setKey({ components: <Mydrives /> })}
+            onClick={(e) => setKey({ components: <MyDrives /> })}
             className='bg-dark text-light'
           >
             My drives
           </Button>
           <Button
             value='Otherdrives'
-            onClick={(e) => setKey({ components: <Mydrives /> })}
+            onClick={(e) => setKey({ components: <MyDrives /> })}
             className='bg-dark text-light'
           >
             Other drives
           </Button>
           <Button
             value='Favoritedrives'
-            onClick={(e) => setKey({ components: <Mydrives /> })}
+            onClick={(e) => setKey({ components: <MyDrives /> })}
             className='bg-dark text-light'
           >
             Favorite drives
           </Button>
           <Button
             value='Chatgroups'
-            onClick={(e) => setKey({ components: <Mydrives /> })}
+            onClick={(e) => setKey({ components: <MyDrives /> })}
             className='bg-dark text-light'
           >
             Chat groups
@@ -48,7 +48,7 @@ function HomeMenu({ getmybuddies, closeprofiles }) {
           <Button
             value='Mybuddies'
             onClick={(e) => {
-              setKey({ components: <BuddiesTab /> });
+              setKey({ components: <Buddies /> });
               getmybuddies('mybuddy');
             }}
             className='bg-dark text-light'
@@ -57,7 +57,7 @@ function HomeMenu({ getmybuddies, closeprofiles }) {
           </Button>
           <Button
             value='Recyclebin'
-            onClick={(e) => setKey({ components: <Mydrives /> })}
+            onClick={(e) => setKey({ components: <MyDrives /> })}
             className='bg-dark text-light'
           >
             Recycle bin

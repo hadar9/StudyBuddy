@@ -5,7 +5,7 @@ import {
   deletebuddy,
   getmybuddies,
   getprofiels,
-} from '../../../actions/buddies';
+} from '../../../../../../actions/buddies';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 

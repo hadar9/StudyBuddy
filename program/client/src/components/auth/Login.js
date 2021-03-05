@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import { Button, Form, Alert } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Link, Redirect } from 'react-router-dom';
-import { login } from '../../actions/auth';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { loadUser } from '../../actions/auth';
+import { login, loadUser } from '../../actions/auth';
 
 function Login({ login, alerts, isAuthenticated, loadUser }) {
   const [formData, setForm] = useState({
