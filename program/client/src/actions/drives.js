@@ -1,5 +1,11 @@
 import axios from 'axios';
-import { GET_DRIVES, CREATE_DRIVE_ERROR, CLEAR_DRIVES } from './types';
+import {
+  GET_DRIVES,
+  CREATE_DRIVE_ERROR,
+  CLEAR_DRIVES,
+  CHOOSE_DRIVE,
+  UNCHOOSE_DRIVE,
+} from './types';
 
 export const getdrives = () => async (dispatch) => {
   try {
@@ -38,5 +44,17 @@ export const createdrive = (drivename) => async (dispatch) => {
 export const cleardrives = () => async (dispatch) => {
   dispatch({
     type: CLEAR_DRIVES,
+  });
+};
+
+export const choosedrive = (drive) => async (dispatch) => {
+  dispatch({
+    type: CHOOSE_DRIVE,
+    payload: drive,
+  });
+};
+export const cleardrive = () => async (dispatch) => {
+  dispatch({
+    type: UNCHOOSE_DRIVE,
   });
 };

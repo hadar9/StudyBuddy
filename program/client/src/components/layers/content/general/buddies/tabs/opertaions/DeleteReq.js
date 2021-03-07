@@ -5,23 +5,26 @@ import {
   deletebuddy,
   getmybuddies,
   getprofiels,
-} from '../../../../../../actions/buddies';
+} from '../../../../../../../actions/buddies';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-function DeleteBud({
+function DeleteReq({
   deletebuddy,
   getmybuddies,
   getprofiels,
   buddies: { searchusername },
   type,
   selecteduser,
+  reqtype,
 }) {
   const [clicked, setclick] = useState(false);
+  console.log(clicked);
   const handleDeleteBuddy = (e) => {
     deletebuddy(e.target.value);
+
     if (type === 'Tabs') {
-      getmybuddies('mybuddy');
+      getmybuddies(reqtype);
     } else {
       getprofiels(searchusername);
       setclick(true);
@@ -38,13 +41,13 @@ function DeleteBud({
         onClick={(e) => handleDeleteBuddy(e)}
         disabled={clicked}
       >
-        Delete buddy
+        Delete request
       </Button>
     </div>
   );
 }
 
-DeleteBud.propTypes = {
+DeleteReq.propTypes = {
   deletebuddy: PropTypes.func.isRequired,
   getmybuddies: PropTypes.func.isRequired,
   getprofiels: PropTypes.func.isRequired,
@@ -52,8 +55,9 @@ DeleteBud.propTypes = {
 const mapStateToProps = (state) => ({
   buddies: state.buddies,
 });
+
 export default connect(mapStateToProps, {
   deletebuddy,
   getmybuddies,
   getprofiels,
-})(DeleteBud);
+})(DeleteReq);

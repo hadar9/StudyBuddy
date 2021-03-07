@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Figure, Row } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-import OtherProfile from '../../homemenue/buddies/tabs/OtherProfile';
-import Add from '../../homemenue/buddies/tabs/opertaions/Add';
-import Confirm from '../../homemenue/buddies/tabs/opertaions/Confirm';
-import DeleteBud from '../../homemenue/buddies/tabs/opertaions/DeleteBud';
-import DeleteReq from '../../homemenue/buddies/tabs/opertaions/DeleteReq';
-import Show from '../../homemenue/buddies/tabs/opertaions/Show';
+import OtherProfile from '../../content/general/buddies/tabs/OtherProfile';
+import Add from '../../content/general/buddies/tabs/opertaions/Add';
+import Confirm from '../../content/general/buddies/tabs/opertaions/Confirm';
+import DeleteBud from '../../content/general/buddies/tabs/opertaions/DeleteBud';
+import DeleteReq from '../../content/general/buddies/tabs/opertaions/DeleteReq';
+import Show from '../../content/general/buddies/tabs/opertaions/Show';
 
 function SearchBuddies({
   buddiess: { userloading, searchbuddies, searchloading },

@@ -24,5 +24,7 @@ export const DELETE_BUDDY = 'DELETE_BUDDY';
 export const CLEAR_BUDDY = 'CLEAR_BUDDY';
 export const BUDDIES_ERROR = 'BUDDIES_ERROR';
 export const GET_DRIVES = 'GET_DRIVES';
+export const CHOOSE_DRIVE = 'CHOOSE_DRIVE';
+export const UNCHOOSE_DRIVE = 'UNCHOOSE_DRIVE';
 export const CREATE_DRIVE_ERROR = 'CREATE_DRIVE_ERROR';
 export const CLEAR_DRIVES = 'CLEAR_DRIVES';

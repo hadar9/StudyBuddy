@@ -2,19 +2,18 @@ import React, { useState } from 'react';
 import { Button, ButtonGroup } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import Buddies from './buddies/Buddies';
-import { getmybuddies } from '../../../actions/buddies';
-import { getdrives } from '../../../actions/drives';
+import { getmybuddies } from '../../../../actions/buddies';
+import { getdrives } from '../../../../actions/drives';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import MyDrives from './mydrives/MyDrives';
 
-function HomeMenu({ auth: { user }, getmybuddies, getdrives }) {
+function General({ auth: { user }, getmybuddies, getdrives }) {
   const [key, setKey] = useState({
     firstload: true,
     components: '',
   });
   const { firstload, components } = key;
-
   return (
     <div>
       <div className='homemenu'>
@@ -83,15 +82,19 @@ function HomeMenu({ auth: { user }, getmybuddies, getdrives }) {
     </div>
   );
 }
-
-HomeMenu.propTypes = {
+General.propTypes = {
   getmybuddies: PropTypes.func.isRequired,
   getdrives: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
+  drives: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  drives: state.drives,
 });
 
-export default connect(mapStateToProps, { getmybuddies, getdrives })(HomeMenu);
+export default connect(mapStateToProps, {
+  getmybuddies,
+  getdrives,
+})(General);

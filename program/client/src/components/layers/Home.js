@@ -1,5 +1,5 @@
 import Navebar from './navebar/Navebar';
-import HomeMenu from './homemenue/HomeMenu';
+import Content from './content/Content';
 import Chat from './chat/Chat';
 
 function Home() {
@@ -7,7 +7,7 @@ function Home() {
     <div className='home'>
       <Navebar />
       <div>
-        <HomeMenu />
+        <Content />
         <Chat />
       </div>
     </div>

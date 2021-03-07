@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import MyBuddies from './tabs/MyBuddies';
 import SentRequest from './tabs/SentRequest';
 import ConfirmRequest from './tabs/ConfirmRequest';
-import { getmybuddies, closemybuddies } from '../../../../actions/buddies';
+import { getmybuddies, closemybuddies } from '../../../../../actions/buddies';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
