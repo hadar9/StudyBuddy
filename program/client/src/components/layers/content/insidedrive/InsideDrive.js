@@ -8,10 +8,9 @@ import MyDrives from '../general/mydrives/MyDrives';
 
 function InsideDrive({ drives: { drive }, cleardrive }) {
   const [key, setKey] = useState({
-    firstload: true,
     components: '',
   });
-  const { firstload, components } = key;
+  const { components } = key;
   return (
     <div>
       <div className='homemenu'>
@@ -27,34 +26,30 @@ function InsideDrive({ drives: { drive }, cleardrive }) {
           </Button>
           <Button
             value='Otherdrives'
-            onClick={(e) =>
-              setKey({ firstload: false, components: <MyDrives /> })
-            }
+            onClick={(e) => setKey({ components: <MyDrives /> })}
             className='bg-dark text-light'
           >
             Chat groups
           </Button>
           <Button
             value='Favoritedrives'
-            onClick={(e) =>
-              setKey({ firstload: false, components: <MyDrives /> })
-            }
+            onClick={(e) => setKey({ components: <MyDrives /> })}
             className='bg-dark text-light'
           >
             Settings
           </Button>
           <Button
             value='Recyclebin'
-            onClick={(e) =>
-              setKey({ firstload: false, components: <MyDrives /> })
-            }
+            onClick={(e) => setKey({ components: <MyDrives /> })}
             className='bg-dark text-light'
           >
             Recycle bin
           </Button>
         </ButtonGroup>
       </div>
-      <div className='content text-center'>{drive.name}</div>
+      <div className='content text-center'>
+        <h1>{drive.name}</h1>
+      </div>
     </div>
   );
 }
