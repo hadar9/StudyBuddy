@@ -2,12 +2,17 @@ import React, { useState } from 'react';
 import { Button, Form, Alert } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Link, Redirect } from 'react-router-dom';
-import { register, loadUser } from '../../actions/auth';
+import { register } from '../../actions/auth';
 import { setalert, deletealert } from '../../actions/alert';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-function Register({ register, setalert, alerts, isAuthenticated, loadUser }) {
+function Register({
+  register,
+  setalert,
+  alerts,
+  auth: { isAuthenticated, user },
+}) {
   const [formData, setForm] = useState({
     username: '',
     email: '',
@@ -26,7 +31,7 @@ function Register({ register, setalert, alerts, isAuthenticated, loadUser }) {
     } else register({ username, email, password });
   };
 
-  if (isAuthenticated) {
+  if (isAuthenticated && user) {
     return <Redirect to='/home'></Redirect>;
   }
 
@@ -105,17 +110,16 @@ Register.propTypes = {
   setalert: PropTypes.func.isRequired,
   deletealert: PropTypes.func.isRequired,
   alerts: PropTypes.object.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired,
+  auth: PropTypes.object.isRequired,
   loadUser: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   alerts: state.alert,
-  isAuthenticated: state.auth.isAuthenticated,
+  auth: state.auth,
 });
 export default connect(mapStateToProps, {
   register,
   setalert,
   deletealert,
-  loadUser,
 })(Register);

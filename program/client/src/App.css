@@ -172,3 +172,19 @@
   font-style: oblique;
 }
 /******************************************************/
+.mydrives {
+  position: absolute;
+  right: 40%;
+}
+.try {
+  margin-top: 10%;
+  width: 100%;
+}
+.showdrives {
+  margin-top: 10%;
+}
+
+.driveimg {
+  width: 100px;
+  height: 100px;
+}

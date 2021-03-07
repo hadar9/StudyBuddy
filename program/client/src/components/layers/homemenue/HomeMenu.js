@@ -2,16 +2,18 @@ import React, { useState } from 'react';
 import { Button, ButtonGroup } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import Buddies from './buddies/Buddies';
-import { getmybuddies, closeprofiles } from '../../../actions/buddies';
+import { getmybuddies } from '../../../actions/buddies';
+import { getdrives } from '../../../actions/drives';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import MyDrives from './mydrives/MyDrives';
 
-function HomeMenu({ getmybuddies, closeprofiles }) {
+function HomeMenu({ auth: { user }, getmybuddies, getdrives }) {
   const [key, setKey] = useState({
-    components: <MyDrives />,
+    firstload: true,
+    components: '',
   });
-  const { components } = key;
+  const { firstload, components } = key;
 
   return (
     <div>
@@ -19,28 +21,37 @@ function HomeMenu({ getmybuddies, closeprofiles }) {
         <ButtonGroup vertical>
           <Button
             value='MyDrives'
-            onClick={(e) => setKey({ components: <MyDrives /> })}
+            onClick={(e) => {
+              setKey({ firstload: false, components: <MyDrives /> });
+              getdrives();
+            }}
             className='bg-dark text-light'
           >
             My drives
           </Button>
           <Button
             value='Otherdrives'
-            onClick={(e) => setKey({ components: <MyDrives /> })}
+            onClick={(e) =>
+              setKey({ firstload: false, components: <MyDrives /> })
+            }
             className='bg-dark text-light'
           >
             Other drives
           </Button>
           <Button
             value='Favoritedrives'
-            onClick={(e) => setKey({ components: <MyDrives /> })}
+            onClick={(e) =>
+              setKey({ firstload: false, components: <MyDrives /> })
+            }
             className='bg-dark text-light'
           >
             Favorite drives
           </Button>
           <Button
             value='Chatgroups'
-            onClick={(e) => setKey({ components: <MyDrives /> })}
+            onClick={(e) =>
+              setKey({ firstload: false, components: <MyDrives /> })
+            }
             className='bg-dark text-light'
           >
             Chat groups
@@ -48,16 +59,18 @@ function HomeMenu({ getmybuddies, closeprofiles }) {
           <Button
             value='Mybuddies'
             onClick={(e) => {
-              setKey({ components: <Buddies /> });
+              setKey({ firstload: false, components: <Buddies /> });
               getmybuddies('mybuddy');
             }}
             className='bg-dark text-light'
           >
-            My buddies
+            Buddies
           </Button>
           <Button
             value='Recyclebin'
-            onClick={(e) => setKey({ components: <MyDrives /> })}
+            onClick={(e) =>
+              setKey({ firstload: false, components: <MyDrives /> })
+            }
             className='bg-dark text-light'
           >
             Recycle bin
@@ -65,7 +78,7 @@ function HomeMenu({ getmybuddies, closeprofiles }) {
         </ButtonGroup>
       </div>
       <div className='content text-center'>
-        <div>{components}</div>
+        {firstload ? <h1>hello {user.username}</h1> : components}
       </div>
     </div>
   );
@@ -73,7 +86,12 @@ function HomeMenu({ getmybuddies, closeprofiles }) {
 
 HomeMenu.propTypes = {
   getmybuddies: PropTypes.func.isRequired,
-  closeprofiles: PropTypes.func.isRequired,
+  getdrives: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 
-export default connect(null, { getmybuddies, closeprofiles })(HomeMenu);
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { getmybuddies, getdrives })(HomeMenu);

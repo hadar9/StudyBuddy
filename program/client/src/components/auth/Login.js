@@ -4,9 +4,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { login, loadUser } from '../../actions/auth';
+import { login } from '../../actions/auth';
 
-function Login({ login, alerts, isAuthenticated, loadUser }) {
+function Login({ login, alerts, auth: { isAuthenticated, user } }) {
   const [formData, setForm] = useState({
     email: '',
     password: '',
@@ -21,7 +21,7 @@ function Login({ login, alerts, isAuthenticated, loadUser }) {
     login({ email, password });
   };
 
-  if (isAuthenticated) {
+  if (isAuthenticated && user) {
     return <Redirect to='/home'></Redirect>;
   }
 
@@ -73,12 +73,12 @@ function Login({ login, alerts, isAuthenticated, loadUser }) {
 Login.propTypes = {
   login: PropTypes.func.isRequired,
   alerts: PropTypes.object.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired,
+  auth: PropTypes.object.isRequired,
   loadUser: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   alerts: state.alert,
-  isAuthenticated: state.auth.isAuthenticated,
+  auth: state.auth,
 });
-export default connect(mapStateToProps, { login, loadUser })(Login);
+export default connect(mapStateToProps, { login })(Login);

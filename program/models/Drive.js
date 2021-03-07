@@ -10,7 +10,6 @@ const DriveSchema = new mongoose.Schema({
   },
   drivepermission: {
     type: String,
-    required: true,
   },
   subadmins: [
     {
@@ -96,7 +95,7 @@ const DriveSchema = new mongoose.Schema({
       ],
     },
   ],
-  drivedate: {
+  date: {
     type: Date,
     default: Date.now,
   },
