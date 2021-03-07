@@ -7,7 +7,9 @@ export default function ShowDrive({ elem }) {
   return (
     <div className='showdrive text-center'>
       <Col>
-        <Image className='driveimg' src={img} />
+        <Button variant='light'>
+          <Image className='driveimg' src={img} />
+        </Button>
         <p>{elem.name}</p>
       </Col>
     </div>
