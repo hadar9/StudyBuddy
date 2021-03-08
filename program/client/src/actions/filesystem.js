@@ -37,9 +37,11 @@ export const createfolder = (parent, foldername, url) => async (dispatch) => {
   });
   try {
     const res = await axios.post('/api/filesystem/createfolder', body, config);
+    parent.children.push(res.data);
+
     dispatch({
       type: CREATE_FOLDER,
-      payload: res.data,
+      payload: parent,
     });
   } catch (error) {
     dispatch({
@@ -53,7 +55,6 @@ export const createfolder = (parent, foldername, url) => async (dispatch) => {
 };
 
 export const choosefilesystem = (filesystem) => async (dispatch) => {
-  console.log(filesystem);
   dispatch({
     type: CHOOSE_FILESYSTEM,
     payload: filesystem,

@@ -18,6 +18,30 @@ router.get('/getmydrives', auth, async (req, res) => {
   }
 });
 
+router.post('/choosedrive', auth, async (req, res) => {
+  try {
+    const drive = req.body.drive;
+    let returndrive = {};
+    returndrive._id = drive._id;
+    returndrive.objtype = drive.objtype;
+    returndrive.user = drive.user;
+    returndrive.name = drive.name;
+    returndrive.path = drive.path;
+    returndrive.drivepermission = drive.drivepermission;
+    returndrive.subadmins = drive.subadmins;
+    returndrive.drivebuddies = drive.drivebuddies;
+    returndrive.chatgroup = drive.chatgroup;
+
+    const childersas = await Promise.all(
+      drive.children.map((child) => FileSystem.findOne({ _id: child }))
+    );
+    returndrive.children = childersas;
+    res.json(returndrive);
+  } catch (err) {
+    res.status(500).send('Server Error');
+  }
+});
+
 //@route    POST api/drives/createdrive
 //@desc     create new drive
 //@access   Private

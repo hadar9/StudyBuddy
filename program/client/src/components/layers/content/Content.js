@@ -4,15 +4,15 @@ import General from './general/General';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-function Content({ drives: { driveloading } }) {
-  return <div>{driveloading ? <InsideDrive /> : <General />}</div>;
+function Content({ filesystem: { filesystemloading } }) {
+  return <div>{filesystemloading ? <InsideDrive /> : <General />}</div>;
 }
 Content.propTypes = {
-  drives: PropTypes.object.isRequired,
+  filesystem: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  drives: state.drives,
+  filesystem: state.filesystem,
 });
 
 export default connect(mapStateToProps, {})(Content);

@@ -1,12 +1,6 @@
 import axios from 'axios';
 import { choosefilesystem } from './filesystem';
-import {
-  GET_DRIVES,
-  CREATE_DRIVE_ERROR,
-  CLEAR_DRIVES,
-  CHOOSE_DRIVE,
-  UNCHOOSE_DRIVE,
-} from './types';
+import { GET_DRIVES, CREATE_DRIVE_ERROR, CLEAR_DRIVES } from './types';
 
 export const getdrives = () => async (dispatch) => {
   try {
@@ -49,14 +43,24 @@ export const cleardrives = () => async (dispatch) => {
 };
 
 export const choosedrive = (drive) => async (dispatch) => {
-  dispatch({
-    type: CHOOSE_DRIVE,
-    payload: drive,
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const body = JSON.stringify({
+    drive,
   });
-  dispatch(choosefilesystem(drive));
-};
-export const cleardrive = () => async (dispatch) => {
-  dispatch({
-    type: UNCHOOSE_DRIVE,
-  });
+  try {
+    const res = await axios.post('/api/drives/choosedrive', body, config);
+    dispatch(choosefilesystem(res.data));
+  } catch (error) {
+    dispatch({
+      type: CREATE_DRIVE_ERROR,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+  }
 };

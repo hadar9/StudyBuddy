@@ -4,6 +4,7 @@ const router = express.Router();
 const auth = require('../../middleware/auth');
 const Drive = require('../../models/Drive');
 const FileSystem = require('../../models/FileSystem');
+const mongoose = require('mongoose');
 
 //@route    POST api/filesystem/createfolder
 //@desc     create new folder
@@ -21,23 +22,22 @@ router.post('/createfolder', auth, async (req, res) => {
 
     let newfolder = new FileSystem(folder);
     await newfolder.save();
-
     let parentupdated;
-
     if (parent.objtype === 'drive') {
       parentupdated = await Drive.findOneAndUpdate(
         { _id: parent._id },
-        { $push: { children: newfolder } }
+        { $push: { children: newfolder._id } }
       );
     } else {
       parentupdated = await FileSystem.findOneAndUpdate(
         { _id: parent._id },
-        { $push: { children: newfolder } }
+        { $push: { children: newfolder._id } }
       );
     }
     parentupdated.save();
+    console.log(newfolder);
 
-    res.status(200).json(parentupdated);
+    res.status(200).json(newfolder);
   } catch (err) {
     res.status(500).send('Server Error');
   }

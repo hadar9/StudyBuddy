@@ -11,7 +11,7 @@ function ShowSystem({ elem, choosefilesystem }) {
   return (
     <div className='showdrive text-center'>
       <Col>
-        <Button variant='light' onClick={(e) => choosefilesystem(elem)}>
+        <Button  className="filessystemimgs"variant='light' onClick={(e) => choosefilesystem(elem)}>
           {elem.objtype === 'folder' ? (
             <Image className='folderimg' src={folderimg} />
           ) : (

@@ -188,3 +188,17 @@
   width: 100px;
   height: 100px;
 }
+/******************************************************/
+/*filesystem*/
+.filessystemimgs {
+  width: 5%;
+  height: 20%;
+}
+.folderimg {
+  width: 90%;
+  height: 50%;
+}
+.fileimg {
+  width: 90%;
+  height: 50%;
+}

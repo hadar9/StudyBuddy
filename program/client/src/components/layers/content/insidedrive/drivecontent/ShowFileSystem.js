@@ -7,14 +7,11 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 function ShowFileSystem({ filesystems: { filesystem, filesystemloading } }) {
   let myfilesystem;
-  if (filesystem.objtype === 'folder' || filesystem.objtype === 'drive') {
+  if (
+    filesystem.objtype === 'folder' ||
+    (filesystem.objtype === 'drive' && filesystem.children.length > 0)
+  ) {
     myfilesystem = filesystem.children.map((elem) => (
-      <Row>
-        <ShowSystem key={elem.id} elem={elem} />
-      </Row>
-    ));
-  } else {
-    myfilesystem = filesystem.parent.children.map((elem) => (
       <Row>
         <ShowSystem key={elem.id} elem={elem} />
       </Row>
