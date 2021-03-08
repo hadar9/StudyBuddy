@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function OtherDrives() {
+export default function RecycleBin() {
     return (
         <div>
             

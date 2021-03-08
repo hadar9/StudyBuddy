@@ -7,6 +7,10 @@ import { getdrives } from '../../../../actions/drives';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import MyDrives from './mydrives/MyDrives';
+import ChatGroups from './chatgroups/ChatGroups';
+import FavoriteDrives from './favoritedrives/FavoriteDrives';
+import OtherDrives from './otherdrives/OtherDrives';
+import RecycleBin from './recyclebin/RecycleBin';
 
 function General({ auth: { user }, getmybuddies, getdrives }) {
   const [key, setKey] = useState({
@@ -31,7 +35,7 @@ function General({ auth: { user }, getmybuddies, getdrives }) {
           <Button
             value='Otherdrives'
             onClick={(e) =>
-              setKey({ firstload: false, components: <MyDrives /> })
+              setKey({ firstload: false, components: <OtherDrives /> })
             }
             className='bg-dark text-light'
           >
@@ -40,7 +44,7 @@ function General({ auth: { user }, getmybuddies, getdrives }) {
           <Button
             value='Favoritedrives'
             onClick={(e) =>
-              setKey({ firstload: false, components: <MyDrives /> })
+              setKey({ firstload: false, components: <FavoriteDrives /> })
             }
             className='bg-dark text-light'
           >
@@ -49,7 +53,7 @@ function General({ auth: { user }, getmybuddies, getdrives }) {
           <Button
             value='Chatgroups'
             onClick={(e) =>
-              setKey({ firstload: false, components: <MyDrives /> })
+              setKey({ firstload: false, components: <ChatGroups /> })
             }
             className='bg-dark text-light'
           >
@@ -68,7 +72,7 @@ function General({ auth: { user }, getmybuddies, getdrives }) {
           <Button
             value='Recyclebin'
             onClick={(e) =>
-              setKey({ firstload: false, components: <MyDrives /> })
+              setKey({ firstload: false, components: <RecycleBin /> })
             }
             className='bg-dark text-light'
           >
@@ -77,7 +81,14 @@ function General({ auth: { user }, getmybuddies, getdrives }) {
         </ButtonGroup>
       </div>
       <div className='content text-center'>
-        {firstload ? <h1>hello {user.username}</h1> : components}
+        {firstload ? (
+          <h1>
+            hello {user.username}
+            <br></br>have a good learning!!!
+          </h1>
+        ) : (
+          components
+        )}
       </div>
     </div>
   );

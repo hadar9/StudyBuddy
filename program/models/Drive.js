@@ -8,6 +8,13 @@ const DriveSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  path: {
+    type: String,
+  },
+  objtype: {
+    type: String,
+    default: 'drive',
+  },
   drivepermission: {
     type: String,
   },
@@ -93,6 +100,12 @@ const DriveSchema = new mongoose.Schema({
           },
         },
       ],
+    },
+  ],
+  children: [
+    {
+      type: mongoose.Schema.Types.ObjectId, //Foreign key
+      ref: 'filesystem',
     },
   ],
   date: {

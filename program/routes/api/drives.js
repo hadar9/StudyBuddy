@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
 const Drive = require('../../models/Drive');
+const User = require('../../models/User');
 
 //@route    GET api/drives/getmydrives
 //@desc     get drives
@@ -22,13 +23,16 @@ router.get('/getmydrives', auth, async (req, res) => {
 //@access   Private
 router.post('/createdrive', auth, async (req, res) => {
   try {
+    const user = await User.findById(req.user.id);
     drive = {};
-    drive.user = req.user.id;
+    drive.user = user.id;
     drive.name = req.body.drivename;
+    drive.path = `${user.username}/${drive.name}`;
     drive.drivepermission = 'private';
     drive.subadmins = [];
     drive.drivebuddies = [];
     drive.chatgroup = [];
+    drive.children = [];
 
     let newdrive = new Drive(drive);
     await newdrive.save();

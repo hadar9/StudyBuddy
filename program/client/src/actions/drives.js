@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { choosefilesystem } from './filesystem';
 import {
   GET_DRIVES,
   CREATE_DRIVE_ERROR,
@@ -52,6 +53,7 @@ export const choosedrive = (drive) => async (dispatch) => {
     type: CHOOSE_DRIVE,
     payload: drive,
   });
+  dispatch(choosefilesystem(drive));
 };
 export const cleardrive = () => async (dispatch) => {
   dispatch({

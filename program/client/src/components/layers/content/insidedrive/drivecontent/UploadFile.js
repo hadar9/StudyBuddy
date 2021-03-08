@@ -1,4 +1,4 @@
-/*import React from 'react';
+import React from 'react';
 import { Button, Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import firebase from '../../../../../utils/firebase';
@@ -15,7 +15,7 @@ export default function UploadFile() {
 
   return (
     <div>
-      <Form className='mx-auto' }>
+      <Form className='mx-auto'>
         <Form.Group>
           <Form.File
             className='mx-auto'
@@ -24,10 +24,9 @@ export default function UploadFile() {
           />
         </Form.Group>
         <Button variant='dark' type='submit'>
-          Upload
+          Upload File
         </Button>
       </Form>
     </div>
   );
 }
-*/
