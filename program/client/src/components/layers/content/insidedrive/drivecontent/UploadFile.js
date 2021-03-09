@@ -1,27 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-import firebase from '../../../../../utils/firebase';
-import { v4 as uuid } from 'uuid';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { createfilesystem } from '../../../../../actions/filesystem';
 
-export default function UploadFile() {
-  const fileupload = async (e) => {
-    const file = e.target.files[0];
-    const id = uuid();
-    const DriveRef = firebase.storage().ref('Drive').child(id);
-    await DriveRef.put(file);
-    const fileurl = await DriveRef.getDownloadURL();
+function UploadFile({ filesystems: { filesystem }, createfilesystem }) {
+  const [file, setName] = useState('');
+
+  const onsubmit = async (e) => {
+    e.preventDefault();
+    createfilesystem(filesystem, file.name, 'file', file);
+    setName('');
   };
 
   return (
     <div>
-      <Form className='mx-auto'>
+      <Form className='mx-auto' onSubmit={(e) => onsubmit(e)}>
         <Form.Row>
           <Form.Group>
             <Form.File
               className='mx-auto'
               name='file'
-              onChange={(e) => fileupload(e)}
+              onChange={(e) => setName(e.target.files[0])}
             />
           </Form.Group>
           <Button variant='info' className='mb-3' size='m' type='submit'>
@@ -32,3 +33,13 @@ export default function UploadFile() {
     </div>
   );
 }
+UploadFile.propTypes = {
+  createfilesystem: PropTypes.func.isRequired,
+  filesystems: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  filesystems: state.filesystem,
+});
+
+export default connect(mapStateToProps, { createfilesystem })(UploadFile);

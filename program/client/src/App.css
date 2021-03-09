@@ -154,6 +154,7 @@
   position: fixed;
   top: 50%;
 }
+
 .content {
   margin: 0 auto;
   width: 80%;
@@ -165,7 +166,8 @@
 }
 /******************************************************/
 .mydrives-title,
-.insidedrivecontent-title {
+.insidedrivecontent-title,
+.firstloadtitle {
   position: center;
   color: #40bed1;
   margin-top: 20px;

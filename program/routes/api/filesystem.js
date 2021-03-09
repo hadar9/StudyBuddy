@@ -6,19 +6,23 @@ const Drive = require('../../models/Drive');
 const FileSystem = require('../../models/FileSystem');
 const mongoose = require('mongoose');
 
-//@route    POST api/filesystem/createfolder
+//@route    POST api/filesystem/createfilesystem
 //@desc     create new folder
 //@access   Private
-router.post('/createfolder', auth, async (req, res) => {
+router.post('/createfilesystem', auth, async (req, res) => {
   try {
-    const { parent, foldername, url } = req.body;
+    const { parent, foldername, url, type } = req.body;
     folder = {};
     folder.name = foldername;
     folder.url = url;
     folder.path = parent.path + `/${foldername}`;
-    folder.objtype = 'folder';
     folder.parent = parent._id;
     folder.children = [];
+    if (type === 'folder') {
+      folder.objtype = 'folder';
+    } else {
+      folder.objtype = 'file';
+    }
 
     let newfolder = new FileSystem(folder);
     await newfolder.save();

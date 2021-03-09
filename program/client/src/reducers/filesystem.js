@@ -1,6 +1,6 @@
 import {
-  CREATE_FOLDER,
-  ERROR_FOLDER,
+  CREATE_FILESYSTEM,
+  ERROR_CREATE_FILESYSTEM,
   CLEAR_FILESYSTEM,
   CHOOSE_FILESYSTEM,
 } from '../actions/types';
@@ -15,13 +15,13 @@ export default function filesystem(state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
     case CHOOSE_FILESYSTEM:
-    case CREATE_FOLDER:
+    case CREATE_FILESYSTEM:
       return {
         ...state,
         filesystem: payload,
         filesystemloading: true,
       };
-    case ERROR_FOLDER:
+    case ERROR_CREATE_FILESYSTEM:
       return {
         filesystem: [],
         filesystemloading: false,

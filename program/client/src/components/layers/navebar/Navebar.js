@@ -73,8 +73,8 @@ function Navebar({
 
   return (
     <div className='NaveBar'>
-      <Alert variant={alerts.mtype}>{alerts.msg}</Alert>
       <Navbar bg='dark' variant='dark'>
+        <Alert variant={alerts.mtype}>{alerts.msg}</Alert>
         <Link to='/home'>
           <Navbar.Brand>StudyBuddy</Navbar.Brand>
         </Link>

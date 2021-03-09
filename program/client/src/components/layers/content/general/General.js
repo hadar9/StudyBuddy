@@ -82,7 +82,7 @@ function General({ auth: { user }, getmybuddies, getdrives }) {
       </div>
       <div className='content text-center'>
         {firstload ? (
-          <h1>
+          <h1 className='firstloadtitle'>
             hello {user.username}
             <br></br>have a good learning!!!
           </h1>
