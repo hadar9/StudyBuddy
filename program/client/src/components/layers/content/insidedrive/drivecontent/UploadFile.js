@@ -16,16 +16,18 @@ export default function UploadFile() {
   return (
     <div>
       <Form className='mx-auto'>
-        <Form.Group>
-          <Form.File
-            className='mx-auto'
-            name='file'
-            onChange={(e) => fileupload(e)}
-          />
-        </Form.Group>
-        <Button variant='dark' type='submit'>
-          Upload File
-        </Button>
+        <Form.Row>
+          <Form.Group>
+            <Form.File
+              className='mx-auto'
+              name='file'
+              onChange={(e) => fileupload(e)}
+            />
+          </Form.Group>
+          <Button variant='info' className='mb-3' size='m' type='submit'>
+            Upload File
+          </Button>
+        </Form.Row>
       </Form>
     </div>
   );

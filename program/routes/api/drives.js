@@ -11,7 +11,9 @@ const User = require('../../models/User');
 router.get('/getmydrives', auth, async (req, res) => {
   try {
     const id = req.user.id;
+    console.log(id);
     const userdrives = await Drive.find({ user: id });
+
     res.json(userdrives);
   } catch (err) {
     res.status(500).send('Server Error');
@@ -21,22 +23,11 @@ router.get('/getmydrives', auth, async (req, res) => {
 router.post('/choosedrive', auth, async (req, res) => {
   try {
     const drive = req.body.drive;
-    let returndrive = {};
-    returndrive._id = drive._id;
-    returndrive.objtype = drive.objtype;
-    returndrive.user = drive.user;
-    returndrive.name = drive.name;
-    returndrive.path = drive.path;
-    returndrive.drivepermission = drive.drivepermission;
-    returndrive.subadmins = drive.subadmins;
-    returndrive.drivebuddies = drive.drivebuddies;
-    returndrive.chatgroup = drive.chatgroup;
-
     const childersas = await Promise.all(
       drive.children.map((child) => FileSystem.findOne({ _id: child }))
     );
-    returndrive.children = childersas;
-    res.json(returndrive);
+    drive.children = childersas;
+    res.json(drive);
   } catch (err) {
     res.status(500).send('Server Error');
   }

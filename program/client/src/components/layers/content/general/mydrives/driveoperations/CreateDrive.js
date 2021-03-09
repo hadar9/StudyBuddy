@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Row, Form } from 'react-bootstrap';
+import { Button, Form, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -18,20 +18,28 @@ function CreateDrive({ createdrive, getdrives }) {
   };
 
   return (
-    <div>
+    <div className='mx-auto'>
       <Form onSubmit={(e) => onsubmit(e)}>
-        <Row>
-          <Form.Control
-            type='text'
-            placeholder='Drive Name'
-            name='drivename'
-            value={drivename}
-            onChange={(e) => onchange(e)}
-          />
-          <Button variant='dark' type='submit'>
+        <Form.Row>
+          <Form.Group
+            className='mx-auto'
+            as={Col}
+            md='5'
+            controlId='formGridField'
+          >
+            <Form.Control
+              type='text'
+              placeholder='drive name'
+              name='driveername'
+              value={drivename}
+              onChange={(e) => setdrive(e.target.value)}
+              required={true}
+            />
+          </Form.Group>
+          <Button variant='info' className='mb-3' size='m' type='submit'>
             Create drive
           </Button>
-        </Row>
+        </Form.Row>
       </Form>
     </div>
   );

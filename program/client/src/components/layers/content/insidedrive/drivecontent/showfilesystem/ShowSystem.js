@@ -9,16 +9,16 @@ import PropTypes from 'prop-types';
 
 function ShowSystem({ elem, choosefilesystem }) {
   return (
-    <div className='showdrive text-center'>
+    <div className='showfilesystem text-center'>
       <Col>
-        <Button  className="filessystemimgs"variant='light' onClick={(e) => choosefilesystem(elem)}>
+        <Button variant='light' onClick={(e) => choosefilesystem(elem)}>
           {elem.objtype === 'folder' ? (
             <Image className='folderimg' src={folderimg} />
           ) : (
             <Image className='fileimg' src={fileimg} />
           )}
         </Button>
-        <p>{elem.name}</p>
+        <p style={{ color: 'black' }}>{elem.name}</p>
       </Col>
     </div>
   );

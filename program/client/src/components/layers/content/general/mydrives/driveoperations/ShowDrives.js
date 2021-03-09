@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 function ShowDrives({ drivestate: { drives, drivesloading } }) {
   const mydrives = drives.map((elem) => (
     <Row>
-      <ShowDrive key={elem.id} elem={elem} />
+      <ShowDrive key={elem._id} elem={elem} />
     </Row>
   ));
   return <div>{drivesloading ? <div>{mydrives}</div> : null}</div>;

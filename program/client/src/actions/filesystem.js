@@ -1,30 +1,23 @@
 import axios from 'axios';
+import { v4 as uuid } from 'uuid';
+import file from '../txtfile/studybuddy.json';
+import firebase from '../utils/firebase';
 import {
   CREATE_FOLDER,
   ERROR_FOLDER,
   CHOOSE_FILESYSTEM,
   CLEAR_FILESYSTEM,
 } from '../actions/types';
-/*
-export const getfolder = () => async (dispatch) => {
-  try {
-    const res = await axios.get('/api/drives/getmydrives');
-    dispatch({
-      type: GET_DRIVES,
-      payload: res.data,
-    });
-  } catch (error) {
-    dispatch({
-      type: CREATE_DRIVE_ERROR,
-      payload: {
-        msg: error.response.statusText,
-        status: error.response.status,
-      },
-    });
-  }
-};
-*/
-export const createfolder = (parent, foldername, url) => async (dispatch) => {
+
+export const createfolder = (parent, foldername) => async (dispatch) => {
+  const id = uuid();
+  const DriveRef = firebase
+    .storage()
+    .ref(parent.path + `/${foldername}`)
+    .child(id);
+  await DriveRef.put(file);
+  const folderurl = await DriveRef.getDownloadURL();
+
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -33,7 +26,7 @@ export const createfolder = (parent, foldername, url) => async (dispatch) => {
   const body = JSON.stringify({
     parent,
     foldername,
-    url,
+    folderurl,
   });
   try {
     const res = await axios.post('/api/filesystem/createfolder', body, config);

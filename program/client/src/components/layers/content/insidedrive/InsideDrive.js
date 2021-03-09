@@ -9,7 +9,7 @@ import Settings from './settings/Settings';
 import ChatGroups from '../general/chatgroups/ChatGroups';
 import RecucleBin from '../general/recyclebin/RecycleBin';
 
-function InsideDrive({ filesystems: { filesystem }, clearfilesystem }) {
+function InsideDrive({ clearfilesystem }) {
   const [key, setKey] = useState({
     components: <DriveContent />,
   });
@@ -57,21 +57,14 @@ function InsideDrive({ filesystems: { filesystem }, clearfilesystem }) {
           </Button>
         </ButtonGroup>
       </div>
-      <div className='content text-center'>
-        <h1>{filesystem.name}</h1>
-        {components}
-      </div>
+      <div className='content text-center'>{components}</div>
     </div>
   );
 }
 InsideDrive.propTypes = {
   clearfilesystem: PropTypes.func.isRequired,
-  filesystems: PropTypes.object.isRequired,
 };
-const mapStateToProps = (state) => ({
-  filesystems: state.filesystem,
-});
 
-export default connect(mapStateToProps, {
+export default connect(null, {
   clearfilesystem,
 })(InsideDrive);

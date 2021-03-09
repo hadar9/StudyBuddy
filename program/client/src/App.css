@@ -72,24 +72,6 @@
 
 /******************************************************/
 
-.home {
-  background-color: #ced4da;
-  height: 150vh;
-}
-.homemenu {
-  position: fixed;
-  top: 50%;
-}
-
-.content {
-  margin: 0 auto;
-  width: 80%;
-  border-radius: 25px;
-  background-color: white;
-  border: 3px solid #343a40;
-  color: black;
-  height: 120vh;
-}
 .modaltitle {
   position: absolute;
   right: 40%;
@@ -163,42 +145,58 @@
   right: 2%;
   top: 93%;
 }
-
+.home {
+  background-color: #ced4da;
+  height: 1300px;
+}
+/*general/insidedrive components*/
+.homemenu {
+  position: fixed;
+  top: 50%;
+}
+.content {
+  margin: 0 auto;
+  width: 80%;
+  border-radius: 25px;
+  background-color: white;
+  border: 3px solid #343a40;
+  color: black;
+  height: 1200px;
+}
 /******************************************************/
-.mydrives-title {
+.mydrives-title,
+.insidedrivecontent-title {
+  position: center;
   color: #40bed1;
   margin-top: 20px;
   text-shadow: 6px 2px 8px rgba(0, 0, 0, 0.7);
   font-style: oblique;
 }
 /******************************************************/
-.mydrives {
-  position: absolute;
-  right: 40%;
-}
-.try {
-  margin-top: 10%;
-  width: 100%;
-}
-.showdrives {
-  margin-top: 10%;
+.mydrivesopreations {
+  margin-top: 40px;
+  margin-right: 25%;
 }
 
-.driveimg {
-  width: 100px;
-  height: 100px;
+.showdrives,
+.showfilesystems {
+  margin-top: 170px;
+  margin-right: 3%;
+  max-width: 100%;
+  max-height: 950px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
-/******************************************************/
-/*filesystem*/
-.filessystemimgs {
-  width: 5%;
-  height: 20%;
+
+.showdrive,
+.showfilesystem {
+  color: white;
+  background-color: white;
+  border: none;
 }
-.folderimg {
-  width: 90%;
-  height: 50%;
-}
+.driveimg,
+.folderimg,
 .fileimg {
-  width: 90%;
-  height: 50%;
+  width: 60px;
+  height: 60px;
 }

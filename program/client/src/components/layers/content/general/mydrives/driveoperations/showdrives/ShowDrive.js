@@ -7,13 +7,14 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 function ShowDrive({ elem, choosedrive }) {
+  console.log(elem);
   return (
     <div className='showdrive text-center'>
       <Col>
         <Button variant='light' onClick={(e) => choosedrive(elem)}>
           <Image className='driveimg' src={img} />
         </Button>
-        <p>{elem.name}</p>
+        <p style={{ color: 'black' }}>{elem.name}</p>
       </Col>
     </div>
   );
