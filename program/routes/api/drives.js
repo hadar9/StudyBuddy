@@ -11,7 +11,6 @@ const User = require('../../models/User');
 router.get('/getmydrives', auth, async (req, res) => {
   try {
     const id = req.user.id;
-    console.log(id);
     const userdrives = await Drive.find({ user: id });
 
     res.json(userdrives);

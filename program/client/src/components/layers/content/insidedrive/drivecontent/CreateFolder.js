@@ -3,13 +3,13 @@ import { Button, Form, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createfilesystem } from '../../../../../actions/filesystem';
+import { createfolder } from '../../../../../actions/filesystem';
 
-function CreateFolder({ filesystems: { filesystem }, createfilesystem }) {
+function CreateFolder({ filesystem: { folder }, createfolder }) {
   const [foldername, setName] = useState('');
   const onsubmit = async (e) => {
     e.preventDefault();
-    createfilesystem(filesystem, foldername, 'folder');
+    createfolder(folder, foldername);
     setName('');
   };
   return (
@@ -40,12 +40,12 @@ function CreateFolder({ filesystems: { filesystem }, createfilesystem }) {
   );
 }
 CreateFolder.propTypes = {
-  createfilesystem: PropTypes.func.isRequired,
-  filesystems: PropTypes.object.isRequired,
+  createfolder: PropTypes.func.isRequired,
+  filesystem: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  filesystems: state.filesystem,
+  filesystem: state.filesystem,
 });
 
-export default connect(mapStateToProps, { createfilesystem })(CreateFolder);
+export default connect(mapStateToProps, { createfolder })(CreateFolder);

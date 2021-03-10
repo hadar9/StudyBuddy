@@ -3,21 +3,23 @@ import { Image, Col, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import fileimg from '../../../../../../img/file.png';
 import folderimg from '../../../../../../img/folder.png';
-import { choosefilesystem } from '../../../../../../actions/filesystem';
+import { choosefolder, choosefile } from '../../../../../../actions/filesystem';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-function ShowSystem({ elem, choosefilesystem }) {
+function ShowSystem({ elem, choosefolder, choosefile }) {
   return (
     <div className='showfilesystem text-center'>
       <Col>
-        <Button variant='light' onClick={(e) => choosefilesystem(elem)}>
-          {elem.objtype === 'folder' ? (
+        {elem.objtype === 'folder' ? (
+          <Button variant='light' onClick={(e) => choosefolder(elem)}>
             <Image className='folderimg' src={folderimg} />
-          ) : (
+          </Button>
+        ) : (
+          <Button variant='light' onClick={(e) => choosefile(elem)}>
             <Image className='fileimg' src={fileimg} />
-          )}
-        </Button>
+          </Button>
+        )}
         <p style={{ color: 'black' }}>{elem.name}</p>
       </Col>
     </div>
@@ -25,7 +27,8 @@ function ShowSystem({ elem, choosefilesystem }) {
 }
 
 ShowSystem.propTypes = {
-  choosefilesystem: PropTypes.func.isRequired,
+  choosefolder: PropTypes.func.isRequired,
+  choosefile: PropTypes.func.isRequired,
 };
 
-export default connect(null, { choosefilesystem })(ShowSystem);
+export default connect(null, { choosefolder, choosefile })(ShowSystem);

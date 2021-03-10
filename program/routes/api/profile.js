@@ -28,21 +28,16 @@ router.post('/pictuer', auth, async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  let avatar = req.body;
-
-  avatar
-    ? (avatar = avatar)
-    : (avatar =
-        'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png');
-
+  let avatar = req.body.fileurl;
+  console.log(avatar);
   try {
-    let profile = await Profile.findOne({ user: req.user.id });
     // Update
     profile = await Profile.findOneAndUpdate(
       { user: req.user.id },
-      { $set: avatar },
+      { $set: { avatar: avatar } },
       { new: true }
-    );
+    ).populate('user', 'username');
+
     return res.json(profile);
   } catch (err) {
     console.error(err);

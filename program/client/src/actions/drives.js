@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { choosefilesystem } from './filesystem';
+import { choosefolder } from './filesystem';
 import { GET_DRIVES, CREATE_DRIVE_ERROR, CLEAR_DRIVES } from './types';
 
 export const getdrives = () => async (dispatch) => {
@@ -53,7 +53,7 @@ export const choosedrive = (drive) => async (dispatch) => {
   });
   try {
     const res = await axios.post('/api/drives/choosedrive', body, config);
-    dispatch(choosefilesystem(res.data));
+    dispatch(choosefolder(res.data));
   } catch (error) {
     dispatch({
       type: CREATE_DRIVE_ERROR,

@@ -4,8 +4,10 @@ import General from './general/General';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-function Content({ filesystem: { filesystemloading } }) {
-  return <div>{filesystemloading ? <InsideDrive /> : <General />}</div>;
+function Content({ filesystem: { folderloading, fileloading } }) {
+  return (
+    <div>{folderloading || fileloading ? <InsideDrive /> : <General />}</div>
+  );
 }
 Content.propTypes = {
   filesystem: PropTypes.object.isRequired,

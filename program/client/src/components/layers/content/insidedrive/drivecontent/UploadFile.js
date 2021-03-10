@@ -3,14 +3,14 @@ import { Button, Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createfilesystem } from '../../../../../actions/filesystem';
+import { createfile } from '../../../../../actions/filesystem';
 
-function UploadFile({ filesystems: { filesystem }, createfilesystem }) {
-  const [file, setName] = useState('');
+function UploadFile({ filesystem: { folder }, createfile }) {
+  const [newfile, setName] = useState('');
 
   const onsubmit = async (e) => {
     e.preventDefault();
-    createfilesystem(filesystem, file.name, 'file', file);
+    createfile(folder, newfile.name, newfile);
     setName('');
   };
 
@@ -34,12 +34,12 @@ function UploadFile({ filesystems: { filesystem }, createfilesystem }) {
   );
 }
 UploadFile.propTypes = {
-  createfilesystem: PropTypes.func.isRequired,
-  filesystems: PropTypes.object.isRequired,
+  createfile: PropTypes.func.isRequired,
+  filesystem: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  filesystems: state.filesystem,
+  filesystem: state.filesystem,
 });
 
-export default connect(mapStateToProps, { createfilesystem })(UploadFile);
+export default connect(mapStateToProps, { createfile })(UploadFile);

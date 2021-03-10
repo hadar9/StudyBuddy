@@ -16,6 +16,7 @@ function ProfileEdit({
 }) {
   const [formData, setForm] = useState({
     avatar: profile.avatar,
+    src: profile.avatar,
     username: profile.user.username,
     firstname: profile.firstname,
     lastname: profile.lastname,
@@ -24,6 +25,7 @@ function ProfileEdit({
   });
   const {
     avatar,
+    src,
     username,
     firstname,
     lastname,
@@ -31,7 +33,9 @@ function ProfileEdit({
     studyfield,
   } = formData;
   const onchangepic = (e) => {
-    setForm({ ...formData, avatar: e.target.value });
+    let tempavatar = e.target.files[0];
+    let tempsrc = URL.createObjectURL(tempavatar);
+    setForm({ ...formData, avatar: tempavatar, src: tempsrc });
   };
 
   const onsubmitpic = (e) => {
@@ -56,7 +60,7 @@ function ProfileEdit({
   return (
     <div>
       <Col>
-        <Image className='profilepic' src={avatar} roundedCircle />
+        <Image className='profilepic' src={src} roundedCircle />
       </Col>
       <h1>{username}</h1>
       <Form className='mx-auto' onSubmit={(e) => onsubmitpic(e)}>

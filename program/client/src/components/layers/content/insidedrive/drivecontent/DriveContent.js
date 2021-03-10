@@ -6,10 +6,10 @@ import { Row } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-function DriveContent({ filesystems: { filesystem } }) {
+function DriveContent({ filesystem: { folder } }) {
   return (
     <div className='drivecontent'>
-      <h1 className='insidedrivecontent-title'>{filesystem.name}</h1>
+      <h1 className='insidedrivecontent-title'>{folder.name}</h1>
       <div className='mydrivesopreations'>
         <Row>
           <UploadFile />
@@ -23,10 +23,10 @@ function DriveContent({ filesystems: { filesystem } }) {
   );
 }
 DriveContent.propTypes = {
-  filesystems: PropTypes.object.isRequired,
+  filesystem: PropTypes.object.isRequired,
 };
 const mapStateToProps = (state) => ({
-  filesystems: state.filesystem,
+  filesystem: state.filesystem,
 });
 
 export default connect(mapStateToProps, {})(DriveContent);
