@@ -47,6 +47,7 @@ router.post('/createdrive', auth, async (req, res) => {
     drive.drivebuddies = [];
     drive.chatgroup = [];
     drive.children = [];
+    drive.generalmesseage = '';
 
     let newdrive = new Drive(drive);
     await newdrive.save();

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createfile } from '../../../../../actions/filesystem';
 
-function UploadFile({ filesystem: { folder }, createfile }) {
+function UploadFile({ folder, createfile }) {
   const [newfile, setName] = useState('');
 
   const onsubmit = async (e) => {
@@ -35,11 +35,6 @@ function UploadFile({ filesystem: { folder }, createfile }) {
 }
 UploadFile.propTypes = {
   createfile: PropTypes.func.isRequired,
-  filesystem: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  filesystem: state.filesystem,
-});
-
-export default connect(mapStateToProps, { createfile })(UploadFile);
+export default connect(null, { createfile })(UploadFile);

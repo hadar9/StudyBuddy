@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createfolder } from '../../../../../actions/filesystem';
 
-function CreateFolder({ filesystem: { folder }, createfolder }) {
+function CreateFolder({ folder, createfolder }) {
   const [foldername, setName] = useState('');
   const onsubmit = async (e) => {
     e.preventDefault();
@@ -41,11 +41,6 @@ function CreateFolder({ filesystem: { folder }, createfolder }) {
 }
 CreateFolder.propTypes = {
   createfolder: PropTypes.func.isRequired,
-  filesystem: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  filesystem: state.filesystem,
-});
-
-export default connect(mapStateToProps, { createfolder })(CreateFolder);
+export default connect(null, { createfolder })(CreateFolder);

@@ -22,6 +22,9 @@ const FileSystemSchema = new mongoose.Schema({
       ref: 'filesystem',
     },
   ],
+  generalmesseage: {
+    type: String,
+  },
   date: {
     type: Date,
     default: Date.now,

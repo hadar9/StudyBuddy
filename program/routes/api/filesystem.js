@@ -16,10 +16,10 @@ router.post('/createfolder', auth, async (req, res) => {
     folder.name = foldername;
     folder.url = folderurl;
     folder.path = parent.path + `/${foldername}`;
-
     folder.parent = parent._id;
     folder.children = [];
     folder.objtype = 'folder';
+    folder.generalmesseage = '';
 
     let newfolder = new FileSystem(folder);
 
@@ -57,6 +57,7 @@ router.post('/createfile', auth, async (req, res) => {
     file.parent = parent._id;
     file.children = [];
     file.objtype = 'file';
+    file.generalmesseage = '';
 
     let newfile = new FileSystem(file);
     await newfile.save();
