@@ -9,6 +9,9 @@ const FileSystemSchema = new mongoose.Schema({
   objtype: {
     type: String,
   },
+  path: {
+    type: String,
+  },
   parent: {
     type: mongoose.Schema.Types.ObjectId, //Foreign key
     enum: ['filesystem', 'drive'],

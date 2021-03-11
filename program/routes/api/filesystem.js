@@ -10,16 +10,19 @@ const FileSystem = require('../../models/FileSystem');
 //@access   Private
 router.post('/createfolder', auth, async (req, res) => {
   try {
-    const { parent, foldername, url } = req.body;
+    const { parent, foldername, folderurl } = req.body;
+
     folder = {};
     folder.name = foldername;
-    folder.url = url;
+    folder.url = folderurl;
     folder.path = parent.path + `/${foldername}`;
+
     folder.parent = parent._id;
     folder.children = [];
     folder.objtype = 'folder';
 
     let newfolder = new FileSystem(folder);
+
     await newfolder.save();
     let parentupdated;
     if (parent.objtype === 'drive') {
@@ -34,7 +37,6 @@ router.post('/createfolder', auth, async (req, res) => {
       );
     }
     parentupdated.save();
-    console.log(newfolder);
 
     res.status(200).json(newfolder);
   } catch (err) {
