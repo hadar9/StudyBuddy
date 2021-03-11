@@ -68,6 +68,7 @@ router.post('/createfile', auth, async (req, res) => {
         { $push: { children: newfile._id } }
       );
     } else {
+      console.log('om');
       parentupdated = await FileSystem.findOneAndUpdate(
         { _id: parent._id },
         { $push: { children: newfile._id } }
@@ -77,6 +78,19 @@ router.post('/createfile', auth, async (req, res) => {
     parentupdated.save();
 
     res.status(200).json(newfile);
+  } catch (err) {
+    res.status(500).send('Server Error');
+  }
+});
+
+router.post('/choosefolder', auth, async (req, res) => {
+  try {
+    const folder = req.body.folder;
+    const childersas = await Promise.all(
+      folder.children.map((child) => FileSystem.findOne({ _id: child }))
+    );
+    folder.children = childersas;
+    res.json(folder);
   } catch (err) {
     res.status(500).send('Server Error');
   }

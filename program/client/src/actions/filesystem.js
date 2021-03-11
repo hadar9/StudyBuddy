@@ -86,13 +86,45 @@ export const createfile = (parent, filename, file) => async (dispatch) => {
     });
   }
 };
+
 export const choosefolder = (folder) => async (dispatch) => {
-  dispatch({
-    type: CHOOSE_FOLDER,
-    payload: folder,
-  });
-  dispatch(clearfile());
+  if (folder.objtype === 'drive') {
+    dispatch({
+      type: CHOOSE_FOLDER,
+      payload: folder,
+    });
+  } else {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({
+      folder,
+    });
+    try {
+      const res = await axios.post(
+        '/api/filesystem/choosefolder',
+        body,
+        config
+      );
+      dispatch({
+        type: CHOOSE_FOLDER,
+        payload: res.data,
+      });
+      dispatch(clearfile());
+    } catch (error) {
+      dispatch({
+        type: ERROR_FOLDER,
+        payload: {
+          msg: error.response.statusText,
+          status: error.response.status,
+        },
+      });
+    }
+  }
 };
+
 export const choosefile = (file) => async (dispatch) => {
   dispatch({
     type: CHOOSE_FILE,
