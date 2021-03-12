@@ -55,7 +55,6 @@ router.post('/createfile', auth, async (req, res) => {
     file.url = fileurl;
     file.path = parent.path + `/${filename}`;
     file.parent = parent._id;
-    file.children = [];
     file.objtype = 'file';
 
     let newfile = new FileSystem(file);
@@ -68,7 +67,6 @@ router.post('/createfile', auth, async (req, res) => {
         { $push: { children: newfile._id } }
       );
     } else {
-      console.log('om');
       parentupdated = await FileSystem.findOneAndUpdate(
         { _id: parent._id },
         { $push: { children: newfile._id } }
