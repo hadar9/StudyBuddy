@@ -33,4 +33,6 @@ export const ERROR_FILE = 'ERROR_FILE';
 export const CHOOSE_FOLDER = 'CHOOSE_FOLDER';
 export const CHOOSE_FILE = 'CHOOSE_FILE';
 export const CLEAR_FILE = 'CLEAR_FILE';
+export const EDIT_MESSAGE = 'EDIT_MESSAGE';
+export const ERROR_MESSAGE = 'ERROR_MESSAGE';
 export const CLEAR_FILESYSTEM = 'CLEAR_FILESYSTEM';

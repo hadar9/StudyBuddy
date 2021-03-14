@@ -20,6 +20,7 @@ router.post('/createfolder', auth, async (req, res) => {
     folder.parent = parent._id;
     folder.children = [];
     folder.objtype = 'folder';
+    folder.message = '';
 
     let newfolder = new FileSystem(folder);
 
@@ -93,4 +94,26 @@ router.post('/choosefolder', auth, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+router.post('/editmessage', auth, async (req, res) => {
+  try {
+    const { folder, message } = req.body;
+
+    if (folder.objtype === 'drive') {
+      updatedfolder = await Drive.findOneAndUpdate(
+        { _id: folder._id },
+        { $set: { message: message } }
+      );
+    } else {
+      updatedfolder = await FileSystem.findOneAndUpdate(
+        { _id: folder._id },
+        { $set: { message: message } }
+      );
+    }
+
+    res.json(updatedfolder);
+  } catch (err) {
+    res.status(500).send('Server Error');
+  }
+});
+
 module.exports = router;

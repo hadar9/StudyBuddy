@@ -1,3 +1,4 @@
+import { Form } from 'react-bootstrap';
 import {
   CREATE_FOLDER,
   ERROR_FOLDER,
@@ -6,13 +7,15 @@ import {
   CHOOSE_FOLDER,
   CHOOSE_FILE,
   CLEAR_FILE,
+  EDIT_MESSAGE,
+  ERROR_MESSAGE,
   CLEAR_FILESYSTEM,
 } from '../actions/types';
 
 const initialState = {
-  folder: [],
+  folder: {},
   folderloading: false,
-  file: [],
+  file: {},
   fileloading: false,
   error: {},
 };
@@ -27,7 +30,13 @@ export default function filesystem(state = initialState, action) {
         folder: payload,
         folderloading: true,
       };
+    case EDIT_MESSAGE:
+      return {
+        ...state,
+        folder: { ...state.folder, message: payload },
+      };
     case ERROR_FOLDER:
+    case ERROR_MESSAGE:
     case ERROR_FILE:
       return {
         folder: [],

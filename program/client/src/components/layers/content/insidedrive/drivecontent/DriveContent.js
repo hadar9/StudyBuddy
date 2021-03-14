@@ -5,11 +5,13 @@ import ShowFileSystem from './ShowFileSystem';
 import { Row } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import GeneralMessage from './GeneralMessage';
 
 function DriveContent({ filesystem: { folder } }) {
   return (
     <div className='drivecontent'>
       <h1 className='insidedrivecontent-title'>{folder.name}</h1>
+      <GeneralMessage />
       <div className='mydrivesopreations'>
         <Row>
           <UploadFile />

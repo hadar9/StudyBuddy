@@ -10,6 +10,8 @@ import {
   CHOOSE_FOLDER,
   CHOOSE_FILE,
   CLEAR_FILE,
+  EDIT_MESSAGE,
+  ERROR_MESSAGE,
   CLEAR_FILESYSTEM,
 } from '../actions/types';
 
@@ -135,6 +137,32 @@ export const clearfile = () => async (dispatch) => {
   dispatch({
     type: CLEAR_FILE,
   });
+};
+export const editmessage = (folder, message) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const body = JSON.stringify({
+    folder,
+    message,
+  });
+  try {
+    await axios.post('/api/filesystem/editmessage', body, config);
+    dispatch({
+      type: EDIT_MESSAGE,
+      payload: message,
+    });
+  } catch (error) {
+    dispatch({
+      type: ERROR_MESSAGE,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+  }
 };
 
 export const clearfilesystem = () => async (dispatch) => {

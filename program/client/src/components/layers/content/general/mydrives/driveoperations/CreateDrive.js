@@ -8,10 +8,6 @@ import { createdrive, getdrives } from '../../../../../../actions/drives';
 function CreateDrive({ createdrive, getdrives }) {
   const [drivename, setdrive] = useState('');
 
-  const onchange = (e) => {
-    setdrive(e.target.value);
-  };
-
   const onsubmit = (e) => {
     e.preventDefault();
     createdrive(drivename);
