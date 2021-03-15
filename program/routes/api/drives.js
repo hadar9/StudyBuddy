@@ -18,6 +18,20 @@ router.get('/getmydrives', auth, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+/*
+router.post('/searchpubdrives', async (req, res) => {
+  try {
+    const drivename = req.body.drivename;
+    let drives = await Drive.find({
+      name: new RegExp('^' + drivename, 'i'),
+      drivepermission: 'public',
+    });
+
+    res.json(drives);
+  } catch (err) {
+    res.status(500).send('Server Error');
+  }
+});*/
 
 router.post('/choosedrive', auth, async (req, res) => {
   try {
