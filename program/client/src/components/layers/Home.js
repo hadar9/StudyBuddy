@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navebar from './navebar/Navebar';
 import Content from './content/Content';
 import Chat from './chat/Chat';
 import { Modal, Button } from 'react-bootstrap';
+import { getmybuddies } from '../../actions/buddies';
 import 'bootstrap/dist/css/bootstrap.css';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-function Home() {
+function Home({ getmybuddies }) {
   const [chatedit, setchat] = useState(false);
+  getmybuddies('mybuddy');
   return (
     <div className='home'>
       <Navebar />
@@ -38,4 +42,8 @@ function Home() {
   );
 }
 
-export default Home;
+Home.propTypes = {
+  getmybuddies: PropTypes.func.isRequired,
+};
+
+export default connect(null, { getmybuddies })(Home);

@@ -247,26 +247,22 @@
 }
 .contactmessages {
   height: 90%;
-  overflow-y: scroll;
+  border-top: 3px solid rgb(12, 12, 12);
+  overflow-y: auto;
   overflow-x: hidden;
 }
-::-webkit-scrollbar {
-  width: 15px;
-}
-::-webkit-scrollbar-track {
-  background: #292b2c;
-}
-::-webkit-scrollbar-thumb {
-  background-image: linear-gradient(#17a2b8, rgb(9, 199, 247));
-  border-radius: 15px;
-}
 .contact {
-  margin-bottom: 2px;
+  height: 55px;
   border-bottom: 1px solid rgb(12, 12, 12);
 }
+.contactinfo {
+  float: left;
+  padding-right: 2px;
+}
 .contactimg {
-  width: 15%;
-  height: 15%;
+  margin-left: 20px;
+  width: 50px;
+  height: 50px;
 }
 /********************************************************/
 /*currentchat*/
