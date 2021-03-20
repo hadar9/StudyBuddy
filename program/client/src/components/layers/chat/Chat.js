@@ -1,14 +1,12 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.css';
-function Chat() {
+import SideBar from './sidebar/SideBar';
+import CurrentChat from './currentchat/CurrentChat';
+
+export default function Chat() {
   return (
-    <div className='chat'>
-      <Button className=' w-100' variant='info'>
-        Chat
-      </Button>
+    <div className='chatc'>
+      <SideBar />
+      <CurrentChat />
     </div>
   );
 }
-
-export default Chat;
