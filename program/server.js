@@ -1,7 +1,11 @@
 const express = require('express');
+const http = require('http');
+const socketio = require('socket.io');
 const connectDB = require('./config/db');
 
 const app = express();
+const server = http.createServer(app);
+const io = socketio(server);
 
 //Connect to DB
 connectDB();
@@ -17,6 +21,10 @@ app.use('/api/buddies', require('./routes/api/buddies'));
 app.use('/api/drives', require('./routes/api/drives'));
 app.use('/api/filesystem', require('./routes/api/filesystem'));
 
+io.on('connection', (socket) => {
+  socket.on('send message', (body) => {});
+});
+
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => console.log(`Server started on PORT ${PORT}...`));
+server.listen(PORT, () => console.log(`Server started on PORT ${PORT}...`));
