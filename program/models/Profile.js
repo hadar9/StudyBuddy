@@ -38,6 +38,12 @@ const ProfileSchema = new mongoose.Schema({
       },
     },
   ],
+  chat: [
+    {
+      type: mongoose.Schema.Types.ObjectId, //Foreign key
+      ref: 'chat',
+    },
+  ],
   date: {
     type: Date,
     default: Date.now,

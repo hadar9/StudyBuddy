@@ -3,6 +3,7 @@ const router = express.Router();
 const auth = require('../../middleware/auth');
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
+const Chat = require('../../models/Chat');
 const { check, validationResult } = require('express-validator');
 
 //@route    Post api/buddies/profiels
@@ -124,14 +125,15 @@ router.post('/addbuddy', auth, async (req, res) => {
       }
     }
     if (hasbuddy === -1) {
+      chat = new Chat([]);
       let userprofile = await Profile.findOneAndUpdate(
         { user: id.id },
-        { $push: { buddies: userconfirmequest } }
+        { $push: { buddies: userconfirmequest, chat: chat._id } }
       );
       //get the current user
       let myprofile = await Profile.findOneAndUpdate(
         { user: req.user.id },
-        { $push: { buddies: mybuddyrequest } }
+        { $push: { buddies: mybuddyrequest, chat: chat._id } }
       );
       myprofile.save();
       userprofile.save();
@@ -151,16 +153,18 @@ router.post('/confirmbuddy', auth, async (req, res) => {
   try {
     //find  the user to confirm
     id = req.body;
-
+    chat = new Chat([]);
     //get the current user
     let myprofile = await Profile.findOneAndUpdate(
       { user: req.user.id, 'buddies.user': id.id },
       { $set: { 'buddies.$.status': 'mybuddy' } }
     );
+    myprofile.$push({ chat: chat._id });
     let userprofile = await Profile.findOneAndUpdate(
       { user: id.id, 'buddies.user': req.user.id },
       { $set: { 'buddies.$.status': 'mybuddy' } }
     );
+    userprofile.$push({ chat: chat._id });
 
     myprofile.save();
     userprofile.save();

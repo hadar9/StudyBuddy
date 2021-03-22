@@ -1,14 +1,19 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.css';
-function Chat() {
+import SideBar from './sidebar/SideBar';
+import CurrentChat from './currentchat/CurrentChat';
+import { io } from 'socket.io-client';
+
+const socket = io.connect('http://localhost:5000');
+
+socket.on('sendmessage', (data) => {
+  console.log(data);
+});
+
+export default function Chat() {
   return (
-    <div className='chat'>
-      <Button className=' w-100' variant='info'>
-        Chat
-      </Button>
+    <div className='chatc'>
+      <SideBar />
+      <CurrentChat />
     </div>
   );
 }
-
-export default Chat;
