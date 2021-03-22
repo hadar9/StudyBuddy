@@ -4,6 +4,11 @@ const router = express.Router();
 const auth = require('../../middleware/auth');
 const Drive = require('../../models/Drive');
 const FileSystem = require('../../models/FileSystem');
+const { MongoClient } = require("mongodb");
+const config = require("config");
+const { body } = require('express-validator');
+const uri = config.get("mongoURI");
+
 
 //@route    POST api/filesystem/createfolder
 //@desc     create new folder
@@ -41,6 +46,52 @@ router.post('/createfolder', auth, async (req, res) => {
 
     res.status(200).json(newfolder);
   } catch (err) {
+    res.status(500).send('Server Error');
+  }
+});
+
+
+//@route    POST api/filesystem/deletefile
+//@desc     Delete a file from filesystem
+//@access   Private
+
+router.post('/deletefile', auth, async (req, res) => {
+  // Delete from parent
+  const client = new MongoClient(uri);
+  try {
+    await client.connect();
+    const database = client.db("DEFAULT");
+    const fs = database.collection("filesystems");
+    const drives = database.collection("drives");
+    file_url = req.body.file.url;
+    const file = await fs.findOne({url : file_url })
+    const in_fs = await fs.findOne({_id : file.parent})
+    if(in_fs)
+    {
+      await fs.findOneAndUpdate(
+        {_id : file.parent}, 
+        {$pull : {children : file._id}},
+        )
+    }
+    else
+    {
+      await drives.findOneAndUpdate(
+        {_id : file.parent}, 
+        {$pull : {children : file._id}},
+        )
+    }
+    const result = await fs.deleteOne({url : file_url});
+    await client.close();
+    if (result.deletedCount === 1) 
+    {
+      res.status(200).send("File Deleted");
+    } else {
+      res.status(200).send("No documents matched the query. Deleted 0 documents.");
+    }
+    
+  }
+  catch (err)
+  {
     res.status(500).send('Server Error');
   }
 });

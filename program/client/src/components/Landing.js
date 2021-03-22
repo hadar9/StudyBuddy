@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar } from 'react-bootstrap';
 
-function Landing() {
+function Landing(props) {
+  console.log("HERE: ", props);
   return (
     <section className='landing'>
       <div className='NaveBar'>

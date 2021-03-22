@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 function ShowDrive({ elem, choosedrive }) {
-  console.log(elem);
   return (
     <div className='showdrive text-center'>
       <Col>

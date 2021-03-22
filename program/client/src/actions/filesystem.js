@@ -3,6 +3,8 @@ import { v4 as uuid } from 'uuid';
 import tempfolder from '../txtfile/studybuddy.json';
 import firebase from '../utils/firebase';
 import {
+  DELETE_FOLDER,
+  DELETE_FILE,
   CREATE_FOLDER,
   ERROR_FOLDER,
   CREATE_FILE,
@@ -126,6 +128,79 @@ export const choosefolder = (folder) => async (dispatch) => {
     }
   }
 };
+
+export const deletefolder = (folder) => async (dispatch) =>
+{
+  const body = JSON.stringify({
+    folder,
+  });
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  try {
+    console.log(body)
+    for (let child in  folder.children)
+    {
+      if(child.objtype === "file")
+      {
+        deletefile(child);
+      }
+      else if(child.objtype === "folder")
+      {
+        deletefolder(child);
+      }
+      else{
+        // need to return unexpected error - might be objtype of Drive
+      }
+    }
+    await axios.post('/api/filesystem/deletefile', body, config);
+    dispatch({
+      type: DELETE_FOLDER,
+      payload: folder,
+    });
+  }
+  catch (error) {
+    dispatch({
+      type: ERROR_MESSAGE,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+  }
+} 
+
+export const deletefile = (file) => async (dispatch) => 
+{
+  
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const body = JSON.stringify({
+    file,
+  });
+  try {
+    const fileRef = firebase.refFromURL(body.file.url); 
+    await fileRef.delete();
+    await axios.post('/api/filesystem/deletefile', body, config);
+    dispatch({
+      type: DELETE_FILE,
+      payload: file,
+    });
+  } catch (error) {
+    dispatch({
+      type: ERROR_MESSAGE,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+  }
+}
 
 export const choosefile = (file) => async (dispatch) => {
   dispatch({
