@@ -12,7 +12,6 @@ router.get('/getmydrives', auth, async (req, res) => {
   try {
     const id = req.user.id;
     const userdrives = await Drive.find({ user: id });
-
     res.json(userdrives);
   } catch (err) {
     res.status(500).send('Server Error');

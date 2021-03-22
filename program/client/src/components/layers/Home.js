@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 function Home({ getmybuddies }) {
   const [chatedit, setchat] = useState(false);
   getmybuddies('mybuddy');
+
   return (
     <div className='home'>
       <Navebar />

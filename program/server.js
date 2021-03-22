@@ -5,7 +5,11 @@ const connectDB = require('./config/db');
 
 const app = express();
 const server = http.createServer(app);
-const io = socketio(server);
+const io = socketio(server, {
+  cors: {
+    origin: '*',
+  },
+});
 
 //Connect to DB
 connectDB();
@@ -22,7 +26,7 @@ app.use('/api/drives', require('./routes/api/drives'));
 app.use('/api/filesystem', require('./routes/api/filesystem'));
 
 io.on('connection', (socket) => {
-  socket.on('send message', (body) => {});
+  socket.emit('sendmessage', 'hi');
 });
 
 const PORT = process.env.PORT || 5000;

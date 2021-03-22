@@ -5,7 +5,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 function SideBar({ buddiess: { mybuddies, mybuddieslsloading } }) {
-  const contacts = mybuddies.map((contact) => <Contact contact={contact} />);
+  const contacts = mybuddies.map((contact, index) => (
+    <Contact key={index} contact={contact} />
+  ));
 
   return (
     <div className='sidebar'>
