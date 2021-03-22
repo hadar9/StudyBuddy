@@ -163,7 +163,8 @@
 /******************************************************/
 .mydrives-title,
 .insidedrivecontent-title,
-.firstloadtitle {
+.firstloadtitle,
+.settings-title {
   position: center;
   color: #40bed1;
   margin-top: 20px;
