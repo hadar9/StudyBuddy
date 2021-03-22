@@ -36,3 +36,6 @@ export const CLEAR_FILE = 'CLEAR_FILE';
 export const EDIT_MESSAGE = 'EDIT_MESSAGE';
 export const ERROR_MESSAGE = 'ERROR_MESSAGE';
 export const CLEAR_FILESYSTEM = 'CLEAR_FILESYSTEM';
+export const DELETE_FILE = "DELETE_FILE";
+export const DELETE_FOLDER = "DELETE_FOLDER";
+
