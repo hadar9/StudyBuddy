@@ -10,7 +10,7 @@ function ShowFileSystem({ filesystem: { folder, folderloading } }) {
   if (folder.children.length > 0) {
     myfilesystem = folder.children.map((elem) => (
       <Row>
-        <ShowSystem key={elem.id} elem={elem} />
+        <ShowSystem key={elem._id} elem={elem} />
       </Row>
     ));
   }
