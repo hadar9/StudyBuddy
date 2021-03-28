@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-import { addbuddy, getprofiels } from '../../../../../../../actions/buddies';
+import { addbuddy } from '../../../../../../../actions/buddies';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
+import { searchbuddies } from '../../../../../../../actions/search';
 function Add({
   addbuddy,
-  getprofiels,
+  searchbuddies,
   buddies: { searchusername },
   selecteduser,
 }) {
@@ -16,7 +16,7 @@ function Add({
   const handleAddBuddy = (e) => {
     addbuddy(e.target.value);
     setclick(true);
-    getprofiels(searchusername);
+    searchbuddies(searchusername);
   };
   return (
     <div>
@@ -38,7 +38,7 @@ function Add({
 Add.propTypes = {
   buddiess: PropTypes.object.isRequired,
   addbuddy: PropTypes.func.isRequired,
-  getprofiels: PropTypes.func.isRequired,
+  searchbuddies: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   buddies: state.buddies,
@@ -46,5 +46,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   addbuddy,
-  getprofiels,
+  searchbuddies,
 })(Add);

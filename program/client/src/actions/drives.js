@@ -8,6 +8,23 @@ import {
   CHOOSE_DRIVE,
 } from './types';
 
+export const joindrive = (drive) => async (dispatch) => {
+  try {
+    const res = await axios.post('/api/drives/joindrive');
+    dispatch({
+      type: GET_DRIVES,
+      payload: res.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: DRIVE_ERROR,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+  }
+};
 export const getdrives = () => async (dispatch) => {
   try {
     const res = await axios.get('/api/drives/getmydrives');

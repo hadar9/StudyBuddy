@@ -2,8 +2,6 @@ import {
   GET_USER_PROFILE,
   CLOSE_USER_PROFILE,
   CLEAR_BUDDY,
-  GET_PROFILES_WITH_USERNAME,
-  CLOSE_PROFILES_WITH_USERNAME,
   GET_MYBUDDIES,
   CLOSE_MYBUDDIES,
   ADD_BUDDY,
@@ -13,9 +11,6 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  searchbuddies: [],
-  searchloading: false,
-  searchusername: '',
   mybuddies: [],
   mybuddieslsloading: false,
   userprofile: null,
@@ -32,20 +27,6 @@ export default function buddies(state = initialState, action) {
         userprofile: payload,
         userloading: true,
       };
-    case GET_PROFILES_WITH_USERNAME:
-      return {
-        ...state,
-        searchloading: true,
-        searchbuddies: payload.profiels,
-        searchusername: payload.username,
-      };
-    case CLOSE_PROFILES_WITH_USERNAME:
-      return {
-        ...state,
-        searchloading: false,
-        searchbuddies: [],
-        searchusername: '',
-      };
     case CLOSE_USER_PROFILE:
     case ADD_BUDDY:
     case CONFIRM_BUDDY:
@@ -58,9 +39,6 @@ export default function buddies(state = initialState, action) {
     case BUDDIES_ERROR:
     case CLEAR_BUDDY:
       return {
-        searchbuddies: [],
-        searchloading: false,
-        searchusername: '',
         mybuddies: [],
         mybuddieslsloading: false,
         userprofile: null,

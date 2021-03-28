@@ -4,8 +4,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import {
   deletebuddy,
   getmybuddies,
-  getprofiels,
 } from '../../../../../../../actions/buddies';
+import { searchbuddies } from '../../../../../../../actions/search';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -23,7 +23,7 @@ function DeleteBud({
     if (type === 'Tabs') {
       getmybuddies('mybuddy');
     } else {
-      getprofiels(searchusername);
+      searchbuddies(searchusername);
       setclick(true);
     }
   };
@@ -47,7 +47,7 @@ function DeleteBud({
 DeleteBud.propTypes = {
   deletebuddy: PropTypes.func.isRequired,
   getmybuddies: PropTypes.func.isRequired,
-  getprofiels: PropTypes.func.isRequired,
+  searchbuddies: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   buddies: state.buddies,
@@ -55,5 +55,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   deletebuddy,
   getmybuddies,
-  getprofiels,
+  searchbuddies,
 })(DeleteBud);

@@ -12,11 +12,13 @@ import Show from '../../content/general/buddies/tabs/opertaions/Show';
 import NameAvatar from '../../content/general/buddies/tabs/NameAvatar';
 
 function SearchBuddies({
-  buddiess: { userloading, searchbuddies, searchloading },
+  search: { searchres, searchloading },
+  buddies: { userloading },
 }) {
   let pros;
   if (searchloading) {
-    pros = searchbuddies.map((pro, index) => {
+    console.log(searchloading);
+    pros = searchres.map((pro, index) => {
       if (pro.status === 'nothing') {
         return (
           <Fragment key={index}>
@@ -103,9 +105,11 @@ function SearchBuddies({
 }
 
 SearchBuddies.propTypes = {
-  buddiess: PropTypes.object.isRequired,
+  search: PropTypes.object.isRequired,
+  buddies: PropTypes.object.isRequired,
 };
 const mapStateToProps = (state) => ({
-  buddiess: state.buddies,
+  search: state.search,
+  buddies: state.buddies,
 });
 export default connect(mapStateToProps, {})(SearchBuddies);

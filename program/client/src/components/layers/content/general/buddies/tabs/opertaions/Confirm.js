@@ -4,15 +4,15 @@ import 'bootstrap/dist/css/bootstrap.css';
 import {
   confirmbuddy,
   getmybuddies,
-  getprofiels,
 } from '../../../../../../../actions/buddies';
+import { searchbuddies } from '../../../../../../../actions/search';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 function Confirm({
   confirmbuddy,
   getmybuddies,
-  getprofiels,
+  searchbuddies,
   buddies: { searchusername },
   type,
   selecteduser,
@@ -25,7 +25,7 @@ function Confirm({
     if (type === 'Tabs') {
       getmybuddies('request');
     } else {
-      getprofiels(searchusername);
+      searchbuddies(searchusername);
       setclick(true);
     }
   };
@@ -49,7 +49,7 @@ function Confirm({
 Confirm.propTypes = {
   confirmbuddy: PropTypes.func.isRequired,
   getmybuddies: PropTypes.func.isRequired,
-  getprofiels: PropTypes.func.isRequired,
+  searchbuddies: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   buddies: state.buddies,
@@ -58,5 +58,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   confirmbuddy,
   getmybuddies,
-  getprofiels,
+  searchbuddies,
 })(Confirm);

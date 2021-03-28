@@ -6,11 +6,11 @@ const User = require('../../models/User');
 const Chat = require('../../models/Chat');
 const { check, validationResult } = require('express-validator');
 
-//@route    Post api/buddies/profiels
+//@route    Post api/buddies/buddies
 //@desc     show(from th search) all profiles with the username
 //@access   Public
 
-router.post('/profiels', auth, async (req, res) => {
+router.post('/buddies', auth, async (req, res) => {
   try {
     username = req.body;
     let myprofile = await Profile.findOne({ user: req.user.id });
@@ -57,11 +57,11 @@ router.post('/profiels', auth, async (req, res) => {
   }
 });
 
-//@route    POST api/buddies/userprofile
+//@route    POST api/buddies/buddyprofile
 //@desc     Get current user profile
 //@access   Private
 
-router.post('/userprofile', auth, async (req, res) => {
+router.post('/buddyprofile', auth, async (req, res) => {
   try {
     id = req.body;
     let profile = await Profile.findOne({ user: id.id }).populate(

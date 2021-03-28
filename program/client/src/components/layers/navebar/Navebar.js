@@ -13,21 +13,27 @@ import { Link } from 'react-router-dom';
 import { logout } from '../../../actions/auth';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getprofiels, closeprofiles } from '../../../actions/buddies';
+import {
+  searchdrives,
+  searchbuddies,
+  clearsearch,
+} from '../../../actions/search';
 import { getmyprofile } from '../../../actions/profile';
 import Profile from './profile/Profile';
 import SearchBuddies from './search/SearchBuddies';
 import React, { useState } from 'react';
 import Select from 'react-select';
 import { setalert } from '../../../actions/alert';
+import SearchDrives from './search/searchdrives/SearchDrives';
 
 function Navebar({
   logout,
   getmyprofile,
-  getprofiels,
-  closeprofiles,
+  searchbuddies,
+  clearsearch,
+  searchdrives,
   alerts,
-  buddies: { searchloading },
+  search: { searchloading },
   profile: { loading },
 }) {
   const [formData, setForm] = useState({
@@ -35,14 +41,14 @@ function Navebar({
     byvalue: 'username',
     bylabel: 'user name',
     showmyprofile: false,
-    showprofiles: false,
+    showsearch: false,
   });
 
   const options = [
     { value: 'username', label: 'user name' },
     { value: 'drivename', label: 'drive name' },
   ];
-  const { search, byvalue, bylabel, showmyprofile, showprofiles } = formData;
+  const { search, byvalue, bylabel, showmyprofile, showsearch } = formData;
 
   const bychange = (selected) => {
     setForm({ ...formData, byvalue: selected.value, bylabel: selected.label });
@@ -52,23 +58,23 @@ function Navebar({
   const onsubmit = (e) => {
     e.preventDefault();
     if (byvalue === 'username') {
-      getprofiels(search);
-      setForm({
-        showprofiles: true,
-        search: '',
-      });
+      searchbuddies(search);
     } else {
-      //add drive search
+      searchdrives(search);
     }
+    setForm({
+      showsearch: true,
+      search: '',
+    });
   };
   const handleCloseMyProfile = () => setForm({ showmyprofile: false });
   const handleShowMyProfile = () => {
     getmyprofile();
     setForm({ showmyprofile: true });
   };
-  const handleCloseProfiels = () => {
-    setForm({ showprofiles: false });
-    closeprofiles();
+  const handleCloseSearch = () => {
+    setForm({ showsearch: false });
+    clearsearch();
   };
 
   return (
@@ -100,12 +106,12 @@ function Navebar({
             Search
           </Button>
         </Form>
-        {showprofiles && searchloading === false ? (
+        {showsearch && searchloading === false ? (
           <Spinner animation='border' variant='info' />
         ) : null}
         <Modal
-          show={showprofiles && searchloading}
-          onHide={handleCloseProfiels}
+          show={showsearch && searchloading}
+          onHide={handleCloseSearch}
           backdrop='static'
           keyboard={false}
           contentClassName='custom-modal-style'
@@ -114,7 +120,7 @@ function Navebar({
             <Modal.Title className='modaltitle'>Search Results:</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <SearchBuddies />
+            {byvalue === 'username' ? <SearchBuddies /> : <SearchDrives />}
           </Modal.Body>
         </Modal>
 
@@ -126,7 +132,6 @@ function Navebar({
             log out
           </Nav.Link>
         </Nav>
-
         <Modal
           show={showmyprofile && loading}
           onHide={handleCloseMyProfile}
@@ -149,23 +154,26 @@ function Navebar({
 Navebar.propTypes = {
   logout: PropTypes.func.isRequired,
   getmyprofile: PropTypes.func.isRequired,
-  getprofiels: PropTypes.func.isRequired,
-  closeprofiles: PropTypes.func.isRequired,
+  searchbuddies: PropTypes.func.isRequired,
+  clearsearch: PropTypes.func.isRequired,
+  searchdrives: PropTypes.func.isRequired,
   setalert: PropTypes.func.isRequired,
   alerts: PropTypes.object.isRequired,
   buddies: PropTypes.object.isRequired,
+  drive: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   alerts: state.alert,
-  buddies: state.buddies,
+  search: state.search,
   profile: state.profile,
 });
 export default connect(mapStateToProps, {
   logout,
   getmyprofile,
-  getprofiels,
+  searchbuddies,
   setalert,
-  closeprofiles,
+  clearsearch,
+  searchdrives,
 })(Navebar);
