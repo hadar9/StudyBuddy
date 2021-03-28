@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Figure, Row } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import OtherProfile from '../../content/general/buddies/tabs/OtherProfile';
 import Add from '../../content/general/buddies/tabs/opertaions/Add';
@@ -9,6 +9,7 @@ import Confirm from '../../content/general/buddies/tabs/opertaions/Confirm';
 import DeleteBud from '../../content/general/buddies/tabs/opertaions/DeleteBud';
 import DeleteReq from '../../content/general/buddies/tabs/opertaions/DeleteReq';
 import Show from '../../content/general/buddies/tabs/opertaions/Show';
+import NameAvatar from '../../content/general/buddies/tabs/NameAvatar';
 
 function SearchBuddies({
   buddiess: { userloading, searchbuddies, searchloading },
@@ -23,16 +24,10 @@ function SearchBuddies({
               <Row>
                 <Add selecteduser={pro.profile.user._id} />
                 <Show selecteduser={pro.profile.user._id} />
-                <h4 className='mt-2'>{pro.profile.user.username}</h4>
-                <Figure>
-                  <Figure.Image
-                    className='ml-2'
-                    width={50}
-                    height={50}
-                    src={pro.profile.avatar}
-                    rounded
-                  />
-                </Figure>
+                <NameAvatar
+                  username={pro.profile.user.username}
+                  avatar={pro.profile.avatar}
+                />
               </Row>
             </div>
           </Fragment>
@@ -47,15 +42,10 @@ function SearchBuddies({
                   type={'Search'}
                 />
                 <Show selecteduser={pro.profile.user._id} />
-                <h4 className='mt-2'>{pro.profile.user.username}</h4>
-                <Figure>
-                  <Figure.Image
-                    width={50}
-                    height={50}
-                    src={pro.profile.avatar}
-                    rounded
-                  />
-                </Figure>
+                <NameAvatar
+                  username={pro.profile.user.username}
+                  avatar={pro.profile.avatar}
+                />
               </Row>
             </div>
           </Fragment>
@@ -70,15 +60,10 @@ function SearchBuddies({
                   type={'Search'}
                 />
                 <Show selecteduser={pro.profile.user._id} />
-                <h4 className='mt-2'>{pro.profile.user.username}</h4>
-                <Figure>
-                  <Figure.Image
-                    width={50}
-                    height={50}
-                    src={pro.profile.avatar}
-                    rounded
-                  />
-                </Figure>
+                <NameAvatar
+                  username={pro.profile.user.username}
+                  avatar={pro.profile.avatar}
+                />
               </Row>
             </div>
           </Fragment>
@@ -94,16 +79,10 @@ function SearchBuddies({
                 />
                 <Confirm selecteduser={pro.profile.user._id} type={'Search'} />
                 <Show selecteduser={pro.profile.user._id} />
-                <h4 className='mt-2'>{pro.profile.user.username}</h4>
-                <Figure>
-                  <Figure.Image
-                    className='ml-2'
-                    width={50}
-                    height={50}
-                    src={pro.profile.avatar}
-                    rounded
-                  />
-                </Figure>
+                <NameAvatar
+                  username={pro.profile.user.username}
+                  avatar={pro.profile.avatar}
+                />
               </Row>
             </div>
           </Fragment>

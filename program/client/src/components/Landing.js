@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar } from 'react-bootstrap';
 
+<<<<<<< HEAD
 import { connect } from 'react-redux';
 import store from '../store/store';
 
@@ -46,6 +47,9 @@ function Landing() {
         </div>
     );
   }
+=======
+function Landing(props) {
+>>>>>>> ee8c3cbfd2e451490b557d7f06b98b2c0dba16c0
   return (
     <section className='landing'>
       <div className='NaveBar'>

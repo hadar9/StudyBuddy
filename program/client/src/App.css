@@ -121,6 +121,10 @@
   height: 200px;
   width: 200px;
 }
+
+/********************************************************/
+/*mybuddiestab*/
+
 .buddiestabs {
   margin-top: 20px;
   margin-right: 200px;
@@ -140,7 +144,7 @@
   margin-top: 4px;
   margin-bottom: 22px;
 }
-
+/********************************************************/
 .home {
   background-color: #ced4da;
   height: 1300px;
@@ -163,7 +167,8 @@
 /******************************************************/
 .mydrives-title,
 .insidedrivecontent-title,
-.firstloadtitle {
+.firstloadtitle,
+.settings-title {
   position: center;
   color: #40bed1;
   margin-top: 20px;
@@ -220,6 +225,15 @@
   width: 60px;
   height: 60px;
 }
+/********************************************************/
+/*drive settings*/
+.settings-drivebuddies {
+  border-top: 3px dashed rgb(179, 177, 177);
+  border-bottom: 3px dashed rgb(179, 177, 177);
+}
+.settings-admins {
+}
+
 /********************************************************/
 /*chat*/
 

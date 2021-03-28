@@ -25,6 +25,8 @@ export const CLEAR_BUDDY = 'CLEAR_BUDDY';
 export const BUDDIES_ERROR = 'BUDDIES_ERROR';
 export const GET_DRIVES = 'GET_DRIVES';
 export const CREATE_DRIVE_ERROR = 'CREATE_DRIVE_ERROR';
+export const DRIVE_ERROR = 'DRIVE_ERROR';
+export const CHOOSE_DRIVE = 'CHOOSE_DRIVE';
 export const CLEAR_DRIVES = 'CLEAR_DRIVES';
 export const CREATE_FOLDER = 'CREATE_FOLDER';
 export const ERROR_FOLDER = 'ERROR_FOLDER';
@@ -36,6 +38,5 @@ export const CLEAR_FILE = 'CLEAR_FILE';
 export const EDIT_MESSAGE = 'EDIT_MESSAGE';
 export const ERROR_MESSAGE = 'ERROR_MESSAGE';
 export const CLEAR_FILESYSTEM = 'CLEAR_FILESYSTEM';
-export const DELETE_FILE = "DELETE_FILE";
-export const DELETE_FOLDER = "DELETE_FOLDER";
-
+export const DELETE_FILE = 'DELETE_FILE';
+export const DELETE_FOLDER = 'DELETE_FOLDER';

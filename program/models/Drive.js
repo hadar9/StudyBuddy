@@ -16,7 +16,7 @@ const DriveSchema = new mongoose.Schema({
     default: 'drive',
   },
   drivepermission: {
-    type: String,
+    type: Boolean,
   },
   subadmins: [
     {
@@ -25,31 +25,20 @@ const DriveSchema = new mongoose.Schema({
         ref: 'profile',
       },
       perrmission: {
-        watchdrive: {
-          type: Boolean,
-          default: true,
-        },
         createfolder: {
           type: Boolean,
           default: false,
         },
-        deletefolder: {
+
+        upload: {
           type: Boolean,
           default: false,
         },
-        downloadfile: {
-          type: Boolean,
-          default: true,
-        },
-        uploadfile: {
+        edit: {
           type: Boolean,
           default: false,
         },
-        editfile: {
-          type: Boolean,
-          default: false,
-        },
-        deletefile: {
+        delete: {
           type: Boolean,
           default: false,
         },
@@ -66,12 +55,12 @@ const DriveSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, //Foreign key
         ref: 'profile',
       },
-      perrmission: {
-        watchdrive: {
+      buddy: {
+        watch: {
           type: Boolean,
           default: true,
         },
-        downloadfile: {
+        download: {
           type: Boolean,
           default: true,
         },
