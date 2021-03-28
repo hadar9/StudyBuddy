@@ -42,13 +42,21 @@ function Navebar({
     bylabel: 'user name',
     showmyprofile: false,
     showsearch: false,
+    component: <SearchBuddies />,
   });
 
   const options = [
     { value: 'username', label: 'user name' },
     { value: 'drivename', label: 'drive name' },
   ];
-  const { search, byvalue, bylabel, showmyprofile, showsearch } = formData;
+  const {
+    search,
+    byvalue,
+    bylabel,
+    showmyprofile,
+    showsearch,
+    component,
+  } = formData;
 
   const bychange = (selected) => {
     setForm({ ...formData, byvalue: selected.value, bylabel: selected.label });
@@ -57,14 +65,18 @@ function Navebar({
 
   const onsubmit = (e) => {
     e.preventDefault();
+    let temp;
     if (byvalue === 'username') {
       searchbuddies(search);
+      temp = <SearchBuddies />;
     } else {
       searchdrives(search);
+      temp = <SearchDrives />;
     }
     setForm({
       showsearch: true,
       search: '',
+      component: temp,
     });
   };
   const handleCloseMyProfile = () => setForm({ showmyprofile: false });
@@ -119,9 +131,7 @@ function Navebar({
           <Modal.Header closeButton>
             <Modal.Title className='modaltitle'>Search Results:</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-            {byvalue === 'username' ? <SearchBuddies /> : <SearchDrives />}
-          </Modal.Body>
+          <Modal.Body>{component}</Modal.Body>
         </Modal>
 
         <Nav className='navbtn'>
