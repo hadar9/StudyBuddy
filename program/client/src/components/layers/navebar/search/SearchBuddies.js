@@ -17,7 +17,6 @@ function SearchBuddies({
 }) {
   let pros;
   if (searchloading) {
-    console.log(searchloading);
     pros = searchres.map((pro, index) => {
       if (pro.status === 'nothing') {
         return (

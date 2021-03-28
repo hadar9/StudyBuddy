@@ -24,7 +24,7 @@ export const getuserprofile = (id) => async (dispatch) => {
       id,
     });
 
-    const res = await axios.post('/api/buddies/userprofile', body, config);
+    const res = await axios.post('/api/buddies/buddyprofile', body, config);
     dispatch({
       type: GET_USER_PROFILE,
       payload: res.data,
