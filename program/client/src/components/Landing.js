@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import store from '../store/store';
 
 function Landing() {
+    
   var welcome;
   if(store.getState().auth.user)
   {
@@ -22,8 +23,9 @@ function Landing() {
         </Link>
       </div>
     </div>
-  </div>);
-  }
+  </div>
+  );
+}
   else
   {
     welcome = (
@@ -45,20 +47,20 @@ function Landing() {
           </div>
         </div>
     );
-  }
-
-function Landing(props) {
-  return (
-    <section className='landing'>
-      <div className='NaveBar'>
-        <Navbar bg='dark' variant='dark'>
-          <Navbar.Brand>StudyBuddy</Navbar.Brand>
-        </Navbar>
-      </div>
-      {welcome}
-    </section>
-  );
+  };
+    return (
+        <section className='landing'>
+        <div className='NaveBar'>
+            <Navbar bg='dark' variant='dark'>
+            <Navbar.Brand>StudyBuddy</Navbar.Brand>
+            </Navbar>
+        </div>
+        {welcome}
+        </section>
+    );
+  
 }
+
 
 const mapStateToProps = state => {
   return {
