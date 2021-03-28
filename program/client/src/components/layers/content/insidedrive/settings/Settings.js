@@ -3,6 +3,7 @@ import { Form, Button, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import DriveBuddies from './drivebuddies/DriveBuddies';
 
 function Settings({ drives: { drive, driveloading } }) {
   const [settingfield, setsettings] = useState({
@@ -32,31 +33,8 @@ function Settings({ drives: { drive, driveloading } }) {
           </Form.Group>
         </fieldset>
         <div className='settings-drivebuddies'>
-          <Form.Group>
-            <Form.Label as='legend'>Drive Buddies:</Form.Label>
-            <Row>
-              <Col>
-                <Form.Check
-                  type='checkbox'
-                  label='watch content'
-                  name='formHorizontalwatchcontentbuddy'
-                  id='formHorizontalwatchcontentbuddy'
-                  checked={true}
-                  disabled={drivepermission}
-                />
-              </Col>
-              <Col>
-                <Form.Check
-                  type='checkbox'
-                  label='download content'
-                  name='formHorizontaldownloadcontentbuddy'
-                  id='formHorizontaldownloadcontentbuddy'
-                  checked={true}
-                  disabled={drivepermission}
-                />
-              </Col>
-            </Row>
-          </Form.Group>
+          <h4>Drive Buddies:</h4>
+          <DriveBuddies drivebuddies={drive.drivebuddies} />
         </div>
         <div className='settings-admins'>
           <Form.Group>

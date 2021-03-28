@@ -39,6 +39,13 @@ function InsideDrive({ clearfilesystem }) {
             onClick={(e) => setKey({ components: <ChatGroups /> })}
             className='bg-dark text-light'
           >
+            Drive Buddies
+          </Button>
+          <Button
+            value='chatgroups'
+            onClick={(e) => setKey({ components: <ChatGroups /> })}
+            className='bg-dark text-light'
+          >
             Chat groups
           </Button>
           <Button

@@ -55,7 +55,7 @@ const DriveSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, //Foreign key
         ref: 'profile',
       },
-      perrmission: {
+      buddy: {
         watch: {
           type: Boolean,
           default: true,
