@@ -140,8 +140,7 @@ export const deletefolder = (folder) => async (dispatch) =>
     },
   };
   try {
-    console.log(body)
-    for (let child in  folder.children)
+    for (let child in folder.children)
     {
       if(child.objtype === "file")
       {
