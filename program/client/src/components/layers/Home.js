@@ -7,11 +7,11 @@ import { getmybuddies } from '../../actions/buddies';
 import 'bootstrap/dist/css/bootstrap.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import store from '../../store/store';
 
 function Home({ getmybuddies }) {
   const [chatedit, setchat] = useState(false);
   getmybuddies('mybuddy');
-
   return (
     <div className='home'>
       <Navebar />
