@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import OtherProfile from './OtherProfile';
 import DeleteBud from './opertaions/DeleteBud';
 import Show from './opertaions/Show';
-
+import NameAvatar from './NameAvatar';
 function SentRequest({
   buddiess: { userloading, mybuddies, mybuddieslsloading },
 }) {
@@ -20,16 +20,11 @@ function SentRequest({
             <Row>
               <DeleteBud selecteduser={buddy.user._id} type={'Tabs'} />
               <Show selecteduser={buddy.user._id} />
-              <h4 className='mt-2'>{buddy.user.username}</h4>
-              <Figure>
-                <Figure.Image
-                  className='ml-2'
-                  width={50}
-                  height={50}
-                  src={buddy.avatar}
-                  rounded
-                />
-              </Figure>
+            
+            <NameAvatar
+                username={buddy.user.username}
+                avatar={buddy.avatar}
+              />
             </Row>
           </div>
         </Fragment>

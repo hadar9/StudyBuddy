@@ -7,6 +7,7 @@ import OtherProfile from './OtherProfile';
 import DeleteReq from './opertaions/DeleteReq';
 import Show from './opertaions/Show';
 import Confirm from './opertaions/Confirm';
+import NameAvatar from './NameAvatar';
 
 function ConfirmRequest({
   buddiess: { userloading, mybuddies, mybuddieslsloading },
@@ -25,16 +26,10 @@ function ConfirmRequest({
               />
               <Confirm selecteduser={buddy.user._id} type={'Tabs'} />
               <Show selecteduser={buddy.user._id} />
-              <h5 className='mt-2'>{buddy.user.username}</h5>
-              <Figure>
-                <Figure.Image
-                  className='ml-2'
-                  width={50}
-                  height={50}
-                  src={buddy.avatar}
-                  rounded
-                />
-              </Figure>
+              <NameAvatar
+                username={buddy.user.username}
+                avatar={buddy.avatar}
+              />
             </Row>
           </div>
         </Fragment>

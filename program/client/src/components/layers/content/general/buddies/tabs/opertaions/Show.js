@@ -13,7 +13,7 @@ function Show({ getuserprofile, selecteduser }) {
   return (
     <div>
       <Button
-        className='mt-2 h-50'
+        className='mt-2 mr-4 h-50'
         value={selecteduser}
         size='sm'
         variant='outline-info'

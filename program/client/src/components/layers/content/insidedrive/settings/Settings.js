@@ -5,6 +5,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 function Settings({ drives: { drive, driveloading } }) {
+  const [settingfield, setsettings] = useState({
+    drivepermission: drive.drivepermission,
+  });
+  const { drivepermission } = settingfield;
+
   return (
     <div className='settings'>
       <h1 className='settings-title'>Settings</h1>
@@ -37,7 +42,7 @@ function Settings({ drives: { drive, driveloading } }) {
                   name='formHorizontalwatchcontentbuddy'
                   id='formHorizontalwatchcontentbuddy'
                   checked={true}
-                  disabled={true}
+                  disabled={drivepermission}
                 />
               </Col>
               <Col>
@@ -47,7 +52,7 @@ function Settings({ drives: { drive, driveloading } }) {
                   name='formHorizontaldownloadcontentbuddy'
                   id='formHorizontaldownloadcontentbuddy'
                   checked={true}
-                  disabled={true}
+                  disabled={drivepermission}
                 />
               </Col>
             </Row>
@@ -64,7 +69,7 @@ function Settings({ drives: { drive, driveloading } }) {
                   name='formHorizontalcreatefolder'
                   id='formHorizontalcreatefolder'
                   checked={true}
-                  disabled={true}
+                  disabled={drivepermission}
                 />
               </Col>
 
@@ -75,7 +80,7 @@ function Settings({ drives: { drive, driveloading } }) {
                   name='formHorizontalupload'
                   id='formHorizontalupload'
                   checked={true}
-                  disabled={true}
+                  disabled={drivepermission}
                 />
               </Col>
               <Col>
@@ -85,7 +90,7 @@ function Settings({ drives: { drive, driveloading } }) {
                   name='formHorizontaledit'
                   id='formHorizontaledit'
                   checked={true}
-                  disabled={true}
+                  disabled={drivepermission}
                 />
               </Col>
               <Col>
@@ -95,7 +100,7 @@ function Settings({ drives: { drive, driveloading } }) {
                   name='formHorizontaldelete'
                   id='formHorizontaldelete'
                   checked={true}
-                  disabled={true}
+                  disabled={drivepermission}
                 />
               </Col>
               <Col>
@@ -105,7 +110,7 @@ function Settings({ drives: { drive, driveloading } }) {
                   name='formHorizontalconfirm'
                   id='formHorizontalconfirm'
                   checked={true}
-                  disabled={true}
+                  disabled={drivepermission}
                 />
               </Col>
             </Row>
