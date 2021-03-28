@@ -1,6 +1,12 @@
 import axios from 'axios';
 import { choosefolder } from './filesystem';
-import { GET_DRIVES, CREATE_DRIVE_ERROR, CLEAR_DRIVES } from './types';
+import {
+  GET_DRIVES,
+  CREATE_DRIVE_ERROR,
+  CLEAR_DRIVES,
+  DRIVE_ERROR,
+  CHOOSE_DRIVE,
+} from './types';
 
 export const getdrives = () => async (dispatch) => {
   try {
@@ -11,7 +17,7 @@ export const getdrives = () => async (dispatch) => {
     });
   } catch (error) {
     dispatch({
-      type: CREATE_DRIVE_ERROR,
+      type: DRIVE_ERROR,
       payload: {
         msg: error.response.statusText,
         status: error.response.status,
@@ -33,7 +39,13 @@ export const createdrive = (drivename) => async (dispatch) => {
     await axios.post('/api/drives/createdrive', body, config);
     dispatch(getdrives());
   } catch (error) {
-    console.log('errro');
+    dispatch({
+      type: CREATE_DRIVE_ERROR,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
   }
 };
 export const cleardrives = () => async (dispatch) => {
@@ -53,10 +65,14 @@ export const choosedrive = (drive) => async (dispatch) => {
   });
   try {
     const res = await axios.post('/api/drives/choosedrive', body, config);
+    dispatch({
+      type: CHOOSE_DRIVE,
+      payload: res.data,
+    });
     dispatch(choosefolder(res.data));
   } catch (error) {
     dispatch({
-      type: CREATE_DRIVE_ERROR,
+      type: DRIVE_ERROR,
       payload: {
         msg: error.response.statusText,
         status: error.response.status,
