@@ -25,7 +25,7 @@ router.post('/searchdrives', async (req, res) => {
     let drives = await Drive.find({
       name: new RegExp('^' + drivename, 'i'),
       drivepermission: false,
-    });
+    }).populate('user');
     res.json(drives);
   } catch (err) {
     res.status(500).send('Server Error');
@@ -62,6 +62,43 @@ router.post('/confirmjoindrive', async (req, res) => {
     drive.save();
     user.save();
 
+    res.json(drive);
+  } catch (err) {
+    res.status(500).send('Server Error');
+  }
+});
+router.post('/leavedrive', async (req, res) => {
+  try {
+    const driveid = req.body.driveid;
+    const userid = req.body.userid;
+
+    let drive = await Drive.findOneAndUpdate(
+      { _id: driveid },
+      { $pull: { drivebuddies: { user: userid } } }
+    );
+    let user = await Profile.findOneAndUpdate(
+      { _id: userid },
+      { $pull: { driveid } }
+    );
+    drive.save();
+    user.save();
+
+    res.json(drive);
+  } catch (err) {
+    res.status(500).send('Server Error');
+  }
+});
+router.post('/deletereqdrive', async (req, res) => {
+  try {
+    const driveid = req.body.driveid;
+    const userid = req.body.userid;
+
+    let drive = await Drive.findOneAndUpdate(
+      { _id: driveid },
+      { $pull: { drivebuddies: { user: userid } } }
+    );
+
+    drive.save();
     res.json(drive);
   } catch (err) {
     res.status(500).send('Server Error');
