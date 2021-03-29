@@ -8,32 +8,37 @@ import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 
 function ShowDrives({ drivestate: { drives, drivesloading } }) {
   
-  function handleClick(e, data) {
-    console.log(data.action);
+  // Context bar handler
+  const handleClick = (e, data) =>
+  {
+    console.log(data.file);
   }
-  const mydrives = drives.map((elem) => (
-    <ContextMenuTrigger id="drive-context-bar">
-    <Row>
-      <ShowDrive key={elem._id} elem={elem} />
-    </Row>
-    </ContextMenuTrigger>
-  ));
-  return <div>
-    <ContextMenu id="drive-context-bar">
-        <MenuItem data={{action: 'Add'}} onClick={handleClick}>
-          Show
-        </MenuItem>
-        <MenuItem data={{action: 'Rename'}} onClick={handleClick}>
-          Rename
-        </MenuItem>
-        <MenuItem divider />
-        <MenuItem data={{action: 'Remove'}} onClick={handleClick}>
-          Remove
-        </MenuItem>
-  </ContextMenu>
   
-      {drivesloading ? <div>{mydrives}</div> : null}
-  </div>;
+  return <div>
+            {drivesloading ? <div>{drives.map((elem) => (
+            <div>
+            <ContextMenuTrigger id= {elem._id}>
+            <Row>
+              <ShowDrive key={elem._id} elem={elem} />
+            </Row>
+            </ContextMenuTrigger>
+
+            <ContextMenu id={elem._id} className="context-menu">
+            <MenuItem data={{action: 'Show', file: elem}} onClick={handleClick}>
+              Show
+            </MenuItem>
+            <MenuItem data={{action: 'Rename', file: elem}} onClick={handleClick}>
+              Rename
+            </MenuItem>
+            <MenuItem divider />
+            <MenuItem data={{action: 'Remove', file: elem}} onClick={handleClick}>
+              Remove
+            </MenuItem>
+            </ContextMenu>
+        </div>
+          ))}</div> : null}
+          
+          </div>;
 }
 
 ShowDrives.propTypes = {
