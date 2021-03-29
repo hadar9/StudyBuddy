@@ -5,7 +5,7 @@ import {
   deletebuddy,
   getmybuddies,
 } from '../../../../../../../actions/buddies';
-import { searchbuddies } from '../../../../../../../actions/search';
+import { searchbuddies } from '../../../../../../../actions/buddies';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -13,7 +13,7 @@ function DeleteReq({
   deletebuddy,
   getmybuddies,
   searchbuddies,
-  buddies: { searchusername },
+  buddies: { searchinput },
   type,
   selecteduser,
   reqtype,
@@ -26,7 +26,7 @@ function DeleteReq({
     if (type === 'Tabs') {
       getmybuddies(reqtype);
     } else {
-      searchbuddies(searchusername);
+      searchbuddies(searchinput);
       setclick(true);
     }
   };

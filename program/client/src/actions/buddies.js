@@ -10,7 +10,37 @@ import {
   CONFIRM_BUDDY,
   DELETE_BUDDY,
   BUDDIES_ERROR,
+  SEARCH_BUDDIES_SUCCESS,
+  SEARCH_BUDDIES_ERROR,
 } from '../actions/types';
+
+export const searchbuddies = (username) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({
+      username,
+    });
+
+    const res = await axios.post('/api/buddies/buddies', body, config);
+
+    dispatch({
+      type: SEARCH_BUDDIES_SUCCESS,
+      payload: { mybuddies: res.data, searchinput: username },
+    });
+  } catch (error) {
+    dispatch({
+      type: SEARCH_BUDDIES_ERROR,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+  }
+};
 
 //Get specific profile with the user id
 export const getuserprofile = (id) => async (dispatch) => {

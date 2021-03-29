@@ -4,11 +4,11 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { addbuddy } from '../../../../../../../actions/buddies';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { searchbuddies } from '../../../../../../../actions/search';
+import { searchbuddies } from '../../../../../../../actions/buddies';
 function Add({
   addbuddy,
   searchbuddies,
-  buddies: { searchusername },
+  buddies: { searchinput },
   selecteduser,
 }) {
   const [clicked, setclick] = useState(false);
@@ -16,7 +16,7 @@ function Add({
   const handleAddBuddy = (e) => {
     addbuddy(e.target.value);
     setclick(true);
-    searchbuddies(searchusername);
+    searchbuddies(searchinput);
   };
   return (
     <div>

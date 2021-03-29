@@ -13,11 +13,14 @@ import { Link } from 'react-router-dom';
 import { logout } from '../../../actions/auth';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+/*
 import {
   searchdrives,
   searchbuddies,
   clearsearch,
-} from '../../../actions/search';
+} from '../../../actions/search';*/
+import { searchdrives, cleardrives } from '../../../actions/drives';
+import { searchbuddies, clearbuddy } from '../../../actions/buddies';
 import { getmyprofile } from '../../../actions/profile';
 import Profile from './profile/Profile';
 import SearchBuddies from './search/SearchBuddies';
@@ -30,10 +33,12 @@ function Navebar({
   logout,
   getmyprofile,
   searchbuddies,
-  clearsearch,
+  clearbuddy,
+  cleardrives,
   searchdrives,
   alerts,
-  search: { searchloading },
+  buddies: { mybuddieslsloading },
+  drives: { drivesloading },
   profile: { loading },
 }) {
   const [formData, setForm] = useState({
@@ -86,7 +91,11 @@ function Navebar({
   };
   const handleCloseSearch = () => {
     setForm({ showsearch: false });
-    clearsearch();
+    if (byvalue === 'username') {
+      clearbuddy();
+    } else {
+      cleardrives();
+    }
   };
 
   return (
@@ -118,11 +127,13 @@ function Navebar({
             Search
           </Button>
         </Form>
-        {showsearch && searchloading === false ? (
+        {showsearch &&
+        mybuddieslsloading === false &&
+        drivesloading === false ? (
           <Spinner animation='border' variant='info' />
         ) : null}
         <Modal
-          show={showsearch && searchloading}
+          show={showsearch && (mybuddieslsloading || drivesloading)}
           onHide={handleCloseSearch}
           backdrop='static'
           keyboard={false}
@@ -165,7 +176,8 @@ Navebar.propTypes = {
   logout: PropTypes.func.isRequired,
   getmyprofile: PropTypes.func.isRequired,
   searchbuddies: PropTypes.func.isRequired,
-  clearsearch: PropTypes.func.isRequired,
+  clearbuddy: PropTypes.func.isRequired,
+  cleardrives: PropTypes.func.isRequired,
   searchdrives: PropTypes.func.isRequired,
   setalert: PropTypes.func.isRequired,
   alerts: PropTypes.object.isRequired,
@@ -176,7 +188,8 @@ Navebar.propTypes = {
 
 const mapStateToProps = (state) => ({
   alerts: state.alert,
-  search: state.search,
+  buddies: state.buddies,
+  drives: state.drives,
   profile: state.profile,
 });
 export default connect(mapStateToProps, {
@@ -184,6 +197,7 @@ export default connect(mapStateToProps, {
   getmyprofile,
   searchbuddies,
   setalert,
-  clearsearch,
+  clearbuddy,
+  cleardrives,
   searchdrives,
 })(Navebar);

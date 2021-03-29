@@ -1,5 +1,7 @@
 import {
   GET_DRIVES,
+  SEARCH_DRIVES_SUCCESS,
+  SEARCH_DRIVE_ERROR,
   CREATE_DRIVE_ERROR,
   CLEAR_DRIVES,
   DRIVE_ERROR,
@@ -9,6 +11,7 @@ import {
 const initialState = {
   drives: [],
   drivesloading: false,
+  searchinput: '',
   drive: {},
   driveloading: false,
   error: {},
@@ -17,6 +20,13 @@ const initialState = {
 export default function drives(state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
+    case SEARCH_DRIVES_SUCCESS:
+      return {
+        ...state,
+        drives: payload.drives,
+        drivesloading: true,
+        searchinput: payload.searchinput,
+      };
     case GET_DRIVES:
       return {
         ...state,
@@ -33,17 +43,20 @@ export default function drives(state = initialState, action) {
       };
     case CREATE_DRIVE_ERROR:
     case DRIVE_ERROR:
+    case SEARCH_DRIVE_ERROR:
       return {
         drives: [],
         drivesloading: false,
-        error: payload,
+        searchinput: '',
         drive: {},
         driveloading: false,
+        error: payload,
       };
     case CLEAR_DRIVES:
       return {
         drives: [],
         drivesloading: false,
+        searchinput: '',
         drive: {},
         driveloading: false,
         error: {},

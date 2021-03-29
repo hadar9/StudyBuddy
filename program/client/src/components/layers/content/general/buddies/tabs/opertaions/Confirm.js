@@ -5,7 +5,7 @@ import {
   confirmbuddy,
   getmybuddies,
 } from '../../../../../../../actions/buddies';
-import { searchbuddies } from '../../../../../../../actions/search';
+import { searchbuddies } from '../../../../../../../actions/buddies';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -13,7 +13,7 @@ function Confirm({
   confirmbuddy,
   getmybuddies,
   searchbuddies,
-  buddies: { searchusername },
+  buddies: { searchinput },
   type,
   selecteduser,
 }) {
@@ -25,7 +25,7 @@ function Confirm({
     if (type === 'Tabs') {
       getmybuddies('request');
     } else {
-      searchbuddies(searchusername);
+      searchbuddies(searchinput);
       setclick(true);
     }
   };

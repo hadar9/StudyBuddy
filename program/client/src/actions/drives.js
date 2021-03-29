@@ -6,7 +6,35 @@ import {
   CLEAR_DRIVES,
   DRIVE_ERROR,
   CHOOSE_DRIVE,
+  SEARCH_DRIVES_SUCCESS,
+  SEARCH_DRIVE_ERROR,
 } from './types';
+
+export const searchdrives = (drivename) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({
+      drivename,
+    });
+    const res = await axios.post('/api/drives/searchdrives', body, config);
+    dispatch({
+      type: SEARCH_DRIVES_SUCCESS,
+      payload: { drives: res.data, searchinput: drivename },
+    });
+  } catch (error) {
+    dispatch({
+      type: SEARCH_DRIVE_ERROR,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+  }
+};
 
 export const joindrive = (drive) => async (dispatch) => {
   try {

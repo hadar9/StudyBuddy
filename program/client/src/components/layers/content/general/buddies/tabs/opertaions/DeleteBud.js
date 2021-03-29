@@ -5,15 +5,15 @@ import {
   deletebuddy,
   getmybuddies,
 } from '../../../../../../../actions/buddies';
-import { searchbuddies } from '../../../../../../../actions/search';
+import { searchbuddies } from '../../../../../../../actions/buddies';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 function DeleteBud({
   deletebuddy,
   getmybuddies,
-  getprofiels,
-  buddies: { searchusername },
+  searchbuddies,
+  buddies: { searchinput },
   type,
   selecteduser,
 }) {
@@ -23,7 +23,7 @@ function DeleteBud({
     if (type === 'Tabs') {
       getmybuddies('mybuddy');
     } else {
-      searchbuddies(searchusername);
+      searchbuddies(searchinput);
       setclick(true);
     }
   };

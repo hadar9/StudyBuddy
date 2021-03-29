@@ -8,11 +8,14 @@ import {
   CONFIRM_BUDDY,
   DELETE_BUDDY,
   BUDDIES_ERROR,
+  SEARCH_BUDDIES_SUCCESS,
+  SEARCH_BUDDIES_ERROR,
 } from '../actions/types';
 
 const initialState = {
   mybuddies: [],
   mybuddieslsloading: false,
+  searchinput: '',
   userprofile: null,
   userloading: false,
   error: {},
@@ -21,6 +24,13 @@ const initialState = {
 export default function buddies(state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
+    case SEARCH_BUDDIES_SUCCESS:
+      return {
+        ...state,
+        mybuddies: payload.mybuddies,
+        mybuddieslsloading: true,
+        searchinput: payload.searchinput,
+      };
     case GET_USER_PROFILE:
       return {
         ...state,
@@ -37,10 +47,12 @@ export default function buddies(state = initialState, action) {
     case CLOSE_MYBUDDIES:
       return { ...state, mybuddieslsloading: false, mybuddies: [] };
     case BUDDIES_ERROR:
+    case SEARCH_BUDDIES_ERROR:
     case CLEAR_BUDDY:
       return {
         mybuddies: [],
         mybuddieslsloading: false,
+        searchinput: '',
         userprofile: null,
         userloading: false,
         error: {},

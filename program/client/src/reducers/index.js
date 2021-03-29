@@ -5,7 +5,7 @@ import profile from './profile';
 import buddies from './buddies';
 import drives from './drives';
 import filesystem from './filesystem';
-import search from './search';
+
 export default combineReducers({
   auth,
   alert,
@@ -13,5 +13,4 @@ export default combineReducers({
   buddies,
   drives,
   filesystem,
-  search,
 });
