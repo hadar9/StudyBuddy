@@ -19,12 +19,10 @@ const ProfileSchema = new mongoose.Schema({
   studyfield: {
     type: String,
   },
-  publicdrives: [
+  otherdrives: [
     {
-      drive: {
-        type: mongoose.Schema.Types.ObjectId, //Foreign key
-        ref: 'drive',
-      },
+      type: mongoose.Schema.Types.ObjectId, //Foreign key
+      ref: 'drive',
     },
   ],
   buddies: [

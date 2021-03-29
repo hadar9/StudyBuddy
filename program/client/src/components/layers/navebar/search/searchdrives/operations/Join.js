@@ -8,10 +8,10 @@ import { connect } from 'react-redux';
 function Join({ joindrive, buddies: { searchusername }, selecteddrive }) {
   const [clicked, setclick] = useState(false);
 
-  const handleAddBuddy = (e) => {
+  const handlejoin = (e) => {
     joindrive(e.target.value);
     setclick(true);
-    //'getprofiels(searchusername);
+    //searchdrives(searchusername);
   };
   return (
     <div>
@@ -21,7 +21,7 @@ function Join({ joindrive, buddies: { searchusername }, selecteddrive }) {
         value={selecteddrive}
         size='sm'
         variant='outline-info'
-        onClick={(e) => handleAddBuddy(e)}
+        onClick={(e) => handlejoin(e)}
         disabled={clicked}
       >
         Join
