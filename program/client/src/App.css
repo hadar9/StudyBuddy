@@ -2,7 +2,7 @@
 
 .landing {
   position: relative;
-  background: url('./img/loginpic.jpeg');
+  background: url("./img/loginpic.jpeg");
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
@@ -52,7 +52,7 @@
 .register,
 .login {
   position: relative;
-  background: url('./img/register.jpg');
+  background: url("./img/register.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
@@ -282,7 +282,7 @@
 /*currentchat*/
 .currentchat {
   float: right;
-  background-image: url('./img/blue.png');
+  background-image: url("./img/blue.png");
   width: 60%;
   height: 100%;
 }
@@ -315,7 +315,7 @@
   margin-bottom: 4px;
 }
 .message-me :before {
-  content: '';
+  content: "";
   position: absolute;
   width: 0;
   height: 0;
@@ -337,7 +337,7 @@
   margin-bottom: 4px;
 }
 .message-other :before {
-  content: '';
+  content: "";
   position: absolute;
   width: 0;
   height: 0;
@@ -345,4 +345,11 @@
   border-right: 26px solid #343a40;
   border-bottom: 13px solid transparent;
   margin: 13px 0 0 -25px;
+}
+
+.context-menu {
+  position: relative;
+  background-color: whitesmoke;
+  z-index: 999;
+  font-weight: 500;
 }
