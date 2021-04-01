@@ -6,6 +6,41 @@ const Drive = require('../../models/Drive');
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 
+search = async function (drivename, userid) {
+  let drives = await Drive.find({
+    name: new RegExp('^' + drivename, 'i'),
+    drivepermission: false,
+  }).populate('user');
+
+  let returmdrives = [];
+
+  for (let i = 0; i < drives.length; i++) {
+    let driveid = drives[i]._id;
+    let drivename = drives[i].name;
+    let driveowner = drives[i].user;
+    let buddiescount = drives[i].drivebuddies.length;
+    let buddystatus = 'nothing';
+    for (let j = 0; j < drives[i].drivebuddies.length; j++) {
+      if (
+        JSON.stringify(drives[i].drivebuddies[j].user) ===
+        JSON.stringify(userid)
+      ) {
+        buddystatus = drives[i].drivebuddies[j].status;
+        break;
+      }
+    }
+    let returnelem = {
+      driveid: driveid,
+      drivename: drivename,
+      driveowner: driveowner,
+      buddiescount: buddiescount,
+      buddystatus: buddystatus,
+    };
+    returmdrives.push(returnelem);
+  }
+  return returmdrives;
+};
+
 //@route    GET api/drives/getmydrives
 //@desc     get drives
 //@access   Private
@@ -19,37 +54,39 @@ router.get('/getmydrives', auth, async (req, res) => {
   }
 });
 
-router.post('/searchdrives', async (req, res) => {
+router.post('/searchdrives', auth, async (req, res) => {
   try {
     const drivename = req.body.drivename;
-    let drives = await Drive.find({
-      name: new RegExp('^' + drivename, 'i'),
-      drivepermission: false,
-    }).populate('user');
+    const drives = await search(drivename, req.user.id);
     res.json(drives);
   } catch (err) {
     res.status(500).send('Server Error');
   }
 });
 
-router.post('/joindrive', async (req, res) => {
+router.post('/joindrive', auth, async (req, res) => {
   try {
-    const driveid = req.body.id;
+    const { driveid, searchdrive } = req.body;
+
+    const buddyrequest = {
+      user: req.user.id,
+      status: 'request',
+    };
 
     let drive = await Drive.findOneAndUpdate(
       { _id: driveid },
-      { $push: { drivebuddies: { user: req.user.id, status: 'request' } } }
+      { $push: { drivebuddies: buddyrequest } }
     );
     drive.save();
-    res.json(drive);
+    const drives = await search(searchdrive, req.user.id);
+    res.json(drives);
   } catch (err) {
     res.status(500).send('Server Error');
   }
 });
 router.post('/confirmjoindrive', async (req, res) => {
   try {
-    const driveid = req.body.driveid;
-    const userid = req.body.userid;
+    const { driveid } = req.body;
 
     let drive = await Drive.findOneAndUpdate(
       { _id: driveid },
@@ -61,45 +98,45 @@ router.post('/confirmjoindrive', async (req, res) => {
     );
     drive.save();
     user.save();
-
-    res.json(drive);
+    const drives = await search(drivename, req.user.id);
+    res.json(drives);
   } catch (err) {
     res.status(500).send('Server Error');
   }
 });
-router.post('/leavedrive', async (req, res) => {
+//delete drive buddy
+router.post('/leavedrive', auth, async (req, res) => {
   try {
-    const driveid = req.body.driveid;
-    const userid = req.body.userid;
+    const { driveid, searchdrive } = req.body;
 
     let drive = await Drive.findOneAndUpdate(
       { _id: driveid },
-      { $pull: { drivebuddies: { user: userid } } }
+      { $pull: { drivebuddies: { user: req.user.id } } }
     );
     let user = await Profile.findOneAndUpdate(
       { _id: userid },
-      { $pull: { driveid } }
+      { $pull: { otherdrives: driveid } }
     );
     drive.save();
     user.save();
-
-    res.json(drive);
+    const drives = await search(searchdrive, req.user.id);
+    res.json(drives);
   } catch (err) {
     res.status(500).send('Server Error');
   }
 });
-router.post('/deletereqdrive', async (req, res) => {
+//delete req buddy
+router.post('/delete', auth, async (req, res) => {
   try {
-    const driveid = req.body.driveid;
-    const userid = req.body.userid;
+    const { driveid, searchdrive } = req.body;
 
     let drive = await Drive.findOneAndUpdate(
       { _id: driveid },
-      { $pull: { drivebuddies: { user: userid } } }
+      { $pull: { drivebuddies: { user: req.user.id } } }
     );
-
     drive.save();
-    res.json(drive);
+    const drives = await search(searchdrive, req.user.id);
+    res.json(drives);
   } catch (err) {
     res.status(500).send('Server Error');
   }

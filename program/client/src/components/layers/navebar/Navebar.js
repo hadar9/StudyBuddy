@@ -13,12 +13,6 @@ import { Link } from 'react-router-dom';
 import { logout } from '../../../actions/auth';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-/*
-import {
-  searchdrives,
-  searchbuddies,
-  clearsearch,
-} from '../../../actions/search';*/
 import { searchdrives, cleardrives } from '../../../actions/drives';
 import { searchbuddies, clearbuddy } from '../../../actions/buddies';
 import { getmyprofile } from '../../../actions/profile';
@@ -182,7 +176,7 @@ Navebar.propTypes = {
   setalert: PropTypes.func.isRequired,
   alerts: PropTypes.object.isRequired,
   buddies: PropTypes.object.isRequired,
-  drive: PropTypes.object.isRequired,
+  drives: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
 };
 

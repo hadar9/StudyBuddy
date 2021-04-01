@@ -36,9 +36,19 @@ export const searchdrives = (drivename) => async (dispatch) => {
   }
 };
 
-export const joindrive = (drive) => async (dispatch) => {
+export const joindrive = (driveid, searchdrive) => async (dispatch) => {
   try {
-    const res = await axios.post('/api/drives/joindrive');
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({
+      driveid,
+      searchdrive,
+    });
+    const res = await axios.post('/api/drives/joindrive', body, config);
+
     dispatch({
       type: GET_DRIVES,
       payload: res.data,
@@ -53,6 +63,89 @@ export const joindrive = (drive) => async (dispatch) => {
     });
   }
 };
+
+export const confirmjoindrive = (driveid) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({
+      driveid,
+    });
+    const res = await axios.post('/api/drives/confirmjoindrive', body, config);
+
+    dispatch({
+      type: GET_DRIVES,
+      payload: res.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: DRIVE_ERROR,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+  }
+};
+
+export const deletereq = (driveid, searchdrive) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({
+      driveid,
+      searchdrive,
+    });
+    const res = await axios.post('/api/drives/delete', body, config);
+
+    dispatch({
+      type: GET_DRIVES,
+      payload: res.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: DRIVE_ERROR,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+  }
+};
+export const leavedrive = (driveid, searchdrive) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({
+      driveid,
+      searchdrive,
+    });
+    const res = await axios.post('/api/drives/leavedrive', body, config);
+
+    dispatch({
+      type: GET_DRIVES,
+      payload: res.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: DRIVE_ERROR,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+  }
+};
+
 export const getdrives = () => async (dispatch) => {
   try {
     const res = await axios.get('/api/drives/getmydrives');

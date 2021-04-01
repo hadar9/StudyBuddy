@@ -6,6 +6,7 @@ import {
   CLEAR_DRIVES,
   DRIVE_ERROR,
   CHOOSE_DRIVE,
+  JOIN_DRIVE,
 } from '../actions/types';
 
 const initialState = {

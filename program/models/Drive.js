@@ -53,7 +53,7 @@ const DriveSchema = new mongoose.Schema({
     {
       user: {
         type: mongoose.Schema.Types.ObjectId, //Foreign key
-        ref: 'profile',
+        ref: 'user',
       },
       status: {
         type: String,
