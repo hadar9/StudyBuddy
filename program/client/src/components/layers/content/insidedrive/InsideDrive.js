@@ -8,6 +8,7 @@ import DriveContent from './drivecontent/DriveContent';
 import Settings from './settings/Settings';
 import ChatGroups from '../general/chatgroups/ChatGroups';
 import RecucleBin from '../general/recyclebin/RecycleBin';
+import DriveBuddiesTabs from './drivebuddiestabs/DriveBuddiesTabs';
 
 function InsideDrive({ clearfilesystem }) {
   const [key, setKey] = useState({
@@ -35,8 +36,8 @@ function InsideDrive({ clearfilesystem }) {
             Content
           </Button>
           <Button
-            value='chatgroups'
-            onClick={(e) => setKey({ components: <ChatGroups /> })}
+            value='drivebuddies'
+            onClick={(e) => setKey({ components: <DriveBuddiesTabs /> })}
             className='bg-dark text-light'
           >
             Drive Buddies

@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-import { confirmjoindrive } from '../../../../../../actions/drives';
+import { rejectreq } from '../../../../../../actions/drives';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-function ConfirmrReq({ confirmjoindrive, drives: { drive }, selecteduser }) {
+function RejectReq({ rejectreq, drives: { drive }, selecteduser }) {
   const [clicked, setclick] = useState(false);
 
   const handlejoin = (e) => {
-    confirmjoindrive(drive._id, e.target.value);
+    rejectreq(drive._id, e.target.value);
     setclick(true);
   };
   return (
@@ -23,20 +23,20 @@ function ConfirmrReq({ confirmjoindrive, drives: { drive }, selecteduser }) {
         onClick={(e) => handlejoin(e)}
         disabled={clicked}
       >
-        Confirm Buddy
+        Reject request
       </Button>
     </div>
   );
 }
 
-ConfirmrReq.propTypes = {
+RejectReq.propTypes = {
   drives: PropTypes.object.isRequired,
-  confirmjoindrive: PropTypes.func.isRequired,
+  rejectreq: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   drives: state.drives,
 });
 
 export default connect(mapStateToProps, {
-  confirmjoindrive,
-})(ConfirmrReq);
+  rejectreq,
+})(RejectReq);

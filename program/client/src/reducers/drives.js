@@ -6,7 +6,7 @@ import {
   CLEAR_DRIVES,
   DRIVE_ERROR,
   CHOOSE_DRIVE,
-  JOIN_DRIVE,
+  CLEAR_DRIVES_STATE,
 } from '../actions/types';
 
 const initialState = {
@@ -54,6 +54,13 @@ export default function drives(state = initialState, action) {
         error: payload,
       };
     case CLEAR_DRIVES:
+      return {
+        ...state,
+        drives: [],
+        drivesloading: false,
+        searchinput: '',
+      };
+    case CLEAR_DRIVES_STATE:
       return {
         drives: [],
         drivesloading: false,

@@ -8,6 +8,7 @@ import {
   CHOOSE_DRIVE,
   SEARCH_DRIVES_SUCCESS,
   SEARCH_DRIVE_ERROR,
+  CLEAR_DRIVES_STATE,
 } from './types';
 
 export const searchdrives = (drivename) => async (dispatch) => {
@@ -64,7 +65,7 @@ export const joindrive = (driveid, searchdrive) => async (dispatch) => {
   }
 };
 
-export const confirmjoindrive = (driveid) => async (dispatch) => {
+export const confirmjoindrive = (driveid, userid) => async (dispatch) => {
   try {
     const config = {
       headers: {
@@ -73,11 +74,67 @@ export const confirmjoindrive = (driveid) => async (dispatch) => {
     };
     const body = JSON.stringify({
       driveid,
+      userid,
     });
     const res = await axios.post('/api/drives/confirmjoindrive', body, config);
 
     dispatch({
-      type: GET_DRIVES,
+      type: CHOOSE_DRIVE,
+      payload: res.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: DRIVE_ERROR,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+  }
+};
+export const deletedrivebuddy = (driveid, userid) => async (dispatch) => {
+  
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({
+      driveid,
+      userid,
+    });
+    const res = await axios.post('/api/drives/deletebuddy', body, config);
+    console.log(res.data);
+    dispatch({
+      type: CHOOSE_DRIVE,
+      payload: res.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: DRIVE_ERROR,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+  }
+};
+export const rejectreq = (driveid, userid) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({
+      driveid,
+      userid,
+    });
+    const res = await axios.post('/api/drives/rejectreq', body, config);
+
+    dispatch({
+      type: CHOOSE_DRIVE,
       payload: res.data,
     });
   } catch (error) {
@@ -191,6 +248,11 @@ export const cleardrives = () => async (dispatch) => {
     type: CLEAR_DRIVES,
   });
 };
+export const cleardrivesstate = () => async (dispatch) => {
+  dispatch({
+    type: CLEAR_DRIVES_STATE,
+  });
+};
 
 export const choosedrive = (drive) => async (dispatch) => {
   const config = {
@@ -208,6 +270,7 @@ export const choosedrive = (drive) => async (dispatch) => {
       payload: res.data,
     });
     dispatch(choosefolder(res.data));
+    dispatch(cleardrives());
   } catch (error) {
     dispatch({
       type: DRIVE_ERROR,
