@@ -16,7 +16,6 @@ router.get('/me', auth, async (req, res) => {
     }).populate('user');
     res.json(profile);
   } catch (err) {
-    console.error(err.message);
     res.status(500).send('Server Error.');
   }
 });
@@ -39,11 +38,9 @@ router.post('/pictuer', auth, async (req, res) => {
     );
     await user.save();
     let profile = await Profile.findOne({ user: req.user.id }).populate('user');
-    console.log(profile);
 
     res.json(profile);
   } catch (err) {
-    console.error(err);
     res.status(500).send('Server Error.');
   }
 });
@@ -80,7 +77,6 @@ router.post('/', auth, async (req, res) => {
     ).populate('user');
     return res.json(profile);
   } catch (err) {
-    console.error(err);
     res.status(500).send('Server Error.');
   }
 });
