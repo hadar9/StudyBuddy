@@ -44,7 +44,7 @@ function SearchBuddies({
                 <Show selecteduser={pro.profile.user._id} />
                 <NameAvatar
                   username={pro.profile.user.username}
-                  avatar={pro.profile.avatar}
+                  avatar={pro.profile.user.avatar}
                 />
               </Row>
             </div>
@@ -62,7 +62,7 @@ function SearchBuddies({
                 <Show selecteduser={pro.profile.user._id} />
                 <NameAvatar
                   username={pro.profile.user.username}
-                  avatar={pro.profile.avatar}
+                  avatar={pro.profile.user.avatar}
                 />
               </Row>
             </div>
@@ -81,7 +81,7 @@ function SearchBuddies({
                 <Show selecteduser={pro.profile.user._id} />
                 <NameAvatar
                   username={pro.profile.user.username}
-                  avatar={pro.profile.avatar}
+                  avatar={pro.profile.user.avatar}
                 />
               </Row>
             </div>
