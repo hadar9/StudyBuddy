@@ -54,11 +54,13 @@ router.post(
       if (user) {
         return res.status(400).json({ msg: 'User name Already taken' });
       }
-
+      let avatar =
+        'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
       user = new User({
         username,
         email,
         password,
+        avatar,
       });
 
       //Encrypt password
@@ -70,8 +72,6 @@ router.post(
       profileFields = {};
       profileFields.user = user.id;
       profileFields.firstname = '';
-      profileFields.avatar =
-        'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
       profileFields.lastname = '';
       profileFields.studyat = '';
       profileFields.studyfield = '';

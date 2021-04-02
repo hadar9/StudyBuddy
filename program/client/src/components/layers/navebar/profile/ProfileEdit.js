@@ -15,8 +15,8 @@ function ProfileEdit({
   profiles: { profile },
 }) {
   const [formData, setForm] = useState({
-    avatar: profile.avatar,
-    src: profile.avatar,
+    avatar: profile.user.avatar,
+    src: profile.user.avatar,
     username: profile.user.username,
     firstname: profile.firstname,
     lastname: profile.lastname,

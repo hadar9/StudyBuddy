@@ -20,10 +20,9 @@ function SentRequest({
             <Row>
               <DeleteBud selecteduser={buddy.user._id} type={'Tabs'} />
               <Show selecteduser={buddy.user._id} />
-            
-            <NameAvatar
+              <NameAvatar
                 username={buddy.user.username}
-                avatar={buddy.avatar}
+                avatar={buddy.user.avatar}
               />
             </Row>
           </div>

@@ -27,7 +27,7 @@ function OtherProfile({
             <Col>
               <Image
                 className='profilepic'
-                src={userprofile.avatar}
+                src={userprofile.user.avatar}
                 roundedCircle
               />
             </Col>

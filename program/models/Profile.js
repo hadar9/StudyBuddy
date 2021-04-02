@@ -4,9 +4,7 @@ const ProfileSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId, //Foreign key
     ref: 'user', //Reference to the user model
   },
-  avatar: {
-    type: String,
-  },
+
   firstname: {
     type: String,
   },

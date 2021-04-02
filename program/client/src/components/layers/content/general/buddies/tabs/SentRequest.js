@@ -26,7 +26,7 @@ function SentRequest({
               <Show selecteduser={buddy.user._id} type={'Tabs'} />
               <NameAvatar
                 username={buddy.user.username}
-                avatar={buddy.avatar}
+                avatar={buddy.user.avatar}
               />
             </Row>
           </div>

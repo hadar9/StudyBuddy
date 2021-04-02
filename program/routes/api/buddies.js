@@ -27,7 +27,7 @@ router.post('/buddies', auth, async (req, res) => {
     for (i = 0; i < withoutmyprofile.length; i++) {
       let profile = await Profile.findOne({
         user: withoutmyprofile[i]._id,
-      }).populate('user', 'username');
+      }).populate('user');
 
       let hasbuddy = -1;
       let profilewithstatus;
@@ -64,10 +64,7 @@ router.post('/buddies', auth, async (req, res) => {
 router.post('/buddyprofile', auth, async (req, res) => {
   try {
     id = req.body;
-    let profile = await Profile.findOne({ user: id.id }).populate(
-      'user',
-      'username'
-    );
+    let profile = await Profile.findOne({ user: id.id }).populate('user');
     res.json(profile);
   } catch (err) {
     res.status(500).send('Server Error');
@@ -84,14 +81,14 @@ router.post('/mybuddies', auth, async (req, res) => {
 
     const myprofile = await Profile.findOne({
       user: req.user.id,
-    }).populate('user', 'username');
+    }).populate('user');
 
     const profiles = [];
     for (i = 0; i < myprofile.buddies.length; i++) {
       if (myprofile.buddies[i].status === key.key) {
         let profile = await Profile.findOne({
           user: myprofile.buddies[i].user,
-        }).populate('user', 'username');
+        }).populate('user');
         profiles.push(profile);
       }
     }

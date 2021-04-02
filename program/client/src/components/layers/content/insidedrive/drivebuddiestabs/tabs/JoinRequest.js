@@ -20,7 +20,7 @@ function JoinRequest({ drives: { drive, driveloading } }) {
               <Show selecteduser={buddy.user._id} />
               <NameAvatar
                 username={buddy.user.username}
-                avatar={buddy.avatar}
+                avatar={buddy.user.avatar}
               />
             </Row>
           </div>

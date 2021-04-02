@@ -8,7 +8,7 @@ function ProfileDisplay({ profiles: { profile } }) {
   return (
     <div className='displayprofile text-center'>
       <Col>
-        <Image className='profilepic' src={profile.avatar} roundedCircle />
+        <Image className='profilepic' src={profile.user.avatar} roundedCircle />
       </Col>
       <h1>{profile.user.username}</h1>
       <p>

@@ -13,7 +13,7 @@ router.get('/me', auth, async (req, res) => {
   try {
     const profile = await Profile.findOne({
       user: req.user.id,
-    }).populate('user', 'username');
+    }).populate('user');
     res.json(profile);
   } catch (err) {
     console.error(err.message);
@@ -29,16 +29,19 @@ router.post('/pictuer', auth, async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
   let avatar = req.body.fileurl;
-  console.log(avatar);
+
   try {
     // Update
-    profile = await Profile.findOneAndUpdate(
-      { user: req.user.id },
+    let user = await User.findOneAndUpdate(
+      { _id: req.user.id },
       { $set: { avatar: avatar } },
       { new: true }
-    ).populate('user', 'username');
+    );
+    await user.save();
+    let profile = await Profile.findOne({ user: req.user.id }).populate('user');
+    console.log(profile);
 
-    return res.json(profile);
+    res.json(profile);
   } catch (err) {
     console.error(err);
     res.status(500).send('Server Error.');
@@ -74,7 +77,7 @@ router.post('/', auth, async (req, res) => {
       { user: req.user.id },
       { $set: profileFields },
       { new: true }
-    ).populate('user', 'username');
+    ).populate('user');
     return res.json(profile);
   } catch (err) {
     console.error(err);
