@@ -93,7 +93,6 @@ export const confirmjoindrive = (driveid, userid) => async (dispatch) => {
   }
 };
 export const deletedrivebuddy = (driveid, userid) => async (dispatch) => {
-  
   try {
     const config = {
       headers: {
@@ -203,9 +202,27 @@ export const leavedrive = (driveid, searchdrive) => async (dispatch) => {
   }
 };
 
-export const getdrives = () => async (dispatch) => {
+export const getmydrives = () => async (dispatch) => {
   try {
     const res = await axios.get('/api/drives/getmydrives');
+    dispatch({
+      type: GET_DRIVES,
+      payload: res.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: DRIVE_ERROR,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+  }
+};
+
+export const getotherdrives = () => async (dispatch) => {
+  try {
+    const res = await axios.get('/api/drives/getotherdrives');
     dispatch({
       type: GET_DRIVES,
       payload: res.data,
@@ -232,7 +249,7 @@ export const createdrive = (drivename) => async (dispatch) => {
   });
   try {
     await axios.post('/api/drives/createdrive', body, config);
-    dispatch(getdrives());
+    dispatch(getmydrives());
   } catch (error) {
     dispatch({
       type: CREATE_DRIVE_ERROR,

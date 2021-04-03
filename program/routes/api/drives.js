@@ -58,6 +58,20 @@ router.get('/getmydrives', auth, async (req, res) => {
   }
 });
 
+router.get('/getotherdrives', auth, async (req, res) => {
+  try {
+    const id = req.user.id;
+    console.log(id);
+    const otherdrive = await Profile.findOne({
+      user: req.user.id,
+    }).populate('otherdrives');
+
+    res.json(otherdrive.otherdrives);
+  } catch (err) {
+    res.status(500).send('Server Error');
+  }
+});
+
 router.post('/searchdrives', auth, async (req, res) => {
   try {
     const drivename = req.body.drivename;

@@ -3,16 +3,20 @@ import { Button, ButtonGroup } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import Buddies from './buddies/Buddies';
 import { getmybuddies } from '../../../../actions/buddies';
-import { getdrives } from '../../../../actions/drives';
+import { getmydrives, getotherdrives } from '../../../../actions/drives';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import MyDrives from './mydrives/MyDrives';
 import ChatGroups from './chatgroups/ChatGroups';
-import FavoriteDrives from './favoritedrives/FavoriteDrives';
 import OtherDrives from './otherdrives/OtherDrives';
 import RecycleBin from './recyclebin/RecycleBin';
 
-function General({ auth: { user }, getmybuddies, getdrives }) {
+function General({
+  auth: { user },
+  getmybuddies,
+  getmydrives,
+  getotherdrives,
+}) {
   const [key, setKey] = useState({
     firstload: true,
     components: '',
@@ -26,7 +30,7 @@ function General({ auth: { user }, getmybuddies, getdrives }) {
             value='MyDrives'
             onClick={(e) => {
               setKey({ firstload: false, components: <MyDrives /> });
-              getdrives();
+              getmydrives();
             }}
             className='bg-dark text-light'
           >
@@ -34,21 +38,13 @@ function General({ auth: { user }, getmybuddies, getdrives }) {
           </Button>
           <Button
             value='Otherdrives'
-            onClick={(e) =>
-              setKey({ firstload: false, components: <OtherDrives /> })
-            }
+            onClick={(e) => {
+              setKey({ firstload: false, components: <OtherDrives /> });
+              getotherdrives();
+            }}
             className='bg-dark text-light'
           >
             Other drives
-          </Button>
-          <Button
-            value='Favoritedrives'
-            onClick={(e) =>
-              setKey({ firstload: false, components: <FavoriteDrives /> })
-            }
-            className='bg-dark text-light'
-          >
-            Favorite drives
           </Button>
           <Button
             value='Chatgroups'
@@ -95,7 +91,8 @@ function General({ auth: { user }, getmybuddies, getdrives }) {
 }
 General.propTypes = {
   getmybuddies: PropTypes.func.isRequired,
-  getdrives: PropTypes.func.isRequired,
+  getmydrives: PropTypes.func.isRequired,
+  getotherdrives: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   drives: PropTypes.object.isRequired,
 };
@@ -107,5 +104,6 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   getmybuddies,
-  getdrives,
+  getmydrives,
+  getotherdrives,
 })(General);

@@ -4,7 +4,7 @@ import CreateDrive from './driveoperations/CreateDrive';
 import ShowDrives from './driveoperations/ShowDrives';
 import { Row } from 'react-bootstrap';
 
-function MyDrives() {
+export default function MyDrives() {
   return (
     <div className='mydrives'>
       <h1 className='mydrives-title'>My Drives</h1>
@@ -20,5 +20,3 @@ function MyDrives() {
     </div>
   );
 }
-
-export default MyDrives;

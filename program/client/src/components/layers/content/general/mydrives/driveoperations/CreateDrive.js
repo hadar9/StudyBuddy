@@ -3,9 +3,9 @@ import { Button, Form, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { createdrive, getdrives } from '../../../../../../actions/drives';
+import { createdrive, getmydrives } from '../../../../../../actions/drives';
 
-function CreateDrive({ createdrive, getdrives }) {
+function CreateDrive({ createdrive, getmydrives }) {
   const [drivename, setdrive] = useState('');
 
   const onsubmit = (e) => {
@@ -43,6 +43,6 @@ function CreateDrive({ createdrive, getdrives }) {
 
 CreateDrive.propTypes = {
   createdrive: PropTypes.func.isRequired,
-  getdrives: PropTypes.func.isRequired,
+  getmydrives: PropTypes.func.isRequired,
 };
-export default connect(null, { createdrive, getdrives })(CreateDrive);
+export default connect(null, { createdrive, getmydrives })(CreateDrive);
