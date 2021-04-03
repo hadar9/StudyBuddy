@@ -207,7 +207,7 @@ export const getmydrives = () => async (dispatch) => {
     const res = await axios.get('/api/drives/getmydrives');
     dispatch({
       type: GET_DRIVES,
-      payload: res.data,
+      payload: { drives: res.data, drivestype: 'mydrives' },
     });
   } catch (error) {
     dispatch({
@@ -225,7 +225,7 @@ export const getotherdrives = () => async (dispatch) => {
     const res = await axios.get('/api/drives/getotherdrives');
     dispatch({
       type: GET_DRIVES,
-      payload: res.data,
+      payload: { drives: res.data, drivestype: 'otherdrives' },
     });
   } catch (error) {
     dispatch({

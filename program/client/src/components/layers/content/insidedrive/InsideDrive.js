@@ -10,7 +10,7 @@ import ChatGroups from '../general/chatgroups/ChatGroups';
 import RecucleBin from '../general/recyclebin/RecycleBin';
 import DriveBuddiesTabs from './drivebuddiestabs/DriveBuddiesTabs';
 
-function InsideDrive({ clearfilesystem }) {
+function InsideDrive({ clearfilesystem, drives: { drivestype } }) {
   const [key, setKey] = useState({
     components: <DriveContent />,
   });
@@ -49,13 +49,15 @@ function InsideDrive({ clearfilesystem }) {
           >
             Chat groups
           </Button>
-          <Button
-            value='Favoritedrives'
-            onClick={(e) => setKey({ components: <Settings /> })}
-            className='bg-dark text-light'
-          >
-            Settings
-          </Button>
+          {drivestype === 'mydrives' ? (
+            <Button
+              value='settings'
+              onClick={(e) => setKey({ components: <Settings /> })}
+              className='bg-dark text-light'
+            >
+              Settings
+            </Button>
+          ) : null}
           <Button
             value='Recyclebin'
             onClick={(e) => setKey({ components: <RecucleBin /> })}
@@ -71,8 +73,11 @@ function InsideDrive({ clearfilesystem }) {
 }
 InsideDrive.propTypes = {
   clearfilesystem: PropTypes.func.isRequired,
+  drives: PropTypes.object.isRequired,
 };
-
-export default connect(null, {
+const mapStateToProps = (state) => ({
+  drives: state.drives,
+});
+export default connect(mapStateToProps, {
   clearfilesystem,
 })(InsideDrive);
