@@ -9,10 +9,13 @@ export default function SearchContact() {
   };
   return (
     <div className='searchcontact'>
-      <Form className='ml-2' onSubmit={(e) => onsubmit(e)}>
-        <Form.Row className='align-items-center'>
-          <Col xs='auto' className='my-3'>
-            <Form.Group className='mb-2' controlId='formBasicContactSearch'>
+      <Form onSubmit={(e) => onsubmit(e)}>
+        <Form.Row>
+          <Col className='my-2'>
+            <Form.Group
+              className='ml-2 w-100'
+              controlId='formBasicContactSearch'
+            >
               <Form.Control
                 type='text'
                 value={name1}
@@ -21,8 +24,8 @@ export default function SearchContact() {
               />
             </Form.Group>
           </Col>
-          <Col xs='auto' className='my-3'>
-            <Button className='mb-2' variant='info' type='submit'>
+          <Col className='my-2'>
+            <Button className='ml-5' variant='info' type='submit'>
               Search
             </Button>
           </Col>

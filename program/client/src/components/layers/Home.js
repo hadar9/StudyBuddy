@@ -27,7 +27,7 @@ export default function Home() {
           }}
           backdrop='static'
           keyboard={false}
-          size='xl'
+          size='lg'
         >
           <Modal.Header closeButton> </Modal.Header>
           <Modal.Body>
