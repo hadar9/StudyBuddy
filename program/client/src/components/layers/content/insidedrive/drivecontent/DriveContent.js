@@ -12,7 +12,7 @@ function DriveContent({ filesystem: { folder } }) {
     <div className='drivecontent'>
       <h1 className='insidedrivecontent-title'>{folder.name}</h1>
       <GeneralMessage />
-      <div className='mydrivesopreations'>
+      <div className='insidemydrivesopreations'>
         <Row>
           <UploadFile />
           <CreateFolder />
