@@ -43,28 +43,29 @@ function BuddySetting({
       <NameAvatar username={buddy.user.username} avatar={buddy.user.avatar} />
       <Form onSubmit={(e) => onsubmit(e)}>
         <Row>
-          <Button className='mr-5' variant='primary' type='submit' size='sm'>
+          <Button
+            className='mr-4'
+            variant='primary'
+            onClick={(e) => driveadmin(e)}
+          >
+            {isadmin ? 'Remove Admin' : 'Add Admin'}
+          </Button>
+          <Button className='mr-4' variant='primary' type='submit'>
             Save
           </Button>
           <Form.Check
-            className='mr-5'
+            className='mt-2 mr-5'
             type='checkbox'
             label='download content'
             name='formHorizontaldownloadcontentbuddy'
             id='formHorizontaldownloadcontentbuddy'
             checked={buddyper}
-            onChange={(e) => setper({ buddyper: e.target.checked })}
+            onChange={(e) =>
+              setper({ ...buddyperr, buddyper: e.target.checked })
+            }
           />
         </Row>
       </Form>
-      <Button
-        className='mr-5'
-        variant='primary'
-        onClick={(e) => driveadmin(e)}
-        size='sm'
-      >
-        {isadmin ? 'Remove Admin' : 'Add Admin'}
-      </Button>
     </div>
   );
 }

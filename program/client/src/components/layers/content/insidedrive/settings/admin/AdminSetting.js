@@ -18,59 +18,54 @@ function AdminSetting({ admin, drives: { drive } }) {
       <NameAvatar username={admin.user.username} avatar={admin.user.avatar} />
       <Form onSubmit={(e) => onsubmit(e)}>
         <Row>
-          <Button className='mr-5' variant='primary' type='submit' size='sm'>
+          <Button className='mr-4' variant='primary' type='submit'>
             Save
           </Button>
-          <Form.Group>
-            <Row>
-              <Col>
-                <Form.Check
-                  type='checkbox'
-                  label='create folder'
-                  name='formHorizontalcreatefolder'
-                  id='formHorizontalcreatefolder'
-                  checked={admin.permission.createfolder}
-                />
-              </Col>
 
-              <Col>
-                <Form.Check
-                  type='checkbox'
-                  label='upload'
-                  name='formHorizontalupload'
-                  id='formHorizontalupload'
-                  checked={admin.permission.upload}
-                />
-              </Col>
-              <Col>
-                <Form.Check
-                  type='checkbox'
-                  label='edit'
-                  name='formHorizontaledit'
-                  id='formHorizontaledit'
-                  checked={admin.permission.edit}
-                />
-              </Col>
-              <Col>
-                <Form.Check
-                  type='checkbox'
-                  label='delete'
-                  name='formHorizontaldelete'
-                  id='formHorizontaldelete'
-                  checked={admin.permission.delete}
-                />
-              </Col>
-              <Col>
-                <Form.Check
-                  type='checkbox'
-                  label='confirm buddies'
-                  name='formHorizontalconfirm'
-                  id='formHorizontalconfirm'
-                  checked={admin.permission.confirmbuddy}
-                />
-              </Col>
-            </Row>
-          </Form.Group>
+          <Form.Check
+            className='mt-2 mr-4'
+            type='checkbox'
+            label='create folder'
+            name='formHorizontalcreatefolder'
+            id='formHorizontalcreatefolder'
+            checked={admin.permission.createfolder}
+          />
+
+          <Form.Check
+            className='mt-2 mr-4'
+            type='checkbox'
+            label='upload'
+            name='formHorizontalupload'
+            id='formHorizontalupload'
+            checked={admin.permission.upload}
+          />
+
+          <Form.Check
+            className='mt-2  mr-4'
+            type='checkbox'
+            label='edit'
+            name='formHorizontaledit'
+            id='formHorizontaledit'
+            checked={admin.permission.edit}
+          />
+
+          <Form.Check
+            className='mt-2 mr-4'
+            type='checkbox'
+            label='delete'
+            name='formHorizontaldelete'
+            id='formHorizontaldelete'
+            checked={admin.permission.delete}
+          />
+
+          <Form.Check
+            className='mt-2 mr-5'
+            type='checkbox'
+            label='confirm buddies'
+            name='formHorizontalconfirm'
+            id='formHorizontalconfirm'
+            checked={admin.permission.confirmbuddy}
+          />
         </Row>
       </Form>
     </div>
