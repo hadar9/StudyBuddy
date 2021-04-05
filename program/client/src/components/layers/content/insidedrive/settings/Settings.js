@@ -3,7 +3,8 @@ import { Form, Button, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import DriveBuddies from './drivebuddies/DriveBuddies';
+import BuddiesSettings from './buddiessettings/BuddiesSettings';
+import AdminsSettings from './admin/AdminsSettings';
 
 function Settings({ drives: { drive, driveloading } }) {
   const [settingfield, setsettings] = useState({
@@ -12,92 +13,42 @@ function Settings({ drives: { drive, driveloading } }) {
   const { drivepermission } = settingfield;
 
   return (
-    <div className='settings'>
+    <div className='settings text-center'>
       <h1 className='settings-title'>Settings</h1>
-      <Form>
-        <fieldset>
-          <Form.Group as={Row}>
-            <Form.Label as='legend'>Drive Permission</Form.Label>
-            <Form.Check
-              type='radio'
-              label='private'
-              name='formHorizontalRadios'
-              id='formHorizontalprivate'
-            />
-            <Form.Check
-              type='radio'
-              label='public'
-              name='formHorizontalRadios'
-              id='formHorizontalpublic'
-            />
-          </Form.Group>
-        </fieldset>
-        <div className='settings-drivebuddies'>
-          <h4>Drive Buddies:</h4>
-          <DriveBuddies drivebuddies={drive.drivebuddies} />
-        </div>
-        <div className='settings-admins'>
-          <Form.Group>
-            <Form.Label as='legend'>Admins:</Form.Label>
-            <Row>
-              <Col>
+      <div className='drivepermissionsetting'>
+        <Form>
+          <Form.Label as='legend'>Drive Permission</Form.Label>
+          <Form.Row>
+            <fieldset>
+              <Form.Group as={Row}>
                 <Form.Check
-                  type='checkbox'
-                  label='create folder'
-                  name='formHorizontalcreatefolder'
-                  id='formHorizontalcreatefolder'
-                  checked={true}
-                  disabled={drivepermission}
+                  type='radio'
+                  label='private'
+                  name='formHorizontalRadios'
+                  id='formHorizontalprivate'
                 />
-              </Col>
-
-              <Col>
                 <Form.Check
-                  type='checkbox'
-                  label='upload'
-                  name='formHorizontalupload'
-                  id='formHorizontalupload'
-                  checked={true}
-                  disabled={drivepermission}
+                  type='radio'
+                  label='public'
+                  name='formHorizontalRadios'
+                  id='formHorizontalpublic'
                 />
-              </Col>
-              <Col>
-                <Form.Check
-                  type='checkbox'
-                  label='edit'
-                  name='formHorizontaledit'
-                  id='formHorizontaledit'
-                  checked={true}
-                  disabled={drivepermission}
-                />
-              </Col>
-              <Col>
-                <Form.Check
-                  type='checkbox'
-                  label='delete'
-                  name='formHorizontaldelete'
-                  id='formHorizontaldelete'
-                  checked={true}
-                  disabled={drivepermission}
-                />
-              </Col>
-              <Col>
-                <Form.Check
-                  type='checkbox'
-                  label='confirm buddies'
-                  name='formHorizontalconfirm'
-                  id='formHorizontalconfirm'
-                  checked={true}
-                  disabled={drivepermission}
-                />
-              </Col>
-            </Row>
-          </Form.Group>
-        </div>
-        <Button variant='primary' type='submit'>
-          Submit
-        </Button>
-      </Form>
+              </Form.Group>
+            </fieldset>
+            <Button size='m' className='ml-5' variant='primary' type='submit'>
+              Save
+            </Button>
+          </Form.Row>
+        </Form>
+      </div>
+      <div className='settings-drivebuddies'>
+        <h4>Drive Buddies:</h4>
+        <BuddiesSettings drivebuddies={drive.drivebuddies} />
+      </div>
+      <div className='settings-admins'>
+        <h4>Admins:</h4>
+        <AdminsSettings drivesubadmins={drive.subadmins} />
+      </div>
     </div>
   );
 }

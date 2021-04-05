@@ -22,9 +22,9 @@ const DriveSchema = new mongoose.Schema({
     {
       user: {
         type: mongoose.Schema.Types.ObjectId, //Foreign key
-        ref: 'profile',
+        ref: 'user',
       },
-      perrmission: {
+      permission: {
         createfolder: {
           type: Boolean,
           default: false,
@@ -58,15 +58,14 @@ const DriveSchema = new mongoose.Schema({
       status: {
         type: String,
       },
-      permission: {
-        watch: {
-          type: Boolean,
-          default: true,
-        },
-        download: {
-          type: Boolean,
-          default: true,
-        },
+
+      download: {
+        type: Boolean,
+        default: true,
+      },
+      isadmin: {
+        type: Boolean,
+        default: false,
       },
       joindate: {
         type: Date,

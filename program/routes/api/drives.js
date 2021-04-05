@@ -49,9 +49,10 @@ search = async function (drivename, userid) {
 router.get('/getmydrives', auth, async (req, res) => {
   try {
     const id = req.user.id;
-    const userdrives = await Drive.find({ user: id }).populate(
-      'drivebuddies.user'
-    );
+    const userdrives = await Drive.find({ user: id }).populate([
+      'drivebuddies.user',
+      'subadmins.user',
+    ]);
     res.json(userdrives);
   } catch (err) {
     res.status(500).send('Server Error');
@@ -110,8 +111,7 @@ router.post('/confirmjoindrive', async (req, res) => {
       { _id: driveid, 'drivebuddies.user': userid },
       { $set: { 'drivebuddies.$.status': 'drivebuddy' } },
       { new: true }
-    ).populate('drivebuddies.user');
-
+    ).populate(['drivebuddies.user', 'subadmins.user']);
     let user = await Profile.findOneAndUpdate(
       { user: userid },
       { $push: { otherdrives: driveid } }
@@ -153,8 +153,7 @@ router.post('/deletebuddy', auth, async (req, res) => {
       { _id: driveid },
       { $pull: { drivebuddies: { user: userid } } },
       { new: true }
-    ).populate('drivebuddies.user');
-
+    ).populate(['drivebuddies.user', 'subadmins.user']);
     let user = await Profile.findOneAndUpdate(
       { user: userid },
       { $pull: { otherdrives: driveid } }
@@ -200,14 +199,83 @@ router.post('/rejectreq', auth, async (req, res) => {
   }
 });
 
+router.post('/setbuddypermission', auth, async (req, res) => {
+  try {
+    const { driveid, buddyid, newper } = req.body;
+    const drive = await Drive.findOneAndUpdate(
+      { _id: driveid, 'drivebuddies._id': buddyid },
+      { $set: { 'drivebuddies.$.download': newper } },
+      { new: true }
+    ).populate(['drivebuddies.user', 'subadmins.user']);
+    drive.save();
+    res.json(drive);
+  } catch (err) {
+    res.status(500).send('Server Error');
+  }
+});
+
+router.post('/addadmin', auth, async (req, res) => {
+  try {
+    const { driveid, userid } = req.body;
+    const drive = await Drive.findOneAndUpdate(
+      { _id: driveid, 'drivebuddies.user': userid },
+      {
+        $set: { 'drivebuddies.$.isadmin': true },
+      }
+    );
+    drive.save();
+    const newadmin = {
+      user: userid,
+    };
+    const retdrive = await Drive.findOneAndUpdate(
+      { _id: driveid },
+      {
+        $push: { subadmins: newadmin },
+      },
+      { new: true }
+    ).populate(['drivebuddies.user', 'subadmins.user']);
+    retdrive.save();
+    res.json(retdrive);
+  } catch (err) {
+    res.status(500).send('Server Error');
+  }
+});
+
+router.post('/deleteadmin', auth, async (req, res) => {
+  try {
+    const { driveid, userid } = req.body;
+
+    const drive = await Drive.findOneAndUpdate(
+      { _id: driveid, 'drivebuddies.user': userid },
+      {
+        $set: { 'drivebuddies.$.isadmin': false },
+      },
+      { new: true }
+    );
+    drive.save();
+    const retdrive = await Drive.findOneAndUpdate(
+      { _id: driveid },
+      {
+        $pull: { subadmins: { user: userid } },
+      },
+      { new: true }
+    ).populate(['drivebuddies.user', 'subadmins.user']);
+    retdrive.save();
+    res.json(retdrive);
+  } catch (err) {
+    res.status(500).send('Server Error');
+  }
+});
+
 router.post('/choosedrive', auth, async (req, res) => {
   try {
     const drive = req.body.drive;
-    const childersas = await Promise.all(
-      drive.children.map((child) => FileSystem.findOne({ _id: child }))
-    );
-    drive.children = childersas;
-    res.json(drive);
+
+    const driveret = await Drive.findOne({ _id: drive._id }).populate([
+      'drivebuddies.user',
+      'subadmins.user',
+    ]);
+    res.json(driveret);
   } catch (err) {
     res.status(500).send('Server Error');
   }

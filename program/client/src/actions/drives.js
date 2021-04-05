@@ -238,6 +238,95 @@ export const getotherdrives = () => async (dispatch) => {
   }
 };
 
+export const setbuddypermission = (driveid, buddyid, newper) => async (
+  dispatch
+) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({
+      driveid,
+      buddyid,
+      newper,
+    });
+
+    const res = await axios.post(
+      '/api/drives/setbuddypermission',
+      body,
+      config
+    );
+    dispatch({
+      type: CHOOSE_DRIVE,
+      payload: res.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: DRIVE_ERROR,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+  }
+};
+
+export const addadmin = (driveid, userid) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({
+      driveid,
+      userid,
+    });
+
+    const res = await axios.post('/api/drives/addadmin', body, config);
+    dispatch({
+      type: CHOOSE_DRIVE,
+      payload: res.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: DRIVE_ERROR,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+  }
+};
+export const deleteadmin = (driveid, userid) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({
+      driveid,
+      userid,
+    });
+    const res = await axios.post('/api/drives/deleteadmin', body, config);
+    dispatch({
+      type: CHOOSE_DRIVE,
+      payload: res.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: DRIVE_ERROR,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+  }
+};
+
 export const createdrive = (drivename) => async (dispatch) => {
   const config = {
     headers: {
