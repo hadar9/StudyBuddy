@@ -65,7 +65,9 @@ export const joindrive = (driveid, searchdrive) => async (dispatch) => {
   }
 };
 
-export const confirmjoindrive = (driveid, userid) => async (dispatch) => {
+export const confirmjoindrive = (driveid, userid, adminper) => async (
+  dispatch
+) => {
   try {
     const config = {
       headers: {
@@ -80,7 +82,7 @@ export const confirmjoindrive = (driveid, userid) => async (dispatch) => {
 
     dispatch({
       type: CHOOSE_DRIVE,
-      payload: res.data,
+      payload: { drive: res.data, per: adminper },
     });
   } catch (error) {
     dispatch({
@@ -92,7 +94,9 @@ export const confirmjoindrive = (driveid, userid) => async (dispatch) => {
     });
   }
 };
-export const deletedrivebuddy = (driveid, userid) => async (dispatch) => {
+export const deletedrivebuddy = (driveid, userid, adminper) => async (
+  dispatch
+) => {
   try {
     const config = {
       headers: {
@@ -104,10 +108,10 @@ export const deletedrivebuddy = (driveid, userid) => async (dispatch) => {
       userid,
     });
     const res = await axios.post('/api/drives/deletebuddy', body, config);
-    console.log(res.data);
+
     dispatch({
       type: CHOOSE_DRIVE,
-      payload: res.data,
+      payload: { drive: res.data, per: adminper },
     });
   } catch (error) {
     dispatch({
@@ -119,7 +123,7 @@ export const deletedrivebuddy = (driveid, userid) => async (dispatch) => {
     });
   }
 };
-export const rejectreq = (driveid, userid) => async (dispatch) => {
+export const rejectreq = (driveid, userid, adminper) => async (dispatch) => {
   try {
     const config = {
       headers: {
@@ -134,7 +138,7 @@ export const rejectreq = (driveid, userid) => async (dispatch) => {
 
     dispatch({
       type: CHOOSE_DRIVE,
-      payload: res.data,
+      payload: { drive: res.data, per: adminper },
     });
   } catch (error) {
     dispatch({
@@ -147,7 +151,9 @@ export const rejectreq = (driveid, userid) => async (dispatch) => {
   }
 };
 
-export const deletereq = (driveid, searchdrive) => async (dispatch) => {
+export const deletereq = (driveid, searchdrive, adminper) => async (
+  dispatch
+) => {
   try {
     const config = {
       headers: {
@@ -162,7 +168,7 @@ export const deletereq = (driveid, searchdrive) => async (dispatch) => {
 
     dispatch({
       type: GET_DRIVES,
-      payload: res.data,
+      payload: { drive: res.data, per: adminper },
     });
   } catch (error) {
     dispatch({
@@ -260,7 +266,7 @@ export const setbuddypermission = (driveid, buddyid, newper) => async (
     );
     dispatch({
       type: CHOOSE_DRIVE,
-      payload: res.data,
+      payload: { drive: res.data, per: null },
     });
   } catch (error) {
     dispatch({
@@ -288,7 +294,7 @@ export const addadmin = (driveid, userid) => async (dispatch) => {
     const res = await axios.post('/api/drives/addadmin', body, config);
     dispatch({
       type: CHOOSE_DRIVE,
-      payload: res.data,
+      payload: { drive: res.data, per: null },
     });
   } catch (error) {
     dispatch({
@@ -314,7 +320,7 @@ export const deleteadmin = (driveid, userid) => async (dispatch) => {
     const res = await axios.post('/api/drives/deleteadmin', body, config);
     dispatch({
       type: CHOOSE_DRIVE,
-      payload: res.data,
+      payload: { drive: res.data, per: null },
     });
   } catch (error) {
     dispatch({
@@ -359,7 +365,7 @@ export const setadminper = (
     );
     dispatch({
       type: CHOOSE_DRIVE,
-      payload: res.data,
+      payload: { drive: res.data, per: null },
     });
   } catch (error) {
     dispatch({
@@ -405,7 +411,7 @@ export const cleardrivesstate = () => async (dispatch) => {
   });
 };
 
-export const choosedrive = (drive) => async (dispatch) => {
+export const choosedrive = (drive, drivetype) => async (dispatch) => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -413,10 +419,11 @@ export const choosedrive = (drive) => async (dispatch) => {
   };
   const body = JSON.stringify({
     drive,
+    drivetype,
   });
   try {
     const res = await axios.post('/api/drives/choosedrive', body, config);
-    console.log(res);
+
     dispatch({
       type: CHOOSE_DRIVE,
       payload: { drive: res.data.resdrive, per: res.data.per },

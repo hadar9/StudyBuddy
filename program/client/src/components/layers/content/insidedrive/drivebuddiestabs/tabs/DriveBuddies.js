@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 function DriveBuddies({
-  drives: { drive, driveloading },
+  drives: { drive, driveloading, adminper },
   buddiess: { userloading },
 }) {
   const drivebuddie = drive.drivebuddies.map((buddy, index) => {
@@ -17,7 +17,9 @@ function DriveBuddies({
         <Fragment key={index}>
           <div className='tabcontent'>
             <Row>
-              <DeleteDriveBuddy selecteduser={buddy.user._id} />
+              {adminper === null || adminper.confirmbuddy ? (
+                <DeleteDriveBuddy selecteduser={buddy.user._id} />
+              ) : null}
               <Show selecteduser={buddy.user._id} />
               <NameAvatar
                 username={buddy.user.username}

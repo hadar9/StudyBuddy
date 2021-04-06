@@ -5,11 +5,15 @@ import { deletereq } from '../../../../../../actions/drives';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-function DeleteReq({ deletereq, drives: { searchinput }, selecteddrive }) {
+function DeleteReq({
+  deletereq,
+  drives: { searchinput, adminper },
+  selecteddrive,
+}) {
   const [clicked, setclick] = useState(false);
 
   const handlejoin = (e) => {
-    deletereq(e.target.value, searchinput);
+    deletereq(e.target.value, searchinput, adminper);
     setclick(true);
   };
   return (

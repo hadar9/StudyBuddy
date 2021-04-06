@@ -5,11 +5,11 @@ import { rejectreq } from '../../../../../../actions/drives';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-function RejectReq({ rejectreq, drives: { drive }, selecteduser }) {
+function RejectReq({ rejectreq, drives: { drive, adminper }, selecteduser }) {
   const [clicked, setclick] = useState(false);
 
   const handlejoin = (e) => {
-    rejectreq(drive._id, e.target.value);
+    rejectreq(drive._id, e.target.value, adminper);
     setclick(true);
   };
   return (

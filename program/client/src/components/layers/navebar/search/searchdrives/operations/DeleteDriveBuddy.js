@@ -7,13 +7,13 @@ import { connect } from 'react-redux';
 
 function DeleteDriveBuddy({
   deletedrivebuddy,
-  drives: { drive },
+  drives: { drive, adminper },
   selecteduser,
 }) {
   const [clicked, setclick] = useState(false);
 
   const handlejoin = (e) => {
-    deletedrivebuddy(drive._id, e.target.value);
+    deletedrivebuddy(drive._id, e.target.value, adminper);
     setclick(true);
   };
   return (

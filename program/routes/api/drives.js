@@ -300,28 +300,32 @@ router.post('/setadminpermission', auth, async (req, res) => {
 
 router.post('/choosedrive', auth, async (req, res) => {
   try {
-    const drive = req.body.drive;
+    const { drive, drivetype } = req.body;
 
     const driveret = await Drive.findOne({ _id: drive._id }).populate([
       'drivebuddies.user',
       'subadmins.user',
     ]);
 
-    let adminper = null;
-    if (driveret.subadmins.length > 0) {
-      for (let i = 0; i < driveret.subadmins.length; i++) {
-        if (
-          JSON.stringify(driveret.subadmins[i].user._id) ===
-          JSON.stringify(req.user.id)
-        ) {
-          adminper = driveret.subadmins[i].permission;
-          break;
+    let adminper;
+    if (drivetype === 'mydrives') {
+      adminper = null;
+    } else {
+      adminper = 'notadmin';
+      if (driveret.subadmins.length > 0) {
+        for (let i = 0; i < driveret.subadmins.length; i++) {
+          if (
+            JSON.stringify(driveret.subadmins[i].user._id) ===
+            JSON.stringify(req.user.id)
+          ) {
+            adminper = driveret.subadmins[i].permission;
+            break;
+          }
         }
       }
     }
 
     const resp = { resdrive: driveret, per: adminper };
-
     res.json(resp);
   } catch (err) {
     res.status(500).send('Server Error');

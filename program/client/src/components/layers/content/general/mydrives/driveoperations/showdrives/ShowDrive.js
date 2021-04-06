@@ -6,12 +6,11 @@ import { choosedrive } from '../../../../../../../actions/drives';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-function ShowDrive({ elem, choosedrive }) {
-    
+function ShowDrive({ elem, choosedrive, drives: { drivestype } }) {
   return (
     <div className='showdrive text-center'>
       <Col>
-        <Button variant='light' onClick={(e) => choosedrive(elem)}>
+        <Button variant='light' onClick={(e) => choosedrive(elem, drivestype)}>
           <Image className='driveimg' src={img} />
         </Button>
         <p style={{ color: 'black' }}>{elem.name}</p>
@@ -22,6 +21,10 @@ function ShowDrive({ elem, choosedrive }) {
 
 ShowDrive.propTypes = {
   choosedrive: PropTypes.func.isRequired,
+  drives: PropTypes.object.isRequired,
 };
+const mapStateToProps = (state) => ({
+  drives: state.drives,
+});
 
-export default connect(null, { choosedrive })(ShowDrive);
+export default connect(mapStateToProps, { choosedrive })(ShowDrive);

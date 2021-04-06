@@ -5,11 +5,15 @@ import { confirmjoindrive } from '../../../../../../actions/drives';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-function ConfirmrReq({ confirmjoindrive, drives: { drive }, selecteduser }) {
+function ConfirmrReq({
+  confirmjoindrive,
+  drives: { drive, adminper },
+  selecteduser,
+}) {
   const [clicked, setclick] = useState(false);
 
   const handlejoin = (e) => {
-    confirmjoindrive(drive._id, e.target.value);
+    confirmjoindrive(drive._id, e.target.value, adminper);
     setclick(true);
   };
   return (
