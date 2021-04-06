@@ -16,6 +16,7 @@ const initialState = {
   searchinput: '',
   drive: {},
   driveloading: false,
+  adminper: null,
   error: {},
 };
 
@@ -41,8 +42,9 @@ export default function drives(state = initialState, action) {
     case CHOOSE_DRIVE:
       return {
         ...state,
-        drive: payload,
+        drive: payload.drive,
         driveloading: true,
+        adminper: payload.per,
       };
     case CREATE_DRIVE_ERROR:
     case DRIVE_ERROR:
@@ -54,6 +56,7 @@ export default function drives(state = initialState, action) {
         searchinput: '',
         drive: {},
         driveloading: false,
+        adminper: null,
         error: payload,
       };
     case CLEAR_DRIVES:
@@ -71,6 +74,7 @@ export default function drives(state = initialState, action) {
         searchinput: '',
         drive: {},
         driveloading: false,
+        adminper: null,
         error: {},
       };
     default:

@@ -61,8 +61,6 @@ router.get('/getmydrives', auth, async (req, res) => {
 
 router.get('/getotherdrives', auth, async (req, res) => {
   try {
-    const id = req.user.id;
-    console.log(id);
     const otherdrive = await Profile.findOne({
       user: req.user.id,
     }).populate('otherdrives');
@@ -308,7 +306,23 @@ router.post('/choosedrive', auth, async (req, res) => {
       'drivebuddies.user',
       'subadmins.user',
     ]);
-    res.json(driveret);
+
+    let adminper = null;
+    if (driveret.subadmins.length > 0) {
+      for (let i = 0; i < driveret.subadmins.length; i++) {
+        if (
+          JSON.stringify(driveret.subadmins[i].user._id) ===
+          JSON.stringify(req.user.id)
+        ) {
+          adminper = driveret.subadmins[i].permission;
+          break;
+        }
+      }
+    }
+
+    const resp = { resdrive: driveret, per: adminper };
+
+    res.json(resp);
   } catch (err) {
     res.status(500).send('Server Error');
   }

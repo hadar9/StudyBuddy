@@ -416,11 +416,12 @@ export const choosedrive = (drive) => async (dispatch) => {
   });
   try {
     const res = await axios.post('/api/drives/choosedrive', body, config);
+    console.log(res);
     dispatch({
       type: CHOOSE_DRIVE,
-      payload: res.data,
+      payload: { drive: res.data.resdrive, per: res.data.per },
     });
-    dispatch(choosefolder(res.data));
+    dispatch(choosefolder(res.data.resdrive));
     dispatch(cleardrives());
   } catch (error) {
     dispatch({
