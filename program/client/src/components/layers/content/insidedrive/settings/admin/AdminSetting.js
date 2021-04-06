@@ -4,13 +4,30 @@ import 'bootstrap/dist/css/bootstrap.css';
 import NameAvatar from '../../../general/buddies/tabs/NameAvatar';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {} from '../../../../../../actions/drives';
+import { setadminper, deleteadmin } from '../../../../../../actions/drives';
 
-function AdminSetting({ admin, drives: { drive } }) {
-  const [adminper, setper] = useState(admin.permission.createfolder);
+function AdminSetting({ admin, drives: { drive }, setadminper, deleteadmin }) {
+  const [adminper, setper] = useState({
+    createfolder: admin.permission.createfolder,
+    upload: admin.permission.createfolder,
+    edit: admin.permission.edit,
+    deletee: admin.permission.delete,
+    confirmbuddy: admin.permission.confirmbuddy,
+  });
+
+  const { createfolder, upload, edit, deletee, confirmbuddy } = adminper;
 
   const onsubmit = (e) => {
     e.preventDefault();
+    setadminper(
+      drive._id,
+      admin._id,
+      createfolder,
+      upload,
+      edit,
+      deletee,
+      confirmbuddy
+    );
   };
 
   return (
@@ -18,6 +35,13 @@ function AdminSetting({ admin, drives: { drive } }) {
       <NameAvatar username={admin.user.username} avatar={admin.user.avatar} />
       <Form onSubmit={(e) => onsubmit(e)}>
         <Row>
+          <Button
+            className='mr-4'
+            variant='primary'
+            onClick={(e) => deleteadmin(drive._id, admin.user._id)}
+          >
+            Delete Admin
+          </Button>
           <Button className='mr-4' variant='primary' type='submit'>
             Save
           </Button>
@@ -28,7 +52,10 @@ function AdminSetting({ admin, drives: { drive } }) {
             label='create folder'
             name='formHorizontalcreatefolder'
             id='formHorizontalcreatefolder'
-            checked={admin.permission.createfolder}
+            checked={createfolder}
+            onChange={(e) =>
+              setper({ ...adminper, createfolder: e.target.checked })
+            }
           />
 
           <Form.Check
@@ -37,7 +64,8 @@ function AdminSetting({ admin, drives: { drive } }) {
             label='upload'
             name='formHorizontalupload'
             id='formHorizontalupload'
-            checked={admin.permission.upload}
+            checked={upload}
+            onChange={(e) => setper({ ...adminper, upload: e.target.checked })}
           />
 
           <Form.Check
@@ -46,7 +74,8 @@ function AdminSetting({ admin, drives: { drive } }) {
             label='edit'
             name='formHorizontaledit'
             id='formHorizontaledit'
-            checked={admin.permission.edit}
+            checked={edit}
+            onChange={(e) => setper({ ...adminper, edit: e.target.checked })}
           />
 
           <Form.Check
@@ -55,7 +84,8 @@ function AdminSetting({ admin, drives: { drive } }) {
             label='delete'
             name='formHorizontaldelete'
             id='formHorizontaldelete'
-            checked={admin.permission.delete}
+            checked={deletee}
+            onChange={(e) => setper({ ...adminper, deletee: e.target.checked })}
           />
 
           <Form.Check
@@ -64,7 +94,10 @@ function AdminSetting({ admin, drives: { drive } }) {
             label='confirm buddies'
             name='formHorizontalconfirm'
             id='formHorizontalconfirm'
-            checked={admin.permission.confirmbuddy}
+            checked={confirmbuddy}
+            onChange={(e) =>
+              setper({ ...adminper, confirmbuddy: e.target.checked })
+            }
           />
         </Row>
       </Form>
@@ -73,9 +106,13 @@ function AdminSetting({ admin, drives: { drive } }) {
 }
 AdminSetting.propTypes = {
   drives: PropTypes.object.isRequired,
+  setadminper: PropTypes.func.isRequired,
+  deleteadmin: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   drives: state.drives,
 });
 
-export default connect(mapStateToProps, {})(AdminSetting);
+export default connect(mapStateToProps, { setadminper, deleteadmin })(
+  AdminSetting
+);

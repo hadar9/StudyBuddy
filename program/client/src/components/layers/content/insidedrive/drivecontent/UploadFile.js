@@ -23,6 +23,7 @@ function UploadFile({ filesystem: { folder }, createfile }) {
               className='mx-auto'
               name='file'
               onChange={(e) => setName(e.target.files[0])}
+              required
             />
           </Form.Group>
           <Button variant='info' className='mb-3' size='m' type='submit'>

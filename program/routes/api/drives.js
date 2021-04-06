@@ -267,6 +267,39 @@ router.post('/deleteadmin', auth, async (req, res) => {
   }
 });
 
+router.post('/setadminpermission', auth, async (req, res) => {
+  try {
+    const {
+      driveid,
+      adminid,
+      createfolder,
+      upload,
+      edit,
+      deletee,
+      confirmbuddy,
+    } = req.body;
+    const permission = {
+      createfolder,
+      upload,
+      edit,
+      delete: deletee,
+      confirmbuddy,
+    };
+    const drive = await Drive.findOneAndUpdate(
+      { _id: driveid, 'subadmins._id': adminid },
+      {
+        $set: { 'subadmins.$.permission': permission },
+      },
+      { new: true }
+    ).populate(['drivebuddies.user', 'subadmins.user']);
+
+    drive.save();
+    res.json(drive);
+  } catch (err) {
+    res.status(500).send('Server Error');
+  }
+});
+
 router.post('/choosedrive', auth, async (req, res) => {
   try {
     const drive = req.body.drive;

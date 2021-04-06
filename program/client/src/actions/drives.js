@@ -327,6 +327,51 @@ export const deleteadmin = (driveid, userid) => async (dispatch) => {
   }
 };
 
+export const setadminper = (
+  driveid,
+  adminid,
+  createfolder,
+  upload,
+  edit,
+  deletee,
+  confirmbuddy
+) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({
+      driveid,
+      adminid,
+      createfolder,
+      upload,
+      edit,
+      deletee,
+      confirmbuddy,
+    });
+
+    const res = await axios.post(
+      '/api/drives/setadminpermission',
+      body,
+      config
+    );
+    dispatch({
+      type: CHOOSE_DRIVE,
+      payload: res.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: DRIVE_ERROR,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+  }
+};
+
 export const createdrive = (drivename) => async (dispatch) => {
   const config = {
     headers: {
