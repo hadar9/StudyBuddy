@@ -17,7 +17,7 @@ function DriveBuddies({
         <Fragment key={index}>
           <div className='tabcontent'>
             <Row>
-              {adminper === null || adminper.confirmbuddy ? (
+              {adminper === null || adminper.buddymang ? (
                 <DeleteDriveBuddy selecteduser={buddy.user._id} />
               ) : null}
               <Show selecteduser={buddy.user._id} />

@@ -23,7 +23,7 @@ function DriveBuddiesTabs({ drives: { adminper } }) {
         >
           <DriveBuddies />
         </Tab>
-        {adminper === null || adminper.confirmbuddy ? (
+        {adminper === null || adminper.buddymang ? (
           <Tab
             className='tabcontainercontent'
             eventKey='request'
