@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import { Row, Spinner } from 'react-bootstrap';
 import RejectReq from '../../../../navebar/search/searchdrives/operations/RejectReq';
 import NameAvatar from '../../../general/buddies/tabs/NameAvatar';
-import OtherProfile from '../../../general/buddies/tabs/OtherProfile';
 import Show from '../../../general/buddies/tabs/opertaions/Show';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -26,7 +25,7 @@ function JoinRequest({ drives: { drive, driveloading } }) {
           </div>
         </Fragment>
       );
-    }
+    } else return null;
   });
 
   if (driveloading === true) {

@@ -29,7 +29,7 @@ function DriveBuddies({
           </div>
         </Fragment>
       );
-    }
+    } else return null;
   });
 
   if (userloading === true) {

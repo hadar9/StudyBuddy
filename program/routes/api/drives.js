@@ -197,21 +197,6 @@ router.post('/rejectreq', auth, async (req, res) => {
   }
 });
 
-router.post('/setbuddypermission', auth, async (req, res) => {
-  try {
-    const { driveid, buddyid, newper } = req.body;
-    const drive = await Drive.findOneAndUpdate(
-      { _id: driveid, 'drivebuddies._id': buddyid },
-      { $set: { 'drivebuddies.$.download': newper } },
-      { new: true }
-    ).populate(['drivebuddies.user', 'subadmins.user']);
-    drive.save();
-    res.json(drive);
-  } catch (err) {
-    res.status(500).send('Server Error');
-  }
-});
-
 router.post('/addadmin', auth, async (req, res) => {
   try {
     const { driveid, userid } = req.body;
@@ -260,6 +245,61 @@ router.post('/deleteadmin', auth, async (req, res) => {
     ).populate(['drivebuddies.user', 'subadmins.user']);
     retdrive.save();
     res.json(retdrive);
+  } catch (err) {
+    res.status(500).send('Server Error');
+  }
+});
+
+router.post('/setdrivepermission', auth, async (req, res) => {
+  try {
+    const { driveid, permission } = req.body;
+
+    let drive;
+    if (permission) {
+      drivetemp = await Drive.findOne({ _id: driveid });
+      if (drivetemp.drivebuddies.length > 0) {
+        drivetemp.drivebuddies.map(async (buddy) => {
+          let user = await Profile.findOneAndUpdate(
+            { user: buddy.user },
+            { $pull: { otherdrives: driveid } }
+          );
+          user.save();
+        });
+      }
+      drive = await Drive.findOneAndUpdate(
+        { _id: driveid },
+        {
+          $set: {
+            drivepermission: permission,
+            drivebuddies: [],
+            subadmins: [],
+          },
+        },
+        { new: true }
+      ).populate(['drivebuddies.user', 'subadmins.user']);
+    } else {
+      drive = await Drive.findOneAndUpdate(
+        { _id: driveid },
+        { $set: { drivepermission: permission } },
+        { new: true }
+      ).populate(['drivebuddies.user', 'subadmins.user']);
+    }
+    drive.save();
+    res.json(drive);
+  } catch (err) {
+    res.status(500).send('Server Error');
+  }
+});
+router.post('/setbuddypermission', auth, async (req, res) => {
+  try {
+    const { driveid, buddyid, newper } = req.body;
+    const drive = await Drive.findOneAndUpdate(
+      { _id: driveid, 'drivebuddies._id': buddyid },
+      { $set: { 'drivebuddies.$.download': newper } },
+      { new: true }
+    ).populate(['drivebuddies.user', 'subadmins.user']);
+    drive.save();
+    res.json(drive);
   } catch (err) {
     res.status(500).send('Server Error');
   }

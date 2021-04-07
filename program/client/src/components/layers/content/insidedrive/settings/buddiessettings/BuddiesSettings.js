@@ -8,7 +8,7 @@ export default function BuddiesSettings({ drivebuddies }) {
           <BuddySetting buddy={buddy} />
         </div>
       );
-    }
+    } else return null;
   });
   return <div>{buddies !== null ? buddies : null}</div>;
 }

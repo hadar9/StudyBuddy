@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Image, Row } from 'react-bootstrap';
+import { Image, Row } from 'react-bootstrap';
 export default function Contact({ contact }) {
   return (
     <div className='contact'>

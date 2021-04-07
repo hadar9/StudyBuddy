@@ -333,6 +333,38 @@ export const deleteadmin = (driveid, userid) => async (dispatch) => {
   }
 };
 
+export const setdrivepermission = (driveid, permission) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({
+      driveid,
+      permission,
+    });
+
+    const res = await axios.post(
+      '/api/drives/setdrivepermission',
+      body,
+      config
+    );
+    dispatch({
+      type: CHOOSE_DRIVE,
+      payload: { drive: res.data, per: null },
+    });
+  } catch (error) {
+    dispatch({
+      type: DRIVE_ERROR,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+  }
+};
+
 export const setadminper = (
   driveid,
   adminid,

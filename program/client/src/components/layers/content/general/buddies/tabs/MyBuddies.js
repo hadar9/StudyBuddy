@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Row, Figure, Spinner } from 'react-bootstrap';
+import { Row, Spinner } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';

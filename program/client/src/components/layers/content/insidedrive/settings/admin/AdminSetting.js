@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Button, Row, Col } from 'react-bootstrap';
+import { Form, Button, Row } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import NameAvatar from '../../../general/buddies/tabs/NameAvatar';
 import PropTypes from 'prop-types';
