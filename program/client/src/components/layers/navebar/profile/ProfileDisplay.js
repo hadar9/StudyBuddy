@@ -27,10 +27,6 @@ function ProfileDisplay({ profiles: { profile } }) {
         <strong>study field: </strong>
         {profile.studyfield}
       </p>
-      <p>
-        <strong>public drives: </strong>
-        {profile.publicdrives}
-      </p>
     </div>
   );
 }

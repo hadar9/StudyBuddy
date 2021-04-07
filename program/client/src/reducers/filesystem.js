@@ -59,9 +59,9 @@ export default function filesystem(state = initialState, action) {
       };
     case CLEAR_FILESYSTEM:
       return {
-        folder: [],
+        folder: {},
         folderloading: false,
-        file: [],
+        file: {},
         fileloading: false,
         error: {},
       };

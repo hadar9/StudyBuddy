@@ -211,6 +211,7 @@ export const leavedrive = (driveid, searchdrive) => async (dispatch) => {
 export const getmydrives = () => async (dispatch) => {
   try {
     const res = await axios.get('/api/drives/getmydrives');
+
     dispatch({
       type: GET_DRIVES,
       payload: { drives: res.data, drivestype: 'mydrives' },

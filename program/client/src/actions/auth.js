@@ -11,7 +11,8 @@ import axios from 'axios';
 import { setalert } from './alert';
 import { clearprofile } from './profile';
 import { clearbuddy } from './buddies';
-import { cleardrives } from './drives';
+import { cleardrivesstate } from './drives';
+import { clearfilesystem } from './filesystem';
 import setAuthToken from '../utils/setAuthToken';
 
 //Load User
@@ -93,7 +94,8 @@ export const login = ({ email, password }) => async (dispatch) => {
 export const logout = () => async (dispatch) => {
   dispatch(clearprofile());
   dispatch(clearbuddy());
-  dispatch(cleardrives());
+  dispatch(clearfilesystem());
+  dispatch(cleardrivesstate());
   dispatch({
     type: LOGOUT,
   });
