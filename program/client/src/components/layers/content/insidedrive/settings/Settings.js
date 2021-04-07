@@ -15,10 +15,13 @@ function Settings({ drives: { drive, driveloading } }) {
   return (
     <div className='settings text-center'>
       <h1 className='settings-title'>Settings</h1>
+      <h4 className='mt-4'>Drive Permission</h4>
       <div className='drivepermissionsetting'>
         <Form>
-          <Form.Label as='legend'>Drive Permission</Form.Label>
-          <Form.Row>
+          <Row>
+            <Button className='mr-5' variant='primary' type='submit'>
+              Save
+            </Button>
             <fieldset>
               <Form.Group as={Row}>
                 <Form.Check
@@ -26,6 +29,7 @@ function Settings({ drives: { drive, driveloading } }) {
                   label='private'
                   name='formHorizontalRadios'
                   id='formHorizontalprivate'
+                  className='mr-4'
                 />
                 <Form.Check
                   type='radio'
@@ -35,10 +39,7 @@ function Settings({ drives: { drive, driveloading } }) {
                 />
               </Form.Group>
             </fieldset>
-            <Button size='m' className='ml-5' variant='primary' type='submit'>
-              Save
-            </Button>
-          </Form.Row>
+          </Row>
         </Form>
       </div>
       <div className='settings-drivebuddies'>

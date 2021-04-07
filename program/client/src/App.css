@@ -239,9 +239,11 @@
 /********************************************************/
 /*drive settings*/
 .drivepermissionsetting {
-  margin-top: 40px;
-  height: 100px;
+  margin-top: 20px;
+  height: 70px;
+  margin-right: 45%;
 }
+
 .settings-drivebuddies {
   height: 600px;
   border-top: 3px dashed rgb(179, 177, 177);
@@ -253,7 +255,7 @@
   max-height: 100%;
 }
 .settings-admins {
-  max-height: 460px;
+  max-height: 500px;
 }
 
 /********************************************************/
