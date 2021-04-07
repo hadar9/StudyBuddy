@@ -52,7 +52,7 @@ export const joindrive = (driveid, searchdrive) => async (dispatch) => {
 
     dispatch({
       type: GET_DRIVES,
-      payload: res.data,
+      payload: { drives: res.data, drivestype: null },
     });
   } catch (error) {
     dispatch({
@@ -168,7 +168,7 @@ export const deletereq = (driveid, searchdrive, adminper) => async (
 
     dispatch({
       type: GET_DRIVES,
-      payload: { drive: res.data, per: adminper },
+      payload: { drives: res.data, drivestype: null },
     });
   } catch (error) {
     dispatch({
@@ -195,7 +195,7 @@ export const leavedrive = (driveid, searchdrive) => async (dispatch) => {
 
     dispatch({
       type: GET_DRIVES,
-      payload: res.data,
+      payload: { drives: res.data, drivestype: null },
     });
   } catch (error) {
     dispatch({

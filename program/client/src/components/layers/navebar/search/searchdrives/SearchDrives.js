@@ -22,10 +22,10 @@ function SearchDrives({ drive: { drives, drivesloading } }) {
       return (
         <Fragment key={index}>
           <Row>
-            <h6>{`drive buddies: ${pro.buddiescount}`}</h6>
-            {btn}
-            <h5>{pro.driveowner.username} </h5>
-            <h1>{pro.drivename}</h1>
+            <h6 className='mr-3 mt-3'>{`drive buddies: ${pro.buddiescount}`}</h6>
+            <div className='mr-3 mt-2'>{btn}</div>
+            <h5 className='mr-3 mt-3'>{pro.driveowner.username} </h5>
+            <h1 className='mr-2'>{pro.drivename}</h1>
           </Row>
         </Fragment>
       );
