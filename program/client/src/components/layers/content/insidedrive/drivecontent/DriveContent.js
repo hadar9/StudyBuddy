@@ -7,15 +7,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import GeneralMessage from './GeneralMessage';
 
-function DriveContent({ filesystem: { folder } }) {
+function DriveContent({ filesystem: { folder }, drives: { adminper } }) {
   return (
     <div className='drivecontent'>
       <h1 className='insidedrivecontent-title'>{folder.name}</h1>
       <GeneralMessage />
       <div className='insidemydrivesopreations'>
         <Row>
-          <UploadFile />
-          <CreateFolder />
+          {adminper === null || adminper.upload ? <UploadFile /> : null}
+          {adminper === null || adminper.createfolder ? <CreateFolder /> : null}
         </Row>
       </div>
       <div className='showfilesystems '>
@@ -26,9 +26,11 @@ function DriveContent({ filesystem: { folder } }) {
 }
 DriveContent.propTypes = {
   filesystem: PropTypes.object.isRequired,
+  drives: PropTypes.object.isRequired,
 };
 const mapStateToProps = (state) => ({
   filesystem: state.filesystem,
+  drives: state.drives,
 });
 
 export default connect(mapStateToProps, {})(DriveContent);

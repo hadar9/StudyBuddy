@@ -42,7 +42,11 @@ const DriveSchema = new mongoose.Schema({
           type: Boolean,
           default: false,
         },
-        confirmbuddy: {
+        buddymang: {
+          type: Boolean,
+          default: false,
+        },
+        editmess: {
           type: Boolean,
           default: false,
         },

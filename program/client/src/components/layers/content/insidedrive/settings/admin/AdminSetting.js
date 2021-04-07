@@ -12,10 +12,11 @@ function AdminSetting({ admin, drives: { drive }, setadminper, deleteadmin }) {
     upload: admin.permission.createfolder,
     edit: admin.permission.edit,
     deletee: admin.permission.delete,
-    confirmbuddy: admin.permission.confirmbuddy,
+    buddymang: admin.permission.buddymang,
+    editmess: admin.permission.editmess,
   });
 
-  const { createfolder, upload, edit, deletee, confirmbuddy } = adminper;
+  const { createfolder, upload, edit, deletee, buddymang, editmess } = adminper;
 
   const onsubmit = (e) => {
     e.preventDefault();
@@ -26,7 +27,8 @@ function AdminSetting({ admin, drives: { drive }, setadminper, deleteadmin }) {
       upload,
       edit,
       deletee,
-      confirmbuddy
+      buddymang,
+      editmess
     );
   };
 
@@ -89,14 +91,25 @@ function AdminSetting({ admin, drives: { drive }, setadminper, deleteadmin }) {
           />
 
           <Form.Check
+            className='mt-2 mr-4'
+            type='checkbox'
+            label='buddies mangament'
+            name='formHorizontalbuddiesmangament'
+            id='formHorizontalbuddiesmangament'
+            checked={buddymang}
+            onChange={(e) =>
+              setper({ ...adminper, buddymang: e.target.checked })
+            }
+          />
+          <Form.Check
             className='mt-2 mr-5'
             type='checkbox'
-            label='confirm buddies'
-            name='formHorizontalconfirm'
-            id='formHorizontalconfirm'
-            checked={confirmbuddy}
+            label='edit messeage'
+            name='formHorizontaleditmesseage'
+            id='formHorizontaleditmesseage'
+            checked={editmess}
             onChange={(e) =>
-              setper({ ...adminper, confirmbuddy: e.target.checked })
+              setper({ ...adminper, editmess: e.target.checked })
             }
           />
         </Row>

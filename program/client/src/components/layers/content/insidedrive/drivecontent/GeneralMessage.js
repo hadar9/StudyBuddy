@@ -5,7 +5,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { editmessage } from '../../../../../actions/filesystem';
 
-function GeneralMessage({ filesystem: { folder }, editmessage }) {
+function GeneralMessage({
+  filesystem: { folder },
+  editmessage,
+  drives: { adminper },
+}) {
   const [editMessage, setmessage] = useState({
     edit: false,
     buttonmessage: 'Edit',
@@ -41,7 +45,7 @@ function GeneralMessage({ filesystem: { folder }, editmessage }) {
 
   return (
     <div className='generalmessage'>
-      {edit ? (
+      {edit && (adminper === null || adminper.editmess) ? (
         <Form onSubmit={(e) => onsumbit(e)}>
           <div>
             <Form.Group controlId='formGridmessage'>
@@ -72,7 +76,12 @@ function GeneralMessage({ filesystem: { folder }, editmessage }) {
         <p className='pmessage'>{message}</p>
       )}
 
-      <Button className='pbutton' variant='dark' onClick={(e) => onclick(e)}>
+      <Button
+        className='pbutton'
+        variant='dark'
+        hidden={!(adminper === null || adminper.editmess)}
+        onClick={(e) => onclick(e)}
+      >
         {buttonmessage}
       </Button>
     </div>
@@ -81,10 +90,12 @@ function GeneralMessage({ filesystem: { folder }, editmessage }) {
 GeneralMessage.propTypes = {
   filesystem: PropTypes.object.isRequired,
   editmessage: PropTypes.func.isRequired,
+  drives: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   filesystem: state.filesystem,
+  drives: state.drives,
 });
 
 export default connect(mapStateToProps, { editmessage })(GeneralMessage);

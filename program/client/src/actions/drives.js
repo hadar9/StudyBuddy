@@ -340,7 +340,8 @@ export const setadminper = (
   upload,
   edit,
   deletee,
-  confirmbuddy
+  buddymang,
+  editmess
 ) => async (dispatch) => {
   try {
     const config = {
@@ -355,7 +356,8 @@ export const setadminper = (
       upload,
       edit,
       deletee,
-      confirmbuddy,
+      buddymang,
+      editmess,
     });
 
     const res = await axios.post(

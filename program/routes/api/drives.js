@@ -274,14 +274,16 @@ router.post('/setadminpermission', auth, async (req, res) => {
       upload,
       edit,
       deletee,
-      confirmbuddy,
+      buddymang,
+      editmess,
     } = req.body;
     const permission = {
       createfolder,
       upload,
       edit,
       delete: deletee,
-      confirmbuddy,
+      buddymang,
+      editmess,
     };
     const drive = await Drive.findOneAndUpdate(
       { _id: driveid, 'subadmins._id': adminid },
