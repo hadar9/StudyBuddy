@@ -10,6 +10,7 @@ import {
   SEARCH_DRIVE_ERROR,
   CLEAR_DRIVES_STATE,
 } from './types';
+import { setalert } from './alert';
 
 export const searchdrives = (drivename) => async (dispatch) => {
   try {
@@ -269,6 +270,7 @@ export const setbuddypermission = (driveid, buddyid, newper) => async (
       type: CHOOSE_DRIVE,
       payload: { drive: res.data, per: null },
     });
+    dispatch(setalert('Changes saved', 'success'));
   } catch (error) {
     dispatch({
       type: DRIVE_ERROR,
