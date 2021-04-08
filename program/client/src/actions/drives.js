@@ -6,6 +6,7 @@ import {
   CLEAR_DRIVES,
   DRIVE_ERROR,
   CHOOSE_DRIVE,
+  UPDATED_ELEM_INCHOOSEN_DRIVE,
   SEARCH_DRIVES_SUCCESS,
   ClOSE_SEARCH,
   SEARCH_DRIVE_ERROR,
@@ -88,7 +89,7 @@ export const confirmjoindrive = (driveid, userid, adminper) => async (
     const res = await axios.post('/api/drives/confirmjoindrive', body, config);
 
     dispatch({
-      type: CHOOSE_DRIVE,
+      type: UPDATED_ELEM_INCHOOSEN_DRIVE,
       payload: { drive: res.data, per: adminper },
     });
   } catch (error) {
@@ -117,7 +118,7 @@ export const deletedrivebuddy = (driveid, userid, adminper) => async (
     const res = await axios.post('/api/drives/deletebuddy', body, config);
 
     dispatch({
-      type: CHOOSE_DRIVE,
+      type: UPDATED_ELEM_INCHOOSEN_DRIVE,
       payload: { drive: res.data, per: adminper },
     });
   } catch (error) {
@@ -144,7 +145,7 @@ export const rejectreq = (driveid, userid, adminper) => async (dispatch) => {
     const res = await axios.post('/api/drives/rejectreq', body, config);
 
     dispatch({
-      type: CHOOSE_DRIVE,
+      type: UPDATED_ELEM_INCHOOSEN_DRIVE,
       payload: { drive: res.data, per: adminper },
     });
   } catch (error) {
@@ -158,9 +159,7 @@ export const rejectreq = (driveid, userid, adminper) => async (dispatch) => {
   }
 };
 
-export const deletereq = (driveid, searchdrive, adminper) => async (
-  dispatch
-) => {
+export const deletereq = (driveid, searchdrive) => async (dispatch) => {
   try {
     const config = {
       headers: {
@@ -273,7 +272,7 @@ export const setbuddypermission = (driveid, buddyid, newper) => async (
       config
     );
     dispatch({
-      type: CHOOSE_DRIVE,
+      type: UPDATED_ELEM_INCHOOSEN_DRIVE,
       payload: { drive: res.data, per: null },
     });
     dispatch(setalert('Changes saved', 'success'));
@@ -302,7 +301,7 @@ export const addadmin = (driveid, userid) => async (dispatch) => {
 
     const res = await axios.post('/api/drives/addadmin', body, config);
     dispatch({
-      type: CHOOSE_DRIVE,
+      type: UPDATED_ELEM_INCHOOSEN_DRIVE,
       payload: { drive: res.data, per: null },
     });
   } catch (error) {
@@ -328,7 +327,7 @@ export const deleteadmin = (driveid, userid) => async (dispatch) => {
     });
     const res = await axios.post('/api/drives/deleteadmin', body, config);
     dispatch({
-      type: CHOOSE_DRIVE,
+      type: UPDATED_ELEM_INCHOOSEN_DRIVE,
       payload: { drive: res.data, per: null },
     });
   } catch (error) {
@@ -360,7 +359,7 @@ export const setdrivepermission = (driveid, permission) => async (dispatch) => {
       config
     );
     dispatch({
-      type: CHOOSE_DRIVE,
+      type: UPDATED_ELEM_INCHOOSEN_DRIVE,
       payload: { drive: res.data, per: null },
     });
   } catch (error) {
@@ -407,7 +406,7 @@ export const setadminper = (
       config
     );
     dispatch({
-      type: CHOOSE_DRIVE,
+      type: UPDATED_ELEM_INCHOOSEN_DRIVE,
       payload: { drive: res.data, per: null },
     });
   } catch (error) {

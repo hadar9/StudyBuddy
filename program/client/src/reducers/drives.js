@@ -6,6 +6,7 @@ import {
   CLEAR_DRIVES,
   DRIVE_ERROR,
   CHOOSE_DRIVE,
+  UPDATED_ELEM_INCHOOSEN_DRIVE,
   CLEAR_DRIVES_STATE,
   ClOSE_SEARCH,
 } from '../actions/types';
@@ -48,6 +49,7 @@ export default function drives(state = initialState, action) {
         driveloading: false,
       };
     case CHOOSE_DRIVE:
+    case UPDATED_ELEM_INCHOOSEN_DRIVE:
       return {
         ...state,
         drive: payload.drive,
