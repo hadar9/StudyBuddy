@@ -345,6 +345,7 @@ router.post('/choosedrive', auth, async (req, res) => {
     const drive = req.body.drive;
 
     const driveret = await Drive.findOne({ _id: drive._id }).populate([
+      'children',
       'drivebuddies.user',
       'subadmins.user',
     ]);

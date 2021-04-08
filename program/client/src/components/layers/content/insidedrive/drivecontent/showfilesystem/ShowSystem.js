@@ -20,7 +20,17 @@ function ShowSystem({ elem, choosefolder, choosefile }) {
             <Image className='fileimg' src={fileimg} />
           </Button>
         )}
-        <p style={{ color: 'black' }}>{elem.name}</p>
+        <p
+          style={{
+            whiteSpace: 'nowrap',
+            color: 'black',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            width: '150px',
+          }}
+        >
+          {elem.name}
+        </p>
       </Col>
     </div>
   );

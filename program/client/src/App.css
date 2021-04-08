@@ -232,6 +232,9 @@
   color: white;
   background-color: white;
   border: none;
+  max-width: 150px;
+  margin-right: 20px;
+  margin-left: 20px;
 }
 .driveimg,
 .folderimg,
