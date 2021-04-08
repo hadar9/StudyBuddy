@@ -37,6 +37,7 @@ export const searchdrives = (drivename) => async (dispatch) => {
         status: error.response.status,
       },
     });
+    console.log('dfdf');
   }
 };
 export const clearsearchdrives = () => async (dispatch) => {
