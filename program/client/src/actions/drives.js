@@ -7,6 +7,7 @@ import {
   DRIVE_ERROR,
   CHOOSE_DRIVE,
   SEARCH_DRIVES_SUCCESS,
+  ClOSE_SEARCH,
   SEARCH_DRIVE_ERROR,
   CLEAR_DRIVES_STATE,
 } from './types';
@@ -37,6 +38,11 @@ export const searchdrives = (drivename) => async (dispatch) => {
     });
   }
 };
+export const clearsearchdrives = () => async (dispatch) => {
+  dispatch({
+    type: ClOSE_SEARCH,
+  });
+};
 
 export const joindrive = (driveid, searchdrive) => async (dispatch) => {
   try {
@@ -52,8 +58,8 @@ export const joindrive = (driveid, searchdrive) => async (dispatch) => {
     const res = await axios.post('/api/drives/joindrive', body, config);
 
     dispatch({
-      type: GET_DRIVES,
-      payload: { drives: res.data, drivestype: null },
+      type: SEARCH_DRIVES_SUCCESS,
+      payload: { drives: res.data, searchinput: searchdrive },
     });
   } catch (error) {
     dispatch({
@@ -168,8 +174,8 @@ export const deletereq = (driveid, searchdrive, adminper) => async (
     const res = await axios.post('/api/drives/delete', body, config);
 
     dispatch({
-      type: GET_DRIVES,
-      payload: { drives: res.data, drivestype: null },
+      type: SEARCH_DRIVES_SUCCESS,
+      payload: { drives: res.data, searchinput: searchdrive },
     });
   } catch (error) {
     dispatch({
@@ -195,8 +201,8 @@ export const leavedrive = (driveid, searchdrive) => async (dispatch) => {
     const res = await axios.post('/api/drives/leavedrive', body, config);
 
     dispatch({
-      type: GET_DRIVES,
-      payload: { drives: res.data, drivestype: null },
+      type: SEARCH_DRIVES_SUCCESS,
+      payload: { drives: res.data, searchinput: searchdrive },
     });
   } catch (error) {
     dispatch({

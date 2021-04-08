@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 import { logout } from '../../../actions/auth';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { searchdrives, cleardrives } from '../../../actions/drives';
+import { searchdrives, clearsearchdrives } from '../../../actions/drives';
 import { searchbuddies, clearbuddy } from '../../../actions/buddies';
 import { getmyprofile } from '../../../actions/profile';
 import Profile from './profile/Profile';
@@ -28,11 +28,11 @@ function Navebar({
   getmyprofile,
   searchbuddies,
   clearbuddy,
-  cleardrives,
+  clearsearchdrives,
   searchdrives,
   alerts,
   buddies: { mybuddieslsloading },
-  drives: { drivesloading },
+  drives: { drivessearchloading },
   profile: { loading },
 }) {
   const [formData, setForm] = useState({
@@ -88,7 +88,7 @@ function Navebar({
     if (byvalue === 'username') {
       clearbuddy();
     } else {
-      cleardrives();
+      clearsearchdrives();
     }
   };
 
@@ -123,11 +123,11 @@ function Navebar({
         </Form>
         {showsearch &&
         mybuddieslsloading === false &&
-        drivesloading === false ? (
+        drivessearchloading === false ? (
           <Spinner animation='border' variant='info' />
         ) : null}
         <Modal
-          show={showsearch && (mybuddieslsloading || drivesloading)}
+          show={showsearch && (mybuddieslsloading || drivessearchloading)}
           onHide={handleCloseSearch}
           backdrop='static'
           keyboard={false}
@@ -171,7 +171,7 @@ Navebar.propTypes = {
   getmyprofile: PropTypes.func.isRequired,
   searchbuddies: PropTypes.func.isRequired,
   clearbuddy: PropTypes.func.isRequired,
-  cleardrives: PropTypes.func.isRequired,
+  clearsearchdrives: PropTypes.func.isRequired,
   searchdrives: PropTypes.func.isRequired,
   setalert: PropTypes.func.isRequired,
   alerts: PropTypes.object.isRequired,
@@ -192,6 +192,6 @@ export default connect(mapStateToProps, {
   searchbuddies,
   setalert,
   clearbuddy,
-  cleardrives,
+  clearsearchdrives,
   searchdrives,
 })(Navebar);

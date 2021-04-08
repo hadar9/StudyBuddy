@@ -7,10 +7,10 @@ import Join from './operations/Join';
 import Leave from './operations/Leave';
 import DeleteReq from './operations/DeleteReq';
 
-function SearchDrives({ drive: { drives, drivesloading } }) {
+function SearchDrives({ drive: { searchdrives, drivessearchloading } }) {
   let pros;
-  if (drivesloading) {
-    pros = drives.map((pro, index) => {
+  if (drivessearchloading) {
+    pros = searchdrives.map((pro, index) => {
       let btn;
       if (pro.buddystatus === 'nothing') {
         btn = <Join selecteddrive={pro.driveid} />;

@@ -7,13 +7,16 @@ import {
   DRIVE_ERROR,
   CHOOSE_DRIVE,
   CLEAR_DRIVES_STATE,
+  ClOSE_SEARCH,
 } from '../actions/types';
 
 const initialState = {
+  searchdrives: [],
+  drivessearchloading: false,
+  searchinput: '',
   drives: [],
   drivestype: null,
   drivesloading: false,
-  searchinput: '',
   drive: {},
   driveloading: false,
   adminper: null,
@@ -26,9 +29,16 @@ export default function drives(state = initialState, action) {
     case SEARCH_DRIVES_SUCCESS:
       return {
         ...state,
-        drives: payload.drives,
-        drivesloading: true,
+        searchdrives: payload.drives,
+        drivessearchloading: true,
         searchinput: payload.searchinput,
+      };
+    case ClOSE_SEARCH:
+      return {
+        ...state,
+        searchdrives: [],
+        drivessearchloading: false,
+        searchinput: '',
       };
     case GET_DRIVES:
       return {
