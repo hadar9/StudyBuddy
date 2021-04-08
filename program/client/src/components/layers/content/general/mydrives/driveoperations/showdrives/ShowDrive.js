@@ -6,11 +6,11 @@ import { choosedrive } from '../../../../../../../actions/drives';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-function ShowDrive({ elem, choosedrive, drives: { drivestype } }) {
+function ShowDrive({ elem, choosedrive }) {
   return (
     <div className='showdrive text-center'>
       <Col>
-        <Button variant='light' onClick={(e) => choosedrive(elem, drivestype)}>
+        <Button variant='light' onClick={(e) => choosedrive(elem)}>
           <Image className='driveimg' src={img} />
         </Button>
         <p style={{ color: 'black' }}>{elem.name}</p>

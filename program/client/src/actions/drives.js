@@ -221,7 +221,7 @@ export const getmydrives = () => async (dispatch) => {
 
     dispatch({
       type: GET_DRIVES,
-      payload: { drives: res.data, drivestype: 'mydrives' },
+      payload: res.data,
     });
   } catch (error) {
     dispatch({
@@ -239,7 +239,7 @@ export const getotherdrives = () => async (dispatch) => {
     const res = await axios.get('/api/drives/getotherdrives');
     dispatch({
       type: GET_DRIVES,
-      payload: { drives: res.data, drivestype: 'otherdrives' },
+      payload: res.data,
     });
   } catch (error) {
     dispatch({
@@ -454,7 +454,7 @@ export const cleardrivesstate = () => async (dispatch) => {
   });
 };
 
-export const choosedrive = (drive, drivetype) => async (dispatch) => {
+export const choosedrive = (drive) => async (dispatch) => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -462,7 +462,6 @@ export const choosedrive = (drive, drivetype) => async (dispatch) => {
   };
   const body = JSON.stringify({
     drive,
-    drivetype,
   });
   try {
     const res = await axios.post('/api/drives/choosedrive', body, config);

@@ -342,15 +342,14 @@ router.post('/setadminpermission', auth, async (req, res) => {
 
 router.post('/choosedrive', auth, async (req, res) => {
   try {
-    const { drive, drivetype } = req.body;
+    const drive = req.body.drive;
 
     const driveret = await Drive.findOne({ _id: drive._id }).populate([
       'drivebuddies.user',
       'subadmins.user',
     ]);
-
     let adminper;
-    if (drivetype === 'mydrives') {
+    if (JSON.stringify(driveret.user) === JSON.stringify(req.user.id)) {
       adminper = null;
     } else {
       adminper = 'notadmin';

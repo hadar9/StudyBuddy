@@ -10,7 +10,7 @@ import ChatGroups from '../general/chatgroups/ChatGroups';
 import RecucleBin from '../general/recyclebin/RecycleBin';
 import DriveBuddiesTabs from './drivebuddiestabs/DriveBuddiesTabs';
 
-function InsideDrive({ clearfilesystem, drives: { drivestype } }) {
+function InsideDrive({ clearfilesystem, drives: { adminper } }) {
   const [key, setKey] = useState({
     components: <DriveContent />,
   });
@@ -49,7 +49,7 @@ function InsideDrive({ clearfilesystem, drives: { drivestype } }) {
           >
             Chat groups
           </Button>
-          {drivestype === 'mydrives' ? (
+          {adminper === null ? (
             <Button
               value='settings'
               onClick={(e) => setKey({ components: <Settings /> })}

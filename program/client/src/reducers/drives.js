@@ -15,7 +15,6 @@ const initialState = {
   drivessearchloading: false,
   searchinput: '',
   drives: [],
-  drivestype: null,
   drivesloading: false,
   drive: {},
   driveloading: false,
@@ -43,8 +42,7 @@ export default function drives(state = initialState, action) {
     case GET_DRIVES:
       return {
         ...state,
-        drives: payload.drives,
-        drivestype: payload.drivestype,
+        drives: payload,
         drivesloading: true,
         drive: {},
         driveloading: false,
@@ -60,10 +58,12 @@ export default function drives(state = initialState, action) {
     case DRIVE_ERROR:
     case SEARCH_DRIVE_ERROR:
       return {
+        searchdrives: [],
+        drivessearchloading: false,
+        searchinput: '',
         drives: [],
         drivestype: null,
         drivesloading: false,
-        searchinput: '',
         drive: {},
         driveloading: false,
         adminper: null,
@@ -74,14 +74,15 @@ export default function drives(state = initialState, action) {
         ...state,
         drives: [],
         drivesloading: false,
-        searchinput: '',
       };
     case CLEAR_DRIVES_STATE:
       return {
+        searchdrives: [],
+        drivessearchloading: false,
+        searchinput: '',
         drives: [],
         drivestype: null,
         drivesloading: false,
-        searchinput: '',
         drive: {},
         driveloading: false,
         adminper: null,
