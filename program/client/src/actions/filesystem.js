@@ -104,7 +104,7 @@ export const choosefolder = (folder) => async (dispatch) => {
       },
     };
     const body = JSON.stringify({
-      folder,
+      folderid:folder._id 
     });
     try {
       const res = await axios.post(
@@ -131,33 +131,38 @@ export const choosefolder = (folder) => async (dispatch) => {
 
 export const deletefolder = (folder) => async (dispatch) =>
 {
+ 
   const body = JSON.stringify({
-    folder,
+    folderid:folder._id,
   });
   const config = {
     headers: {
       'Content-Type': 'application/json',
     },
   };
+  const children = [...folder.children];
+  console.log(children);
   try {
-    for (let child in folder.children)
+    for (let child in children)
     {
-      if(child.objtype === "file")
+      const body = JSON.stringify({
+        child,
+      });
+      console.log(child)
+      const child_obj = await axios.post('/api/filesystem/findByID', body, config);
+      if(child.objtype === "folder")
       {
-        deletefile(child);
+        await dispatch(deletefolder(child));
       }
-      else if(child.objtype === "folder")
+      else
       {
-        deletefolder(child);
-      }
-      else{
-        // need to return unexpected error - might be objtype of Drive
+        await dispatch(deletefile(child));
       }
     }
-    await axios.post('/api/filesystem/deletefile', body, config);
+    await dispatch(deletefile(folder));
     dispatch({
       type: DELETE_FOLDER,
-      payload: folder,
+      payload: folder.parent,
     });
   }
   catch (error) {
@@ -173,7 +178,6 @@ export const deletefolder = (folder) => async (dispatch) =>
 
 export const deletefile = (file) => async (dispatch) => 
 {
-  
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -183,9 +187,13 @@ export const deletefile = (file) => async (dispatch) =>
     file,
   });
   try {
+    console.log(file);
+
     const fileRef = firebase.refFromURL(body.file.url); 
     await fileRef.delete();
+
     await axios.post('/api/filesystem/deletefile', body, config);
+
     dispatch({
       type: DELETE_FILE,
       payload: file,

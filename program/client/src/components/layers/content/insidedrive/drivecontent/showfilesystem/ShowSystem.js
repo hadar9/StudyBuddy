@@ -6,7 +6,7 @@ import folderimg from '../../../../../../img/folder.png';
 import { choosefolder, choosefile } from '../../../../../../actions/filesystem';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import FileViewer from 'react-file-viewer';
+// import FileViewer from 'react-file-viewer';
 
 function ShowSystem({ elem, choosefolder, choosefile }) {
   const [showfile, setfile] = useState(false);

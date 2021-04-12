@@ -5,13 +5,24 @@ import ShowSystem from './showfilesystem/ShowSystem';
 import { Row } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
+import {deletefolder, deletefile} from '../../../../../actions/filesystem'
 
-function ShowFileSystem({ filesystem: { folder, folderloading } }) {
+function ShowFileSystem({ filesystem: { folder, folderloading },deletefolder, deletefile }) {
   
   //Context bar handler
   function handleClick(e, data) 
   {
-    console.log(data);
+    if(data.action === 'RemoveFile'){
+      if(data.file.objtype === "folder")
+      {
+        deletefolder(data.file);
+      }
+      else
+      {
+        deletefile(data.file);
+      }
+    }
+    
   }
 
   var children = false;
@@ -52,10 +63,12 @@ function ShowFileSystem({ filesystem: { folder, folderloading } }) {
 }
 ShowFileSystem.propTypes = {
   filesystem: PropTypes.object.isRequired,
+  deletefolder: PropTypes.func.isRequired,
+   deletefile: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   filesystem: state.filesystem,
 });
 
-export default connect(mapStateToProps)(ShowFileSystem);
+export default connect(mapStateToProps,{deletefolder, deletefile})(ShowFileSystem);

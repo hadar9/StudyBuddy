@@ -49,6 +49,10 @@ router.post('/createfolder', auth, async (req, res) => {
   }
 });
 
+router.post('/findByID', auth, async(req, res) => {
+  console.log(req.body)
+  const file = FileSystem.findById(req.body);
+});
 //@route    POST api/filesystem/deletefile
 //@desc     Delete a file from filesystem
 //@access   Private
@@ -128,12 +132,10 @@ router.post('/createfile', auth, async (req, res) => {
 
 router.post('/choosefolder', auth, async (req, res) => {
   try {
-    const folder = req.body.folder;
-    const childersas = await Promise.all(
-      folder.children.map((child) => FileSystem.findOne({ _id: child }))
-    );
-    folder.children = childersas;
-    res.json(folder);
+    const folderid = req.body.folderid;
+   
+    const folderres = await FileSystem.findOne({_id:folderid}).populate('children');
+    res.json(folderres);
   } catch (err) {
     res.status(500).send('Server Error');
   }
