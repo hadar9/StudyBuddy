@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Image, Col, Button, Modal, ModalBody } from 'react-bootstrap';
+import { Image, Col, Button, Modal } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import fileimg from '../../../../../../img/file.png';
 import folderimg from '../../../../../../img/folder.png';
@@ -13,13 +13,21 @@ function ShowSystem({ elem, choosefolder, choosefile }) {
 
   const showfilecontent = (e) => {
     choosefile(elem);
+
     setfile(true);
   };
 
   return (
     <div>
       {showfile ? (
-        <div></div>
+        <div>
+          <a
+            class='pdf'
+            href={`http://docs.google.com/gview?url=${elem.url}&embedded=true`}
+          >
+            open a word document in fancybox
+          </a>
+        </div>
       ) : (
         <div className='showfilesystem text-center'>
           <Col>
