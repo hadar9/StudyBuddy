@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import GeneralMessage from './GeneralMessage';
 
 function DriveContent({ filesystem: { folder }, drives: { adminper } }) {
+  
   return (
     <div className='drivecontent'>
       <h1 className='insidedrivecontent-title'>{folder.name}</h1>

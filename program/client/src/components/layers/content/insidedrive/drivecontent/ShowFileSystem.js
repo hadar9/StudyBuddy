@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ShowSystem from './showfilesystem/ShowSystem';
@@ -9,6 +9,8 @@ import {deletefolder, deletefile} from '../../../../../actions/filesystem'
 
 function ShowFileSystem({ filesystem: { folder, folderloading },deletefolder, deletefile }) {
   
+  useEffect(() => {
+  }, [folder])
   //Context bar handler
   function handleClick(e, data) 
   {

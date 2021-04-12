@@ -15,6 +15,7 @@ import {
   EDIT_MESSAGE,
   ERROR_MESSAGE,
   CLEAR_FILESYSTEM,
+  ClOSE_SEARCH,
 } from '../actions/types';
 
 export const createfolder = (parent, foldername) => async (dispatch) => {
@@ -141,28 +142,27 @@ export const deletefolder = (folder) => async (dispatch) =>
     },
   };
   const children = [...folder.children];
-  console.log(children);
+
   try {
-    for (let child in children)
+    for (let i = 0; i<children.length; i++)
     {
+      let child_id = children[i];
       const body = JSON.stringify({
-        child,
+        id: child_id,
       });
-      console.log(child)
       const child_obj = await axios.post('/api/filesystem/findByID', body, config);
-      if(child.objtype === "folder")
+      if(child_obj.objtype === "folder")
       {
-        await dispatch(deletefolder(child));
+        await dispatch(deletefolder(child_obj.data));
       }
       else
       {
-        await dispatch(deletefile(child));
+        await dispatch(deletefile(child_obj.data));
       }
     }
     await dispatch(deletefile(folder));
     dispatch({
       type: DELETE_FOLDER,
-      payload: folder.parent,
     });
   }
   catch (error) {
@@ -187,16 +187,12 @@ export const deletefile = (file) => async (dispatch) =>
     file,
   });
   try {
-    console.log(file);
-
-    const fileRef = firebase.refFromURL(body.file.url); 
-    await fileRef.delete();
-
-    await axios.post('/api/filesystem/deletefile', body, config);
-
+    const fileRef = await firebase.storage().refFromURL(file.url).delete(); 
+    const res = await axios.post('/api/filesystem/deletefile', body, config);
+    
     dispatch({
       type: DELETE_FILE,
-      payload: file,
+      payload: res.data,
     });
   } catch (error) {
     dispatch({

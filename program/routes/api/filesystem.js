@@ -50,8 +50,16 @@ router.post('/createfolder', auth, async (req, res) => {
 });
 
 router.post('/findByID', auth, async(req, res) => {
-  console.log(req.body)
-  const file = FileSystem.findById(req.body);
+  let file;
+  try
+  {
+    file = await  FileSystem.findById(req.body.id);
+    res.json(file);
+  }
+  catch(err)
+  {
+    res.status(500).send(err,'Server Error');
+  }
 });
 //@route    POST api/filesystem/deletefile
 //@desc     Delete a file from filesystem
@@ -59,30 +67,67 @@ router.post('/findByID', auth, async(req, res) => {
 
 router.post('/deletefile', auth, async (req, res) => {
   // Delete from parent
-  const client = new MongoClient(uri);
+  //const client = new MongoClient(uri);
   try {
-    await client.connect();
-    const database = client.db('DEFAULT');
-    const fs = database.collection('filesystems');
-    const drives = database.collection('drives');
-    file_url = req.body.file.url;
-    const file = await fs.findOne({ url: file_url });
-    const in_fs = await fs.findOne({ _id: file.parent });
+    //await client.connect();
+    //const database = client.db('DEFAULT');
+    //const fs = database.collection('filesystems');
+    //const drives = database.collection('drives');
+    //file_url = req.body.file.url;
+    //const file = await fs.findOne({ url: file_url });
+    //const in_fs = await fs.findOne({ _id: file.parent });
+    const file = req.body.file;
+    const newfile = await FileSystem.findById(file._id);
+    const parenycheck = await Drive.findById(file.parent)
+    let retparent;
+    if(parenycheck){
+      retparent = await Drive.findOneAndUpdate(
+        { _id: newfile.parent._id },
+        { $pull: { children: newfile._id }},
+        {new: true}, 
+      ).populate('children');
+    }
+    else{
+      retparent= await FileSystem.findOneAndUpdate(
+        { _id: newfile.parent._id },
+        { $pull: { children: newfile._id }},
+        {new: true}, 
+      ).populate('children');
+    }
+
+    const filetemp = await FileSystem.findOneAndRemove({_id:newfile._id});
+
+  res.status(200).json(retparent);
+  }
+  catch (err) 
+  {
+      res.status(500).send('Server Error');
+  }
+});
+    /*
+    let parent;
     if (in_fs) {
       await fs.findOneAndUpdate(
         { _id: file.parent },
-        { $pull: { children: file._id } }
+        { $pull: { children: file._id }},
+        {new: true}, 
       );
-    } else {
+      parent = fs.findById(file.parent);
+    } 
+    else 
+    {
       await drives.findOneAndUpdate(
         { _id: file.parent },
-        { $pull: { children: file._id } }
+        { $pull: { children: file._id }},
+        {new: true}, 
       );
+      parent = drives.findById(file.parent);
     }
+    
     const result = await fs.deleteOne({ url: file_url });
     await client.close();
     if (result.deletedCount === 1) {
-      res.status(200).send('File Deleted');
+      res.status(200).json(parent);
     } else {
       res
         .status(200)
@@ -90,8 +135,8 @@ router.post('/deletefile', auth, async (req, res) => {
     }
   } catch (err) {
     res.status(500).send('Server Error');
-  }
-});
+  }*/
+
 
 //@route    POST api/filesystem/createfile
 //@desc     create new file
@@ -133,7 +178,6 @@ router.post('/createfile', auth, async (req, res) => {
 router.post('/choosefolder', auth, async (req, res) => {
   try {
     const folderid = req.body.folderid;
-   
     const folderres = await FileSystem.findOne({_id:folderid}).populate('children');
     res.json(folderres);
   } catch (err) {
