@@ -40,11 +40,10 @@ export const createfolder = (parent, foldername) => async (dispatch) => {
   });
   try {
     const res = await axios.post('/api/filesystem/createfolder', body, config);
-    parent.children.push(res.data);
 
     dispatch({
       type: CREATE_FOLDER,
-      payload: parent,
+      payload: res.data,
     });
   } catch (error) {
     dispatch({
@@ -74,12 +73,9 @@ export const createfile = (parent, filename, file) => async (dispatch) => {
   });
   try {
     const res = await axios.post('/api/filesystem/createfile', body, config);
-
-    parent.children.push(res.data);
-
     dispatch({
       type: CREATE_FILE,
-      payload: file,
+      payload: res.data,
     });
   } catch (error) {
     dispatch({
@@ -105,7 +101,7 @@ export const choosefolder = (folder) => async (dispatch) => {
       },
     };
     const body = JSON.stringify({
-      folderid:folder._id 
+      folderid: folder._id,
     });
     try {
       const res = await axios.post(
@@ -130,11 +126,9 @@ export const choosefolder = (folder) => async (dispatch) => {
   }
 };
 
-export const deletefolder = (folder) => async (dispatch) =>
-{
- 
+export const deletefolder = (folder) => async (dispatch) => {
   const body = JSON.stringify({
-    folderid:folder._id,
+    folderid: folder._id,
   });
   const config = {
     headers: {
@@ -144,19 +138,19 @@ export const deletefolder = (folder) => async (dispatch) =>
   const children = [...folder.children];
 
   try {
-    for (let i = 0; i<children.length; i++)
-    {
+    for (let i = 0; i < children.length; i++) {
       let child_id = children[i];
       const body = JSON.stringify({
         id: child_id,
       });
-      const child_obj = await axios.post('/api/filesystem/findByID', body, config);
-      if(child_obj.objtype === "folder")
-      {
+      const child_obj = await axios.post(
+        '/api/filesystem/findByID',
+        body,
+        config
+      );
+      if (child_obj.objtype === 'folder') {
         await dispatch(deletefolder(child_obj.data));
-      }
-      else
-      {
+      } else {
         await dispatch(deletefile(child_obj.data));
       }
     }
@@ -164,8 +158,7 @@ export const deletefolder = (folder) => async (dispatch) =>
     dispatch({
       type: DELETE_FOLDER,
     });
-  }
-  catch (error) {
+  } catch (error) {
     dispatch({
       type: ERROR_MESSAGE,
       payload: {
@@ -174,10 +167,9 @@ export const deletefolder = (folder) => async (dispatch) =>
       },
     });
   }
-} 
+};
 
-export const deletefile = (file) => async (dispatch) => 
-{
+export const deletefile = (file) => async (dispatch) => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -187,9 +179,9 @@ export const deletefile = (file) => async (dispatch) =>
     file,
   });
   try {
-    const fileRef = await firebase.storage().refFromURL(file.url).delete(); 
+    const fileRef = await firebase.storage().refFromURL(file.url).delete();
     const res = await axios.post('/api/filesystem/deletefile', body, config);
-    
+
     dispatch({
       type: DELETE_FILE,
       payload: res.data,
@@ -203,7 +195,7 @@ export const deletefile = (file) => async (dispatch) =>
       },
     });
   }
-}
+};
 
 export const choosefile = (file) => async (dispatch) => {
   dispatch({

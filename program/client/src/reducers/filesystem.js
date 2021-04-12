@@ -10,7 +10,7 @@ import {
   ERROR_MESSAGE,
   CLEAR_FILESYSTEM,
   DELETE_FILE,
-  DELETE_FOLDER
+  DELETE_FOLDER,
 } from '../actions/types';
 
 const initialState = {
@@ -26,6 +26,7 @@ export default function filesystem(state = initialState, action) {
   switch (type) {
     case CREATE_FOLDER:
     case CHOOSE_FOLDER:
+    case CREATE_FILE:
     case DELETE_FILE:
       return {
         ...state,
@@ -48,7 +49,6 @@ export default function filesystem(state = initialState, action) {
         error: payload,
       };
     case CHOOSE_FILE:
-    case CREATE_FILE:
       return {
         ...state,
         file: payload,

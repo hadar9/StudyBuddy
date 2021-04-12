@@ -33,32 +33,31 @@ router.post('/createfolder', auth, async (req, res) => {
     if (parent.objtype === 'drive') {
       parentupdated = await Drive.findOneAndUpdate(
         { _id: parent._id },
-        { $push: { children: newfolder._id } }
-      );
+        { $push: { children: newfolder._id } },
+        { new: true }
+      ).populate('children');
     } else {
       parentupdated = await FileSystem.findOneAndUpdate(
         { _id: parent._id },
-        { $push: { children: newfolder._id } }
-      );
+        { $push: { children: newfolder._id } },
+        { new: true }
+      ).populate('children');
     }
     parentupdated.save();
 
-    res.status(200).json(newfolder);
+    res.status(200).json(parentupdated);
   } catch (err) {
     res.status(500).send('Server Error');
   }
 });
 
-router.post('/findByID', auth, async(req, res) => {
+router.post('/findByID', auth, async (req, res) => {
   let file;
-  try
-  {
-    file = await  FileSystem.findById(req.body.id);
+  try {
+    file = await FileSystem.findById(req.body.id);
     res.json(file);
-  }
-  catch(err)
-  {
-    res.status(500).send(err,'Server Error');
+  } catch (err) {
+    res.status(500).send(err, 'Server Error');
   }
 });
 //@route    POST api/filesystem/deletefile
@@ -77,34 +76,32 @@ router.post('/deletefile', auth, async (req, res) => {
     //const file = await fs.findOne({ url: file_url });
     //const in_fs = await fs.findOne({ _id: file.parent });
     const file = req.body.file;
+
     const newfile = await FileSystem.findById(file._id);
-    const parenycheck = await Drive.findById(file.parent)
+    const parenycheck = await Drive.findById(file.parent);
     let retparent;
-    if(parenycheck){
+    if (parenycheck) {
       retparent = await Drive.findOneAndUpdate(
-        { _id: newfile.parent._id },
-        { $pull: { children: newfile._id }},
-        {new: true}, 
+        { _id: newfile.parent },
+        { $pull: { children: newfile._id } },
+        { new: true }
       ).populate('children');
-    }
-    else{
-      retparent= await FileSystem.findOneAndUpdate(
-        { _id: newfile.parent._id },
-        { $pull: { children: newfile._id }},
-        {new: true}, 
+    } else {
+      retparent = await FileSystem.findOneAndUpdate(
+        { _id: newfile.parent },
+        { $pull: { children: newfile._id } },
+        { new: true }
       ).populate('children');
     }
 
-    const filetemp = await FileSystem.findOneAndRemove({_id:newfile._id});
+    await FileSystem.findOneAndRemove({ _id: newfile._id });
 
-  res.status(200).json(retparent);
-  }
-  catch (err) 
-  {
-      res.status(500).send('Server Error');
+    res.status(200).json(retparent);
+  } catch (err) {
+    res.status(500).send('Server Error');
   }
 });
-    /*
+/*
     let parent;
     if (in_fs) {
       await fs.findOneAndUpdate(
@@ -137,7 +134,6 @@ router.post('/deletefile', auth, async (req, res) => {
     res.status(500).send('Server Error');
   }*/
 
-
 //@route    POST api/filesystem/createfile
 //@desc     create new file
 //@access   Private
@@ -158,18 +154,20 @@ router.post('/createfile', auth, async (req, res) => {
     if (parent.objtype === 'drive') {
       parentupdated = await Drive.findOneAndUpdate(
         { _id: parent._id },
-        { $push: { children: newfile._id } }
-      );
+        { $push: { children: newfile._id } },
+        { new: true }
+      ).populate('children');
     } else {
       parentupdated = await FileSystem.findOneAndUpdate(
         { _id: parent._id },
-        { $push: { children: newfile._id } }
-      );
+        { $push: { children: newfile._id } },
+        { new: true }
+      ).populate('children');
     }
 
     parentupdated.save();
 
-    res.status(200).json(newfile);
+    res.status(200).json(parentupdated);
   } catch (err) {
     res.status(500).send('Server Error');
   }
@@ -178,7 +176,9 @@ router.post('/createfile', auth, async (req, res) => {
 router.post('/choosefolder', auth, async (req, res) => {
   try {
     const folderid = req.body.folderid;
-    const folderres = await FileSystem.findOne({_id:folderid}).populate('children');
+    const folderres = await FileSystem.findOne({ _id: folderid }).populate(
+      'children'
+    );
     res.json(folderres);
   } catch (err) {
     res.status(500).send('Server Error');
