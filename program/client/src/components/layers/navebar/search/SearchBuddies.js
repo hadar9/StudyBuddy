@@ -11,12 +11,10 @@ import DeleteReq from '../../content/general/buddies/tabs/opertaions/DeleteReq';
 import Show from '../../content/general/buddies/tabs/opertaions/Show';
 import NameAvatar from '../../content/general/buddies/tabs/NameAvatar';
 
-function SearchBuddies({
-  buddies: { mybuddies, mybuddieslsloading, userloading },
-}) {
+function SearchBuddies({ buddies: { search, searchloading, userloading } }) {
   let pros;
-  if (mybuddieslsloading) {
-    pros = mybuddies.map((pro, index) => {
+  if (searchloading) {
+    pros = search.map((pro, index) => {
       if (pro.status === 'nothing') {
         return (
           <Fragment key={index}>

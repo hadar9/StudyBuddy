@@ -6,51 +6,55 @@ const User = require('../../models/User');
 const Chat = require('../../models/Chat');
 const { check, validationResult } = require('express-validator');
 
+const search = async (username, id) => {
+  let myprofile = await Profile.findOne({ user: id });
+  const users = await User.find({
+    username: new RegExp('^' + username, 'i'),
+  });
+  console.log(users);
+  const withoutmyprofile = users.filter(
+    (user) => JSON.stringify(myprofile.user) !== JSON.stringify(user._id)
+  );
+
+  const profiles = [];
+
+  for (i = 0; i < withoutmyprofile.length; i++) {
+    let profile = await Profile.findOne({
+      user: withoutmyprofile[i]._id,
+    }).populate('user');
+
+    let hasbuddy = -1;
+    let profilewithstatus;
+
+    for (j = 0; j < myprofile.buddies.length; ++j) {
+      if (
+        JSON.stringify(myprofile.buddies[j].user) ===
+        JSON.stringify(withoutmyprofile[i]._id)
+      ) {
+        hasbuddy = j;
+        break;
+      }
+    }
+    if (hasbuddy === -1) {
+      profilewithstatus = { profile: profile, status: 'nothing' };
+    } else {
+      profilewithstatus = {
+        profile: profile,
+        status: myprofile.buddies[hasbuddy].status,
+      };
+    }
+    profiles.push(profilewithstatus);
+  }
+  return profiles;
+};
+
 //@route    Post api/buddies/buddies
 //@desc     show(from th search) all profiles with the username
 //@access   Public
 
 router.post('/buddies', auth, async (req, res) => {
   try {
-    username = req.body;
-    let myprofile = await Profile.findOne({ user: req.user.id });
-    const users = await User.find({
-      username: new RegExp('^' + username.username, 'i'),
-    });
-
-    const withoutmyprofile = users.filter(
-      (user) => JSON.stringify(myprofile.user) !== JSON.stringify(user._id)
-    );
-
-    const profiles = [];
-
-    for (i = 0; i < withoutmyprofile.length; i++) {
-      let profile = await Profile.findOne({
-        user: withoutmyprofile[i]._id,
-      }).populate('user');
-
-      let hasbuddy = -1;
-      let profilewithstatus;
-
-      for (j = 0; j < myprofile.buddies.length; ++j) {
-        if (
-          JSON.stringify(myprofile.buddies[j].user) ===
-          JSON.stringify(withoutmyprofile[i]._id)
-        ) {
-          hasbuddy = j;
-          break;
-        }
-      }
-      if (hasbuddy === -1) {
-        profilewithstatus = { profile: profile, status: 'nothing' };
-      } else {
-        profilewithstatus = {
-          profile: profile,
-          status: myprofile.buddies[hasbuddy].status,
-        };
-      }
-      profiles.push(profilewithstatus);
-    }
+    const profiles = await search(req.body.username, req.user.id);
     res.json(profiles);
   } catch (err) {
     res.status(500).send('Server Error');
@@ -125,12 +129,14 @@ router.post('/addbuddy', auth, async (req, res) => {
       chat = new Chat([]);
       let userprofile = await Profile.findOneAndUpdate(
         { user: id.id },
-        { $push: { buddies: userconfirmequest, chat: chat._id } }
+        { $push: { buddies: userconfirmequest, chat: chat._id } },
+        { new: true }
       );
       //get the current user
       let myprofile = await Profile.findOneAndUpdate(
         { user: req.user.id },
-        { $push: { buddies: mybuddyrequest, chat: chat._id } }
+        { $push: { buddies: mybuddyrequest, chat: chat._id } },
+        { new: true }
       );
       myprofile.save();
       userprofile.save();

@@ -11,6 +11,7 @@ import {
   DELETE_BUDDY,
   BUDDIES_ERROR,
   SEARCH_BUDDIES_SUCCESS,
+  SEARCH_BUDDIES_CLOSE,
   SEARCH_BUDDIES_ERROR,
 } from '../actions/types';
 
@@ -40,6 +41,12 @@ export const searchbuddies = (username) => async (dispatch) => {
       },
     });
   }
+};
+
+export const closesearchbuddies = () => async (dispatch) => {
+  dispatch({
+    type: SEARCH_BUDDIES_CLOSE,
+  });
 };
 
 //Get specific profile with the user id

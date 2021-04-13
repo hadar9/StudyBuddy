@@ -9,13 +9,16 @@ import {
   DELETE_BUDDY,
   BUDDIES_ERROR,
   SEARCH_BUDDIES_SUCCESS,
+  SEARCH_BUDDIES_CLOSE,
   SEARCH_BUDDIES_ERROR,
 } from '../actions/types';
 
 const initialState = {
+  search: [],
+  searchloading: false,
+  searchinput: '',
   mybuddies: [],
   mybuddieslsloading: false,
-  searchinput: '',
   userprofile: null,
   userloading: false,
   error: {},
@@ -27,9 +30,16 @@ export default function buddies(state = initialState, action) {
     case SEARCH_BUDDIES_SUCCESS:
       return {
         ...state,
-        mybuddies: payload.mybuddies,
-        mybuddieslsloading: true,
+        search: payload.mybuddies,
+        searchloading: true,
         searchinput: payload.searchinput,
+      };
+    case SEARCH_BUDDIES_CLOSE:
+      return {
+        ...state,
+        search: [],
+        searchloading: false,
+        searchinput: '',
       };
     case GET_USER_PROFILE:
       return {
@@ -38,6 +48,7 @@ export default function buddies(state = initialState, action) {
         userloading: true,
       };
     case CLOSE_USER_PROFILE:
+      return { ...state, userprofile: null, userloading: false };
     case ADD_BUDDY:
     case CONFIRM_BUDDY:
     case DELETE_BUDDY:
@@ -50,9 +61,11 @@ export default function buddies(state = initialState, action) {
     case SEARCH_BUDDIES_ERROR:
     case CLEAR_BUDDY:
       return {
+        search: [],
+        searchloading: false,
+        searchinput: '',
         mybuddies: [],
         mybuddieslsloading: false,
-        searchinput: '',
         userprofile: null,
         userloading: false,
         error: {},

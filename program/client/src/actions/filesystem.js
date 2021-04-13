@@ -15,7 +15,6 @@ import {
   EDIT_MESSAGE,
   ERROR_MESSAGE,
   CLEAR_FILESYSTEM,
-  ClOSE_SEARCH,
 } from '../actions/types';
 
 export const createfolder = (parent, foldername) => async (dispatch) => {
@@ -127,9 +126,6 @@ export const choosefolder = (folder) => async (dispatch) => {
 };
 
 export const deletefolder = (folder, type = 'final') => async (dispatch) => {
-  const body = JSON.stringify({
-    folderid: folder._id,
-  });
   const config = {
     headers: {
       'Content-Type': 'application/json',

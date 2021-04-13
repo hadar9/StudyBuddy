@@ -14,7 +14,7 @@ import { logout } from '../../../actions/auth';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { searchdrives, clearsearchdrives } from '../../../actions/drives';
-import { searchbuddies, clearbuddy } from '../../../actions/buddies';
+import { searchbuddies, closesearchbuddies } from '../../../actions/buddies';
 import { getmyprofile } from '../../../actions/profile';
 import Profile from './profile/Profile';
 import SearchBuddies from './search/SearchBuddies';
@@ -27,11 +27,11 @@ function Navebar({
   logout,
   getmyprofile,
   searchbuddies,
-  clearbuddy,
+  closesearchbuddies,
   clearsearchdrives,
   searchdrives,
   alerts,
-  buddies: { mybuddieslsloading },
+  buddies: { searchloading },
   drives: { drivessearchloading },
   profile: { loading },
 }) {
@@ -86,7 +86,7 @@ function Navebar({
   const handleCloseSearch = () => {
     setForm({ showsearch: false });
     if (byvalue === 'username') {
-      clearbuddy();
+      closesearchbuddies();
     } else {
       clearsearchdrives();
     }
@@ -122,12 +122,12 @@ function Navebar({
           </Button>
         </Form>
         {showsearch &&
-        mybuddieslsloading === false &&
+        searchloading === false &&
         drivessearchloading === false ? (
           <Spinner animation='border' variant='info' />
         ) : null}
         <Modal
-          show={showsearch && (mybuddieslsloading || drivessearchloading)}
+          show={showsearch && (searchloading || drivessearchloading)}
           onHide={handleCloseSearch}
           backdrop='static'
           keyboard={false}
@@ -170,7 +170,7 @@ Navebar.propTypes = {
   logout: PropTypes.func.isRequired,
   getmyprofile: PropTypes.func.isRequired,
   searchbuddies: PropTypes.func.isRequired,
-  clearbuddy: PropTypes.func.isRequired,
+  closesearchbuddies: PropTypes.func.isRequired,
   clearsearchdrives: PropTypes.func.isRequired,
   searchdrives: PropTypes.func.isRequired,
   setalert: PropTypes.func.isRequired,
@@ -191,7 +191,7 @@ export default connect(mapStateToProps, {
   getmyprofile,
   searchbuddies,
   setalert,
-  clearbuddy,
+  closesearchbuddies,
   clearsearchdrives,
   searchdrives,
 })(Navebar);
