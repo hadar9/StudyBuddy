@@ -16,6 +16,7 @@ const initialState = {
   drivessearchloading: false,
   searchinput: '',
   drives: [],
+  drivestype: null,
   drivesloading: false,
   drive: {},
   driveloading: false,
@@ -43,7 +44,8 @@ export default function drives(state = initialState, action) {
     case GET_DRIVES:
       return {
         ...state,
-        drives: payload,
+        drives: payload.drives,
+        drivestype: payload.type,
         drivesloading: true,
         drive: {},
         driveloading: false,
@@ -75,6 +77,7 @@ export default function drives(state = initialState, action) {
       return {
         ...state,
         drives: [],
+        drivestype: null,
         drivesloading: false,
       };
     case CLEAR_DRIVES_STATE:

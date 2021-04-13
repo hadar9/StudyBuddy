@@ -15,7 +15,7 @@ function ShowFileSystem({
   useEffect(() => {}, [folder]);
   //Context bar handler
   function handleClick(e, data) {
-    if (data.action === 'RemoveFile') {
+    if (data.action === 'Delete') {
       if (data.file.objtype === 'folder') {
         deletefolder(data.file);
       } else {
@@ -23,8 +23,8 @@ function ShowFileSystem({
       }
     }
   }
+  let children = false;
 
-  var children = false;
   if (folder.children.length > 0 && folderloading) {
     children = true;
   }
@@ -41,27 +41,28 @@ function ShowFileSystem({
                 </Row>
               </ContextMenuTrigger>
               <ContextMenu id={elem._id} className='context-menu'>
+                {elem.objtype !== 'folder' ? (
+                  <div>
+                    <MenuItem
+                      data={{ action: 'Download', file: elem }}
+                      onClick={handleClick}
+                    >
+                      Download
+                    </MenuItem>
+                    <MenuItem
+                      data={{ action: 'OpenDiscussion', file: elem }}
+                      onClick={handleClick}
+                    >
+                      Open Discussion
+                    </MenuItem>
+                    <MenuItem divider />
+                  </div>
+                ) : null}
                 <MenuItem
-                  data={{ action: 'OpenFile', file: elem }}
+                  data={{ action: 'Delete', file: elem }}
                   onClick={handleClick}
                 >
-                  Open File
-                </MenuItem>
-                <MenuItem
-                  data={{ action: 'OpenDiscussion', file: elem }}
-                  onClick={handleClick}
-                >
-                  Open Discussion
-                </MenuItem>
-                <MenuItem divider />
-                <MenuItem
-                  data={{ action: 'RemoveFile', file: elem }}
-                  onClick={handleClick}
-                >
-                  Remove File
-                </MenuItem>
-                <MenuItem data={{ action: 'Properties' }} onClick={handleClick}>
-                  Properties
+                  Delete
                 </MenuItem>
               </ContextMenu>
             </div>

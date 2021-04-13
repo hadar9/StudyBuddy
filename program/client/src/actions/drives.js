@@ -186,7 +186,7 @@ export const deletereq = (driveid, searchdrive) => async (dispatch) => {
     });
   }
 };
-export const leavedrive = (driveid, searchdrive) => async (dispatch) => {
+export const leavedrive = (driveid, searchinput = null) => async (dispatch) => {
   try {
     const config = {
       headers: {
@@ -195,14 +195,14 @@ export const leavedrive = (driveid, searchdrive) => async (dispatch) => {
     };
     const body = JSON.stringify({
       driveid,
-      searchdrive,
     });
-    const res = await axios.post('/api/drives/leavedrive', body, config);
+    await axios.post('/api/drives/leavedrive', body, config);
 
-    dispatch({
-      type: SEARCH_DRIVES_SUCCESS,
-      payload: { drives: res.data, searchinput: searchdrive },
-    });
+    if (searchinput !== null) {
+      dispatch(searchdrives(searchinput));
+    } else {
+      dispatch(getotherdrives());
+    }
   } catch (error) {
     dispatch({
       type: DRIVE_ERROR,
@@ -220,7 +220,7 @@ export const getmydrives = () => async (dispatch) => {
 
     dispatch({
       type: GET_DRIVES,
-      payload: res.data,
+      payload: { drives: res.data, type: 'mydrives' },
     });
   } catch (error) {
     dispatch({
@@ -238,7 +238,7 @@ export const getotherdrives = () => async (dispatch) => {
     const res = await axios.get('/api/drives/getotherdrives');
     dispatch({
       type: GET_DRIVES,
-      payload: res.data,
+      payload: { drives: res.data, type: 'otherdrives' },
     });
   } catch (error) {
     dispatch({

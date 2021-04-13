@@ -124,20 +124,22 @@ router.post('/confirmjoindrive', async (req, res) => {
 //drive buddy leave
 router.post('/leavedrive', auth, async (req, res) => {
   try {
-    const { driveid, searchdrive } = req.body;
+    const driveid = req.body.driveid;
 
     let drive = await Drive.findOneAndUpdate(
       { _id: driveid },
       { $pull: { drivebuddies: { user: req.user.id } } }
     );
+
     let user = await Profile.findOneAndUpdate(
       { user: req.user.id },
       { $pull: { otherdrives: driveid } }
     );
+
     drive.save();
     user.save();
-    const drives = await search(searchdrive, req.user.id);
-    res.json(drives);
+
+    res.status(200).send('leave sucsses');
   } catch (err) {
     res.status(500).send('Server Error');
   }
@@ -343,30 +345,53 @@ router.post('/setadminpermission', auth, async (req, res) => {
 router.post('/choosedrive', auth, async (req, res) => {
   try {
     const drive = req.body.drive;
+    let adminper = {
+      createfolder: '',
+      upload: '',
+      edit: '',
+      delete: '',
+      buddymang: '',
+      editmess: '',
+      download: '',
+    };
 
     const driveret = await Drive.findOne({ _id: drive._id }).populate([
       'children',
       'drivebuddies.user',
       'subadmins.user',
     ]);
-    let adminper;
+
     if (JSON.stringify(driveret.user) === JSON.stringify(req.user.id)) {
       adminper = null;
     } else {
-      adminper = 'notadmin';
       if (driveret.subadmins.length > 0) {
         for (let i = 0; i < driveret.subadmins.length; i++) {
           if (
             JSON.stringify(driveret.subadmins[i].user._id) ===
             JSON.stringify(req.user.id)
           ) {
-            adminper = driveret.subadmins[i].permission;
+            adminper.createfolder =
+              driveret.subadmins[i].permission.createfolder;
+            adminper.upload = driveret.subadmins[i].permission.upload;
+            adminper.edit = driveret.subadmins[i].permission.edit;
+            adminper.delete = driveret.subadmins[i].permission.delete;
+            adminper.buddymang = driveret.subadmins[i].permission.buddymang;
+            adminper.editmess = driveret.subadmins[i].permission.editmess;
+
             break;
           }
         }
       }
+      for (let i = 0; i < driveret.drivebuddies.length; i++) {
+        if (
+          JSON.stringify(driveret.drivebuddies[i].user._id) ===
+          JSON.stringify(req.user.id)
+        ) {
+          adminper.download = driveret.drivebuddies[i].download;
+          break;
+        }
+      }
     }
-
     const resp = { resdrive: driveret, per: adminper };
     res.json(resp);
   } catch (err) {
