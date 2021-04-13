@@ -51,7 +51,7 @@ router.post('/createfolder', auth, async (req, res) => {
   }
 });
 
-router.post('/findByID', auth, async (req, res) => {
+router.post('/folderchild', auth, async (req, res) => {
   let file;
   try {
     file = await FileSystem.findById(req.body.id);
@@ -65,18 +65,8 @@ router.post('/findByID', auth, async (req, res) => {
 //@access   Private
 
 router.post('/deletefile', auth, async (req, res) => {
-  // Delete from parent
-  //const client = new MongoClient(uri);
   try {
-    //await client.connect();
-    //const database = client.db('DEFAULT');
-    //const fs = database.collection('filesystems');
-    //const drives = database.collection('drives');
-    //file_url = req.body.file.url;
-    //const file = await fs.findOne({ url: file_url });
-    //const in_fs = await fs.findOne({ _id: file.parent });
     const file = req.body.file;
-
     const newfile = await FileSystem.findById(file._id);
     const parenycheck = await Drive.findById(file.parent);
     let retparent;
@@ -101,38 +91,6 @@ router.post('/deletefile', auth, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
-/*
-    let parent;
-    if (in_fs) {
-      await fs.findOneAndUpdate(
-        { _id: file.parent },
-        { $pull: { children: file._id }},
-        {new: true}, 
-      );
-      parent = fs.findById(file.parent);
-    } 
-    else 
-    {
-      await drives.findOneAndUpdate(
-        { _id: file.parent },
-        { $pull: { children: file._id }},
-        {new: true}, 
-      );
-      parent = drives.findById(file.parent);
-    }
-    
-    const result = await fs.deleteOne({ url: file_url });
-    await client.close();
-    if (result.deletedCount === 1) {
-      res.status(200).json(parent);
-    } else {
-      res
-        .status(200)
-        .send('No documents matched the query. Deleted 0 documents.');
-    }
-  } catch (err) {
-    res.status(500).send('Server Error');
-  }*/
 
 //@route    POST api/filesystem/createfile
 //@desc     create new file

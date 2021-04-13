@@ -126,7 +126,7 @@ export const choosefolder = (folder) => async (dispatch) => {
   }
 };
 
-export const deletefolder = (folder) => async (dispatch) => {
+export const deletefolder = (folder, type = 'final') => async (dispatch) => {
   const body = JSON.stringify({
     folderid: folder._id,
   });
@@ -144,20 +144,22 @@ export const deletefolder = (folder) => async (dispatch) => {
         id: child_id,
       });
       const child_obj = await axios.post(
-        '/api/filesystem/findByID',
+        '/api/filesystem/folderchild',
         body,
         config
       );
       if (child_obj.objtype === 'folder') {
-        await dispatch(deletefolder(child_obj.data));
+        await dispatch(deletefolder(child_obj.data, null));
       } else {
-        await dispatch(deletefile(child_obj.data));
+        await dispatch(deletefile(child_obj.data, null));
       }
     }
     await dispatch(deletefile(folder));
-    dispatch({
-      type: DELETE_FOLDER,
-    });
+    if (type === 'final') {
+      dispatch({
+        type: DELETE_FOLDER,
+      });
+    }
   } catch (error) {
     dispatch({
       type: ERROR_MESSAGE,
@@ -169,7 +171,7 @@ export const deletefolder = (folder) => async (dispatch) => {
   }
 };
 
-export const deletefile = (file) => async (dispatch) => {
+export const deletefile = (file, type = 'final') => async (dispatch) => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -181,11 +183,12 @@ export const deletefile = (file) => async (dispatch) => {
   try {
     const fileRef = await firebase.storage().refFromURL(file.url).delete();
     const res = await axios.post('/api/filesystem/deletefile', body, config);
-
-    dispatch({
-      type: DELETE_FILE,
-      payload: res.data,
-    });
+    if (type === 'final') {
+      dispatch({
+        type: DELETE_FILE,
+        payload: res.data,
+      });
+    }
   } catch (error) {
     dispatch({
       type: ERROR_MESSAGE,
