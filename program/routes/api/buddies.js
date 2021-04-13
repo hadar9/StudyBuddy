@@ -11,7 +11,7 @@ const search = async (username, id) => {
   const users = await User.find({
     username: new RegExp('^' + username, 'i'),
   });
-  console.log(users);
+
   const withoutmyprofile = users.filter(
     (user) => JSON.stringify(myprofile.user) !== JSON.stringify(user._id)
   );
@@ -108,42 +108,35 @@ router.post('/mybuddies', auth, async (req, res) => {
 router.post('/addbuddy', auth, async (req, res) => {
   try {
     //find  the user to add
-    id = req.body;
+    const { id, searchinput } = req.body;
+
     const mybuddyrequest = {
-      user: id.id,
+      user: id,
       status: 'sent',
     };
     const userconfirmequest = {
       user: req.user.id,
       status: 'request',
     };
-    let myprofile = await Profile.findOne({ user: req.user.id });
-    let hasbuddy = -1;
-    for (j = 0; j < myprofile.buddies.length; ++j) {
-      if (JSON.stringify(myprofile.buddies[j].user) === JSON.stringify(id.id)) {
-        hasbuddy = 0;
-        break;
-      }
-    }
-    if (hasbuddy === -1) {
-      chat = new Chat([]);
-      let userprofile = await Profile.findOneAndUpdate(
-        { user: id.id },
-        { $push: { buddies: userconfirmequest, chat: chat._id } },
-        { new: true }
-      );
-      //get the current user
-      let myprofile = await Profile.findOneAndUpdate(
-        { user: req.user.id },
-        { $push: { buddies: mybuddyrequest, chat: chat._id } },
-        { new: true }
-      );
-      myprofile.save();
-      userprofile.save();
-      res.send('added succses');
-    } else {
-      res.send('already added ');
-    }
+    chat = new Chat([]);
+    let userprofile = await Profile.findOneAndUpdate(
+      { user: id },
+      { $push: { buddies: userconfirmequest, chat: chat._id } },
+      { new: true }
+    );
+    //get the current user
+    let myprofile = await Profile.findOneAndUpdate(
+      { user: req.user.id },
+      { $push: { buddies: mybuddyrequest, chat: chat._id } },
+      { new: true }
+    );
+
+    myprofile.save();
+    userprofile.save();
+
+    const profiles = await search(searchinput, req.user.id);
+
+    res.json(profiles);
   } catch (err) {
     res.status(500).send('Server Error');
   }

@@ -4,19 +4,13 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { addbuddy } from '../../../../../../../actions/buddies';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { searchbuddies } from '../../../../../../../actions/buddies';
-function Add({
-  addbuddy,
-  searchbuddies,
-  buddies: { searchinput },
-  selecteduser,
-}) {
+
+function Add({ addbuddy, buddies: { searchinput }, selecteduser }) {
   const [clicked, setclick] = useState(false);
 
   const handleAddBuddy = (e) => {
-    addbuddy(e.target.value);
+    addbuddy(e.target.value, searchinput);
     setclick(true);
-    searchbuddies(searchinput);
   };
   return (
     <div>
@@ -38,7 +32,6 @@ function Add({
 Add.propTypes = {
   buddiess: PropTypes.object.isRequired,
   addbuddy: PropTypes.func.isRequired,
-  searchbuddies: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   buddies: state.buddies,
@@ -46,5 +39,4 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   addbuddy,
-  searchbuddies,
 })(Add);

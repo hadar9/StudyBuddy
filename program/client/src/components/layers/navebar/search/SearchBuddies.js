@@ -13,6 +13,7 @@ import NameAvatar from '../../content/general/buddies/tabs/NameAvatar';
 
 function SearchBuddies({ buddies: { search, searchloading, userloading } }) {
   let pros;
+
   if (searchloading) {
     pros = search.map((pro, index) => {
       if (pro.status === 'nothing') {

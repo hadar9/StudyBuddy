@@ -28,6 +28,7 @@ export default function buddies(state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
     case SEARCH_BUDDIES_SUCCESS:
+    case ADD_BUDDY:
       return {
         ...state,
         search: payload.mybuddies,
@@ -49,7 +50,6 @@ export default function buddies(state = initialState, action) {
       };
     case CLOSE_USER_PROFILE:
       return { ...state, userprofile: null, userloading: false };
-    case ADD_BUDDY:
     case CONFIRM_BUDDY:
     case DELETE_BUDDY:
       return { ...state, userprofile: null, userloading: false };
