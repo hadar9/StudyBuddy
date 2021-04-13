@@ -9,6 +9,7 @@ import { deletefolder, deletefile } from '../../../../../actions/filesystem';
 
 function ShowFileSystem({
   filesystem: { folder, folderloading },
+  drives: { adminper },
   deletefolder,
   deletefile,
 }) {
@@ -43,12 +44,14 @@ function ShowFileSystem({
               <ContextMenu id={elem._id} className='context-menu'>
                 {elem.objtype !== 'folder' ? (
                   <div>
-                    <MenuItem
-                      data={{ action: 'Download', file: elem }}
-                      onClick={handleClick}
-                    >
-                      Download
-                    </MenuItem>
+                    {adminper === null || adminper.download ? (
+                      <MenuItem
+                        data={{ action: 'Download', file: elem }}
+                        onClick={handleClick}
+                      >
+                        Download
+                      </MenuItem>
+                    ) : null}
                     <MenuItem
                       data={{ action: 'OpenDiscussion', file: elem }}
                       onClick={handleClick}
@@ -58,12 +61,14 @@ function ShowFileSystem({
                     <MenuItem divider />
                   </div>
                 ) : null}
-                <MenuItem
-                  data={{ action: 'Delete', file: elem }}
-                  onClick={handleClick}
-                >
-                  Delete
-                </MenuItem>
+                {adminper === null || adminper.delete ? (
+                  <MenuItem
+                    data={{ action: 'Delete', file: elem }}
+                    onClick={handleClick}
+                  >
+                    Delete
+                  </MenuItem>
+                ) : null}
               </ContextMenu>
             </div>
           ))}
@@ -74,12 +79,14 @@ function ShowFileSystem({
 }
 ShowFileSystem.propTypes = {
   filesystem: PropTypes.object.isRequired,
+  drives: PropTypes.object.isRequired,
   deletefolder: PropTypes.func.isRequired,
   deletefile: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   filesystem: state.filesystem,
+  drives: state.drives,
 });
 
 export default connect(mapStateToProps, { deletefolder, deletefile })(

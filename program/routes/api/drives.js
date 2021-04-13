@@ -345,7 +345,7 @@ router.post('/setadminpermission', auth, async (req, res) => {
 router.post('/choosedrive', auth, async (req, res) => {
   try {
     const drive = req.body.drive;
-    let adminper = {
+    let permissions = {
       createfolder: '',
       upload: '',
       edit: '',
@@ -362,7 +362,7 @@ router.post('/choosedrive', auth, async (req, res) => {
     ]);
 
     if (JSON.stringify(driveret.user) === JSON.stringify(req.user.id)) {
-      adminper = null;
+      permissions = null;
     } else {
       if (driveret.subadmins.length > 0) {
         for (let i = 0; i < driveret.subadmins.length; i++) {
@@ -370,13 +370,13 @@ router.post('/choosedrive', auth, async (req, res) => {
             JSON.stringify(driveret.subadmins[i].user._id) ===
             JSON.stringify(req.user.id)
           ) {
-            adminper.createfolder =
+            permissions.createfolder =
               driveret.subadmins[i].permission.createfolder;
-            adminper.upload = driveret.subadmins[i].permission.upload;
-            adminper.edit = driveret.subadmins[i].permission.edit;
-            adminper.delete = driveret.subadmins[i].permission.delete;
-            adminper.buddymang = driveret.subadmins[i].permission.buddymang;
-            adminper.editmess = driveret.subadmins[i].permission.editmess;
+            permissions.upload = driveret.subadmins[i].permission.upload;
+            permissions.edit = driveret.subadmins[i].permission.edit;
+            permissions.delete = driveret.subadmins[i].permission.delete;
+            permissions.buddymang = driveret.subadmins[i].permission.buddymang;
+            permissions.editmess = driveret.subadmins[i].permission.editmess;
 
             break;
           }
@@ -387,12 +387,12 @@ router.post('/choosedrive', auth, async (req, res) => {
           JSON.stringify(driveret.drivebuddies[i].user._id) ===
           JSON.stringify(req.user.id)
         ) {
-          adminper.download = driveret.drivebuddies[i].download;
+          permissions.download = driveret.drivebuddies[i].download;
           break;
         }
       }
     }
-    const resp = { resdrive: driveret, per: adminper };
+    const resp = { resdrive: driveret, per: permissions };
     res.json(resp);
   } catch (err) {
     res.status(500).send('Server Error');
