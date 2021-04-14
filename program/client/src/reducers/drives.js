@@ -9,6 +9,8 @@ import {
   UPDATED_ELEM_INCHOOSEN_DRIVE,
   CLEAR_DRIVES_STATE,
   ClOSE_SEARCH,
+  DELETE_DRIVE,
+  DELETE_DRIVE_COMPLETE,
 } from '../actions/types';
 
 const initialState = {
@@ -57,6 +59,18 @@ export default function drives(state = initialState, action) {
         drive: payload.drive,
         driveloading: true,
         adminper: payload.per,
+      };
+    case DELETE_DRIVE:
+      return {
+        ...state,
+        driveloading: true,
+        drive: payload,
+      };
+    case DELETE_DRIVE_COMPLETE:
+      return {
+        ...state,
+        driveloading: false,
+        drive: {},
       };
     case CREATE_DRIVE_ERROR:
     case DRIVE_ERROR:

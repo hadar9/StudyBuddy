@@ -11,6 +11,8 @@ import {
   ClOSE_SEARCH,
   SEARCH_DRIVE_ERROR,
   CLEAR_DRIVES_STATE,
+  DELETE_DRIVE,
+  DELETE_DRIVE_COMPLETE,
 } from './types';
 import { setalert } from './alert';
 
@@ -474,8 +476,12 @@ export const choosedrive = (drive) => async (dispatch) => {
 
 export const deletemydrive = (drive) => async (dispatch) => {
   try {
-    await dispatch(deletefolder(drive));
+    dispatch({
+      type: DELETE_DRIVE,
+      payload: drive,
+    });
 
+    await dispatch(deletefolder(drive));
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -483,6 +489,9 @@ export const deletemydrive = (drive) => async (dispatch) => {
     };
     const body = JSON.stringify({
       driveid: drive._id,
+    });
+    dispatch({
+      type: DELETE_DRIVE_COMPLETE,
     });
     await axios.post('/api/drives/deletemydrive', body, config);
     dispatch(getmydrives());
