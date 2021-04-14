@@ -422,4 +422,16 @@ router.post('/createdrive', auth, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+//@route    POST api/drives/createdrive
+//@desc     create new drive
+//@access   Private
+router.post('/deletemydrive', auth, async (req, res) => {
+  try {
+    const driveid = req.body.driveid;
+    await Drive.findOneAndRemove({ _id: driveid });
+    res.status(200).send('drive deleted');
+  } catch (err) {
+    res.status(500).send('Server Error');
+  }
+});
 module.exports = router;

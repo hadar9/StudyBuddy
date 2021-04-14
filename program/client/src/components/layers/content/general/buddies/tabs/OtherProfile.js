@@ -49,10 +49,6 @@ function OtherProfile({
               <strong>study field: </strong>
               {userprofile.studyfield}
             </p>
-            <p>
-              <strong>public drives: </strong>
-              {userprofile.publicdrives}
-            </p>
           </Modal.Body>
         </Modal>
       </div>

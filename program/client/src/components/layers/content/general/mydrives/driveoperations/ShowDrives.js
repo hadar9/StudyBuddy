@@ -10,11 +10,12 @@ import { deletemydrive, leavedrive } from '../../../../../../actions/drives';
 function ShowDrives({
   drivestate: { drives, drivesloading, drivestype },
   leavedrive,
+  deletemydrive,
 }) {
   // Context bar handler
   const handleClick = (e, data) => {
     if (drivestype === 'mydrives') {
-      //deletemydrive(data.drive._id);
+      deletemydrive(data.drive);
     } else {
       leavedrive(data.drive._id);
     }
@@ -52,10 +53,13 @@ function ShowDrives({
 ShowDrives.propTypes = {
   drivestate: PropTypes.object.isRequired,
   leavedrive: PropTypes.func.isRequired,
+  deletemydrive: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   drivestate: state.drives,
 });
 
-export default connect(mapStateToProps, { leavedrive })(ShowDrives);
+export default connect(mapStateToProps, { leavedrive, deletemydrive })(
+  ShowDrives
+);
