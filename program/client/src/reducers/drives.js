@@ -9,6 +9,8 @@ import {
   UPDATED_ELEM_INCHOOSEN_DRIVE,
   CLEAR_DRIVES_STATE,
   ClOSE_SEARCH,
+  DELETE_DRIVE,
+  DELETE_DRIVE_COMPLETE,
 } from '../actions/types';
 
 const initialState = {
@@ -16,6 +18,7 @@ const initialState = {
   drivessearchloading: false,
   searchinput: '',
   drives: [],
+  drivestype: null,
   drivesloading: false,
   drive: {},
   driveloading: false,
@@ -43,7 +46,8 @@ export default function drives(state = initialState, action) {
     case GET_DRIVES:
       return {
         ...state,
-        drives: payload,
+        drives: payload.drives,
+        drivestype: payload.type,
         drivesloading: true,
         drive: {},
         driveloading: false,
@@ -55,6 +59,18 @@ export default function drives(state = initialState, action) {
         drive: payload.drive,
         driveloading: true,
         adminper: payload.per,
+      };
+    case DELETE_DRIVE:
+      return {
+        ...state,
+        driveloading: true,
+        drive: payload,
+      };
+    case DELETE_DRIVE_COMPLETE:
+      return {
+        ...state,
+        driveloading: false,
+        drive: {},
       };
     case CREATE_DRIVE_ERROR:
     case DRIVE_ERROR:
@@ -75,6 +91,7 @@ export default function drives(state = initialState, action) {
       return {
         ...state,
         drives: [],
+        drivestype: null,
         drivesloading: false,
       };
     case CLEAR_DRIVES_STATE:

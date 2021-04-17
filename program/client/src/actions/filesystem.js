@@ -144,17 +144,20 @@ export const deletefolder = (folder, type = 'final') => async (dispatch) => {
         body,
         config
       );
-      if (child_obj.objtype === 'folder') {
+      if (child_obj.data.objtype === 'folder') {
         await dispatch(deletefolder(child_obj.data, null));
       } else {
         await dispatch(deletefile(child_obj.data, null));
       }
     }
-    await dispatch(deletefile(folder));
-    if (type === 'final') {
-      dispatch({
-        type: DELETE_FOLDER,
-      });
+
+    if (folder.objtype === 'folder') {
+      await dispatch(deletefile(folder, type));
+      if (type === 'final') {
+        await dispatch({
+          type: DELETE_FOLDER,
+        });
+      }
     }
   } catch (error) {
     dispatch({

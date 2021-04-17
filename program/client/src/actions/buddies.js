@@ -117,7 +117,7 @@ export const closemybuddies = () => async (dispatch) => {
 };
 
 // add buddy
-export const addbuddy = (id) => async (dispatch) => {
+export const addbuddy = (id, searchinput) => async (dispatch) => {
   try {
     const config = {
       headers: {
@@ -126,11 +126,13 @@ export const addbuddy = (id) => async (dispatch) => {
     };
     const body = JSON.stringify({
       id,
+      searchinput,
     });
     const res = await axios.post('api/buddies/addbuddy', body, config);
+   
     dispatch({
       type: ADD_BUDDY,
-      payload: res.data,
+      payload: { mybuddies: res.data, searchinput: searchinput },
     });
   } catch (error) {
     dispatch({

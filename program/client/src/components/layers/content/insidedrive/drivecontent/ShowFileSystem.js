@@ -27,12 +27,20 @@ const DisplayFile = async(url) =>
 
 function ShowFileSystem({
   filesystem: { folder, folderloading },
+  drives: { adminper },
   deletefolder,
   deletefile,
 }) {
   useEffect(() => {}, [folder]);
   //Context bar handler
   function handleClick(e, data) {
+    if (data.action === 'Delete') {
+      if (data.file.objtype === 'folder') {
+        deletefolder(data.file);
+      } else {
+        deletefile(data.file);
+      }
+
     switch(data.action)
     {
       case 'RemoveFile':
@@ -49,10 +57,11 @@ function ShowFileSystem({
         downloadFile(data.file.url, data.file.name);
         break;
 
+
     }
   }
+  let children = false;
 
-  var children = false;
   if (folder.children.length > 0 && folderloading) {
     children = true;
   }
@@ -69,6 +78,35 @@ function ShowFileSystem({
                 </Row>
               </ContextMenuTrigger>
               <ContextMenu id={elem._id} className='context-menu'>
+
+                {elem.objtype !== 'folder' ? (
+                  <div>
+                    {adminper === null || adminper.download ? (
+                      <MenuItem
+                        data={{ action: 'Download', file: elem }}
+                        onClick={handleClick}
+                      >
+                        Download
+                      </MenuItem>
+                    ) : null}
+                    <MenuItem
+                      data={{ action: 'OpenDiscussion', file: elem }}
+                      onClick={handleClick}
+                    >
+                      Open Discussion
+                    </MenuItem>
+                    <MenuItem divider />
+                  </div>
+                ) : null}
+                {adminper === null || adminper.delete ? (
+                  <MenuItem
+                    data={{ action: 'Delete', file: elem }}
+                    onClick={handleClick}
+                  >
+                    Delete
+                  </MenuItem>
+                ) : null}
+
                 <MenuItem
                   data={{ action: 'OpenFile', file: elem }}
                   onClick={handleClick}
@@ -91,6 +129,7 @@ function ShowFileSystem({
                 <MenuItem data={{ action: 'DownloadFile', file: elem }} onClick={handleClick}>
                   Download
                 </MenuItem>
+
               </ContextMenu>
             </div>
           ))}
@@ -101,12 +140,14 @@ function ShowFileSystem({
 }
 ShowFileSystem.propTypes = {
   filesystem: PropTypes.object.isRequired,
+  drives: PropTypes.object.isRequired,
   deletefolder: PropTypes.func.isRequired,
   deletefile: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   filesystem: state.filesystem,
+  drives: state.drives,
 });
 
 export default connect(mapStateToProps, { deletefolder, deletefile })(

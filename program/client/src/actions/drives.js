@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { choosefolder } from './filesystem';
+import { choosefolder, deletefolder } from './filesystem';
 import {
   GET_DRIVES,
   CREATE_DRIVE_ERROR,
@@ -11,6 +11,8 @@ import {
   ClOSE_SEARCH,
   SEARCH_DRIVE_ERROR,
   CLEAR_DRIVES_STATE,
+  DELETE_DRIVE,
+  DELETE_DRIVE_COMPLETE,
 } from './types';
 import { setalert } from './alert';
 
@@ -186,7 +188,7 @@ export const deletereq = (driveid, searchdrive) => async (dispatch) => {
     });
   }
 };
-export const leavedrive = (driveid, searchdrive) => async (dispatch) => {
+export const leavedrive = (driveid, searchinput = null) => async (dispatch) => {
   try {
     const config = {
       headers: {
@@ -195,14 +197,14 @@ export const leavedrive = (driveid, searchdrive) => async (dispatch) => {
     };
     const body = JSON.stringify({
       driveid,
-      searchdrive,
     });
-    const res = await axios.post('/api/drives/leavedrive', body, config);
+    await axios.post('/api/drives/leavedrive', body, config);
 
-    dispatch({
-      type: SEARCH_DRIVES_SUCCESS,
-      payload: { drives: res.data, searchinput: searchdrive },
-    });
+    if (searchinput !== null) {
+      dispatch(searchdrives(searchinput));
+    } else {
+      dispatch(getotherdrives());
+    }
   } catch (error) {
     dispatch({
       type: DRIVE_ERROR,
@@ -220,7 +222,7 @@ export const getmydrives = () => async (dispatch) => {
 
     dispatch({
       type: GET_DRIVES,
-      payload: res.data,
+      payload: { drives: res.data, type: 'mydrives' },
     });
   } catch (error) {
     dispatch({
@@ -238,7 +240,7 @@ export const getotherdrives = () => async (dispatch) => {
     const res = await axios.get('/api/drives/getotherdrives');
     dispatch({
       type: GET_DRIVES,
-      payload: res.data,
+      payload: { drives: res.data, type: 'otherdrives' },
     });
   } catch (error) {
     dispatch({
@@ -442,16 +444,6 @@ export const createdrive = (drivename) => async (dispatch) => {
     });
   }
 };
-export const cleardrives = () => async (dispatch) => {
-  dispatch({
-    type: CLEAR_DRIVES,
-  });
-};
-export const cleardrivesstate = () => async (dispatch) => {
-  dispatch({
-    type: CLEAR_DRIVES_STATE,
-  });
-};
 
 export const choosedrive = (drive) => async (dispatch) => {
   const config = {
@@ -480,4 +472,47 @@ export const choosedrive = (drive) => async (dispatch) => {
       },
     });
   }
+};
+
+export const deletemydrive = (drive) => async (dispatch) => {
+  try {
+    dispatch({
+      type: DELETE_DRIVE,
+      payload: drive,
+    });
+
+    await dispatch(deletefolder(drive));
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({
+      driveid: drive._id,
+    });
+    dispatch({
+      type: DELETE_DRIVE_COMPLETE,
+    });
+    await axios.post('/api/drives/deletemydrive', body, config);
+    dispatch(getmydrives());
+  } catch (error) {
+    dispatch({
+      type: DRIVE_ERROR,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+  }
+};
+
+export const cleardrives = () => async (dispatch) => {
+  dispatch({
+    type: CLEAR_DRIVES,
+  });
+};
+export const cleardrivesstate = () => async (dispatch) => {
+  dispatch({
+    type: CLEAR_DRIVES_STATE,
+  });
 };

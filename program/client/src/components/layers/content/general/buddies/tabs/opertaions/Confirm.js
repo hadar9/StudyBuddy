@@ -21,7 +21,6 @@ function Confirm({
 
   const handleConfimBuddy = (e) => {
     confirmbuddy(e.target.value);
-
     if (type === 'Tabs') {
       getmybuddies('request');
     } else {
