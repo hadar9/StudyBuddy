@@ -251,6 +251,14 @@
   width: 60px;
   height: 60px;
 }
+
+.filetext {
+  white-space: nowrap;
+  color: black;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 150px;
+}
 /********************************************************/
 /*drive settings*/
 .drivepermissionsetting {

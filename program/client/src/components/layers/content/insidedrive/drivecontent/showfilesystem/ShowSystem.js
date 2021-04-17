@@ -64,17 +64,7 @@ function ShowSystem({ elem, choosefolder, choosefile }) {
               <Image className='fileimg' src={images[`${elem.objtype}`]} />
             </Button>
           )}
-          <p
-            style={{
-              whiteSpace: 'nowrap',
-              color: 'black',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              width: '150px',
-            }}
-          >
-            {elem.name}
-          </p>
+          <p className='filetext'>{elem.name}</p>
         </Col>
       </div>
     </div>
