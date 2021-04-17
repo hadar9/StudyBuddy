@@ -57,13 +57,19 @@ function ShowFileSystem({
 
   return (
     <div>
-      <a>Path: </a>
-      {paths.map((locp) => (
-        <a href='#' onClick={() => path_callback(locp, folder)}>
-          {' '}
-          {locp[0].split('/').slice(-1).pop() + ' / '}
-        </a>
-      ))}
+      <div className='pathtry'>
+        <a className='path'>Path: </a>
+        {paths.map((locp) => (
+          <a
+            className='path'
+            href='#'
+            onClick={() => path_callback(locp, folder)}
+          >
+            {' '}
+            {locp[0].split('/').slice(-1).pop() + ' / '}
+          </a>
+        ))}
+      </div>
       {children ? (
         <div>
           {folder.children.map((elem) => (
