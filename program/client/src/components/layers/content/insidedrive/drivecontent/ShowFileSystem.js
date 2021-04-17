@@ -5,69 +5,65 @@ import ShowSystem from './showfilesystem/ShowSystem';
 import { Row } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu';
-import { deletefolder, deletefile } from '../../../../../actions/filesystem';
-
-function downloadFile(url, filename) {
-  fetch(url).then(function(t) {
-      return t.blob().then((b)=>{
-          var a = document.createElement("a");
-          a.href = URL.createObjectURL(b);
-          a.setAttribute("download", filename);
-          a.click();
-      }
-      );
-  });
-  }
-
-const DisplayFile = async(url) =>
-{
-  
-    window.open(url);
-};
+import {
+  deletefolder,
+  deletefile,
+  findfolder,
+} from '../../../../../actions/filesystem';
 
 function ShowFileSystem({
   filesystem: { folder, folderloading },
   drives: { adminper },
   deletefolder,
   deletefile,
+  findfolder,
 }) {
   useEffect(() => {}, [folder]);
   //Context bar handler
   function handleClick(e, data) {
-    if (data.action === 'Delete') {
-      if (data.file.objtype === 'folder') {
-        deletefolder(data.file);
-      } else {
-        deletefile(data.file);
-      }
-
-    switch(data.action)
-    {
-      case 'RemoveFile':
+    switch (data.action) {
+      case 'Delete':
         if (data.file.objtype === 'folder') {
           deletefolder(data.file);
         } else {
           deletefile(data.file);
         }
         break;
-      case 'OpenFile':
-        DisplayFile(data.file.url)
+      case 'Download':
         break;
-      case 'DownloadFile':
-        downloadFile(data.file.url, data.file.name);
-        break;
-
-
     }
   }
+  function path_callback(dest) {
+    findfolder(dest);
+  }
+
+  function create_path_array(path) {
+    let path_array = path.split('/');
+    let paths = [];
+    for (let iter = 0; iter < path_array.length; iter++) {
+      if (iter === 0) paths.push([path_array[iter]]);
+      else paths.push([paths[iter - 1] + '/' + path_array[iter]]);
+    }
+    return paths;
+  }
+
   let children = false;
 
   if (folder.children.length > 0 && folderloading) {
     children = true;
   }
 
+  const paths = create_path_array(folder.path);
+
   return (
     <div>
+      <a>Path: </a>
+      {paths.map((locp) => (
+        <a href='#' onClick={() => path_callback(locp, folder)}>
+          {' '}
+          {locp[0].split('/').slice(-1).pop() + ' / '}
+        </a>
+      ))}
       {children ? (
         <div>
           {folder.children.map((elem) => (
@@ -78,7 +74,6 @@ function ShowFileSystem({
                 </Row>
               </ContextMenuTrigger>
               <ContextMenu id={elem._id} className='context-menu'>
-
                 {elem.objtype !== 'folder' ? (
                   <div>
                     {adminper === null || adminper.download ? (
@@ -106,30 +101,6 @@ function ShowFileSystem({
                     Delete
                   </MenuItem>
                 ) : null}
-
-                <MenuItem
-                  data={{ action: 'OpenFile', file: elem }}
-                  onClick={handleClick}
-                >
-                  Open File
-                </MenuItem>
-                <MenuItem
-                  data={{ action: 'OpenDiscussion', file: elem }}
-                  onClick={handleClick}
-                >
-                  Open Discussion
-                </MenuItem>
-                <MenuItem divider />
-                <MenuItem
-                  data={{ action: 'RemoveFile', file: elem }}
-                  onClick={handleClick}
-                >
-                  Remove File
-                </MenuItem>
-                <MenuItem data={{ action: 'DownloadFile', file: elem }} onClick={handleClick}>
-                  Download
-                </MenuItem>
-
               </ContextMenu>
             </div>
           ))}
@@ -143,6 +114,7 @@ ShowFileSystem.propTypes = {
   drives: PropTypes.object.isRequired,
   deletefolder: PropTypes.func.isRequired,
   deletefile: PropTypes.func.isRequired,
+  findfolder: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -150,6 +122,8 @@ const mapStateToProps = (state) => ({
   drives: state.drives,
 });
 
-export default connect(mapStateToProps, { deletefolder, deletefile })(
-  ShowFileSystem
-);
+export default connect(mapStateToProps, {
+  deletefolder,
+  deletefile,
+  findfolder,
+})(ShowFileSystem);

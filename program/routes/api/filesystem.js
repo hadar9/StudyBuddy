@@ -164,4 +164,24 @@ router.post('/editmessage', auth, async (req, res) => {
   }
 });
 
+router.post('/findfolder', auth, async (req, res) => {
+  try {
+    const folder = await FileSystem.findOne({
+      path: req.body.path,
+      objtype: 'folder',
+    });
+    if (folder) {
+      res.status(200).json(folder);
+    } else {
+      const drive = await Drive.findOne({
+        path: req.body.path,
+        objtype: 'drive',
+      }).populate('children');
+      res.status(200).json(drive);
+    }
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
 module.exports = router;

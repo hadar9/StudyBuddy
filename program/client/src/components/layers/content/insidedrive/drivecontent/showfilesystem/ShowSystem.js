@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Image, Col, Button, Modal } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import fileimg from '../../../../../../img/file.png';
@@ -8,17 +8,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 function ShowSystem({ elem, choosefolder, choosefile }) {
-  const [showfile, setfile] = useState(false);
-
   const showfilecontent = (e) => {
     choosefile(elem);
-    window.open(
-      elem.url,
-      '',
-      'fullscreen=no,menubar=no,titlebar=no,scrollbars=1,resizable=1,location=1,toolbar=no'
-    );
-
-    setfile(true);
+    let url = elem.url;
+    if (elem.objtype === 'pdf') {
+      url = url + '#toolbar=0';
+    }
+    window.open(url);
   };
 
   return (

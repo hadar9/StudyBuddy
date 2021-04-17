@@ -205,11 +205,32 @@ export const choosefile = (file) => async (dispatch) => {
     payload: file,
   });
 };
+
 export const clearfile = () => async (dispatch) => {
   dispatch({
     type: CLEAR_FILE,
   });
 };
+
+export const findfolder = (path) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const body = JSON.stringify({
+    path: path,
+  });
+  const folder_obj = await axios.post(
+    '/api/filesystem/findfolder',
+    body,
+    config
+  );
+  if (folder_obj.data) {
+    dispatch(choosefolder(folder_obj.data));
+  }
+};
+
 export const editmessage = (folder, message) => async (dispatch) => {
   const config = {
     headers: {
