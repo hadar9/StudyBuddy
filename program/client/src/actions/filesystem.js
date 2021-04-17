@@ -180,7 +180,7 @@ export const deletefile = (file, type = 'final') => async (dispatch) => {
     file,
   });
   try {
-    const fileRef = await firebase.storage().refFromURL(file.url).delete();
+    await firebase.storage().refFromURL(file.url).delete();
     const res = await axios.post('/api/filesystem/deletefile', body, config);
     if (type === 'final') {
       dispatch({

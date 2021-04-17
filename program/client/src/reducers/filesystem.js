@@ -10,7 +10,6 @@ import {
   ERROR_MESSAGE,
   CLEAR_FILESYSTEM,
   DELETE_FILE,
-  DELETE_FOLDER,
 } from '../actions/types';
 
 const initialState = {

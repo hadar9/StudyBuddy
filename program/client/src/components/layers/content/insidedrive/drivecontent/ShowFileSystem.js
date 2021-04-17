@@ -29,7 +29,8 @@ function ShowFileSystem({
           deletefile(data.file);
         }
         break;
-      case 'Download':
+      //download
+      default:
         break;
     }
   }
