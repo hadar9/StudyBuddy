@@ -15,9 +15,11 @@ import {
   EDIT_MESSAGE,
   ERROR_MESSAGE,
   CLEAR_FILESYSTEM,
+  LOADING,
 } from '../actions/types';
 
 export const createfolder = (parent, foldername) => async (dispatch) => {
+  dispatch({type: LOADING})
   const id = uuid();
 
   const DriveRef = firebase
@@ -55,6 +57,7 @@ export const createfolder = (parent, foldername) => async (dispatch) => {
   }
 };
 export const createfile = (parent, filename, file) => async (dispatch) => {
+  dispatch({type: LOADING})
   const id = uuid();
   const DriveRef = firebase.storage().ref(parent.path).child(id);
   await DriveRef.put(file);
@@ -126,6 +129,7 @@ export const choosefolder = (folder) => async (dispatch) => {
 };
 
 export const deletefolder = (folder, type = 'final') => async (dispatch) => {
+  dispatch({type: LOADING})
   const config = {
     headers: {
       'Content-Type': 'application/json',

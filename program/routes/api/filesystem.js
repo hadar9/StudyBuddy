@@ -170,6 +170,7 @@ router.post('/findfolder', auth, async (req, res) => {
       path: req.body.path,
       objtype: 'folder',
     });
+
     if (folder) {
       res.status(200).json(folder);
     } else {

@@ -10,6 +10,9 @@ import {
   deletefile,
   findfolder,
 } from '../../../../../actions/filesystem';
+import store from '../../../../../store/store';
+
+
 
 function ShowFileSystem({
   filesystem: { folder, folderloading },
@@ -17,7 +20,8 @@ function ShowFileSystem({
   deletefolder,
   deletefile,
   findfolder,
-}) {
+}) 
+{
   useEffect(() => {}, [folder]);
   //Context bar handler
   function handleClick(e, data) {
@@ -35,14 +39,18 @@ function ShowFileSystem({
     }
   }
   function path_callback(dest) {
-    findfolder(dest);
+    findfolder(user+dest);
   }
 
   function create_path_array(path) {
     let path_array = path.split('/');
     let paths = [];
     for (let iter = 0; iter < path_array.length; iter++) {
-      if (iter === 0) paths.push([path_array[iter]]);
+      if (iter === 0) 
+      {
+        user = path_array[iter]
+        paths.push(['']);
+      }
       else paths.push([paths[iter - 1] + '/' + path_array[iter]]);
     }
     return paths;
@@ -53,9 +61,21 @@ function ShowFileSystem({
   if (folder.children.length > 0 && folderloading) {
     children = true;
   }
-
+  var user;
   const paths = create_path_array(folder.path);
 
+  var loading = (
+    <div>
+    <div className='loader-background'></div>
+    <div className='loader'></div>
+    </div>
+  )
+  const isLoading = store.getState().filesystem.loading;
+
+  if(isLoading)
+  {
+    return loading
+  }
   return (
     <div>
       <div className='pathtry'>
@@ -66,7 +86,6 @@ function ShowFileSystem({
             href='#'
             onClick={() => path_callback(locp, folder)}
           >
-            {' '}
             {locp[0].split('/').slice(-1).pop() + ' / '}
           </a>
         ))}
@@ -127,6 +146,7 @@ ShowFileSystem.propTypes = {
 const mapStateToProps = (state) => ({
   filesystem: state.filesystem,
   drives: state.drives,
+  loading: state.loading,
 });
 
 export default connect(mapStateToProps, {

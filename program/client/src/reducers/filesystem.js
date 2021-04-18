@@ -10,6 +10,7 @@ import {
   ERROR_MESSAGE,
   CLEAR_FILESYSTEM,
   DELETE_FILE,
+  LOADING,
 } from '../actions/types';
 
 const initialState = {
@@ -31,6 +32,7 @@ export default function filesystem(state = initialState, action) {
         ...state,
         folder: payload,
         folderloading: true,
+        loading: false,
       };
     case EDIT_MESSAGE:
       return {
@@ -67,6 +69,12 @@ export default function filesystem(state = initialState, action) {
         fileloading: false,
         error: {},
       };
+    case LOADING:
+        return {
+          ...state,
+          loading: true,
+        };
+
     default:
       return state;
   }

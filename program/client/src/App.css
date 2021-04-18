@@ -2,7 +2,7 @@
 
 .landing {
   position: relative;
-  background: url('./img/loginpic.jpeg');
+  background: url("./img/loginpic.jpeg");
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
@@ -55,7 +55,7 @@
 .register,
 .login {
   position: relative;
-  background: url('./img/register.jpg');
+  background: url("./img/register.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
@@ -215,7 +215,7 @@
 .path {
   font-size: 30px;
   color: #40bed1;
-  text-shadow: 6px 2px 8px rgba(0, 0, 0, 0.7);
+  text-shadow: 6px 2px 8px rgba(0, 0, 0, 0.5);
   font-style: oblique;
 }
 
@@ -329,7 +329,7 @@
 /*currentchat*/
 .currentchat {
   float: right;
-  background-image: url('./img/blue.png');
+  background-image: url("./img/blue.png");
   width: 60%;
   height: 100%;
 }
@@ -362,7 +362,7 @@
   margin-bottom: 4px;
 }
 .message-me :before {
-  content: '';
+  content: "";
   position: absolute;
   width: 0;
   height: 0;
@@ -384,7 +384,7 @@
   margin-bottom: 4px;
 }
 .message-other :before {
-  content: '';
+  content: "";
   position: absolute;
   width: 0;
   height: 0;
@@ -399,4 +399,33 @@
   background-color: whitesmoke;
   z-index: 999;
   font-weight: 500;
+}
+
+/*
+  Loading Animation
+*/
+.loader-background {
+  background: rgba(255, 255, 255, 0.5);
+  top: 50%;
+  left: 50%;
+}
+.loader {
+  position: fixed;
+  top: 60%;
+  left: 50%;
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
