@@ -24,7 +24,7 @@ function ShowSystem({
   elem,
   choosefolder,
   choosefile,
-  filesystem: { deletefilestatus, deletefile },
+  filesystem: { fileopstatus, fileop },
 }) {
   const images = {
     avi,
@@ -57,7 +57,7 @@ function ShowSystem({
         <Col>
           {elem.objtype === 'folder' ? (
             <Button variant='light' onClick={(e) => choosefolder(elem)}>
-              {deletefilestatus && deletefile === elem._id ? (
+              {fileopstatus && fileop === elem._id ? (
                 <Spinner
                   className='filespinner'
                   animation='border'
@@ -73,7 +73,7 @@ function ShowSystem({
                 showfilecontent(e);
               }}
             >
-              {deletefilestatus && deletefile === elem._id ? (
+              {fileopstatus && fileop === elem._id ? (
                 <Spinner
                   className='filespinner'
                   animation='border'

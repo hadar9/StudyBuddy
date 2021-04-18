@@ -2,6 +2,8 @@ import {
   CREATE_FOLDER,
   ERROR_FOLDER,
   CREATE_FILE,
+  UPLOAD_FILE_TRUE,
+  UPLOAD_FILE_FALSE,
   ERROR_FILE,
   CHOOSE_FOLDER,
   CHOOSE_FILE,
@@ -19,8 +21,8 @@ const initialState = {
   folderloading: false,
   file: {},
   fileloading: false,
-  deletefilestatus: false,
-  deletefile: null,
+  fileopstatus: false,
+  fileop: null,
   error: {},
 };
 
@@ -35,20 +37,29 @@ export default function filesystem(state = initialState, action) {
         folder: payload,
         folderloading: true,
       };
+    case UPLOAD_FILE_TRUE: {
+      return {
+        ...state,
+        fileopstatus: true,
+        fileop: 'upload',
+      };
+    }
+    case DELETE_FILE_FALSE:
+    case UPLOAD_FILE_FALSE: {
+      return {
+        ...state,
+        fileopstatus: false,
+        fileop: null,
+      };
+    }
     case DELETE_FILE_TRUE: {
       return {
         ...state,
-        deletefilestatus: true,
-        deletefile: payload,
+        fileopstatus: true,
+        fileop: payload,
       };
     }
-    case DELETE_FILE_FALSE: {
-      return {
-        ...state,
-        deletefilestatus: false,
-        deletefile: null,
-      };
-    }
+
     case DELETE_FILE: {
       return {
         ...state,
@@ -69,8 +80,8 @@ export default function filesystem(state = initialState, action) {
         folderloading: false,
         file: {},
         fileloading: false,
-        deletefilestatus: false,
-        deletefile: null,
+        fileopstatus: false,
+        fileop: null,
         error: payload,
       };
     case CHOOSE_FILE:
@@ -91,8 +102,8 @@ export default function filesystem(state = initialState, action) {
         folderloading: false,
         file: {},
         fileloading: false,
-        deletefilestatus: false,
-        deletefile: null,
+        fileopstatus: false,
+        fileop: null,
         error: {},
       };
 

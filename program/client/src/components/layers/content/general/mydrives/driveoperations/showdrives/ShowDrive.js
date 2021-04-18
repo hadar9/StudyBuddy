@@ -9,13 +9,13 @@ import PropTypes from 'prop-types';
 function ShowDrive({
   elem,
   choosedrive,
-  filesystem: { deletefilestatus, deletefile },
+  filesystem: { fileopstatus, fileop },
 }) {
   return (
     <div className='showdrive text-center'>
       <Col>
         <Button variant='light' onClick={(e) => choosedrive(elem)}>
-          {deletefilestatus && deletefile === elem._id ? (
+          {fileopstatus && fileop === elem._id ? (
             <Spinner
               className='filespinner'
               animation='border'
