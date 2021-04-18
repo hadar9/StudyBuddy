@@ -59,12 +59,12 @@ export const createfile = (parent, filename, file) => async (dispatch) => {
   const DriveRef = firebase.storage().ref(parent.path).child(id);
   await DriveRef.put(file);
   const fileurl = await DriveRef.getDownloadURL();
-
   const config = {
     headers: {
       'Content-Type': 'application/json',
     },
   };
+
   const body = JSON.stringify({
     parent,
     filename,
@@ -256,6 +256,18 @@ export const editmessage = (folder, message) => async (dispatch) => {
       },
     });
   }
+};
+export const downloadfile = (fileurl) => async (dispatch) => {
+  axios
+    .get(fileurl)
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) =>
+      alert(
+        'An error has occurred, please try again and check your internet connection.'
+      )
+    );
 };
 
 export const clearfilesystem = () => async (dispatch) => {

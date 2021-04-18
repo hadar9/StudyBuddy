@@ -1,14 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ShowSystem from './showfilesystem/ShowSystem';
-import { Row } from 'react-bootstrap';
+import { ProgressBar, Row } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu';
 import {
   deletefolder,
   deletefile,
   findfolder,
+  downloadfile,
 } from '../../../../../actions/filesystem';
 
 function ShowFileSystem({
@@ -17,6 +18,7 @@ function ShowFileSystem({
   deletefolder,
   deletefile,
   findfolder,
+  downloadfile,
 }) {
   useEffect(() => {}, [folder]);
   //Context bar handler
@@ -31,6 +33,18 @@ function ShowFileSystem({
         break;
       //download
       default:
+        const link = document.createElement('a');
+        link.href = data.file.url;
+        link.setAttribute('download', `FileName.pdf`);
+
+        // Append to html link element page
+        document.body.appendChild(link);
+
+        // Start download
+        link.click();
+
+        // Clean up and remove the link
+        link.parentNode.removeChild(link);
         break;
     }
   }
@@ -80,6 +94,7 @@ function ShowFileSystem({
                   <ShowSystem key={elem._id} elem={elem} />
                 </Row>
               </ContextMenuTrigger>
+
               <ContextMenu id={elem._id} className='context-menu'>
                 {elem.objtype !== 'folder' ? (
                   <div>
@@ -122,6 +137,7 @@ ShowFileSystem.propTypes = {
   deletefolder: PropTypes.func.isRequired,
   deletefile: PropTypes.func.isRequired,
   findfolder: PropTypes.func.isRequired,
+  downloadfile: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -133,4 +149,5 @@ export default connect(mapStateToProps, {
   deletefolder,
   deletefile,
   findfolder,
+  downloadfile,
 })(ShowFileSystem);
