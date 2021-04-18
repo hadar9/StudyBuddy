@@ -10,15 +10,17 @@ import {
   ERROR_MESSAGE,
   CLEAR_FILESYSTEM,
   DELETE_FILE,
-  LOADING,
+  DELETE_FILE_TRUE,
+  DELETE_FILE_FALSE,
 } from '../actions/types';
 
 const initialState = {
   folder: {},
   folderloading: false,
   file: {},
-  deleteperc: 0,
   fileloading: false,
+  deletefilestatus: false,
+  deletefile: null,
   error: {},
 };
 
@@ -32,14 +34,26 @@ export default function filesystem(state = initialState, action) {
         ...state,
         folder: payload,
         folderloading: true,
-        loading: false,
       };
+    case DELETE_FILE_TRUE: {
+      return {
+        ...state,
+        deletefilestatus: true,
+        deletefile: payload,
+      };
+    }
+    case DELETE_FILE_FALSE: {
+      return {
+        ...state,
+        deletefilestatus: false,
+        deletefile: null,
+      };
+    }
     case DELETE_FILE: {
       return {
         ...state,
         folder: payload,
-        deleteperc: payload,
-        loading: false,
+        folderloading: true,
       };
     }
     case EDIT_MESSAGE:
@@ -51,10 +65,12 @@ export default function filesystem(state = initialState, action) {
     case ERROR_MESSAGE:
     case ERROR_FILE:
       return {
-        folder: [],
+        folder: {},
         folderloading: false,
-        file: [],
+        file: {},
         fileloading: false,
+        deletefilestatus: false,
+        deletefile: null,
         error: payload,
       };
     case CHOOSE_FILE:
@@ -75,13 +91,10 @@ export default function filesystem(state = initialState, action) {
         folderloading: false,
         file: {},
         fileloading: false,
+        deletefilestatus: false,
+        deletefile: null,
         error: {},
       };
-    case LOADING:
-        return {
-          ...state,
-          loading: true,
-        };
 
     default:
       return state;

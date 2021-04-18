@@ -6,15 +6,17 @@ import { Row } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu';
 import { deletemydrive, leavedrive } from '../../../../../../actions/drives';
-
+import { deletefiletrue } from '../../../../../../actions/filesystem';
 function ShowDrives({
   drivestate: { drives, drivesloading, drivestype },
   leavedrive,
   deletemydrive,
+  deletefiletrue,
 }) {
   // Context bar handler
   const handleClick = (e, data) => {
     if (drivestype === 'mydrives') {
+      deletefiletrue(data.drive);
       deletemydrive(data.drive);
     } else {
       leavedrive(data.drive._id);
@@ -54,12 +56,15 @@ ShowDrives.propTypes = {
   drivestate: PropTypes.object.isRequired,
   leavedrive: PropTypes.func.isRequired,
   deletemydrive: PropTypes.func.isRequired,
+  deletefiletrue: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   drivestate: state.drives,
 });
 
-export default connect(mapStateToProps, { leavedrive, deletemydrive })(
-  ShowDrives
-);
+export default connect(mapStateToProps, {
+  leavedrive,
+  deletemydrive,
+  deletefiletrue,
+})(ShowDrives);

@@ -20,7 +20,12 @@ import txt from '../../../../../../img/files/txt.png';
 import zip from '../../../../../../img/files/zip.png';
 import folderimg from '../../../../../../img/folder.png';
 
-function ShowSystem({ elem, choosefolder, choosefile }) {
+function ShowSystem({
+  elem,
+  choosefolder,
+  choosefile,
+  filesystem: { deletefilestatus, deletefile },
+}) {
   const images = {
     avi,
     csv,
@@ -52,6 +57,13 @@ function ShowSystem({ elem, choosefolder, choosefile }) {
         <Col>
           {elem.objtype === 'folder' ? (
             <Button variant='light' onClick={(e) => choosefolder(elem)}>
+              {deletefilestatus && deletefile === elem._id ? (
+                <Spinner
+                  className='filespinner'
+                  animation='border'
+                  variant='dark'
+                ></Spinner>
+              ) : null}
               <Image className='folderimg' src={folderimg}></Image>
             </Button>
           ) : (
@@ -61,6 +73,13 @@ function ShowSystem({ elem, choosefolder, choosefile }) {
                 showfilecontent(e);
               }}
             >
+              {deletefilestatus && deletefile === elem._id ? (
+                <Spinner
+                  className='filespinner'
+                  animation='border'
+                  variant='dark'
+                ></Spinner>
+              ) : null}
               <Image className='fileimg' src={images[`${elem.objtype}`]} />
             </Button>
           )}
@@ -73,8 +92,15 @@ function ShowSystem({ elem, choosefolder, choosefile }) {
 }
 
 ShowSystem.propTypes = {
+  filesystem: PropTypes.object.isRequired,
   choosefolder: PropTypes.func.isRequired,
   choosefile: PropTypes.func.isRequired,
 };
 
-export default connect(null, { choosefolder, choosefile })(ShowSystem);
+const mapStateToProps = (state) => ({
+  filesystem: state.filesystem,
+});
+
+export default connect(mapStateToProps, { choosefolder, choosefile })(
+  ShowSystem
+);

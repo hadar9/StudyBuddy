@@ -9,10 +9,8 @@ import {
   deletefolder,
   deletefile,
   findfolder,
+  deletefiletrue,
 } from '../../../../../actions/filesystem';
-import store from '../../../../../store/store';
-
-
 
 function ShowFileSystem({
   filesystem: { folder, folderloading },
@@ -20,16 +18,18 @@ function ShowFileSystem({
   deletefolder,
   deletefile,
   findfolder,
-}) 
-{
+  deletefiletrue,
+}) {
   useEffect(() => {}, [folder]);
   //Context bar handler
   function handleClick(e, data) {
     switch (data.action) {
       case 'Delete':
         if (data.file.objtype === 'folder') {
+          deletefiletrue(data.file);
           deletefolder(data.file);
         } else {
+          deletefiletrue(data.file);
           deletefile(data.file);
         }
         break;
@@ -39,19 +39,17 @@ function ShowFileSystem({
     }
   }
   function path_callback(dest) {
-    findfolder(user+dest);
+    findfolder(user + dest);
   }
 
   function create_path_array(path) {
     let path_array = path.split('/');
     let paths = [];
     for (let iter = 0; iter < path_array.length; iter++) {
-      if (iter === 0) 
-      {
-        user = path_array[iter]
+      if (iter === 0) {
+        user = path_array[iter];
         paths.push(['']);
-      }
-      else paths.push([paths[iter - 1] + '/' + path_array[iter]]);
+      } else paths.push([paths[iter - 1] + '/' + path_array[iter]]);
     }
     return paths;
   }
@@ -66,16 +64,11 @@ function ShowFileSystem({
 
   var loading = (
     <div>
-    <div className='loader-background'></div>
-    <div className='loader'></div>
+      <div className='loader-background'></div>
+      <div className='loader'></div>
     </div>
-  )
-  const isLoading = store.getState().filesystem.loading;
+  );
 
-  if(isLoading)
-  {
-    return loading
-  }
   return (
     <div>
       <div className='pathtry'>
@@ -142,16 +135,17 @@ ShowFileSystem.propTypes = {
   deletefolder: PropTypes.func.isRequired,
   deletefile: PropTypes.func.isRequired,
   findfolder: PropTypes.func.isRequired,
+  deletefiletrue: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   filesystem: state.filesystem,
   drives: state.drives,
-  loading: state.loading,
 });
 
 export default connect(mapStateToProps, {
   deletefolder,
   deletefile,
   findfolder,
+  deletefiletrue,
 })(ShowFileSystem);

@@ -60,18 +60,6 @@ export default function drives(state = initialState, action) {
         driveloading: true,
         adminper: payload.per,
       };
-    case DELETE_DRIVE:
-      return {
-        ...state,
-        driveloading: true,
-        drive: payload,
-      };
-    case DELETE_DRIVE_COMPLETE:
-      return {
-        ...state,
-        driveloading: false,
-        drive: {},
-      };
     case CREATE_DRIVE_ERROR:
     case DRIVE_ERROR:
     case SEARCH_DRIVE_ERROR:

@@ -5,6 +5,8 @@ import firebase from '../utils/firebase';
 import {
   DELETE_FOLDER,
   DELETE_FILE,
+  DELETE_FILE_TRUE,
+  DELETE_FILE_FALSE,
   CREATE_FOLDER,
   ERROR_FOLDER,
   CREATE_FILE,
@@ -15,11 +17,9 @@ import {
   EDIT_MESSAGE,
   ERROR_MESSAGE,
   CLEAR_FILESYSTEM,
-  LOADING,
 } from '../actions/types';
 
 export const createfolder = (parent, foldername) => async (dispatch) => {
-  dispatch({type: LOADING})
   const id = uuid();
 
   const DriveRef = firebase
@@ -57,7 +57,6 @@ export const createfolder = (parent, foldername) => async (dispatch) => {
   }
 };
 export const createfile = (parent, filename, file) => async (dispatch) => {
-  dispatch({type: LOADING})
   const id = uuid();
   const DriveRef = firebase.storage().ref(parent.path).child(id);
   await DriveRef.put(file);
@@ -129,7 +128,6 @@ export const choosefolder = (folder) => async (dispatch) => {
 };
 
 export const deletefolder = (folder, type = 'final') => async (dispatch) => {
-  dispatch({type: LOADING})
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -173,9 +171,20 @@ export const deletefolder = (folder, type = 'final') => async (dispatch) => {
     });
   }
 };
+export const deletefiletrue = (file) => async (dispatch) => {
+  dispatch({
+    type: DELETE_FILE_TRUE,
+    payload: file._id,
+  });
+};
+
+export const deletefilefalse = () => async (dispatch) => {
+  dispatch({
+    type: DELETE_FILE_FALSE,
+  });
+};
 
 export const deletefile = (file, type = 'final') => async (dispatch) => {
-  dispatch({type: LOADING})
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -188,6 +197,7 @@ export const deletefile = (file, type = 'final') => async (dispatch) => {
     await firebase.storage().refFromURL(file.url).delete();
     const res = await axios.post('/api/filesystem/deletefile', body, config);
     if (type === 'final') {
+      dispatch(deletefilefalse());
       dispatch({
         type: DELETE_FILE,
         payload: res.data,

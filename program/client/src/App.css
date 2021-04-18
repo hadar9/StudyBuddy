@@ -2,7 +2,7 @@
 
 .landing {
   position: relative;
-  background: url("./img/loginpic.jpeg");
+  background: url('./img/loginpic.jpeg');
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
@@ -55,7 +55,7 @@
 .register,
 .login {
   position: relative;
-  background: url("./img/register.jpg");
+  background: url('./img/register.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
@@ -245,6 +245,11 @@
   margin-right: 20px;
   margin-left: 20px;
 }
+.filespinner {
+  position: absolute;
+  top: 23%;
+  right: 42%;
+}
 .driveimg,
 .folderimg,
 .fileimg {
@@ -329,7 +334,7 @@
 /*currentchat*/
 .currentchat {
   float: right;
-  background-image: url("./img/blue.png");
+  background-image: url('./img/blue.png');
   width: 60%;
   height: 100%;
 }
@@ -362,7 +367,7 @@
   margin-bottom: 4px;
 }
 .message-me :before {
-  content: "";
+  content: '';
   position: absolute;
   width: 0;
   height: 0;
@@ -384,7 +389,7 @@
   margin-bottom: 4px;
 }
 .message-other :before {
-  content: "";
+  content: '';
   position: absolute;
   width: 0;
   height: 0;
