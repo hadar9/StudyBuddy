@@ -9,7 +9,6 @@ import {
   deletefolder,
   deletefile,
   findfolder,
-  downloadfile,
 } from '../../../../../actions/filesystem';
 
 function ShowFileSystem({
@@ -18,7 +17,6 @@ function ShowFileSystem({
   deletefolder,
   deletefile,
   findfolder,
-  downloadfile,
 }) {
   useEffect(() => {}, [folder]);
   //Context bar handler
@@ -33,18 +31,6 @@ function ShowFileSystem({
         break;
       //download
       default:
-        const link = document.createElement('a');
-        link.href = data.file.url;
-        link.setAttribute('download', `FileName.pdf`);
-
-        // Append to html link element page
-        document.body.appendChild(link);
-
-        // Start download
-        link.click();
-
-        // Clean up and remove the link
-        link.parentNode.removeChild(link);
         break;
     }
   }
@@ -137,7 +123,6 @@ ShowFileSystem.propTypes = {
   deletefolder: PropTypes.func.isRequired,
   deletefile: PropTypes.func.isRequired,
   findfolder: PropTypes.func.isRequired,
-  downloadfile: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -149,5 +134,4 @@ export default connect(mapStateToProps, {
   deletefolder,
   deletefile,
   findfolder,
-  downloadfile,
 })(ShowFileSystem);

@@ -257,18 +257,6 @@ export const editmessage = (folder, message) => async (dispatch) => {
     });
   }
 };
-export const downloadfile = (fileurl) => async (dispatch) => {
-  axios
-    .get(fileurl)
-    .then((response) => {
-      console.log(response.data);
-    })
-    .catch((error) =>
-      alert(
-        'An error has occurred, please try again and check your internet connection.'
-      )
-    );
-};
 
 export const clearfilesystem = () => async (dispatch) => {
   dispatch({
