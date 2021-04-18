@@ -37,7 +37,9 @@ export default function filesystem(state = initialState, action) {
     case DELETE_FILE: {
       return {
         ...state,
+        folder: payload,
         deleteperc: payload,
+        loading: false,
       };
     }
     case EDIT_MESSAGE:

@@ -144,7 +144,7 @@ export const deletefolder = (folder, type = 'final') => async (dispatch) => {
         id: child_id,
       });
       const child_obj = await axios.post(
-        '/api/filesystem/folderchild',
+        '/api/filesystem/findByID',
         body,
         config
       );

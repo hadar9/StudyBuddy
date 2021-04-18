@@ -51,7 +51,7 @@ router.post('/createfolder', auth, async (req, res) => {
   }
 });
 
-router.post('/folderchild', auth, async (req, res) => {
+router.post('/findByID', auth, async (req, res) => {
   let file;
   try {
     file = await FileSystem.findById(req.body.id);
