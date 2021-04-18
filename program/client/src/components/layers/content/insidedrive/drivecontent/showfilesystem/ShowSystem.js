@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Col, Button } from 'react-bootstrap';
+import { Image, Col, Button, Spinner } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import { choosefolder, choosefile } from '../../../../../../actions/filesystem';
 import { connect } from 'react-redux';
@@ -52,7 +52,7 @@ function ShowSystem({ elem, choosefolder, choosefile }) {
         <Col>
           {elem.objtype === 'folder' ? (
             <Button variant='light' onClick={(e) => choosefolder(elem)}>
-              <Image className='folderimg' src={folderimg} />
+              <Image className='folderimg' src={folderimg}></Image>
             </Button>
           ) : (
             <Button
@@ -64,6 +64,7 @@ function ShowSystem({ elem, choosefolder, choosefile }) {
               <Image className='fileimg' src={images[`${elem.objtype}`]} />
             </Button>
           )}
+
           <p className='filetext'>{elem.name}</p>
         </Col>
       </div>

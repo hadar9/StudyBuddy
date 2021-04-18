@@ -62,12 +62,12 @@ export const createfile = (parent, filename, file) => async (dispatch) => {
   const DriveRef = firebase.storage().ref(parent.path).child(id);
   await DriveRef.put(file);
   const fileurl = await DriveRef.getDownloadURL();
-
   const config = {
     headers: {
       'Content-Type': 'application/json',
     },
   };
+
   const body = JSON.stringify({
     parent,
     filename,

@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ShowSystem from './showfilesystem/ShowSystem';
-import { Row } from 'react-bootstrap';
+import { ProgressBar, Row } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu';
 import {
@@ -99,6 +99,7 @@ function ShowFileSystem({
                   <ShowSystem key={elem._id} elem={elem} />
                 </Row>
               </ContextMenuTrigger>
+
               <ContextMenu id={elem._id} className='context-menu'>
                 {elem.objtype !== 'folder' ? (
                   <div>

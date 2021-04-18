@@ -17,6 +17,7 @@ const initialState = {
   folder: {},
   folderloading: false,
   file: {},
+  deleteperc: 0,
   fileloading: false,
   error: {},
 };
@@ -27,13 +28,18 @@ export default function filesystem(state = initialState, action) {
     case CREATE_FOLDER:
     case CHOOSE_FOLDER:
     case CREATE_FILE:
-    case DELETE_FILE:
       return {
         ...state,
         folder: payload,
         folderloading: true,
         loading: false,
       };
+    case DELETE_FILE: {
+      return {
+        ...state,
+        deleteperc: payload,
+      };
+    }
     case EDIT_MESSAGE:
       return {
         ...state,
