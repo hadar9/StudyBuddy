@@ -175,6 +175,7 @@ export const deletefolder = (folder, type = 'final') => async (dispatch) => {
 };
 
 export const deletefile = (file, type = 'final') => async (dispatch) => {
+  dispatch({type: LOADING})
   const config = {
     headers: {
       'Content-Type': 'application/json',
