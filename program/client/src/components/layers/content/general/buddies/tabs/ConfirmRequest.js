@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { Row, Spinner } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import PropTypes from 'prop-types';
@@ -12,6 +12,7 @@ import NameAvatar from './NameAvatar';
 function ConfirmRequest({
   buddiess: { userloading, mybuddies, mybuddieslsloading },
 }) {
+  useEffect(() => {}, [mybuddies]);
   let content = '';
   if (mybuddieslsloading) {
     content = mybuddies.map((buddy, index) => {

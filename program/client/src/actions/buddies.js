@@ -44,7 +44,6 @@ export const searchbuddies = (username) => async (dispatch) => {
 };
 
 export const closesearchbuddies = () => async (dispatch) => {
-  console.log('immm');
   dispatch({
     type: SEARCH_BUDDIES_CLOSE,
   });
@@ -155,6 +154,7 @@ export const confirmbuddy = (id) => async (dispatch) => {
     });
 
     const res = await axios.post('api/buddies/confirmbuddy', body, config);
+
     dispatch({
       type: CONFIRM_BUDDY,
       payload: res.data,

@@ -151,21 +151,21 @@ router.post('/confirmbuddy', auth, async (req, res) => {
     id = req.body;
     chat = new Chat([]);
 
+    let userprofile = await Profile.findOneAndUpdate(
+      { user: id.id, 'buddies.user': req.user.id },
+      { $set: { 'buddies.$.status': 'mybuddy' } },
+      { new: true }
+    );
     //get the current user
     let myprofile = await Profile.findOneAndUpdate(
       { user: req.user.id, 'buddies.user': id.id },
       { $set: { 'buddies.$.status': 'mybuddy' } },
       { new: true }
     );
-    myprofile.$push({ chat: chat._id });
-    let userprofile = await Profile.findOneAndUpdate(
-      { user: id.id, 'buddies.user': req.user.id },
-      { $set: { 'buddies.$.status': 'mybuddy' } },
-      { new: true }
-    );
     userprofile.$push({ chat: chat._id });
-    myprofile.save();
     userprofile.save();
+    myprofile.$push({ chat: chat._id });
+    myprofile.save();
 
     res.send('confirm succses');
   } catch (err) {
