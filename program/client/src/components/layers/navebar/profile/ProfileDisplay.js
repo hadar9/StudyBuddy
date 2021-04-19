@@ -12,19 +12,19 @@ function ProfileDisplay({ profiles: { profile } }) {
       </Col>
       <h1>{profile.user.username}</h1>
       <p>
-        <strong>first name: </strong>
+        <strong>First Name: </strong>
         {profile.firstname}
       </p>
       <p>
-        <strong>last name: </strong>
+        <strong>Last Name: </strong>
         {profile.lastname}
       </p>
       <p>
-        <strong>study at: </strong>
+        <strong>Attending: </strong>
         {profile.studyat}
       </p>
       <p>
-        <strong>study field: </strong>
+        <strong>Study Field: </strong>
         {profile.studyfield}
       </p>
     </div>
