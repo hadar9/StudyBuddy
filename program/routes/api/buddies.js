@@ -150,18 +150,20 @@ router.post('/confirmbuddy', auth, async (req, res) => {
     //find  the user to confirm
     id = req.body;
     chat = new Chat([]);
+
     //get the current user
     let myprofile = await Profile.findOneAndUpdate(
       { user: req.user.id, 'buddies.user': id.id },
-      { $set: { 'buddies.$.status': 'mybuddy' } }
+      { $set: { 'buddies.$.status': 'mybuddy' } },
+      { new: true }
     );
     myprofile.$push({ chat: chat._id });
     let userprofile = await Profile.findOneAndUpdate(
       { user: id.id, 'buddies.user': req.user.id },
-      { $set: { 'buddies.$.status': 'mybuddy' } }
+      { $set: { 'buddies.$.status': 'mybuddy' } },
+      { new: true }
     );
     userprofile.$push({ chat: chat._id });
-
     myprofile.save();
     userprofile.save();
 
@@ -182,11 +184,13 @@ router.post('/deletebuddy', auth, async (req, res) => {
     //get the current user
     let myprofile = await Profile.findOneAndUpdate(
       { user: req.user.id },
-      { $pull: { buddies: { user: id.id } } }
+      { $pull: { buddies: { user: id.id } } },
+      { new: true }
     );
     let userprofile = await Profile.findOneAndUpdate(
       { user: id.id },
-      { $pull: { buddies: { user: req.user.id } } }
+      { $pull: { buddies: { user: req.user.id } } },
+      { new: true }
     );
 
     myprofile.save();
