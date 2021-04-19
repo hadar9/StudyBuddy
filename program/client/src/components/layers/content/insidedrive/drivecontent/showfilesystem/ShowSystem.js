@@ -53,7 +53,7 @@ function ShowSystem({
 
   return (
     <div>
-      <div className='showfilesystem text-center'>
+      <div className='showfilesystem text-center' >
         <Col>
           {elem.objtype === 'folder' ? (
             <Button variant='light' onClick={(e) => choosefolder(elem)}>
@@ -64,7 +64,7 @@ function ShowSystem({
                   variant='dark'
                 ></Spinner>
               ) : null}
-              <Image className='folderimg' src={folderimg}></Image>
+              <Image className='folderimg' src={folderimg} title={elem.name}></Image>
             </Button>
           ) : (
             <Button
@@ -80,7 +80,7 @@ function ShowSystem({
                   variant='dark'
                 ></Spinner>
               ) : null}
-              <Image className='fileimg' src={images[`${elem.objtype}`]} />
+              <Image className='fileimg' title={elem.name} src={images[`${elem.objtype}`]}/>
             </Button>
           )}
 

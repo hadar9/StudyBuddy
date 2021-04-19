@@ -86,7 +86,7 @@ function ShowFileSystem({
       {children ? (
         <div>
           {folder.children.map((elem) => (
-            <div>
+            <div >
               <ContextMenuTrigger id={elem._id}>
                 <Row>
                   <ShowSystem key={elem._id} elem={elem} />
