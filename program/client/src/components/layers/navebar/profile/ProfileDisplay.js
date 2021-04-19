@@ -11,19 +11,20 @@ function ProfileDisplay({ profiles: { profile } }) {
         <Image className='profilepic' src={profile.user.avatar} roundedCircle />
       </Col>
       <h1>{profile.user.username}</h1>
-      <p>
+      <br></br>
+      <p style={{textAlign: 'center'}}>
         <strong>First Name: </strong>
         {profile.firstname}
       </p>
-      <p>
+      <p style={{textAlign: 'center'}}>
         <strong>Last Name: </strong>
         {profile.lastname}
       </p>
-      <p>
+      <p style={{textAlign: 'center'}}>
         <strong>Attending: </strong>
         {profile.studyat}
       </p>
-      <p>
+      <p style={{textAlign: 'center'}}>
         <strong>Study Field: </strong>
         {profile.studyfield}
       </p>
