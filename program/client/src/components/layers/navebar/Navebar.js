@@ -72,19 +72,15 @@ function Navebar({
       searchdrives(search);
       temp = <SearchDrives />;
     }
-    setForm({
-      showsearch: true,
-      search: '',
-      component: temp,
-    });
+    setForm({ ...formData, showsearch: true, search: '', component: temp });
   };
   const handleCloseMyProfile = () => setForm({ showmyprofile: false });
   const handleShowMyProfile = () => {
     getmyprofile();
-    setForm({ showmyprofile: true });
+    setForm({ ...formData, showmyprofile: true });
   };
   const handleCloseSearch = () => {
-    setForm({ showsearch: false });
+    setForm({ ...formData, showsearch: false });
     if (byvalue === 'username') {
       closesearchbuddies();
     } else {

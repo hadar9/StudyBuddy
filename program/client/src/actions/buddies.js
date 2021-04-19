@@ -44,6 +44,7 @@ export const searchbuddies = (username) => async (dispatch) => {
 };
 
 export const closesearchbuddies = () => async (dispatch) => {
+  console.log('immm');
   dispatch({
     type: SEARCH_BUDDIES_CLOSE,
   });
@@ -129,7 +130,7 @@ export const addbuddy = (id, searchinput) => async (dispatch) => {
       searchinput,
     });
     const res = await axios.post('api/buddies/addbuddy', body, config);
-   
+
     dispatch({
       type: ADD_BUDDY,
       payload: { mybuddies: res.data, searchinput: searchinput },
