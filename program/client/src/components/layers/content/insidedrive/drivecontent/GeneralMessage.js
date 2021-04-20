@@ -50,10 +50,10 @@ function GeneralMessage({
           <div>
             <Form.Group controlId='formGridmessage'>
               <Form.Control
-                componentClass='textareak'
+                type='textarea'
                 style={{
-                  height: '130px',
-                  width: '800px',
+                  height: '135px',
+                  width: '100%',
                   overflowWrap: 'break-word',
                   wordBreak: 'break-all',
                 }}
