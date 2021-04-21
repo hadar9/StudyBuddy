@@ -14,6 +14,7 @@ import {
   DELETE_FILE,
   DELETE_FILE_TRUE,
   DELETE_FILE_FALSE,
+  RENAME_FILE,
 } from '../actions/types';
 
 const initialState = {
@@ -32,6 +33,7 @@ export default function filesystem(state = initialState, action) {
     case CREATE_FOLDER:
     case CHOOSE_FOLDER:
     case CREATE_FILE:
+    case RENAME_FILE:
       return {
         ...state,
         folder: payload,

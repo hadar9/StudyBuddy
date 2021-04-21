@@ -19,6 +19,7 @@ import {
   EDIT_MESSAGE,
   ERROR_MESSAGE,
   CLEAR_FILESYSTEM,
+  RENAME_FILE,
 } from '../actions/types';
 
 export const createfolder = (parent, foldername) => async (dispatch) => {
@@ -194,6 +195,24 @@ export const deletefiletrue = (file) => async (dispatch) => {
     payload: file._id,
   });
 };
+
+export const renamefile = (file, new_name) => async (dispatch) => 
+{
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const body = JSON.stringify({
+    file,
+    new_name
+  });
+  const res = await axios.post('/api/filesystem/renamefile', body, config);
+  dispatch({
+    type: RENAME_FILE,
+    payload: res.data
+  });
+}
 
 export const deletefilefalse = () => async (dispatch) => {
   dispatch({

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ShowSystem from './showfilesystem/ShowSystem';
-import { ProgressBar, Row } from 'react-bootstrap';
+import { Row,Modal,Form,Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu';
 import {
@@ -10,6 +10,7 @@ import {
   deletefile,
   findfolder,
   deletefiletrue,
+  renamefile,
 } from '../../../../../actions/filesystem';
 
 function ShowFileSystem({
@@ -19,7 +20,11 @@ function ShowFileSystem({
   deletefile,
   findfolder,
   deletefiletrue,
+  renamefile,
 }) {
+  const [editname,seteditname]= useState({newname:'',changename:false,filec:null});
+const {newname,changename,filec}=editname;
+
   useEffect(() => {}, [folder]);
   //Context bar handler
   function handleClick(e, data) {
@@ -33,11 +38,20 @@ function ShowFileSystem({
           deletefile(data.file);
         }
         break;
+      case "Rename":
+        seteditname({...editname,changename:true,filec:data.file});
+        break;
       //download
       default:
         break;
     }
   }
+  const onsumbit = async (e) =>{
+    e.preventDefault();
+    await renamefile(filec,newname);
+    seteditname({...editname,newname:'',changename:false,filec:null})
+};
+
   function path_callback(dest) {
     findfolder(user + dest);
   }
@@ -103,7 +117,9 @@ function ShowFileSystem({
                       >
                         Download
                       </MenuItem>
+                      
                     ) : null}
+                    
                     <MenuItem
                       data={{ action: 'OpenDiscussion', file: elem }}
                       onClick={handleClick}
@@ -113,6 +129,34 @@ function ShowFileSystem({
                     <MenuItem divider />
                   </div>
                 ) : null}
+                <MenuItem
+                        data={{ action: 'Rename', file: elem }}
+                        onClick={handleClick}
+                      >
+                        Rename
+                </MenuItem>
+                   <Modal
+                   show={changename===true}
+                   onHide={e =>seteditname({...editname,newname:'',changename:false,filec:null})}
+                   backdrop='static'
+                   keyboard={false}
+                   size='sm'
+                   centered
+
+                 >
+                   <Modal.Header closeButton>
+                     <Modal.Title className='modaltitle'></Modal.Title>
+                   </Modal.Header>
+                   <Modal.Body>{<Form className="text-center" onSubmit={e=>onsumbit(e)}>
+                    <Form.Group controlId="formBasictext">
+                      <Form.Control type="text" placeholder="new name"  onChange={(e) =>seteditname({...editname,newname:e.target.value})} required/>
+                    </Form.Group>
+                    <Button variant="info" type="submit">
+                      Submit
+                    </Button>
+                  </Form>}
+              </Modal.Body>
+                 </Modal>
                 {adminper === null || adminper.delete ? (
                   <MenuItem
                     data={{ action: 'Delete', file: elem }}
@@ -121,6 +165,7 @@ function ShowFileSystem({
                     Delete
                   </MenuItem>
                 ) : null}
+                
               </ContextMenu>
             </div>
           ))}
@@ -136,6 +181,7 @@ ShowFileSystem.propTypes = {
   deletefile: PropTypes.func.isRequired,
   findfolder: PropTypes.func.isRequired,
   deletefiletrue: PropTypes.func.isRequired,
+  renamefile: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -148,4 +194,5 @@ export default connect(mapStateToProps, {
   deletefile,
   findfolder,
   deletefiletrue,
+  renamefile,
 })(ShowFileSystem);
