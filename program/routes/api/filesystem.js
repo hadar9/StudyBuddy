@@ -185,43 +185,37 @@ router.post('/findfolder', auth, async (req, res) => {
   }
 });
 
-router.post('/renamefile', auth, async (req, res) =>
-{
-  try{
-    let newname;
-    const {file, new_name} = req.body;
-    // let path = file.path.split('/').pop()
-    // path.push(new_name);
-    // path = path.join();
-    console.log(file.path)
+router.post('/renamefile', auth, async (req, res) => {
+  try {
+    const { file, new_name } = req.body;
 
-    if(file.objtype!=="folder")
-    {
-      newname = new_name+'.'+file.objtype;
-    }
-    else
-    {
-      newname = new_name
+    let newpath = file.path.split('/');
+    newpath.pop();
+    newpath.push(new_name);
+    newpath = newpath.join('/');
+
+    if (file.objtype !== 'folder') {
+      newname = new_name + '.' + file.objtype;
+    } else {
+      newname = new_name;
     }
     const test = await FileSystem.findOneAndUpdate(
-      {_id: file._id},
+      { _id: file._id },
       {
-        $set: {name: newname}
+        $set: { name: newname, path: newpath },
       },
-      {new: true}
-      );
-      console.log(test)
-      let parentcheck = await Drive.findById(file.parent).populate('children');
-      if (parentcheck === null) {
-        parentcheck = await FileSystem.findById(file.parent).populate('children');
-      } 
+      { new: true }
+    );
+    console.log(test);
+    let parentcheck = await Drive.findById(file.parent).populate('children');
+    if (parentcheck === null) {
+      parentcheck = await FileSystem.findById(file.parent).populate('children');
+    }
     res.status(200).json(parentcheck);
-
-  }
-  catch (err) {
+    res.status(200);
+  } catch (err) {
     res.status(500).send('Server Error');
   }
-
 });
 
 module.exports = router;
