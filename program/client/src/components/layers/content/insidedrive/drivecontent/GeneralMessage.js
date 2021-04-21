@@ -49,7 +49,7 @@ function GeneralMessage({
         <Form onSubmit={(e) => onsumbit(e)}>
           <div>
             <Form.Group controlId='formGridmessage'>
-              <textarea 
+              <Form.Control as='textarea'
                 style={{
                   resize: 'none',
                   height: '135px',
