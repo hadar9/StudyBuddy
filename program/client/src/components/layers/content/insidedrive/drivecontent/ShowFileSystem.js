@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ShowSystem from './showfilesystem/ShowSystem';
-import { Row,Modal,Form,Button } from 'react-bootstrap';
+import { Row, Modal, Form, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu';
 import {
@@ -22,8 +22,12 @@ function ShowFileSystem({
   deletefiletrue,
   renamefile,
 }) {
-  const [editname,seteditname]= useState({newname:'',changename:false,filec:null});
-const {newname,changename,filec}=editname;
+  const [editname, seteditname] = useState({
+    newname: '',
+    changename: false,
+    filec: null,
+  });
+  const { newname, changename, filec } = editname;
 
   useEffect(() => {}, [folder]);
   //Context bar handler
@@ -38,19 +42,19 @@ const {newname,changename,filec}=editname;
           deletefile(data.file);
         }
         break;
-      case "Rename":
-        seteditname({...editname,changename:true,filec:data.file});
+      case 'Rename':
+        seteditname({ ...editname, changename: true, filec: data.file });
         break;
       //download
       default:
         break;
     }
   }
-  const onsumbit = async (e) =>{
+  const onsumbit = async (e) => {
     e.preventDefault();
-    await renamefile(filec,newname);
-    seteditname({...editname,newname:'',changename:false,filec:null})
-};
+    await renamefile(filec, newname);
+    seteditname({ ...editname, newname: '', changename: false, filec: null });
+  };
 
   function path_callback(dest) {
     findfolder(user + dest);
@@ -100,7 +104,7 @@ const {newname,changename,filec}=editname;
       {children ? (
         <div>
           {folder.children.map((elem) => (
-            <div >
+            <div>
               <ContextMenuTrigger id={elem._id}>
                 <Row>
                   <ShowSystem key={elem._id} elem={elem} />
@@ -117,9 +121,8 @@ const {newname,changename,filec}=editname;
                       >
                         Download
                       </MenuItem>
-                      
                     ) : null}
-                    
+
                     <MenuItem
                       data={{ action: 'OpenDiscussion', file: elem }}
                       onClick={handleClick}
@@ -129,34 +132,60 @@ const {newname,changename,filec}=editname;
                     <MenuItem divider />
                   </div>
                 ) : null}
-                <MenuItem
-                        data={{ action: 'Rename', file: elem }}
-                        onClick={handleClick}
-                      >
-                        Rename
-                </MenuItem>
-                   <Modal
-                   show={changename===true}
-                   onHide={e =>seteditname({...editname,newname:'',changename:false,filec:null})}
-                   backdrop='static'
-                   keyboard={false}
-                   size='sm'
-                   centered
-
-                 >
-                   <Modal.Header closeButton>
-                     <Modal.Title className='modaltitle'></Modal.Title>
-                   </Modal.Header>
-                   <Modal.Body>{<Form className="text-center" onSubmit={e=>onsumbit(e)}>
-                    <Form.Group controlId="formBasictext">
-                      <Form.Control type="text" placeholder="new name"  onChange={(e) =>seteditname({...editname,newname:e.target.value})} required/>
-                    </Form.Group>
-                    <Button variant="info" type="submit">
-                      Submit
-                    </Button>
-                  </Form>}
-              </Modal.Body>
-                 </Modal>
+                {adminper === null || adminper.rename ? (
+                  <div>
+                    <MenuItem
+                      data={{ action: 'Rename', file: elem }}
+                      onClick={handleClick}
+                    >
+                      Rename
+                    </MenuItem>
+                    <Modal
+                      show={changename === true}
+                      onHide={(e) =>
+                        seteditname({
+                          ...editname,
+                          newname: '',
+                          changename: false,
+                          filec: null,
+                        })
+                      }
+                      backdrop='static'
+                      keyboard={false}
+                      size='sm'
+                      centered
+                    >
+                      <Modal.Header closeButton>
+                        <Modal.Title className='modaltitle'></Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        {
+                          <Form
+                            className='text-center'
+                            onSubmit={(e) => onsumbit(e)}
+                          >
+                            <Form.Group controlId='formBasictext'>
+                              <Form.Control
+                                type='text'
+                                placeholder='new name'
+                                onChange={(e) =>
+                                  seteditname({
+                                    ...editname,
+                                    newname: e.target.value,
+                                  })
+                                }
+                                required
+                              />
+                            </Form.Group>
+                            <Button variant='info' type='submit'>
+                              Submit
+                            </Button>
+                          </Form>
+                        }
+                      </Modal.Body>
+                    </Modal>
+                  </div>
+                ) : null}
                 {adminper === null || adminper.delete ? (
                   <MenuItem
                     data={{ action: 'Delete', file: elem }}
@@ -165,7 +194,6 @@ const {newname,changename,filec}=editname;
                     Delete
                   </MenuItem>
                 ) : null}
-                
               </ContextMenu>
             </div>
           ))}

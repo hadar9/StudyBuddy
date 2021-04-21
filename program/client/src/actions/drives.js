@@ -378,7 +378,7 @@ export const setadminper = (
   adminid,
   createfolder,
   upload,
-  edit,
+  rename,
   deletee,
   buddymang,
   editmess
@@ -394,7 +394,7 @@ export const setadminper = (
       adminid,
       createfolder,
       upload,
-      edit,
+      rename,
       deletee,
       buddymang,
       editmess,

@@ -34,7 +34,7 @@ const DriveSchema = new mongoose.Schema({
           type: Boolean,
           default: false,
         },
-        edit: {
+        rename: {
           type: Boolean,
           default: false,
         },

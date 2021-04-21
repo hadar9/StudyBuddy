@@ -10,13 +10,20 @@ function AdminSetting({ admin, drives: { drive }, setadminper, deleteadmin }) {
   const [adminper, setper] = useState({
     createfolder: admin.permission.createfolder,
     upload: admin.permission.createfolder,
-    edit: admin.permission.edit,
+    rename: admin.permission.rename,
     deletee: admin.permission.delete,
     buddymang: admin.permission.buddymang,
     editmess: admin.permission.editmess,
   });
 
-  const { createfolder, upload, edit, deletee, buddymang, editmess } = adminper;
+  const {
+    createfolder,
+    upload,
+    rename,
+    deletee,
+    buddymang,
+    editmess,
+  } = adminper;
 
   const onsubmit = (e) => {
     e.preventDefault();
@@ -25,7 +32,7 @@ function AdminSetting({ admin, drives: { drive }, setadminper, deleteadmin }) {
       admin._id,
       createfolder,
       upload,
-      edit,
+      rename,
       deletee,
       buddymang,
       editmess
@@ -73,11 +80,11 @@ function AdminSetting({ admin, drives: { drive }, setadminper, deleteadmin }) {
           <Form.Check
             className='mt-2  mr-4'
             type='checkbox'
-            label='edit'
+            label='rename'
             name='formHorizontaledit'
             id='formHorizontaledit'
-            checked={edit}
-            onChange={(e) => setper({ ...adminper, edit: e.target.checked })}
+            checked={rename}
+            onChange={(e) => setper({ ...adminper, rename: e.target.checked })}
           />
 
           <Form.Check

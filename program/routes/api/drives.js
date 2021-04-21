@@ -314,7 +314,7 @@ router.post('/setadminpermission', auth, async (req, res) => {
       adminid,
       createfolder,
       upload,
-      edit,
+      rename,
       deletee,
       buddymang,
       editmess,
@@ -322,7 +322,7 @@ router.post('/setadminpermission', auth, async (req, res) => {
     const permission = {
       createfolder,
       upload,
-      edit,
+      rename,
       delete: deletee,
       buddymang,
       editmess,
@@ -348,7 +348,7 @@ router.post('/choosedrive', auth, async (req, res) => {
     let permissions = {
       createfolder: '',
       upload: '',
-      edit: '',
+      rename: '',
       delete: '',
       buddymang: '',
       editmess: '',
@@ -373,7 +373,7 @@ router.post('/choosedrive', auth, async (req, res) => {
             permissions.createfolder =
               driveret.subadmins[i].permission.createfolder;
             permissions.upload = driveret.subadmins[i].permission.upload;
-            permissions.edit = driveret.subadmins[i].permission.edit;
+            permissions.rename = driveret.subadmins[i].permission.rename;
             permissions.delete = driveret.subadmins[i].permission.delete;
             permissions.buddymang = driveret.subadmins[i].permission.buddymang;
             permissions.editmess = driveret.subadmins[i].permission.editmess;
