@@ -497,6 +497,30 @@ export const deletemydrive = (drive) => async (dispatch) => {
   }
 };
 
+export const renamedrive = (drive, newname) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({
+      drive,
+      newname,
+    });
+    await axios.post('/api/drives/rename', body, config);
+    dispatch(getmydrives());
+  } catch (error) {
+    dispatch({
+      type: DRIVE_ERROR,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+  }
+};
+
 export const cleardrives = () => async (dispatch) => {
   dispatch({
     type: CLEAR_DRIVES,

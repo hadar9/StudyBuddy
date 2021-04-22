@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
 const Drive = require('../../models/Drive');
+const FileSystem = require('../../models/FileSystem');
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 
@@ -434,4 +435,42 @@ router.post('/deletemydrive', auth, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
+//@route    POST api/drives/createdrive
+//@desc     create new drive
+//@access   Private
+router.post('/rename', auth, async (req, res) => {
+  try {
+    const { drive, newname } = req.body;
+
+    let newpath = drive.path.split('/');
+    newpath.pop();
+    newpath.push(newname);
+    newpath = newpath.join('/');
+
+    const driveupdate = await Drive.findOneAndUpdate(
+      { _id: drive._id },
+      { $set: { name: newname, path: newpath } },
+      { new: true }
+    ).populate('children');
+
+    for (let i = 0; i < driveupdate.children.length; i++) {
+      let childernpath = driveupdate.children[i].path;
+      childernpath = childernpath.split('/');
+      childernpath.splice(1, 1, newname);
+      childernpath = childernpath.join('/');
+
+      await FileSystem.findOneAndUpdate(
+        { _id: driveupdate.children[i] },
+        { $set: { path: childernpath } },
+        { new: true }
+      );
+    }
+
+    res.status(200).send('drive rename');
+  } catch (err) {
+    res.status(500).send('Server Error');
+  }
+});
+
 module.exports = router;

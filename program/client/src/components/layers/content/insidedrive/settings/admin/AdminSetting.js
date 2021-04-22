@@ -70,7 +70,7 @@ function AdminSetting({ admin, drives: { drive }, setadminper, deleteadmin }) {
           <Form.Check
             className='mt-2 mr-4'
             type='checkbox'
-            label='upload'
+            label='upload files'
             name='formHorizontalupload'
             id='formHorizontalupload'
             checked={upload}
@@ -80,7 +80,7 @@ function AdminSetting({ admin, drives: { drive }, setadminper, deleteadmin }) {
           <Form.Check
             className='mt-2  mr-4'
             type='checkbox'
-            label='rename'
+            label='rename files/folders'
             name='formHorizontaledit'
             id='formHorizontaledit'
             checked={rename}
@@ -90,7 +90,7 @@ function AdminSetting({ admin, drives: { drive }, setadminper, deleteadmin }) {
           <Form.Check
             className='mt-2 mr-4'
             type='checkbox'
-            label='delete'
+            label='delete files/folders'
             name='formHorizontaldelete'
             id='formHorizontaldelete'
             checked={deletee}
