@@ -436,6 +436,26 @@ router.post('/deletemydrive', auth, async (req, res) => {
   }
 });
 
+const renamechild = async (children, newname) => {
+  for (let i = 0; i < children.children.length; i++) {
+    if (children.children[i].children.length > 0) {
+      let child = await FileSystem.findById(children.children[i]).populate(
+        'children'
+      );
+      await renamechild(child, newname);
+    }
+    let childernpath = children.children[i].path;
+    childernpath = childernpath.split('/');
+    childernpath.splice(1, 1, newname);
+    childernpath = childernpath.join('/');
+    await FileSystem.findOneAndUpdate(
+      { _id: children.children[i] },
+      { $set: { path: childernpath } },
+      { new: true }
+    );
+  }
+};
+
 //@route    POST api/drives/createdrive
 //@desc     create new drive
 //@access   Private
@@ -454,18 +474,7 @@ router.post('/rename', auth, async (req, res) => {
       { new: true }
     ).populate('children');
 
-    for (let i = 0; i < driveupdate.children.length; i++) {
-      let childernpath = driveupdate.children[i].path;
-      childernpath = childernpath.split('/');
-      childernpath.splice(1, 1, newname);
-      childernpath = childernpath.join('/');
-
-      await FileSystem.findOneAndUpdate(
-        { _id: driveupdate.children[i] },
-        { $set: { path: childernpath } },
-        { new: true }
-      );
-    }
+    await renamechild(driveupdate, newname);
 
     res.status(200).send('drive rename');
   } catch (err) {
