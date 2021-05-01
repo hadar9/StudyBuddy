@@ -10,8 +10,6 @@ import {
   CREATE_FOLDER,
   ERROR_FOLDER,
   CREATE_FILE,
-  UPLOAD_FILE_TRUE,
-  UPLOAD_FILE_FALSE,
   ERROR_FILE,
   CHOOSE_FOLDER,
   CHOOSE_FILE,
@@ -60,20 +58,7 @@ export const createfolder = (parent, foldername) => async (dispatch) => {
   }
 };
 
-export const uploadfiletrue = () => async (dispatch) => {
-  dispatch({
-    type: UPLOAD_FILE_TRUE,
-  });
-};
-
-export const uploadfilefalse = () => async (dispatch) => {
-  dispatch({
-    type: UPLOAD_FILE_FALSE,
-  });
-};
-
 export const createfile = (parent, filename, file) => async (dispatch) => {
-  dispatch(uploadfiletrue());
   const id = uuid();
   const DriveRef = firebase.storage().ref(parent.path).child(id);
   await DriveRef.put(file);
@@ -95,7 +80,6 @@ export const createfile = (parent, filename, file) => async (dispatch) => {
       type: CREATE_FILE,
       payload: res.data,
     });
-    dispatch(uploadfilefalse());
   } catch (error) {
     dispatch({
       type: ERROR_FILE,
@@ -196,8 +180,7 @@ export const deletefiletrue = (file) => async (dispatch) => {
   });
 };
 
-export const renamefile = (file, new_name) => async (dispatch) => 
-{
+export const renamefile = (file, new_name) => async (dispatch) => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -205,14 +188,14 @@ export const renamefile = (file, new_name) => async (dispatch) =>
   };
   const body = JSON.stringify({
     file,
-    new_name
+    new_name,
   });
   const res = await axios.post('/api/filesystem/renamefile', body, config);
   dispatch({
     type: RENAME_FILE,
-    payload: res.data
+    payload: res.data,
   });
-}
+};
 
 export const deletefilefalse = () => async (dispatch) => {
   dispatch({

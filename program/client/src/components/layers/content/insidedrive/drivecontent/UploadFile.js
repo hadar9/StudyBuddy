@@ -10,16 +10,19 @@ function UploadFile({
   createfile,
 }) {
   const [newfile, setName] = useState('');
+  const [upload, setupload] = useState(false);
 
   const onsubmit = async (e) => {
     e.preventDefault();
-    createfile(folder, newfile.name, newfile);
+    setupload(true);
+    await createfile(folder, newfile.name, newfile);
+    setupload(false);
     setName('');
   };
 
   return (
     <div className='mr-5'>
-      {fileopstatus && fileop === 'upload' ? (
+      {upload ? (
         <Spinner
           className='filespinner'
           animation='border'

@@ -2,8 +2,6 @@ import {
   CREATE_FOLDER,
   ERROR_FOLDER,
   CREATE_FILE,
-  UPLOAD_FILE_TRUE,
-  UPLOAD_FILE_FALSE,
   ERROR_FILE,
   CHOOSE_FOLDER,
   CHOOSE_FILE,
@@ -39,15 +37,8 @@ export default function filesystem(state = initialState, action) {
         folder: payload,
         folderloading: true,
       };
-    case UPLOAD_FILE_TRUE: {
-      return {
-        ...state,
-        fileopstatus: true,
-        fileop: 'upload',
-      };
-    }
-    case DELETE_FILE_FALSE:
-    case UPLOAD_FILE_FALSE: {
+
+    case DELETE_FILE_FALSE: {
       return {
         ...state,
         fileopstatus: false,
