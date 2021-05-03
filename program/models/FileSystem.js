@@ -22,6 +22,21 @@ const FileSystemSchema = new mongoose.Schema({
       ref: 'filesystem',
     },
   ],
+  discussion: [
+    {
+      sender: {
+        type: mongoose.Schema.Types.ObjectId, //Foreign key
+        ref: 'user',
+      },
+      content: {
+        type: String,
+      },
+      date: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
   message: {
     type: String,
   },

@@ -11,7 +11,9 @@ import {
   findfolder,
   deletefiletrue,
   renamefile,
+  filedisaddmessage,
 } from '../../../../../actions/filesystem';
+import NameAvatar from '../../general/buddies/tabs/NameAvatar';
 
 function ShowFileSystem({
   filesystem: { folder, folderloading },
@@ -21,13 +23,22 @@ function ShowFileSystem({
   findfolder,
   deletefiletrue,
   renamefile,
+  filedisaddmessage,
 }) {
   const [editname, seteditname] = useState({
     newname: '',
     changename: false,
     filec: null,
   });
+
+  const [opendiscussion, setdiscussion] = useState({
+    newmessage: '',
+    opendiss: false,
+    filedis: null,
+  });
+
   const { newname, changename, filec } = editname;
+  const { newmessage, opendiss, filedis } = opendiscussion;
 
   useEffect(() => {}, [folder]);
   //Context bar handler
@@ -45,11 +56,30 @@ function ShowFileSystem({
       case 'Rename':
         seteditname({ ...editname, changename: true, filec: data.file });
         break;
+      case 'OpenDiscussion':
+        setdiscussion({
+          ...opendiscussion,
+          opendiss: true,
+          filedis: data.file,
+        });
+        break;
       //download
       default:
         break;
     }
   }
+
+  const disscutionNewMessage = async (e) => {
+    e.preventDefault();
+    await filedisaddmessage(filec, newmessage);
+    setdiscussion({
+      ...editname,
+      newmessage: '',
+      opendiss: false,
+      filedis: null,
+    });
+  };
+
   const onsumbit = async (e) => {
     e.preventDefault();
     await renamefile(filec, newname);
@@ -79,13 +109,6 @@ function ShowFileSystem({
   }
   var user;
   const paths = create_path_array(folder.path);
-
-  var loading = (
-    <div>
-      <div className='loader-background'></div>
-      <div className='loader'></div>
-    </div>
-  );
 
   return (
     <div>
@@ -130,6 +153,50 @@ function ShowFileSystem({
                       Open Discussion
                     </MenuItem>
                     <MenuItem divider />
+                    <Modal
+                      show={opendiss === true}
+                      onHide={(e) =>
+                        setdiscussion({
+                          ...opendiscussion,
+                          newmessage: '',
+                          opendiss: false,
+                          filedis: null,
+                        })
+                      }
+                      backdrop='static'
+                      keyboard={false}
+                      centered
+                    >
+                      <Modal.Header closeButton>
+                        <Modal.Title className='modaltitle'>
+                          {filedis !== null ? `${filedis.name}` : null}
+                        </Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        <div className='discussion-new-mes'></div>
+                        <Form
+                          className='text-center'
+                          onSubmit={(e) => disscutionNewMessage(e)}
+                        >
+                          <Form.Group controlId='formBasictext'>
+                            <Form.Control
+                              type='text'
+                              placeholder='new message'
+                              onChange={(e) =>
+                                setdiscussion({
+                                  ...opendiscussion,
+                                  newmessage: e.target.value,
+                                })
+                              }
+                              required
+                            />
+                          </Form.Group>
+                          <Button variant='info' type='submit'>
+                            New Message
+                          </Button>
+                        </Form>
+                      </Modal.Body>
+                    </Modal>
                   </div>
                 ) : null}
                 {adminper === null || adminper.rename ? (
@@ -159,29 +226,27 @@ function ShowFileSystem({
                         <Modal.Title className='modaltitle'></Modal.Title>
                       </Modal.Header>
                       <Modal.Body>
-                        {
-                          <Form
-                            className='text-center'
-                            onSubmit={(e) => onsumbit(e)}
-                          >
-                            <Form.Group controlId='formBasictext'>
-                              <Form.Control
-                                type='text'
-                                placeholder='new name'
-                                onChange={(e) =>
-                                  seteditname({
-                                    ...editname,
-                                    newname: e.target.value,
-                                  })
-                                }
-                                required
-                              />
-                            </Form.Group>
-                            <Button variant='info' type='submit'>
-                              Submit
-                            </Button>
-                          </Form>
-                        }
+                        <Form
+                          className='text-center'
+                          onSubmit={(e) => onsumbit(e)}
+                        >
+                          <Form.Group controlId='formBasictext'>
+                            <Form.Control
+                              type='text'
+                              placeholder='new name'
+                              onChange={(e) =>
+                                seteditname({
+                                  ...editname,
+                                  newname: e.target.value,
+                                })
+                              }
+                              required
+                            />
+                          </Form.Group>
+                          <Button variant='info' type='submit'>
+                            Submit
+                          </Button>
+                        </Form>
                       </Modal.Body>
                     </Modal>
                   </div>
@@ -210,6 +275,7 @@ ShowFileSystem.propTypes = {
   findfolder: PropTypes.func.isRequired,
   deletefiletrue: PropTypes.func.isRequired,
   renamefile: PropTypes.func.isRequired,
+  filedisaddmessage: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -223,4 +289,5 @@ export default connect(mapStateToProps, {
   findfolder,
   deletefiletrue,
   renamefile,
+  filedisaddmessage,
 })(ShowFileSystem);

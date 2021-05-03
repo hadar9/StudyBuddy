@@ -18,6 +18,7 @@ import {
   ERROR_MESSAGE,
   CLEAR_FILESYSTEM,
   RENAME_FILE,
+  FILE_DISS_ADD_NEW_MESSAGE,
 } from '../actions/types';
 
 export const createfolder = (parent, foldername) => async (dispatch) => {
@@ -176,7 +177,7 @@ export const deletefolder = (folder, type = 'final') => async (dispatch) => {
 export const deletefiletrue = (file) => async (dispatch) => {
   dispatch({
     type: DELETE_FILE_TRUE,
-    payload: file._id,
+    payload: file,
   });
 };
 
@@ -222,6 +223,37 @@ export const deletefile = (file, type = 'final') => async (dispatch) => {
         payload: res.data,
       });
     }
+  } catch (error) {
+    dispatch({
+      type: ERROR_MESSAGE,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+  }
+};
+
+export const filedisaddmessage = (file, newmessage) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({
+      file,
+      newmessage,
+    });
+    const res = await axios.post(
+      '/api/filesystem/filedisaddmessage',
+      body,
+      config
+    );
+    dispatch({
+      type: FILE_DISS_ADD_NEW_MESSAGE,
+      payload: res.data,
+    });
   } catch (error) {
     dispatch({
       type: ERROR_MESSAGE,

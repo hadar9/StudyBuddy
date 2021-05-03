@@ -24,7 +24,7 @@ function ShowSystem({
   elem,
   choosefolder,
   choosefile,
-  filesystem: { fileopstatus, fileop },
+  filesystem: { fileloading, file, filestatus },
 }) {
   const images = {
     avi,
@@ -53,18 +53,24 @@ function ShowSystem({
 
   return (
     <div>
-      <div className='showfilesystem text-center' >
+      <div className='showfilesystem text-center'>
         <Col>
           {elem.objtype === 'folder' ? (
             <Button variant='light' onClick={(e) => choosefolder(elem)}>
-              {fileopstatus && fileop === elem._id ? (
+              {filestatus === 'delete' &&
+              fileloading &&
+              file._id === elem._id ? (
                 <Spinner
                   className='filespinner'
                   animation='border'
                   variant='dark'
                 ></Spinner>
               ) : null}
-              <Image className='folderimg' src={folderimg} title={elem.name}></Image>
+              <Image
+                className='folderimg'
+                src={folderimg}
+                title={elem.name}
+              ></Image>
             </Button>
           ) : (
             <Button
@@ -73,14 +79,20 @@ function ShowSystem({
                 showfilecontent(e);
               }}
             >
-              {fileopstatus && fileop === elem._id ? (
+              {filestatus === 'delete' &&
+              fileloading &&
+              file._id === elem._id ? (
                 <Spinner
                   className='filespinner'
                   animation='border'
                   variant='dark'
                 ></Spinner>
               ) : null}
-              <Image className='fileimg' title={elem.name} src={images[`${elem.objtype}`]}/>
+              <Image
+                className='fileimg'
+                title={elem.name}
+                src={images[`${elem.objtype}`]}
+              />
             </Button>
           )}
 

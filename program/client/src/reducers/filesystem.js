@@ -20,8 +20,7 @@ const initialState = {
   folderloading: false,
   file: {},
   fileloading: false,
-  fileopstatus: false,
-  fileop: null,
+  filestatus: null,
   error: {},
 };
 
@@ -41,15 +40,17 @@ export default function filesystem(state = initialState, action) {
     case DELETE_FILE_FALSE: {
       return {
         ...state,
-        fileopstatus: false,
-        fileop: null,
+        fileloading: false,
+        file: null,
+        filestatus: null,
       };
     }
     case DELETE_FILE_TRUE: {
       return {
         ...state,
-        fileopstatus: true,
-        fileop: payload,
+        fileloading: true,
+        file: payload,
+        filestatus: 'delete',
       };
     }
 
@@ -73,8 +74,7 @@ export default function filesystem(state = initialState, action) {
         folderloading: false,
         file: {},
         fileloading: false,
-        fileopstatus: false,
-        fileop: null,
+        filestatus: null,
         error: payload,
       };
     case CHOOSE_FILE:
@@ -95,8 +95,7 @@ export default function filesystem(state = initialState, action) {
         folderloading: false,
         file: {},
         fileloading: false,
-        fileopstatus: false,
-        fileop: null,
+        filestatus: null,
         error: {},
       };
 
