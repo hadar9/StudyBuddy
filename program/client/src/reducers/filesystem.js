@@ -13,12 +13,13 @@ import {
   DELETE_FILE_TRUE,
   DELETE_FILE_FALSE,
   RENAME_FILE,
+  FILE_DISS_ADD_NEW_MESSAGE,
 } from '../actions/types';
 
 const initialState = {
   folder: {},
   folderloading: false,
-  file: {},
+  file: null,
   fileloading: false,
   filestatus: null,
   error: {},
@@ -31,6 +32,7 @@ export default function filesystem(state = initialState, action) {
     case CHOOSE_FOLDER:
     case CREATE_FILE:
     case RENAME_FILE:
+    case DELETE_FILE:
       return {
         ...state,
         folder: payload,
@@ -54,13 +56,6 @@ export default function filesystem(state = initialState, action) {
       };
     }
 
-    case DELETE_FILE: {
-      return {
-        ...state,
-        folder: payload,
-        folderloading: true,
-      };
-    }
     case EDIT_MESSAGE:
       return {
         ...state,
@@ -72,12 +67,13 @@ export default function filesystem(state = initialState, action) {
       return {
         folder: {},
         folderloading: false,
-        file: {},
+        file: null,
         fileloading: false,
         filestatus: null,
         error: payload,
       };
     case CHOOSE_FILE:
+    case FILE_DISS_ADD_NEW_MESSAGE:
       return {
         ...state,
         file: payload,
@@ -86,14 +82,14 @@ export default function filesystem(state = initialState, action) {
     case CLEAR_FILE:
       return {
         ...state,
-        file: [],
+        file: null,
         fileloading: false,
       };
     case CLEAR_FILESYSTEM:
       return {
         folder: {},
         folderloading: false,
-        file: {},
+        file: null,
         fileloading: false,
         filestatus: null,
         error: {},

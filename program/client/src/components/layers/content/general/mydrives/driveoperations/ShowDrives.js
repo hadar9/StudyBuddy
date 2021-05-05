@@ -55,7 +55,7 @@ function ShowDrives({
       {drivesloading ? (
         <div>
           {drives.map((elem) => (
-            <div>
+            <div key={elem._id}>
               <ContextMenuTrigger id={elem._id}>
                 <Row>
                   <ShowDrive key={elem._id} elem={elem} />

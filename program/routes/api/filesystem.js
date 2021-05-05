@@ -134,9 +134,15 @@ router.post('/createfile', auth, async (req, res) => {
 router.post('/choosefolder', auth, async (req, res) => {
   try {
     const folderid = req.body.folderid;
-    const folderres = await FileSystem.findOne({ _id: folderid }).populate(
-      'children'
-    );
+    const folderres = await FileSystem.findOne({ _id: folderid }).populate({
+      path: 'children',
+      populate: {
+        path: 'discussion',
+        populate: {
+          path: 'sender',
+        },
+      },
+    });
     res.json(folderres);
   } catch (err) {
     res.status(500).send('Server Error');
@@ -206,13 +212,30 @@ router.post('/renamefile', auth, async (req, res) => {
       },
       { new: true }
     );
-    console.log(test);
+
     let parentcheck = await Drive.findById(file.parent).populate('children');
     if (parentcheck === null) {
       parentcheck = await FileSystem.findById(file.parent).populate('children');
     }
     res.status(200).json(parentcheck);
-    res.status(200);
+  } catch (err) {
+    res.status(500).send('Server Error');
+  }
+});
+
+router.post('/filedisaddmessage', auth, async (req, res) => {
+  try {
+    const { file, newmessage } = req.body;
+
+    const updeatedfile = await FileSystem.findOneAndUpdate(
+      { _id: file._id },
+      {
+        $push: { discussion: { sender: req.user.id, content: newmessage } },
+      },
+      { new: true }
+    ).populate('discussion.sender');
+    updeatedfile.save();
+    res.status(200).json(updeatedfile);
   } catch (err) {
     res.status(500).send('Server Error');
   }

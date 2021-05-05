@@ -250,6 +250,7 @@ export const filedisaddmessage = (file, newmessage) => async (dispatch) => {
       body,
       config
     );
+
     dispatch({
       type: FILE_DISS_ADD_NEW_MESSAGE,
       payload: res.data,

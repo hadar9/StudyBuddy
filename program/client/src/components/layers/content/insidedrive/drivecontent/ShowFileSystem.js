@@ -12,11 +12,12 @@ import {
   deletefiletrue,
   renamefile,
   filedisaddmessage,
+  clearfile,
 } from '../../../../../actions/filesystem';
 import NameAvatar from '../../general/buddies/tabs/NameAvatar';
 
 function ShowFileSystem({
-  filesystem: { folder, folderloading },
+  filesystem: { folder, folderloading, file, fileloading },
   drives: { adminper },
   deletefolder,
   deletefile,
@@ -24,6 +25,7 @@ function ShowFileSystem({
   deletefiletrue,
   renamefile,
   filedisaddmessage,
+  clearfile,
 }) {
   const [editname, seteditname] = useState({
     newname: '',
@@ -40,7 +42,7 @@ function ShowFileSystem({
   const { newname, changename, filec } = editname;
   const { newmessage, opendiss, filedis } = opendiscussion;
 
-  useEffect(() => {}, [folder]);
+  useEffect(() => {}, [folder, filedis]);
   //Context bar handler
   function handleClick(e, data) {
     switch (data.action) {
@@ -71,12 +73,11 @@ function ShowFileSystem({
 
   const disscutionNewMessage = async (e) => {
     e.preventDefault();
-    await filedisaddmessage(filec, newmessage);
+    await filedisaddmessage(filedis, newmessage);
     setdiscussion({
-      ...editname,
+      ...opendiscussion,
       newmessage: '',
-      opendiss: false,
-      filedis: null,
+      filedis: file,
     });
   };
 
@@ -114,8 +115,9 @@ function ShowFileSystem({
     <div>
       <div className='pathtry'>
         <a className='path'>Path: </a>
-        {paths.map((locp) => (
+        {paths.map((locp, index) => (
           <a
+            key={index}
             className='path'
             href='#'
             onClick={() => path_callback(locp, folder)}
@@ -127,7 +129,7 @@ function ShowFileSystem({
       {children ? (
         <div>
           {folder.children.map((elem) => (
-            <div>
+            <div key={elem._id}>
               <ContextMenuTrigger id={elem._id}>
                 <Row>
                   <ShowSystem key={elem._id} elem={elem} />
@@ -155,14 +157,15 @@ function ShowFileSystem({
                     <MenuItem divider />
                     <Modal
                       show={opendiss === true}
-                      onHide={(e) =>
+                      onHide={(e) => {
+                        clearfile();
                         setdiscussion({
                           ...opendiscussion,
                           newmessage: '',
                           opendiss: false,
                           filedis: null,
-                        })
-                      }
+                        });
+                      }}
                       backdrop='static'
                       keyboard={false}
                       centered
@@ -173,6 +176,22 @@ function ShowFileSystem({
                         </Modal.Title>
                       </Modal.Header>
                       <Modal.Body>
+                        <div className='discussion-history'>
+                          {filedis !== null
+                            ? filedis.discussion.map((elem, index) => (
+                                <div key={index}>
+                                  <Row>
+                                    <p>{elem.date}</p>
+                                    <NameAvatar
+                                      username={elem.sender.username}
+                                      avatar={elem.sender.avatar}
+                                    />
+                                  </Row>
+                                  <p>{elem.content}</p>
+                                </div>
+                              ))
+                            : null}
+                        </div>
                         <div className='discussion-new-mes'></div>
                         <Form
                           className='text-center'
@@ -276,6 +295,7 @@ ShowFileSystem.propTypes = {
   deletefiletrue: PropTypes.func.isRequired,
   renamefile: PropTypes.func.isRequired,
   filedisaddmessage: PropTypes.func.isRequired,
+  clearfile: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -290,4 +310,5 @@ export default connect(mapStateToProps, {
   deletefiletrue,
   renamefile,
   filedisaddmessage,
+  clearfile,
 })(ShowFileSystem);

@@ -19,7 +19,7 @@ function DeleteReq({
   reqtype,
 }) {
   const [clicked, setclick] = useState(false);
-  console.log(clicked);
+
   const handleDeleteBuddy = (e) => {
     deletebuddy(e.target.value);
 
