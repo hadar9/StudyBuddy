@@ -26,7 +26,21 @@ function ShowSystem({
   choosefile,
   filesystem: { fileloading, file, filestatus },
 }) {
-                                                                                  
+  const images = {
+    avi,
+    csv,
+    pdf,
+    jpg,
+    doc,
+    docx,
+    mp3,
+    mp4,
+    png,
+    ppt,
+    rar,
+    txt,
+    zip,
+  };
 
   const showfilecontent = (e) => {
     choosefile(elem);

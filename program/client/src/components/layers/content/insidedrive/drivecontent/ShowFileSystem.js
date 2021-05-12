@@ -91,8 +91,7 @@ function ShowFileSystem({
     findfolder(user + dest);
   }
 
-  function create_path_array(path) {
-      
+  function create_path_array(path_array) {
     let paths = [];
     for (let iter = 0; iter < path_array.length; iter++) {
       if (iter === 0) {
@@ -169,6 +168,7 @@ function ShowFileSystem({
                       backdrop='static'
                       keyboard={false}
                       centered
+                      contentClassName='custom-modal-style-diss'
                     >
                       <Modal.Header closeButton>
                         <Modal.Title className='modaltitle'>
@@ -180,14 +180,29 @@ function ShowFileSystem({
                           {filedis !== null
                             ? filedis.discussion.map((elem, index) => (
                                 <div key={index}>
-                                  <Row>
-                                    <p>{elem.date}</p>
+                                  <Row
+                                    style={{
+                                      float: 'right',
+                                      marginRight: '15px',
+                                    }}
+                                  >
+                                    <h6 className='pr-5'>{elem.date}</h6>
                                     <NameAvatar
                                       username={elem.sender.username}
                                       avatar={elem.sender.avatar}
                                     />
                                   </Row>
-                                  <p>{elem.content}</p>
+                                  <p
+                                    style={{
+                                      textAlign: 'right',
+                                      paddingTop: '60px',
+                                      width: '100%',
+                                      overflowWrap: 'break-word',
+                                      wordBreak: 'break-all',
+                                    }}
+                                  >
+                                    {elem.content}
+                                  </p>
                                 </div>
                               ))
                             : null}
@@ -238,8 +253,8 @@ function ShowFileSystem({
                       }
                       backdrop='static'
                       keyboard={false}
-                      size='sm'
                       centered
+                      contentClassName='custom-modal-style-rename'
                     >
                       <Modal.Header closeButton>
                         <Modal.Title className='modaltitle'></Modal.Title>

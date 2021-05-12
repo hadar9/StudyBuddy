@@ -127,7 +127,7 @@ function Navebar({
           onHide={handleCloseSearch}
           backdrop='static'
           keyboard={false}
-          contentClassName='custom-modal-style'
+          contentClassName='custom-modal-style-search'
         >
           <Modal.Header closeButton>
             <Modal.Title className='modaltitle'>Search Results:</Modal.Title>
