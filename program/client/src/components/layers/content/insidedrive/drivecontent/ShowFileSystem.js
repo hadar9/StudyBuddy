@@ -92,7 +92,7 @@ function ShowFileSystem({
   }
 
   function create_path_array(path) {
-    let path_array = path.split('/');
+      
     let paths = [];
     for (let iter = 0; iter < path_array.length; iter++) {
       if (iter === 0) {
