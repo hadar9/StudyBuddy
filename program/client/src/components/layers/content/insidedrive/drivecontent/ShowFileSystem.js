@@ -11,10 +11,9 @@ import {
   findfolder,
   deletefiletrue,
   renamefile,
-  filedisaddmessage,
   clearfile,
 } from '../../../../../actions/filesystem';
-import NameAvatar from '../../general/buddies/tabs/NameAvatar';
+import FileDisscussion from './filedisscution/FileDisscussion';
 
 function ShowFileSystem({
   filesystem: { folder, folderloading, file, fileloading },
@@ -24,7 +23,6 @@ function ShowFileSystem({
   findfolder,
   deletefiletrue,
   renamefile,
-  filedisaddmessage,
   clearfile,
 }) {
   const [editname, seteditname] = useState({
@@ -34,20 +32,18 @@ function ShowFileSystem({
   });
 
   const [opendiscussion, setdiscussion] = useState({
-    newmessage: '',
     opendiss: false,
     filedis: null,
   });
 
   const { newname, changename, filec } = editname;
-  const { newmessage, opendiss, filedis } = opendiscussion;
+  const { opendiss, filedis } = opendiscussion;
 
   useEffect(() => {}, [folder]);
   useEffect(() => {
     if (fileloading) {
       setdiscussion({
         ...opendiscussion,
-        newmessage: '',
         filedis: file,
       });
       clearfile();
@@ -81,11 +77,6 @@ function ShowFileSystem({
         break;
     }
   }
-
-  const disscutionNewMessage = async (e) => {
-    e.preventDefault();
-    await filedisaddmessage(filedis, newmessage);
-  };
 
   const onsumbit = async (e) => {
     e.preventDefault();
@@ -166,7 +157,6 @@ function ShowFileSystem({
                         clearfile();
                         setdiscussion({
                           ...opendiscussion,
-                          newmessage: '',
                           opendiss: false,
                           filedis: null,
                         });
@@ -183,59 +173,9 @@ function ShowFileSystem({
                       </Modal.Header>
                       <Modal.Body>
                         <div className='discussion-history'>
-                          {filedis !== null
-                            ? filedis.discussion.map((elem, index) => (
-                                <div key={index}>
-                                  <Row
-                                    style={{
-                                      float: 'right',
-                                      marginRight: '15px',
-                                    }}
-                                  >
-                                    <h6 className='pr-5'>{elem.date}</h6>
-                                    <NameAvatar
-                                      username={elem.sender.username}
-                                      avatar={elem.sender.avatar}
-                                    />
-                                  </Row>
-                                  <p
-                                    style={{
-                                      textAlign: 'right',
-                                      paddingTop: '60px',
-                                      width: '100%',
-                                      overflowWrap: 'break-word',
-                                      wordBreak: 'break-all',
-                                    }}
-                                  >
-                                    {elem.content}
-                                  </p>
-                                </div>
-                              ))
-                            : null}
-                        </div>
-                        <div className='discussion-new-mes'>
-                          <Form
-                            className='text-center'
-                            onSubmit={(e) => disscutionNewMessage(e)}
-                          >
-                            <Form.Group controlId='formBasictext'>
-                              <Form.Control
-                                type='text'
-                                value={newmessage}
-                                placeholder='new message'
-                                onChange={(e) =>
-                                  setdiscussion({
-                                    ...opendiscussion,
-                                    newmessage: e.target.value,
-                                  })
-                                }
-                                required
-                              />
-                            </Form.Group>
-                            <Button variant='info' type='submit'>
-                              New Message
-                            </Button>
-                          </Form>
+                          {filedis !== null ? (
+                            <FileDisscussion elem={filedis} />
+                          ) : null}
                         </div>
                       </Modal.Body>
                     </Modal>
@@ -317,7 +257,6 @@ ShowFileSystem.propTypes = {
   findfolder: PropTypes.func.isRequired,
   deletefiletrue: PropTypes.func.isRequired,
   renamefile: PropTypes.func.isRequired,
-  filedisaddmessage: PropTypes.func.isRequired,
   clearfile: PropTypes.func.isRequired,
 };
 
@@ -332,6 +271,5 @@ export default connect(mapStateToProps, {
   findfolder,
   deletefiletrue,
   renamefile,
-  filedisaddmessage,
   clearfile,
 })(ShowFileSystem);
