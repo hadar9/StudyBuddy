@@ -12,7 +12,9 @@ import {
   deletefiletrue,
   renamefile,
   clearfile,
+  choosefolder,
 } from '../../../../../actions/filesystem';
+import { choosedrive } from '../../../../../actions/drives';
 import FileDisscussion from './filedisscution/FileDisscussion';
 
 function ShowFileSystem({
@@ -24,6 +26,8 @@ function ShowFileSystem({
   deletefiletrue,
   renamefile,
   clearfile,
+  choosefolder,
+  choosedrive,
 }) {
   const [editname, seteditname] = useState({
     newname: '',
@@ -77,7 +81,18 @@ function ShowFileSystem({
         break;
     }
   }
-
+  const onClose = (e) => {
+    if (folder.objtype === 'drive') {
+      choosedrive(folder);
+    } else {
+      choosefolder(folder);
+    }
+    setdiscussion({
+      ...opendiscussion,
+      opendiss: false,
+      filedis: null,
+    });
+  };
   const onsumbit = async (e) => {
     e.preventDefault();
     await renamefile(filec, newname);
@@ -153,14 +168,7 @@ function ShowFileSystem({
                     <MenuItem divider />
                     <Modal
                       show={opendiss === true}
-                      onHide={(e) => {
-                        clearfile();
-                        setdiscussion({
-                          ...opendiscussion,
-                          opendiss: false,
-                          filedis: null,
-                        });
-                      }}
+                      onHide={onClose}
                       backdrop='static'
                       keyboard={false}
                       centered
@@ -256,6 +264,8 @@ ShowFileSystem.propTypes = {
   deletefiletrue: PropTypes.func.isRequired,
   renamefile: PropTypes.func.isRequired,
   clearfile: PropTypes.func.isRequired,
+  choosefolder: PropTypes.func.isRequired,
+  choosedrive: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -270,4 +280,6 @@ export default connect(mapStateToProps, {
   deletefiletrue,
   renamefile,
   clearfile,
+  choosefolder,
+  choosedrive,
 })(ShowFileSystem);

@@ -12,6 +12,7 @@ function FileDisscussion({ elem, filedisaddmessage }) {
   const disscutionNewMessage = async (e) => {
     e.preventDefault();
     await filedisaddmessage(elem, newmessage);
+    setmessage('');
   };
 
   return (
