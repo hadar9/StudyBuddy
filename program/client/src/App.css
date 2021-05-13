@@ -286,7 +286,9 @@
 
 /********************************************************/
 /*filediscussion*/
-
+.discussion {
+  border-bottom: 2px dotted black;
+}
 .discussion-history {
   max-height: 390px;
   background-color: #c4e1e6;

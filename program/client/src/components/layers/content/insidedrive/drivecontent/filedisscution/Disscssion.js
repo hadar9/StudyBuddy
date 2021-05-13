@@ -1,10 +1,12 @@
 import React from 'react';
-import { Row } from 'react-bootstrap';
+import { Row, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import NameAvatar from '../../../general/buddies/tabs/NameAvatar';
-export default function Disscssion({ diss }) {
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+function Disscssion({ diss, drives: { adminper }, auth: { user } }) {
   return (
-    <div>
+    <div className='discussion'>
       <Row
         style={{
           float: 'right',
@@ -28,6 +30,27 @@ export default function Disscssion({ diss }) {
       >
         {diss.content}
       </p>
+      {adminper === null || diss.sender._id === user._id ? (
+        <div>
+          <Button variant='info' type='click'>
+            Edit
+          </Button>
+          <Button variant='info' type='click'>
+            delete
+          </Button>
+        </div>
+      ) : null}
     </div>
   );
 }
+Disscssion.propTypes = {
+  drives: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  drives: state.drives,
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, {})(Disscssion);
