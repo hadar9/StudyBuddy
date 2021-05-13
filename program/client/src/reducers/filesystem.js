@@ -39,7 +39,8 @@ export default function filesystem(state = initialState, action) {
         folderloading: true,
       };
 
-    case DELETE_FILE_FALSE: {
+    case DELETE_FILE_FALSE:
+    case CLEAR_FILE: {
       return {
         ...state,
         fileloading: false,
@@ -50,8 +51,8 @@ export default function filesystem(state = initialState, action) {
     case DELETE_FILE_TRUE: {
       return {
         ...state,
-        fileloading: true,
         file: payload,
+        fileloading: true,
         filestatus: 'delete',
       };
     }
@@ -73,17 +74,17 @@ export default function filesystem(state = initialState, action) {
         error: payload,
       };
     case CHOOSE_FILE:
-    case FILE_DISS_ADD_NEW_MESSAGE:
       return {
         ...state,
         file: payload,
         fileloading: true,
       };
-    case CLEAR_FILE:
+    case FILE_DISS_ADD_NEW_MESSAGE:
       return {
         ...state,
-        file: null,
-        fileloading: false,
+        file: payload,
+        fileloading: true,
+        filestatus: 'disssuction',
       };
     case CLEAR_FILESYSTEM:
       return {

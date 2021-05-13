@@ -16,7 +16,7 @@ import {
 import FileDisscussion from './filedisscution/FileDisscussion';
 
 function ShowFileSystem({
-  filesystem: { folder, folderloading, file, fileloading },
+  filesystem: { folder, folderloading, file, fileloading, filestatus },
   drives: { adminper },
   deletefolder,
   deletefile,
@@ -41,14 +41,14 @@ function ShowFileSystem({
 
   useEffect(() => {}, [folder]);
   useEffect(() => {
-    if (fileloading) {
+    if (filestatus === 'disssuction') {
       setdiscussion({
         ...opendiscussion,
         filedis: file,
       });
       clearfile();
     }
-  }, [fileloading]);
+  }, [filestatus]);
 
   //Context bar handler
   function handleClick(e, data) {
@@ -101,7 +101,7 @@ function ShowFileSystem({
 
   let children = false;
 
-  if (folder.children.length > 0 && folderloading) {
+  if (folderloading && folder.children.length > 0) {
     children = true;
   }
   var user;
@@ -172,11 +172,9 @@ function ShowFileSystem({
                         </Modal.Title>
                       </Modal.Header>
                       <Modal.Body>
-                        <div className='discussion-history'>
-                          {filedis !== null ? (
-                            <FileDisscussion elem={filedis} />
-                          ) : null}
-                        </div>
+                        {filedis !== null ? (
+                          <FileDisscussion elem={filedis} />
+                        ) : null}
                       </Modal.Body>
                     </Modal>
                   </div>

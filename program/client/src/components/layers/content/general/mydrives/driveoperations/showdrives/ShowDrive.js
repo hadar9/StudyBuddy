@@ -6,16 +6,12 @@ import { choosedrive } from '../../../../../../../actions/drives';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-function ShowDrive({
-  elem,
-  choosedrive,
-  filesystem: { fileopstatus, fileop },
-}) {
+function ShowDrive({ elem, choosedrive, filesystem: { filestatus, file } }) {
   return (
     <div className='showdrive text-center'>
       <Col>
         <Button variant='light' onClick={(e) => choosedrive(elem)}>
-          {fileopstatus && fileop === elem._id ? (
+          {filestatus === 'delete' && file._id === elem._id ? (
             <Spinner
               className='filespinner'
               animation='border'

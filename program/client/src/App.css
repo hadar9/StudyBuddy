@@ -288,14 +288,14 @@
 /*filediscussion*/
 
 .discussion-history {
-  max-height: 450px;
+  max-height: 390px;
   background-color: #c4e1e6;
   width: 465px;
   overflow-y: auto;
 }
 
 .discussion-new-mes {
-  padding-top: 20px;
+  padding-top: 5px;
   height: 100px;
 }
 

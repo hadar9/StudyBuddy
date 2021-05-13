@@ -16,9 +16,11 @@ function FileDisscussion({ elem, filedisaddmessage }) {
 
   return (
     <div>
-      {elem.discussion.map((diss) => (
-        <Disscssion key={diss._id} diss={diss} />
-      ))}
+      <div className='discussion-history'>
+        {elem.discussion.map((diss) => (
+          <Disscssion key={diss._id} diss={diss} />
+        ))}
+      </div>
       <div className='discussion-new-mes'>
         <Form className='text-center' onSubmit={(e) => disscutionNewMessage(e)}>
           <Form.Group controlId='formBasictext'>
