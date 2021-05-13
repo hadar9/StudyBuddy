@@ -95,6 +95,14 @@
   max-height: 200vh;
   max-width: 700px;
 }
+
+.modaltitle-style {
+  white-space: nowrap;
+  color: black;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 650px;
+}
 .custom-modal-style-rename {
   max-width: 700px;
 }
@@ -275,6 +283,7 @@
   text-overflow: ellipsis;
   width: 150px;
 }
+
 /********************************************************/
 /*filediscussion*/
 
@@ -286,7 +295,8 @@
 }
 
 .discussion-new-mes {
-  height: 30px;
+  padding-top: 20px;
+  height: 100px;
 }
 
 /********************************************************/

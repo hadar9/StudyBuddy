@@ -130,50 +130,52 @@ export const choosefolder = (folder) => async (dispatch) => {
   }
 };
 
-export const deletefolder = (folder, type = 'final') => async (dispatch) => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-  const children = [...folder.children];
-
-  try {
-    for (let i = 0; i < children.length; i++) {
-      let child_id = children[i];
-      const body = JSON.stringify({
-        id: child_id,
-      });
-      const child_obj = await axios.post(
-        '/api/filesystem/findByID',
-        body,
-        config
-      );
-      if (child_obj.data.objtype === 'folder') {
-        await dispatch(deletefolder(child_obj.data, null));
-      } else {
-        await dispatch(deletefile(child_obj.data, null));
-      }
-    }
-
-    if (folder.objtype === 'folder') {
-      await dispatch(deletefile(folder, type));
-      if (type === 'final') {
-        await dispatch({
-          type: DELETE_FOLDER,
-        });
-      }
-    }
-  } catch (error) {
-    dispatch({
-      type: ERROR_MESSAGE,
-      payload: {
-        msg: error.response.statusText,
-        status: error.response.status,
+export const deletefolder =
+  (folder, type = 'final') =>
+  async (dispatch) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
       },
-    });
-  }
-};
+    };
+    const children = [...folder.children];
+
+    try {
+      for (let i = 0; i < children.length; i++) {
+        let child_id = children[i];
+        const body = JSON.stringify({
+          id: child_id,
+        });
+        const child_obj = await axios.post(
+          '/api/filesystem/findByID',
+          body,
+          config
+        );
+        if (child_obj.data.objtype === 'folder') {
+          await dispatch(deletefolder(child_obj.data, null));
+        } else {
+          await dispatch(deletefile(child_obj.data, null));
+        }
+      }
+
+      if (folder.objtype === 'folder') {
+        await dispatch(deletefile(folder, type));
+        if (type === 'final') {
+          await dispatch({
+            type: DELETE_FOLDER,
+          });
+        }
+      }
+    } catch (error) {
+      dispatch({
+        type: ERROR_MESSAGE,
+        payload: {
+          msg: error.response.statusText,
+          status: error.response.status,
+        },
+      });
+    }
+  };
 export const deletefiletrue = (file) => async (dispatch) => {
   dispatch({
     type: DELETE_FILE_TRUE,
@@ -204,35 +206,37 @@ export const deletefilefalse = () => async (dispatch) => {
   });
 };
 
-export const deletefile = (file, type = 'final') => async (dispatch) => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-  const body = JSON.stringify({
-    file,
-  });
-  try {
-    await firebase.storage().refFromURL(file.url).delete();
-    const res = await axios.post('/api/filesystem/deletefile', body, config);
-    if (type === 'final') {
-      dispatch(deletefilefalse());
+export const deletefile =
+  (file, type = 'final') =>
+  async (dispatch) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({
+      file,
+    });
+    try {
+      await firebase.storage().refFromURL(file.url).delete();
+      const res = await axios.post('/api/filesystem/deletefile', body, config);
+      if (type === 'final') {
+        dispatch(deletefilefalse());
+        dispatch({
+          type: DELETE_FILE,
+          payload: res.data,
+        });
+      }
+    } catch (error) {
       dispatch({
-        type: DELETE_FILE,
-        payload: res.data,
+        type: ERROR_MESSAGE,
+        payload: {
+          msg: error.response.statusText,
+          status: error.response.status,
+        },
       });
     }
-  } catch (error) {
-    dispatch({
-      type: ERROR_MESSAGE,
-      payload: {
-        msg: error.response.statusText,
-        status: error.response.status,
-      },
-    });
-  }
-};
+  };
 
 export const filedisaddmessage = (file, newmessage) => async (dispatch) => {
   try {

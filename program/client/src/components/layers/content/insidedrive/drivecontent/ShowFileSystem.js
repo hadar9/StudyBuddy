@@ -42,27 +42,38 @@ function ShowFileSystem({
   const { newname, changename, filec } = editname;
   const { newmessage, opendiss, filedis } = opendiscussion;
 
-  useEffect(() => {}, [folder, filedis]);
+  useEffect(() => {}, [folder]);
+  useEffect(() => {
+    if (fileloading) {
+      setdiscussion({
+        ...opendiscussion,
+        newmessage: '',
+        filedis: file,
+      });
+      clearfile();
+    }
+  }, [fileloading]);
+
   //Context bar handler
   function handleClick(e, data) {
     switch (data.action) {
       case 'Delete':
-        if (data.file.objtype === 'folder') {
-          deletefiletrue(data.file);
-          deletefolder(data.file);
+        if (data.filem.objtype === 'folder') {
+          deletefiletrue(data.filem);
+          deletefolder(data.filem);
         } else {
-          deletefiletrue(data.file);
-          deletefile(data.file);
+          deletefiletrue(data.filem);
+          deletefile(data.filem);
         }
         break;
       case 'Rename':
-        seteditname({ ...editname, changename: true, filec: data.file });
+        seteditname({ ...editname, changename: true, filec: data.filem });
         break;
       case 'OpenDiscussion':
         setdiscussion({
           ...opendiscussion,
           opendiss: true,
-          filedis: data.file,
+          filedis: data.filem,
         });
         break;
       //download
@@ -74,11 +85,6 @@ function ShowFileSystem({
   const disscutionNewMessage = async (e) => {
     e.preventDefault();
     await filedisaddmessage(filedis, newmessage);
-    setdiscussion({
-      ...opendiscussion,
-      newmessage: '',
-      filedis: file,
-    });
   };
 
   const onsumbit = async (e) => {
@@ -140,7 +146,7 @@ function ShowFileSystem({
                   <div>
                     {adminper === null || adminper.download ? (
                       <MenuItem
-                        data={{ action: 'Download', file: elem }}
+                        data={{ action: 'Download', filem: elem }}
                         onClick={handleClick}
                       >
                         Download
@@ -148,7 +154,7 @@ function ShowFileSystem({
                     ) : null}
 
                     <MenuItem
-                      data={{ action: 'OpenDiscussion', file: elem }}
+                      data={{ action: 'OpenDiscussion', filem: elem }}
                       onClick={handleClick}
                     >
                       Open Discussion
@@ -171,7 +177,7 @@ function ShowFileSystem({
                       contentClassName='custom-modal-style-diss'
                     >
                       <Modal.Header closeButton>
-                        <Modal.Title className='modaltitle'>
+                        <Modal.Title className='modaltitle-style'>
                           {filedis !== null ? `${filedis.name}` : null}
                         </Modal.Title>
                       </Modal.Header>
@@ -207,28 +213,30 @@ function ShowFileSystem({
                               ))
                             : null}
                         </div>
-                        <div className='discussion-new-mes'></div>
-                        <Form
-                          className='text-center'
-                          onSubmit={(e) => disscutionNewMessage(e)}
-                        >
-                          <Form.Group controlId='formBasictext'>
-                            <Form.Control
-                              type='text'
-                              placeholder='new message'
-                              onChange={(e) =>
-                                setdiscussion({
-                                  ...opendiscussion,
-                                  newmessage: e.target.value,
-                                })
-                              }
-                              required
-                            />
-                          </Form.Group>
-                          <Button variant='info' type='submit'>
-                            New Message
-                          </Button>
-                        </Form>
+                        <div className='discussion-new-mes'>
+                          <Form
+                            className='text-center'
+                            onSubmit={(e) => disscutionNewMessage(e)}
+                          >
+                            <Form.Group controlId='formBasictext'>
+                              <Form.Control
+                                type='text'
+                                value={newmessage}
+                                placeholder='new message'
+                                onChange={(e) =>
+                                  setdiscussion({
+                                    ...opendiscussion,
+                                    newmessage: e.target.value,
+                                  })
+                                }
+                                required
+                              />
+                            </Form.Group>
+                            <Button variant='info' type='submit'>
+                              New Message
+                            </Button>
+                          </Form>
+                        </div>
                       </Modal.Body>
                     </Modal>
                   </div>
@@ -236,7 +244,7 @@ function ShowFileSystem({
                 {adminper === null || adminper.rename ? (
                   <div>
                     <MenuItem
-                      data={{ action: 'Rename', file: elem }}
+                      data={{ action: 'Rename', filem: elem }}
                       onClick={handleClick}
                     >
                       Rename
@@ -287,7 +295,7 @@ function ShowFileSystem({
                 ) : null}
                 {adminper === null || adminper.delete ? (
                   <MenuItem
-                    data={{ action: 'Delete', file: elem }}
+                    data={{ action: 'Delete', filem: elem }}
                     onClick={handleClick}
                   >
                     Delete
