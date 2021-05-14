@@ -19,6 +19,8 @@ import {
   CLEAR_FILESYSTEM,
   RENAME_FILE,
   FILE_DISS_ADD_NEW_MESSAGE,
+  FILE_DELETE_USER_DISS,
+  FILE_EDIT_USER_DISS,
 } from '../actions/types';
 
 export const createfolder = (parent, foldername) => async (dispatch) => {
@@ -238,38 +240,6 @@ export const deletefile =
     }
   };
 
-export const filedisaddmessage = (file, newmessage) => async (dispatch) => {
-  try {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    const body = JSON.stringify({
-      file,
-      newmessage,
-    });
-    const res = await axios.post(
-      '/api/filesystem/filedisaddmessage',
-      body,
-      config
-    );
-
-    dispatch({
-      type: FILE_DISS_ADD_NEW_MESSAGE,
-      payload: res.data,
-    });
-  } catch (error) {
-    dispatch({
-      type: ERROR_MESSAGE,
-      payload: {
-        msg: error.response.statusText,
-        status: error.response.status,
-      },
-    });
-  }
-};
-
 export const choosefile = (file) => async (dispatch) => {
   dispatch({
     type: CHOOSE_FILE,
@@ -329,6 +299,98 @@ export const editmessage = (folder, message) => async (dispatch) => {
   }
 };
 
+export const filedisaddmessage = (file, newmessage) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({
+      file,
+      newmessage,
+    });
+    const res = await axios.post(
+      '/api/filesystem/filedisaddmessage',
+      body,
+      config
+    );
+
+    dispatch({
+      type: FILE_DISS_ADD_NEW_MESSAGE,
+      payload: res.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ERROR_MESSAGE,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+  }
+};
+
+export const deleteUserDiss = (file, diss) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({
+      file,
+      diss,
+    });
+    const res = await axios.post(
+      '/api/filesystem/deleteuserdiss',
+      body,
+      config
+    );
+    dispatch({
+      type: FILE_DELETE_USER_DISS,
+      payload: res.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ERROR_MESSAGE,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+  }
+};
+export const editUserDiss = (file, diss) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({
+      file,
+      diss,
+    });
+    const res = await axios.post(
+      '/api/filesystem/deleteuserdiss',
+      body,
+      config
+    );
+    dispatch({
+      type: FILE_EDIT_USER_DISS,
+      payload: res.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ERROR_MESSAGE,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+  }
+};
 export const clearfilesystem = () => async (dispatch) => {
   dispatch({
     type: CLEAR_FILESYSTEM,

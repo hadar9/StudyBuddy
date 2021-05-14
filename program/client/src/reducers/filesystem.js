@@ -14,6 +14,8 @@ import {
   DELETE_FILE_FALSE,
   RENAME_FILE,
   FILE_DISS_ADD_NEW_MESSAGE,
+  FILE_DELETE_USER_DISS,
+  FILE_EDIT_USER_DISS,
 } from '../actions/types';
 
 const initialState = {
@@ -80,6 +82,8 @@ export default function filesystem(state = initialState, action) {
         fileloading: true,
       };
     case FILE_DISS_ADD_NEW_MESSAGE:
+    case FILE_DELETE_USER_DISS:
+    case FILE_EDIT_USER_DISS:
       return {
         ...state,
         file: payload,

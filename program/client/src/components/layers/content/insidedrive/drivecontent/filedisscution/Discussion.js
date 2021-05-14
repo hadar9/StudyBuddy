@@ -4,7 +4,25 @@ import 'bootstrap/dist/css/bootstrap.css';
 import NameAvatar from '../../../general/buddies/tabs/NameAvatar';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-function Disscssion({ diss, drives: { adminper }, auth: { user } }) {
+import {
+  deleteUserDiss,
+  editUserDiss,
+} from '../../../../../../actions/filesystem';
+
+function Discussion({
+  elem,
+  diss,
+  drives: { adminper },
+  auth: { user },
+  deleteUserDiss,
+  editUserDiss,
+}) {
+  const deleteUserDiscussion = (e) => {
+    deleteUserDiss(elem, diss);
+  };
+  const editUserDiscussion = (e) => {
+    editUserDiss(elem, diss);
+  };
   return (
     <div className='discussion'>
       <Row
@@ -32,10 +50,18 @@ function Disscssion({ diss, drives: { adminper }, auth: { user } }) {
       </p>
       {adminper === null || diss.sender._id === user._id ? (
         <div>
-          <Button variant='info' type='click'>
+          <Button
+            variant='info'
+            type='click'
+            onClick={(e) => editUserDiscussion(e)}
+          >
             Edit
           </Button>
-          <Button variant='info' type='click'>
+          <Button
+            variant='info'
+            type='click'
+            onClick={(e) => deleteUserDiscussion(e)}
+          >
             delete
           </Button>
         </div>
@@ -43,9 +69,11 @@ function Disscssion({ diss, drives: { adminper }, auth: { user } }) {
     </div>
   );
 }
-Disscssion.propTypes = {
+Discussion.propTypes = {
   drives: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
+  deleteUserDiss: PropTypes.func.isRequired,
+  editUserDiss: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -53,4 +81,6 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, {})(Disscssion);
+export default connect(mapStateToProps, { deleteUserDiss, editUserDiss })(
+  Discussion
+);

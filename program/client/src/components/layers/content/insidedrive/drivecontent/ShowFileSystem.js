@@ -15,7 +15,7 @@ import {
   choosefolder,
 } from '../../../../../actions/filesystem';
 import { choosedrive } from '../../../../../actions/drives';
-import FileDisscussion from './filedisscution/FileDisscussion';
+import FileDiscussion from './filedisscution/FileDiscussion';
 
 function ShowFileSystem({
   filesystem: { folder, folderloading, file, fileloading, filestatus },
@@ -181,7 +181,7 @@ function ShowFileSystem({
                       </Modal.Header>
                       <Modal.Body>
                         {filedis !== null ? (
-                          <FileDisscussion elem={filedis} />
+                          <FileDiscussion elem={filedis} />
                         ) : null}
                       </Modal.Body>
                     </Modal>

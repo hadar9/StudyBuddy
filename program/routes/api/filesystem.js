@@ -241,4 +241,40 @@ router.post('/filedisaddmessage', auth, async (req, res) => {
   }
 });
 
+router.post('/filedisaddmessage', auth, async (req, res) => {
+  try {
+    const { file, newmessage } = req.body;
+
+    const updeatedfile = await FileSystem.findOneAndUpdate(
+      { _id: file._id },
+      {
+        $push: { discussion: { sender: req.user.id, content: newmessage } },
+      },
+      { new: true }
+    ).populate('discussion.sender');
+    updeatedfile.save();
+    res.status(200).json(updeatedfile);
+  } catch (err) {
+    res.status(500).send('Server Error');
+  }
+});
+
+router.post('/deleteuserdiss', auth, async (req, res) => {
+  try {
+    const { file, diss } = req.body;
+
+    const updeatedfile = await FileSystem.findOneAndUpdate(
+      { _id: file._id },
+      {
+        $pull: { discussion: { _id: diss._id } },
+      },
+      { new: true }
+    ).populate('discussion.sender');
+    updeatedfile.save();
+    res.status(200).json(updeatedfile);
+  } catch (err) {
+    res.status(500).send('Server Error');
+  }
+});
+
 module.exports = router;

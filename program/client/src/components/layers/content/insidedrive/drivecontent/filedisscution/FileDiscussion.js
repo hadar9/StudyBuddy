@@ -4,9 +4,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { filedisaddmessage } from '../../../../../../actions/filesystem';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Disscssion from './Disscssion';
+import Discussion from './Discussion';
 
-function FileDisscussion({ elem, filedisaddmessage }) {
+function FileDiscussion({ elem, filedisaddmessage }) {
   const [newmessage, setmessage] = useState('');
 
   const disscutionNewMessage = async (e) => {
@@ -19,7 +19,7 @@ function FileDisscussion({ elem, filedisaddmessage }) {
     <div>
       <div className='discussion-history'>
         {elem.discussion.map((diss) => (
-          <Disscssion key={diss._id} diss={diss} />
+          <Discussion key={diss._id} diss={diss} elem={elem} />
         ))}
       </div>
       <div className='discussion-new-mes'>
@@ -41,10 +41,10 @@ function FileDisscussion({ elem, filedisaddmessage }) {
     </div>
   );
 }
-FileDisscussion.propTypes = {
+FileDiscussion.propTypes = {
   filedisaddmessage: PropTypes.func.isRequired,
 };
 
 export default connect(null, {
   filedisaddmessage,
-})(FileDisscussion);
+})(FileDiscussion);
