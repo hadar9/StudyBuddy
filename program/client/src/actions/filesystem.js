@@ -221,6 +221,7 @@ export const deletefile =
     });
     try {
       await firebase.storage().refFromURL(file.url).delete();
+
       const res = await axios.post('/api/filesystem/deletefile', body, config);
       if (type === 'final') {
         dispatch(deletefilefalse());
@@ -361,7 +362,7 @@ export const deleteUserDiss = (file, diss) => async (dispatch) => {
     });
   }
 };
-export const editUserDiss = (file, diss) => async (dispatch) => {
+export const editUserDiss = (file, diss, newmessage) => async (dispatch) => {
   try {
     const config = {
       headers: {
@@ -371,9 +372,10 @@ export const editUserDiss = (file, diss) => async (dispatch) => {
     const body = JSON.stringify({
       file,
       diss,
+      newmessage,
     });
     const res = await axios.post(
-      '/api/filesystem/deleteuserdiss',
+      '/api/filesystem/editeuserdiss',
       body,
       config
     );

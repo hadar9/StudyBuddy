@@ -277,4 +277,22 @@ router.post('/deleteuserdiss', auth, async (req, res) => {
   }
 });
 
+router.post('/editeuserdiss', auth, async (req, res) => {
+  try {
+    const { file, diss, newmessage } = req.body;
+
+    const updeatedfile = await FileSystem.findOneAndUpdate(
+      { _id: file._id, 'discussion._id': diss._id },
+      {
+        $set: { 'discussion.$.content': newmessage },
+      },
+      { new: true }
+    ).populate('discussion.sender');
+    updeatedfile.save();
+    res.status(200).json(updeatedfile);
+  } catch (err) {
+    res.status(500).send('Server Error');
+  }
+});
+
 module.exports = router;

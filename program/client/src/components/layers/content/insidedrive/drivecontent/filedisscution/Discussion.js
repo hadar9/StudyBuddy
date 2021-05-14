@@ -1,5 +1,5 @@
-import React from 'react';
-import { Row, Button } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Row, Button, Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import NameAvatar from '../../../general/buddies/tabs/NameAvatar';
 import { connect } from 'react-redux';
@@ -17,12 +17,20 @@ function Discussion({
   deleteUserDiss,
   editUserDiss,
 }) {
+  const [editdiss, setmessage] = useState({
+    edit: false,
+    newmessage: diss.content,
+  });
+  const { edit, newmessage } = editdiss;
+
   const deleteUserDiscussion = (e) => {
     deleteUserDiss(elem, diss);
   };
   const editUserDiscussion = (e) => {
-    editUserDiss(elem, diss);
+    editUserDiss(elem, diss, newmessage);
+    setmessage({ ...editdiss, edit: false });
   };
+
   return (
     <div className='discussion'>
       <Row
@@ -37,35 +45,56 @@ function Discussion({
           avatar={diss.sender.avatar}
         />
       </Row>
-      <p
-        style={{
-          textAlign: 'right',
-          paddingTop: '60px',
-          width: '100%',
-          overflowWrap: 'break-word',
-          wordBreak: 'break-all',
-        }}
-      >
-        {diss.content}
-      </p>
-      {adminper === null || diss.sender._id === user._id ? (
+      {edit ? (
+        <Form className='text-center' onSubmit={(e) => editUserDiscussion(e)}>
+          <Form.Group controlId='formBasictext'>
+            <Form.Control
+              type='text'
+              value={newmessage}
+              placeholder='new message'
+              onChange={(e) =>
+                setmessage({ ...editdiss, newmessage: e.target.value })
+              }
+              required
+            />
+          </Form.Group>
+          <Button variant='info' type='submit'>
+            Save
+          </Button>
+        </Form>
+      ) : (
         <div>
-          <Button
-            variant='info'
-            type='click'
-            onClick={(e) => editUserDiscussion(e)}
+          <p
+            style={{
+              textAlign: 'right',
+              paddingTop: '60px',
+              width: '100%',
+              overflowWrap: 'break-word',
+              wordBreak: 'break-all',
+            }}
           >
-            Edit
-          </Button>
-          <Button
-            variant='info'
-            type='click'
-            onClick={(e) => deleteUserDiscussion(e)}
-          >
-            delete
-          </Button>
+            {diss.content}
+          </p>
+          {adminper === null || diss.sender._id === user._id ? (
+            <div>
+              <Button
+                variant='info'
+                type='click'
+                onClick={(e) => setmessage({ ...editdiss, edit: true })}
+              >
+                Edit
+              </Button>
+              <Button
+                variant='info'
+                type='click'
+                onClick={(e) => deleteUserDiscussion(e)}
+              >
+                delete
+              </Button>
+            </div>
+          ) : null}
         </div>
-      ) : null}
+      )}
     </div>
   );
 }
