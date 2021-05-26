@@ -5,10 +5,10 @@ import {
   SearchOutlined,
   SettingsInputAntenna,
 } from '@material-ui/icons';
-import ChatMessage from './ChatMessage';
 import { send } from '../../../actions/chat';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import InnerBody from './InnerBody';
 
 function Chat({
   send,
@@ -35,9 +35,7 @@ function Chat({
         </div>
       </div>
       <div className='chatInnerBody'>
-        {messages.messages
-          ? messages.messages.map((msg) => <ChatMessage msg={msg} />)
-          : null}
+        {messages.messages ? <InnerBody messages={messages.messages} /> : null}
       </div>
       <div className='chatFooter'>
         <form onSubmit={(e) => sendMessage(e)}>
