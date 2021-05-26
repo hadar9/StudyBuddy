@@ -10,7 +10,6 @@ import MyDrives from './mydrives/MyDrives';
 import ChatGroups from './chatgroups/ChatGroups';
 import OtherDrives from './otherdrives/OtherDrives';
 import RecycleBin from './recyclebin/RecycleBin';
-import ChatApp from '../../../../ChatApp';
 
 function General({
   auth: { user },
@@ -47,15 +46,7 @@ function General({
           >
             Other drives
           </Button>
-          <Button
-            value='Chat'
-            onClick={(e) =>
-              setKey({ firstload: false, components: <ChatApp /> })
-            }
-            className='bg-dark text-light'
-          >
-            Chat
-          </Button>
+      
           <Button
             value='Mybuddies'
             onClick={(e) => {

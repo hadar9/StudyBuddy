@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Navebar from './navebar/Navebar';
 import Content from './content/Content';
-import Chat from './chat/Chat';
+import Chatapp from './chat/ChatApp';
 import { Modal, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -27,11 +27,11 @@ export default function Home() {
           }}
           backdrop='static'
           keyboard={false}
-          size='lg'
+          size='xl'
         >
           <Modal.Header closeButton> </Modal.Header>
-          <Modal.Body>
-            <Chat />
+          <Modal.Body closeButton>
+            <Chatapp />
           </Modal.Body>
         </Modal>
       </div>
