@@ -5,6 +5,7 @@ import profile from './profile';
 import buddies from './buddies';
 import drives from './drives';
 import filesystem from './filesystem';
+import chat from './chat';
 
 export default combineReducers({
   auth,
@@ -13,4 +14,5 @@ export default combineReducers({
   buddies,
   drives,
   filesystem,
+  chat,
 });
