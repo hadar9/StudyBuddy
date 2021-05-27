@@ -11,6 +11,10 @@ function ChatMessage(props) {
     const content = props.msg.content;
     const name = props.msg.sender;
     const timestamp = props.msg.time;
+    if(content===null || content === "")
+    {
+        return null;
+    }
 
     return (
         <div>

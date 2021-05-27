@@ -6,6 +6,9 @@ const User = require('../../models/User');
 const Chat = require('../../models/Chat');
 const { check, validationResult } = require('express-validator');
 
+const Group = require('../../models/ChatGroup');
+const Message = require('../../models/Message');
+
 const search = async (username, id) => {
   let myprofile = await Profile.findOne({ user: id });
   const users = await User.find({
@@ -149,7 +152,6 @@ router.post('/confirmbuddy', auth, async (req, res) => {
   try {
     //find  the user to confirm
     id = req.body;
-    chat = new Chat([]);
 
     let userprofile = await Profile.findOneAndUpdate(
       { user: id.id, 'buddies.user': req.user.id },
@@ -162,10 +164,16 @@ router.post('/confirmbuddy', auth, async (req, res) => {
       { $set: { 'buddies.$.status': 'mybuddy' } },
       { new: true }
     );
-    userprofile.$push({ chat: chat._id });
     userprofile.save();
-    myprofile.$push({ chat: chat._id });
     myprofile.save();
+
+    let user1 = await User.findById(id.id);
+    let user2 = await User.findById(req.user.id);
+
+    let group = new Group({names: [user1.username, user2.username], group: [user1._id,user2._id], group_name: ""});
+    let message = new Message({_id: group._id, messages: [{}]});
+    group.save();
+    message.save();
 
     res.send('confirm succses');
   } catch (err) {
@@ -192,13 +200,24 @@ router.post('/deletebuddy', auth, async (req, res) => {
       { $pull: { buddies: { user: req.user.id } } },
       { new: true }
     );
+    try{
+      let user1 = await User.findById(id.id);
+      let user2 = await User.findById(req.user.id);
+      const group = await Group.find({names:[user1.username, user2.username]});
+      const message = await Message.findById(group[0]._id);
+      await Group.deleteOne({_id: group[0]._id});
+      await Message.deleteOne({_id: message._id});
+    }catch(err)
+    {
+      console.log("Error", err);
+    }
+    
 
     myprofile.save();
     userprofile.save();
 
-    res.send('buddy deleted!');
   } catch (err) {
-    res.status(500).send('Server Error');
+    res.status(500).send('Server Error: ',err);
   }
 });
 
