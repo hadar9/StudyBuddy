@@ -18,17 +18,22 @@ function Chat({
   const [input, setInput] = useState('');
   const sendMessage = async (e) => {
     e.preventDefault();
-    send(current_group, user.username, input);
+    send(current_group.id, user.username, input);
 
     setInput('');
   };
 
   return (
-    <div className='chat_right'>
-      <div className='chatHeader'>
-        <Avatar src='' />
+    <div className='chat_right '>
+      <div className='chatHeader '>
+        <div>
+          <Avatar
+            style={{ position: 'absolute', top: '4%', left: '60%' }}
+            src=''
+          />
+        </div>
         <div className='chatHeaderInfo'>
-          <h3>Room Name</h3>
+          <h3>{current_group ? current_group.groupname : null}</h3>
           <IconButton>
             <SearchOutlined />
           </IconButton>
@@ -45,7 +50,9 @@ function Chat({
             placeholder='Type a message'
             type='text'
           />
-          <button onClick={sendMessage} type='submit'> </button>
+          <button onClick={sendMessage} type='submit'>
+            {' '}
+          </button>
         </form>
       </div>
     </div>

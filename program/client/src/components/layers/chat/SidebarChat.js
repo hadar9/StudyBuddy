@@ -16,13 +16,13 @@ function sidebarChat(props) {
   async function select_chat() {
     await choosegroup(props.group_id);
     selectrecipient(username);
-    setcurrentgroupid(props.group_id);
+    setcurrentgroupid(props.group_id, props.username);
   }
   return (
     <div className='sidebarChat' onClick={select_chat}>
-      <Avatar src='' />
+      <Avatar style={{ position: 'absolute' }} src='' />
       <div className='sidebarChatInfo'>
-        <h2>{username}</h2>
+        <p>{username}</p>
       </div>
     </div>
   );

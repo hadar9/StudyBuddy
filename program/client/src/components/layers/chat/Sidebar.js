@@ -26,7 +26,7 @@ function Sidebar({ findgroups, chat: { groups, messages } }) {
     <div className='chatSidebar'>
       <div className='sidebarHeader'>
         <Row className='mt-3'>
-          <Avatar src='' />
+          <Avatar className='chatavatarheader' src='' />
           <div className='sidebarRight '>
             <IconButton>
               <DonutLargeIcon />
@@ -50,7 +50,7 @@ function Sidebar({ findgroups, chat: { groups, messages } }) {
       </div>
       <div className='sidebarChats'>
         {chat_groups.map((name) => (
-          <SidebarChat username={name[1]} group_id={name[2]} /> 
+          <SidebarChat username={name[1]} group_id={name[2]} />
         ))}
       </div>
     </div>

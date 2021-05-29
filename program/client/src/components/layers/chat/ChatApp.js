@@ -20,8 +20,8 @@ function ChatApp({ choosegroup, auth: { users } }) {
     channel.bind('event', function (newMessage) {
       setMessages([...messages, newMessage]);
 
-      if (store.getState().chat.current_group) {
-        choosegroup(store.getState().chat.current_group);
+      if (store.getState().chat.current_group.id) {
+        choosegroup(store.getState().chat.current_group.id);
       }
     });
     return () => {
