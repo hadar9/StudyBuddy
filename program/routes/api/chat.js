@@ -3,11 +3,37 @@ const router = express.Router();
 const Message = require('../../models/Message');
 const Group = require('../../models/ChatGroup');
 const auth = require('../../middleware/auth');
+const User = require('../../models/User');
 const Pusher = require("pusher");
 const mongoose = require("mongoose");
 
+router.post('/creategroup', auth, async (req,res)=>
+{   
+    const user = await User.findById(req.body.user);
+    let group = new Group({names: [user.username], group: [req.body.user], group_name: req.body.name});
+    let message = new Message({_id: group._id, messages: [{}]});
+    const drive = await Drive.findOneAndUpdate(
+        {_id: req.body.drive_id},
+        { $push: { chatgroup: {_id: group._id}} },
+        { new: true });
+    group.save();
+    message.save();
+});
 
-
+router.post('/adduser', auth, async (req,res)=>
+{
+    try{
+        const group = await Group.findOneAndUpdate(
+            { _id: req.body.group_id }, 
+            { $push: { names: req.body.username, group: req.body.user} },
+            {new: true}
+        )
+        // console.log(group)
+    }
+    catch (err) {
+        res.status(500).send(err, 'Server Error');
+    }
+});
 
 router.post('/choosegroup', auth, async (req,res)=>
 {
@@ -26,15 +52,23 @@ router.post('/findgroups',auth, async (req, res) => {
     try {
         var groups = await Group.find({"names" : user_id}).populate("group");
         for(var i in groups)
-        {            
-            if(user_id == groups[i].names[0])
+        {        
+            if(groups[i].group_name === "")
             {
-                other_users.push([groups[i].group[1]._id, groups[i].names[1], groups[i]._id ])
+                if(user_id == groups[i].names[0])
+                {
+                    other_users.push([groups[i].group[1]._id, groups[i].names[1], groups[i]._id ])
+                }
+                else
+                {
+                    other_users.push([groups[i].group[0]._id, groups[i].names[0], groups[i]._id ])
+                }
             }
             else
             {
-                other_users.push([groups[i].group[0]._id, groups[i].names[0], groups[i]._id ])
+                other_users.push(["", groups[i].group_name, groups[i]._id]);
             }
+            
         }
         res.json(other_users);
 

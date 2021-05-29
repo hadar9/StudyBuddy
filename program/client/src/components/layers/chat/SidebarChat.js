@@ -10,7 +10,6 @@ import PropTypes from 'prop-types';
 
 function sidebarChat(props) {
   const username = props.username;
-  const id = props.id;
   const choosegroup = props.choosegroup;
   const selectrecipient = props.selectrecipient;
   const setcurrentgroupid = props.setcurrentgroupid;

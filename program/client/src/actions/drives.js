@@ -11,8 +11,37 @@ import {
   ClOSE_SEARCH,
   SEARCH_DRIVE_ERROR,
   CLEAR_DRIVES_STATE,
+  GET_CHAT_GROUPS,
 } from './types';
 import { setalert } from './alert';
+
+export const getchatgroups = (drive_id) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({
+      drive_id,
+    });
+    const groups = await axios.post('/api/drives/getchatgroups', body, config);
+    dispatch({
+      type: GET_CHAT_GROUPS,
+      payload: groups.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: SEARCH_DRIVE_ERROR,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+  }
+};
+
+
 
 export const searchdrives = (drivename) => async (dispatch) => {
   try {

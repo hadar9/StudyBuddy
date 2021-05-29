@@ -79,22 +79,10 @@ const DriveSchema = new mongoose.Schema({
   ],
   chatgroup: [
     {
-      name: {
-        type: String,
-        required: true,
+      _id: {
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'group', 
       },
-      chatbuddies: [
-        {
-          user: {
-            type: mongoose.Schema.Types.ObjectId, //Foreign key
-            ref: 'profile',
-          },
-          joindate: {
-            type: Date,
-            default: Date.now,
-          },
-        },
-      ],
     },
   ],
   children: [

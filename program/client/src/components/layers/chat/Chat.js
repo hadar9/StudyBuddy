@@ -45,7 +45,7 @@ function Chat({
             placeholder='Type a message'
             type='text'
           />
-          <button onClick={sendMessage} type='submit'></button>
+          <button onClick={sendMessage} type='submit'> </button>
         </form>
       </div>
     </div>

@@ -8,7 +8,60 @@ import {
     CHOOSE_GROUP,
     SET_RECIPIENT,
     SET_CURRENT_GROUP,
+    CREATE_NEW_GROUP,
   } from '../actions/types';
+
+  export const adduser = (group_id, user, username) => async (dispatch) =>
+  {
+    const config = {
+      headers: {
+      'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({
+        group_id,
+        user,
+        username,
+    });
+
+    try {
+        const res = await axios.post('api/chat/adduser', body, config);
+        // dispatch({
+        //     type: CREATE_NEW_GROUP,
+        // });
+    } catch (error) {
+      dispatch({
+        type: MSG_ERROR,
+      });
+    }
+  }
+
+
+
+  export const creategroup = (name, drive_id, user) => async (dispatch) =>
+  {
+    const config = {
+      headers: {
+      'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({
+        name,
+        drive_id,
+        user,
+    });
+
+    try {
+        const res = await axios.post('api/chat/creategroup', body, config);
+        dispatch({
+            type: CREATE_NEW_GROUP,
+        });
+    } catch (error) {
+      dispatch({
+        type: MSG_ERROR,
+      });
+    }
+  }
 
 
   export const setcurrentgroupid = (data) => async (dispatch) =>
@@ -86,7 +139,6 @@ export const findgroups = (user) => async (dispatch) => {
 }  
 
 export const send = (group,sender, message) => async (dispatch) => {
-    console.log("in send action:",group,message);
 
     const config = {
         headers: {

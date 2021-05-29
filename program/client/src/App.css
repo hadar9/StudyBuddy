@@ -494,4 +494,24 @@
   display: none;
 }
 
+
+.createGroup {
+  align-items: center;
+  border-top: 1px solid lightgray;
+  margin-bottom: 20px;
+}
+
+.createGroup > form {
+  width: 50px;
+  flex: 1;
+  display:flex;
+}
+.createGroup > form > input {
+  flex: 1;
+  border-right: 30px;
+  padding: 10px;
+  outline-width: 1;
+  border-radius: 15px;
+}
+
 /* Chat CSS end*/

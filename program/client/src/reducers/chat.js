@@ -6,6 +6,7 @@ import {
     CHOOSE_GROUP,
     SET_RECIPIENT,
     SET_CURRENT_GROUP,
+    CREATE_NEW_GROUP,
   } from '../actions/types';
 
   const initialState = {
@@ -45,6 +46,7 @@ import {
                 current_group: payload,
             }
         case MSG_ERROR:
+        case CREATE_NEW_GROUP:
         default:
             return state;
     }

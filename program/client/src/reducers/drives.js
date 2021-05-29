@@ -11,6 +11,7 @@ import {
   ClOSE_SEARCH,
   DELETE_DRIVE,
   DELETE_DRIVE_COMPLETE,
+  GET_CHAT_GROUPS,
 } from '../actions/types';
 
 const initialState = {
@@ -23,6 +24,7 @@ const initialState = {
   drive: {},
   driveloading: false,
   adminper: null,
+  chatgroups: null,
   error: {},
 };
 
@@ -95,6 +97,11 @@ export default function drives(state = initialState, action) {
         adminper: null,
         error: {},
       };
+    case GET_CHAT_GROUPS:
+        return {
+          ...state,
+          chatgroups: payload,
+        }
     default:
       return state;
   }

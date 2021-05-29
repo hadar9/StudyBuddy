@@ -6,6 +6,12 @@ const Drive = require('../../models/Drive');
 const FileSystem = require('../../models/FileSystem');
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
+const Group = require('../../models/ChatGroup');
+
+
+
+
+
 
 search = async function (drivename, userid) {
   let drives = await Drive.find({
@@ -13,6 +19,7 @@ search = async function (drivename, userid) {
     drivepermission: false,
   }).populate('user');
 
+  console.log(drives);
   let returmdrives = [];
 
   for (let i = 0; i < drives.length; i++) {
@@ -43,6 +50,22 @@ search = async function (drivename, userid) {
   }
   return returmdrives;
 };
+
+router.post('/getchatgroups', auth, async (req, res) => {
+  try {
+    const drive = await Drive.findById(req.body.drive_id);
+    var groups = [];
+    for(var g in drive.chatgroup)
+    {
+      var group = await Group.findById(drive.chatgroup[g]._id);
+      groups.push([group._id, group.group_name]);
+    }
+    res.json(groups);
+    
+  } catch (err) {
+    res.status(500).send('Server Error');
+  }
+});
 
 //@route    GET api/drives/getmydrives
 //@desc     get drives
