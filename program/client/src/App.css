@@ -190,7 +190,8 @@
 .mydrives-title,
 .insidedrivecontent-title,
 .firstloadtitle,
-.settings-title {
+.settings-title,
+.drivegroupchat-title {
   position: center;
   color: #40bed1;
   margin-top: 20px;
@@ -375,8 +376,20 @@
 .chatSidebar {
   background-color: #ededed;
   width: 35%;
-  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 100vh;
   float: left;
+}
+.chatSidebar::-webkit-scrollbar {
+  width: 10px;
+}
+.chatSidebar::-webkit-scrollbar-track {
+  background: #292b2c;
+}
+.chatSidebar::-webkit-scrollbar-thumb {
+  background-image: linear-gradient(lightgray, lightgray);
+  border-radius: 15px;
 }
 
 .chat_right {
@@ -509,20 +522,22 @@
   border-top: 1px solid lightgray;
   margin-bottom: 20px;
 }
-
-.createGroup > form {
-  width: 50px;
-  flex: 1;
-  display: flex;
+.chatgroupsform {
+  margin-top: 6%;
+  margin-left: 37%;
 }
-.createGroup > form > input {
-  flex: 1;
-  border-right: 30px;
-  padding: 10px;
-  outline-width: 1;
-  border-radius: 15px;
+.joinchats {
+  margin-top: 3%;
+  margin-right: 3%;
+  max-width: 100%;
+  max-height: 750px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.joinchat {
+  max-width: 150px;
+  margin-right: 20px;
+  padding-left: 4%;
 }
 
 /* Chat CSS end*/
-
-

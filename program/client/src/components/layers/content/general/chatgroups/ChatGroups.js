@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import {creategroup, adduser} from '../../../../../actions/chat'
-import {getchatgroups} from '../../../../../actions/drives';
+import { creategroup, adduser } from '../../../../../actions/chat';
+import { getchatgroups } from '../../../../../actions/drives';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import store from '../../../../../store/store'
+import store from '../../../../../store/store';
+import { Button, Form, Row } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.css';
 import { Alert } from 'react-bootstrap';
 
-
-
-function ChatGroups({creategroup, getchatgroups, adduser}) {
+function ChatGroups({ creategroup, getchatgroups, adduser }) {
   const [input, setInput] = useState('');
   const [alert, setAlert] = useState(null);
   const user_id = store.getState().auth.user._id;
@@ -22,23 +22,31 @@ function ChatGroups({creategroup, getchatgroups, adduser}) {
     setInput('');
   };
 
-  function enterchat(data)
-  {
+  function enterchat(data) {
     data = data.split(',');
     var grps = store.getState().chat.groups;
-    for(var g in grps)
-    {
-      if(grps[g][1] === data[1])
-      {
-          setAlert(<div class="alert alert-danger alert-dismissible">
-          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>You're already in {data[1]}.</div>);
-          return
-
+    for (var g in grps) {
+      if (grps[g][1] === data[1]) {
+        setAlert(
+          <div class='alert alert-danger alert-dismissible'>
+            <a href='#' class='close' data-dismiss='alert' aria-label='close'>
+              &times;
+            </a>
+            You're already in {data[1]}.
+          </div>
+        );
+        return;
       }
     }
     adduser(data[0], user_id, username);
-    setAlert(<div class="alert alert-success alert-dismissible">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>You've joined {data[1]} chat!</div>);
+    setAlert(
+      <div class='alert alert-success alert-dismissible'>
+        <a href='#' class='close' data-dismiss='alert' aria-label='close'>
+          &times;
+        </a>
+        You've joined {data[1]} chat!
+      </div>
+    );
   }
 
   useEffect(() => {
@@ -46,40 +54,47 @@ function ChatGroups({creategroup, getchatgroups, adduser}) {
     const groups = store.getState().drives.chatgroups;
   }, []);
 
-
-  
-  
-
-  return <div>
-             {alert}
-          <div className='createGroup'>
-          <form onSubmit={(e) => button_cb(e)}>
-            <input
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder='Enter group name'
-              type='text'
-            />  
-            <button onClick={button_cb} type='submit'>Create group</button>
-          </form>
-          <div>
-              {store.getState().drives.chatgroups ? store.getState().drives.chatgroups.map((data) => 
-              
-                  <div>
-                    <div>Join Chat: </div>
-                    
-                    <button value={data} onClick={(e) => enterchat(e.target.value)}>
-                        {data[1]}
-                    </button>
-                    
-                <p></p>
-                </div>
-              
-              ): null}
-          </div>
- 
-          </div>
-  </div>;
+  return (
+    <div className='createGroup'>
+      {alert}
+      <h1 className='drivegroupchat-title'>Chats Groups</h1>
+      <div className='chatgroupsform'>
+        <Form onSubmit={(e) => button_cb(e)}>
+          <Form.Row>
+            <Form.Group controlId='formGridField'>
+              <Form.Control
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder='Enter group name'
+                type='text'
+                required={true}
+                className=' mr-4 w-75'
+              />
+            </Form.Group>
+            <Button variant='info' className='mb-3' type='submit'>
+              Create group
+            </Button>
+          </Form.Row>
+        </Form>
+      </div>
+      <div className='joinchats'>
+        {store.getState().drives.chatgroups
+          ? store.getState().drives.chatgroups.map((data) => (
+              <Row className='joinchat'>
+                <p>Join Chat: </p>
+                <Button
+                  variant='info'
+                  value={data}
+                  onClick={(e) => enterchat(e.target.value)}
+                >
+                  {data[1]}
+                </Button>
+              </Row>
+            ))
+          : null}
+      </div>
+    </div>
+  );
 }
 
 ChatGroups.propTypes = {
@@ -91,5 +106,7 @@ const mapStateToProps = (state) => ({
   drives: state.drives,
 });
 export default connect(mapStateToProps, {
-  creategroup,getchatgroups,adduser,
+  creategroup,
+  getchatgroups,
+  adduser,
 })(ChatGroups);
