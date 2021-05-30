@@ -7,10 +7,33 @@ const User = require('../../models/User');
 const Pusher = require("pusher");
 const mongoose = require("mongoose");
 
+
+router.post('/leavegroup', auth, async (req,res)=>
+{   
+    const user_id = req.body.user._id;
+    const username = req.body.user.username;
+    const group_id = req.body.group.id;
+
+
+    const group = await Group.findOneAndUpdate(
+        {_id: group_id},
+        {$pullAll: {names: [username], group: [user_id]}},
+        {new: true},
+        );
+    if(!group.names.hasOwnProperty())
+    {
+        const message = await Messsge.findById(group._id);
+        group.delete();
+        message.delete();
+    }
+    
+});
+
 router.post('/creategroup', auth, async (req,res)=>
 {   
-    const user = await User.findById(req.body.user);
-    let group = new Group({names: [user.username], group: [req.body.user], group_name: req.body.name});
+    const user = await User.findById(req.body.user_id);
+    
+    let group = new Group({names: [req.body.user], group: [req.body.user_id], group_name: req.body.name});
     let message = new Message({_id: group._id, messages: [{}]});
     const drive = await Drive.findOneAndUpdate(
         {_id: req.body.drive_id},

@@ -26,6 +26,7 @@ export const getchatgroups = (drive_id) => async (dispatch) => {
       drive_id,
     });
     const groups = await axios.post('/api/drives/getchatgroups', body, config);
+    console.log(groups.data)
     dispatch({
       type: GET_CHAT_GROUPS,
       payload: groups.data,

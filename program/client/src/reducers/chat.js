@@ -7,6 +7,7 @@ import {
     SET_RECIPIENT,
     SET_CURRENT_GROUP,
     CREATE_NEW_GROUP,
+    LEAVE_GROUP,
   } from '../actions/types';
 
   const initialState = {
@@ -47,6 +48,7 @@ import {
             }
         case MSG_ERROR:
         case CREATE_NEW_GROUP:
+        case LEAVE_GROUP:
         default:
             return state;
     }

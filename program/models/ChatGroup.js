@@ -8,8 +8,8 @@ const ChatGroupSchema = mongoose.Schema({
     ],
     group: [
     {
-      type: mongoose.Schema.Types.ObjectId, //Foreign key
-      ref: 'user', //Reference to the user model
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'user',
     }
     ],
     group_name: {

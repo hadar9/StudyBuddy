@@ -4,24 +4,41 @@ import {getchatgroups} from '../../../../../actions/drives';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import store from '../../../../../store/store'
+import { Alert } from 'react-bootstrap';
+
 
 
 function ChatGroups({creategroup, getchatgroups, adduser}) {
   const [input, setInput] = useState('');
+  const [alert, setAlert] = useState(null);
   const user_id = store.getState().auth.user._id;
   const username = store.getState().auth.user.username;
   const drive_id = store.getState().drives.drive._id;
   const drive = store.getState().drives.drive;
   const button_cb = async (e) => {
     e.preventDefault();
-    creategroup(input, drive._id, drive.user);
+    creategroup(input, user_id, username);
 
     setInput('');
   };
 
   function enterchat(data)
   {
-    adduser(data, user_id, username);
+    data = data.split(',');
+    var grps = store.getState().chat.groups;
+    for(var g in grps)
+    {
+      if(grps[g][1] === data[1])
+      {
+          setAlert(<div class="alert alert-danger alert-dismissible">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>You're already in {data[1]}.</div>);
+          return
+
+      }
+    }
+    adduser(data[0], user_id, username);
+    setAlert(<div class="alert alert-success alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>You've joined {data[1]} chat!</div>);
   }
 
   useEffect(() => {
@@ -34,6 +51,7 @@ function ChatGroups({creategroup, getchatgroups, adduser}) {
   
 
   return <div>
+             {alert}
           <div className='createGroup'>
           <form onSubmit={(e) => button_cb(e)}>
             <input
@@ -50,14 +68,16 @@ function ChatGroups({creategroup, getchatgroups, adduser}) {
                   <div>
                     <div>Join Chat: </div>
                     
-                    <button value={data[0]} onClick={(e) => enterchat(e.target.value)}>
+                    <button value={data} onClick={(e) => enterchat(e.target.value)}>
                         {data[1]}
                     </button>
+                    
                 <p></p>
                 </div>
               
               ): null}
           </div>
+ 
           </div>
   </div>;
 }

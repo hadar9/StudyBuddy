@@ -67,3 +67,4 @@ export const CHOOSE_GROUP = 'CHOOSE_GROUP';
 export const SET_RECIPIENT = 'SET_RECIPIENT';
 export const SET_CURRENT_GROUP = 'SET_CURRENT_GROUP';
 export const CREATE_NEW_GROUP = 'CREATE_NEW_GROUP';
+export const LEAVE_GROUP = 'LEAVE_GROUP';

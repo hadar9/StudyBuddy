@@ -11,13 +11,24 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import store from '../../../store/store';
-import { findgroups } from '../../../actions/chat';
+import { findgroups, leavegroup } from '../../../actions/chat';
 
-function Sidebar({ findgroups, chat: { groups, messages } }) {
+function Sidebar({ findgroups, leavegroup, chat: { groups, messages } }) {
+  
   const user = store.getState().auth.user;
   useEffect(() => {
     findgroups(user);
   }, []);
+  function exitgroup()
+  {
+    const current_group = store.getState().chat.current_group;
+    if(user && current_group)
+    {
+      leavegroup(user, current_group);
+    }
+    
+  }
+
   var chat_groups = [];
   for (var i in groups) {
     chat_groups.push(groups[i]);
@@ -37,7 +48,7 @@ function Sidebar({ findgroups, chat: { groups, messages } }) {
             </IconButton>
 
             <IconButton>
-              <MoreVertIcon />
+              <MoreVertIcon onClick={exitgroup}/>
             </IconButton>
           </div>
         </Row>
@@ -59,6 +70,7 @@ function Sidebar({ findgroups, chat: { groups, messages } }) {
 
 Sidebar.propTypes = {
   findgroups: PropTypes.func.isRequired,
+  leavegroup: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   chat: PropTypes.object.isRequired,
 };
@@ -70,4 +82,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { findgroups })(Sidebar);
+export default connect(mapStateToProps, { findgroups, leavegroup })(Sidebar);

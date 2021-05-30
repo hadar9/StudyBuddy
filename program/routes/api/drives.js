@@ -19,7 +19,6 @@ search = async function (drivename, userid) {
     drivepermission: false,
   }).populate('user');
 
-  console.log(drives);
   let returmdrives = [];
 
   for (let i = 0; i < drives.length; i++) {
