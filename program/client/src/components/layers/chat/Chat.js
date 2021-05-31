@@ -40,7 +40,7 @@ function Chat({
         </div>
       </div>
       <div className='chatInnerBody'>
-        {messages.messages ? <InnerBody messages={messages.messages} /> : null}
+        {messages ? <InnerBody messages={messages.messages} /> : null}
       </div>
       <div className='chatFooter'>
         <form onSubmit={(e) => sendMessage(e)}>

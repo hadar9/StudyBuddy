@@ -8,6 +8,14 @@ import { connect } from 'react-redux';
 import ConfirmrReq from '../../../../navebar/search/searchdrives/operations/ConfirmrReq';
 
 function JoinRequest({ drives: { drive, driveloading } }) {
+  if(typeof drive.drivebuddies === "undefined")
+  {
+    return null;
+  }
+  if(typeof drive.drivebuddies === "undefined")
+  {
+    return null;
+  }
   const drivebuddie = drive.drivebuddies.map((buddy, index) => {
     if (buddy.status === 'request') {
       return (

@@ -6,18 +6,26 @@ import { connect } from 'react-redux';
 import store from '../../../../../store/store';
 import { Button, Form, Row } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-import { Alert } from 'react-bootstrap';
 
-function ChatGroups({ creategroup, getchatgroups, adduser }) {
+function ChatGroups({ creategroup, getchatgroups, adduser}) {
   const [input, setInput] = useState('');
   const [alert, setAlert] = useState(null);
   const user_id = store.getState().auth.user._id;
   const username = store.getState().auth.user.username;
   const drive_id = store.getState().drives.drive._id;
   const drive = store.getState().drives.drive;
+  const admin = store.getState().drives.adminper;
   const button_cb = async (e) => {
     e.preventDefault();
-    creategroup(input, user_id, username);
+    if(input && user_id && username && drive_id)
+    {
+      creategroup(input, user_id, username, drive_id);
+    }
+    else
+    {
+      console.log("ERROR in ChatGroups component");
+    }
+    
 
     setInput('');
   };
@@ -58,6 +66,7 @@ function ChatGroups({ creategroup, getchatgroups, adduser }) {
     <div className='createGroup'>
       {alert}
       <h1 className='drivegroupchat-title'>Chats Groups</h1>
+      {admin===null ?
       <div className='chatgroupsform'>
         <Form onSubmit={(e) => button_cb(e)}>
           <Form.Row>
@@ -77,6 +86,7 @@ function ChatGroups({ creategroup, getchatgroups, adduser }) {
           </Form.Row>
         </Form>
       </div>
+      : null}
       <div className='joinchats'>
         {store.getState().drives.chatgroups
           ? store.getState().drives.chatgroups.map((data) => (

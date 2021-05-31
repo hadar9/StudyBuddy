@@ -11,6 +11,10 @@ function DriveBuddies({
   drives: { drive, driveloading, adminper },
   buddiess: { userloading },
 }) {
+  if(typeof drive.drivebuddies === "undefined")
+  {
+    return null;
+  }
   const drivebuddie = drive.drivebuddies.map((buddy, index) => {
     if (buddy.status === 'drivebuddy') {
       return (

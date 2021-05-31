@@ -14,15 +14,14 @@ router.post('/leavegroup', auth, async (req,res)=>
     const username = req.body.user.username;
     const group_id = req.body.group.id;
 
-
     const group = await Group.findOneAndUpdate(
         {_id: group_id},
         {$pullAll: {names: [username], group: [user_id]}},
         {new: true},
         );
-    if(!group.names.hasOwnProperty())
+    if(group.names.length === 0)
     {
-        const message = await Messsge.findById(group._id);
+        const message = await Message.findById(group._id);
         group.delete();
         message.delete();
     }
@@ -51,7 +50,6 @@ router.post('/adduser', auth, async (req,res)=>
             { $push: { names: req.body.username, group: req.body.user} },
             {new: true}
         )
-        // console.log(group)
     }
     catch (err) {
         res.status(500).send(err, 'Server Error');

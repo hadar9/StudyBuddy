@@ -57,6 +57,10 @@ router.post('/getchatgroups', auth, async (req, res) => {
     for(var g in drive.chatgroup)
     {
       var group = await Group.findById(drive.chatgroup[g]._id);
+      if(group == null)
+      {
+        continue;
+      }
       groups.push([group._id, group.group_name]);
     }
     res.json(groups);

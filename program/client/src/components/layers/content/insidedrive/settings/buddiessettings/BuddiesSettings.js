@@ -1,6 +1,10 @@
 import React from 'react';
 import BuddySetting from './BuddySetting';
 export default function BuddiesSettings({ drivebuddies }) {
+  if(typeof drivebuddies === "undefined")
+  {
+    return null;
+  }
   const buddies = drivebuddies.map((buddy) => {
     if (buddy.status === 'drivebuddy') {
       return (

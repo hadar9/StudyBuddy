@@ -59,7 +59,7 @@ export const adduser = (group_id, user, username) => async (dispatch) => {
   }
 };
 
-export const creategroup = (name, user_id, user) => async (dispatch) => {
+export const creategroup = (name, user_id, user, drive_id) => async (dispatch) => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -69,6 +69,7 @@ export const creategroup = (name, user_id, user) => async (dispatch) => {
     name,
     user_id,
     user,
+    drive_id,
   });
   console.log(body);
 
