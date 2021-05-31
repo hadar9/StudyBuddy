@@ -4,9 +4,10 @@ import { getchatgroups } from '../../../../../actions/drives';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import store from '../../../../../store/store';
-import { Button, Form, Row } from 'react-bootstrap';
+import { Button, Form, Row, Image } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-
+import chat1 from '../../../../../img/chat1.png';
+import chat3 from '../../../../../img/chat3.png';
 function ChatGroups({
   creategroup,
   getchatgroups,
@@ -92,14 +93,14 @@ function ChatGroups({
         {store.getState().drives.chatgroups
           ? store.getState().drives.chatgroups.map((data) => (
               <Row className='joinchat'>
-                <p>Join Chat: </p>
                 <Button
-                  variant='info'
+                  variant='light'
                   value={data}
                   onClick={(e) => enterchat(e.target.value)}
                 >
-                  {data[1]}
+                  <Image className='chatimg' title={data[1]} src={chat3} />
                 </Button>
+                <p className='mx-auto'>{data[1]}</p>
               </Row>
             ))
           : null}

@@ -272,7 +272,8 @@
 }
 .driveimg,
 .folderimg,
-.fileimg {
+.fileimg,
+.chatimg {
   width: 60px;
   height: 60px;
 }
