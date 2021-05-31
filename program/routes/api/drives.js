@@ -345,6 +345,7 @@ router.post('/setadminpermission', auth, async (req, res) => {
       deletee,
       buddymang,
       editmess,
+      createchat,
     } = req.body;
     const permission = {
       createfolder,
@@ -353,6 +354,7 @@ router.post('/setadminpermission', auth, async (req, res) => {
       delete: deletee,
       buddymang,
       editmess,
+      createchat,
     };
     const drive = await Drive.findOneAndUpdate(
       { _id: driveid, 'subadmins._id': adminid },
@@ -412,6 +414,7 @@ router.post('/choosedrive', auth, async (req, res) => {
             permissions.delete = driveret.subadmins[i].permission.delete;
             permissions.buddymang = driveret.subadmins[i].permission.buddymang;
             permissions.editmess = driveret.subadmins[i].permission.editmess;
+            permissions.createchat = driveret.subadmins[i].permission.createchat;
 
             break;
           }

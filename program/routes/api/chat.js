@@ -25,6 +25,7 @@ router.post('/leavegroup', auth, async (req,res)=>
         group.delete();
         message.delete();
     }
+    res.json(group);
     
 });
 

@@ -14,7 +14,12 @@ function ChatGroups({ creategroup, getchatgroups, adduser}) {
   const username = store.getState().auth.user.username;
   const drive_id = store.getState().drives.drive._id;
   const drive = store.getState().drives.drive;
-  const admin = store.getState().drives.adminper;
+  var create_permission = false;
+  if(store.getState().drives.adminper === null || store.getState().drives.adminper.createchat === true)
+  {
+     create_permission = true;
+  }
+  
   const button_cb = async (e) => {
     e.preventDefault();
     if(input && user_id && username && drive_id)
@@ -66,7 +71,7 @@ function ChatGroups({ creategroup, getchatgroups, adduser}) {
     <div className='createGroup'>
       {alert}
       <h1 className='drivegroupchat-title'>Chats Groups</h1>
-      {admin===null ?
+      {create_permission ?
       <div className='chatgroupsform'>
         <Form onSubmit={(e) => button_cb(e)}>
           <Form.Row>

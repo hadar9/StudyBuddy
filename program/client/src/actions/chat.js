@@ -28,6 +28,7 @@ export const leavegroup = (user, group) => async (dispatch) => {
     const res = await axios.post('api/chat/leavegroup', body, config);
     dispatch({
         type: LEAVE_GROUP,
+        payload: res.data
     });
   } catch (error) {
     dispatch({
@@ -76,6 +77,7 @@ export const creategroup = (name, user_id, user, drive_id) => async (dispatch) =
 
   try {
     const res = await axios.post('api/chat/creategroup', body, config);
+    console.log(res.data)
     dispatch({
       type: CREATE_NEW_GROUP,
     });

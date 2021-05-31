@@ -11,7 +11,10 @@ export default function InnerBody({ messages }) {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
-
+  if(typeof messages === "undefined")
+  {
+    return null;
+  }
   const mess = messages.map((msg) => <ChatMessage key={msg._id} msg={msg} />);
   return (
     <div>

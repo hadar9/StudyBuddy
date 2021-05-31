@@ -14,6 +14,7 @@ function AdminSetting({ admin, drives: { drive }, setadminper, deleteadmin }) {
     deletee: admin.permission.delete,
     buddymang: admin.permission.buddymang,
     editmess: admin.permission.editmess,
+    createchat: admin.permission.createchat,
   });
 
   const {
@@ -23,6 +24,7 @@ function AdminSetting({ admin, drives: { drive }, setadminper, deleteadmin }) {
     deletee,
     buddymang,
     editmess,
+    createchat,
   } = adminper;
 
   const onsubmit = (e) => {
@@ -35,7 +37,8 @@ function AdminSetting({ admin, drives: { drive }, setadminper, deleteadmin }) {
       rename,
       deletee,
       buddymang,
-      editmess
+      editmess,
+      createchat,
     );
   };
 
@@ -43,7 +46,6 @@ function AdminSetting({ admin, drives: { drive }, setadminper, deleteadmin }) {
     <div>
       <NameAvatar username={admin.user.username} avatar={admin.user.avatar} />
       <Form onSubmit={(e) => onsubmit(e)}>
-        <Row>
           <Button
             className='mr-4'
             variant='primary'
@@ -54,11 +56,11 @@ function AdminSetting({ admin, drives: { drive }, setadminper, deleteadmin }) {
           <Button className='mr-4' variant='primary' type='submit'>
             Save
           </Button>
-
+          <div> 
           <Form.Check
             className='mt-2 mr-4'
             type='checkbox'
-            label='create folder'
+            label='Create folder'
             name='formHorizontalcreatefolder'
             id='formHorizontalcreatefolder'
             checked={createfolder}
@@ -70,7 +72,7 @@ function AdminSetting({ admin, drives: { drive }, setadminper, deleteadmin }) {
           <Form.Check
             className='mt-2 mr-4'
             type='checkbox'
-            label='upload files'
+            label='Upload files'
             name='formHorizontalupload'
             id='formHorizontalupload'
             checked={upload}
@@ -80,7 +82,7 @@ function AdminSetting({ admin, drives: { drive }, setadminper, deleteadmin }) {
           <Form.Check
             className='mt-2  mr-4'
             type='checkbox'
-            label='rename files/folders'
+            label='Rename files/folders'
             name='formHorizontaledit'
             id='formHorizontaledit'
             checked={rename}
@@ -90,7 +92,7 @@ function AdminSetting({ admin, drives: { drive }, setadminper, deleteadmin }) {
           <Form.Check
             className='mt-2 mr-4'
             type='checkbox'
-            label='delete files/folders'
+            label='Delete files/folders'
             name='formHorizontaldelete'
             id='formHorizontaldelete'
             checked={deletee}
@@ -100,7 +102,7 @@ function AdminSetting({ admin, drives: { drive }, setadminper, deleteadmin }) {
           <Form.Check
             className='mt-2 mr-4'
             type='checkbox'
-            label='buddies mangament'
+            label='Buddies mangament'
             name='formHorizontalbuddiesmangament'
             id='formHorizontalbuddiesmangament'
             checked={buddymang}
@@ -111,7 +113,7 @@ function AdminSetting({ admin, drives: { drive }, setadminper, deleteadmin }) {
           <Form.Check
             className='mt-2 mr-5'
             type='checkbox'
-            label='edit messeage'
+            label='Edit messeage'
             name='formHorizontaleditmesseage'
             id='formHorizontaleditmesseage'
             checked={editmess}
@@ -119,7 +121,19 @@ function AdminSetting({ admin, drives: { drive }, setadminper, deleteadmin }) {
               setper({ ...adminper, editmess: e.target.checked })
             }
           />
-        </Row>
+          <Form.Check
+            className='mt-2 mr-5'
+            type='checkbox'
+            label='Create chat groups'
+            name='formHorizontalcreatechatgroup'
+            id='formHorizontalcreatechatgroup'
+            checked={createchat}
+            onChange={(e) =>
+              setper({ ...adminper, createchat: e.target.checked })
+            }
+          />
+        </div>
+
       </Form>
     </div>
   );

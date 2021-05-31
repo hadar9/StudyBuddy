@@ -46,9 +46,10 @@ import {
                 ...state,
                 current_group: payload,
             }
-        case MSG_ERROR:
         case CREATE_NEW_GROUP:
         case LEAVE_GROUP:
+        case MSG_ERROR:
+        
         default:
             return state;
     }

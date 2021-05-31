@@ -19,12 +19,14 @@ function Sidebar({ findgroups, leavegroup, chat: { groups, messages } }) {
   useEffect(() => {
     findgroups(user);
   }, []);
-  function exitgroup()
+  async function exitgroup()
   {
     const current_group = store.getState().chat.current_group;
     if(user && current_group)
     {
-      leavegroup(user, current_group);
+      await leavegroup(user, current_group);
+      findgroups(user);
+      
     }
     
   }

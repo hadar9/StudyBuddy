@@ -50,6 +50,10 @@ const DriveSchema = new mongoose.Schema({
           type: Boolean,
           default: false,
         },
+        createchat: {
+          type: Boolean,
+          default: false,
+        },
       },
     },
   ],
