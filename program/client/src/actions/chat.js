@@ -1,8 +1,6 @@
-import { ClassSharp } from '@material-ui/icons';
 import axios from 'axios';
 import {
   MSG_SENT,
-  MSG_RECEIVED,
   GROUPS_FOUND,
   MSG_ERROR,
   CHOOSE_GROUP,
@@ -10,9 +8,8 @@ import {
   SET_CURRENT_GROUP,
   CREATE_NEW_GROUP,
   LEAVE_GROUP,
+  CLEAR_CHAT,
 } from '../actions/types';
-
-
 
 export const leavegroup = (user, group) => async (dispatch) => {
   const config = {
@@ -27,15 +24,15 @@ export const leavegroup = (user, group) => async (dispatch) => {
   try {
     const res = await axios.post('api/chat/leavegroup', body, config);
     dispatch({
-        type: LEAVE_GROUP,
-        payload: res.data
+      type: LEAVE_GROUP,
+      payload: res.data,
     });
   } catch (error) {
     dispatch({
       type: MSG_ERROR,
     });
   }
-}
+};
 export const adduser = (group_id, user, username) => async (dispatch) => {
   const config = {
     headers: {
@@ -49,35 +46,7 @@ export const adduser = (group_id, user, username) => async (dispatch) => {
   });
 
   try {
-    const res = await axios.post('api/chat/adduser', body, config);
-    dispatch({
-        type: CREATE_NEW_GROUP,
-    });
-  } catch (error) {
-    dispatch({
-      type: MSG_ERROR,
-    });
-  }
-};
-
-export const creategroup = (name, user_id, user, drive_id) => async (dispatch) => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-  const body = JSON.stringify({
-    name,
-    user_id,
-    user,
-    drive_id,
-  });
-  console.log(body);
-
-
-  try {
-    const res = await axios.post('api/chat/creategroup', body, config);
-    console.log(res.data)
+    await axios.post('api/chat/adduser', body, config);
     dispatch({
       type: CREATE_NEW_GROUP,
     });
@@ -87,6 +56,34 @@ export const creategroup = (name, user_id, user, drive_id) => async (dispatch) =
     });
   }
 };
+
+export const creategroup =
+  (name, user_id, user, drive_id) => async (dispatch) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({
+      name,
+      user_id,
+      user,
+      drive_id,
+    });
+    console.log(body);
+
+    try {
+      const res = await axios.post('api/chat/creategroup', body, config);
+      console.log(res.data);
+      dispatch({
+        type: CREATE_NEW_GROUP,
+      });
+    } catch (error) {
+      dispatch({
+        type: MSG_ERROR,
+      });
+    }
+  };
 
 export const setcurrentgroupid = (id, groupname) => async (dispatch) => {
   try {
@@ -184,27 +181,8 @@ export const send = (group, sender, message) => async (dispatch) => {
   }
 };
 
-export const receive =
-  ({ group }) =>
-  async (dispatch) => {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    const body = JSON.stringify({
-      group,
-    });
-    try {
-      const res = await axios.post('api/chat/receive', body, config);
-
-      //   dispatch({
-      //     type: MSG_SENT,
-      //     payload: res.data,
-      //   });
-    } catch (error) {
-      //   dispatch({
-      //     type: MSG_ERROR,
-      //   });
-    }
-  };
+export const clearchat = () => async (dispatch) => {
+  dispatch({
+    type: CLEAR_CHAT,
+  });
+};

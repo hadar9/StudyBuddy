@@ -88,8 +88,9 @@
 
 .custom-modal-style-search {
   max-height: 60vh;
-  max-width: 700px;
+  max-width: 900px;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 .custom-modal-style-diss {
   max-height: 200vh;
@@ -185,6 +186,10 @@
   border: 3px solid #343a40;
   color: black;
   height: 1200px;
+}
+.context-menu {
+  background-color: rgb(198, 218, 238);
+  border: 2px solid black;
 }
 /******************************************************/
 .mydrives-title,

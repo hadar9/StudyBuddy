@@ -104,7 +104,7 @@ function ShowFileSystem({
   }
 
   function create_path_array(path_array) {
-    var path_array = path_array.split('/')
+    var path_array = path_array.split('/');
     let paths = [];
     for (let iter = 0; iter < path_array.length; iter++) {
       if (iter === 0) {
@@ -152,12 +152,15 @@ function ShowFileSystem({
                 {elem.objtype !== 'folder' ? (
                   <div>
                     {adminper === null || adminper.download ? (
-                      <MenuItem
-                        data={{ action: 'Download', filem: elem }}
-                        onClick={handleClick}
-                      >
-                        Download
-                      </MenuItem>
+                      <>
+                        <MenuItem
+                          data={{ action: 'Download', filem: elem }}
+                          onClick={handleClick}
+                        >
+                          Download
+                        </MenuItem>
+                        <MenuItem divider />
+                      </>
                     ) : null}
 
                     <MenuItem
@@ -166,6 +169,7 @@ function ShowFileSystem({
                     >
                       Open Discussion
                     </MenuItem>
+
                     <MenuItem divider />
                     <Modal
                       show={opendiss === true}

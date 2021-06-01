@@ -20,7 +20,7 @@ function SearchBuddies({ buddies: { search, searchloading, userloading } }) {
         return (
           <Fragment key={index}>
             <div>
-              <Row>
+              <Row className='row mr-3'>
                 <Add selecteduser={pro.profile.user._id} />
                 <Show selecteduser={pro.profile.user._id} />
                 <NameAvatar
@@ -35,7 +35,7 @@ function SearchBuddies({ buddies: { search, searchloading, userloading } }) {
         return (
           <Fragment key={index}>
             <div>
-              <Row className='row'>
+              <Row className='row mr-3'>
                 <DeleteBud
                   selecteduser={pro.profile.user._id}
                   type={'Search'}
@@ -53,7 +53,7 @@ function SearchBuddies({ buddies: { search, searchloading, userloading } }) {
         return (
           <Fragment key={index}>
             <div>
-              <Row className='row'>
+              <Row className='row mr-3'>
                 <DeleteReq
                   selecteduser={pro.profile.user._id}
                   type={'Search'}
@@ -71,7 +71,7 @@ function SearchBuddies({ buddies: { search, searchloading, userloading } }) {
         return (
           <Fragment key={index}>
             <div>
-              <Row className='row'>
+              <Row className='row mr-3'>
                 <DeleteReq
                   selecteduser={pro.profile.user._id}
                   type={'Search'}
