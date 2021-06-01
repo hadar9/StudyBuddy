@@ -14,21 +14,16 @@ import store from '../../../store/store';
 import { findgroups, leavegroup } from '../../../actions/chat';
 
 function Sidebar({ findgroups, leavegroup, chat: { groups, messages } }) {
-  
   const user = store.getState().auth.user;
   useEffect(() => {
     findgroups(user);
   }, []);
-  async function exitgroup()
-  {
+  async function exitgroup() {
     const current_group = store.getState().chat.current_group;
-    if(user && current_group)
-    {
+    if (user && current_group) {
       await leavegroup(user, current_group);
       findgroups(user);
-      
     }
-    
   }
 
   var chat_groups = [];
@@ -50,7 +45,7 @@ function Sidebar({ findgroups, leavegroup, chat: { groups, messages } }) {
             </IconButton>
 
             <IconButton>
-              <MoreVertIcon onClick={exitgroup}/>
+              <MoreVertIcon onClick={exitgroup} />
             </IconButton>
           </div>
         </Row>
@@ -63,7 +58,7 @@ function Sidebar({ findgroups, leavegroup, chat: { groups, messages } }) {
       </div>
       <div className='sidebarChats'>
         {chat_groups.map((name) => (
-          <SidebarChat username={name[1]} group_id={name[2]} />
+          <SidebarChat username={name[1]} group_id={name[2]} avatar={name[3]} />
         ))}
       </div>
     </div>

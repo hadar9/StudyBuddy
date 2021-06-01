@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 function sidebarChat(props) {
+  const avatar = props.avatar;
   const username = props.username;
   const choosegroup = props.choosegroup;
   const selectrecipient = props.selectrecipient;
@@ -20,7 +21,7 @@ function sidebarChat(props) {
   }
   return (
     <div className='sidebarChat' onClick={select_chat}>
-      <Avatar style={{ position: 'absolute' }} src='' />
+      <Avatar src={avatar} />
       <div className='sidebarChatInfo'>
         <p>{username}</p>
       </div>
