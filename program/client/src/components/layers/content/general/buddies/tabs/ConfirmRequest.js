@@ -15,6 +15,10 @@ function ConfirmRequest({
   useEffect(() => {}, [mybuddies]);
   let content = '';
   if (mybuddieslsloading) {
+    if(mybuddies[0] === null || mybuddies === null || mybuddies === 'undefined')
+    {
+      return null;
+    }
     content = mybuddies.map((buddy, index) => {
       return (
         <Fragment key={index}>

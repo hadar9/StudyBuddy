@@ -13,6 +13,10 @@ function SentRequest({
   let content = '';
 
   if (mybuddieslsloading) {
+    if(mybuddies[0] === null || mybuddies === null || mybuddies === 'undefined')
+    {
+      return null;
+    }
     content = mybuddies.map((buddy, index) => {
       return (
         <Fragment key={index}>
@@ -22,12 +26,13 @@ function SentRequest({
                 selecteduser={buddy.user._id}
                 type={'Tabs'}
                 reqtype={'sent'}
-              />
+              /> 
               <Show selecteduser={buddy.user._id} type={'Tabs'} />
               <NameAvatar
                 username={buddy.user.username}
                 avatar={buddy.user.avatar}
               />
+              
             </Row>
           </div>
         </Fragment>

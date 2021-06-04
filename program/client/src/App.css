@@ -206,6 +206,7 @@
   height: 200px;
   float: right;
   border: 3px solid #343a40;
+  white-space: pre-line;
 }
 
 .generalmessageformbutton {
