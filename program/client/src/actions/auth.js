@@ -13,6 +13,7 @@ import { clearprofile } from './profile';
 import { clearbuddy } from './buddies';
 import { cleardrivesstate } from './drives';
 import { clearfilesystem } from './filesystem';
+import { clearchat } from './chat';
 import setAuthToken from '../utils/setAuthToken';
 
 //Load User
@@ -35,60 +36,64 @@ export const loadUser = () => async (dispatch) => {
 };
 
 //Register
-export const register = ({ username, email, password }) => async (dispatch) => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
+export const register =
+  ({ username, email, password }) =>
+  async (dispatch) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({
+      username,
+      email,
+      password,
+    });
+
+    try {
+      const res = await axios.post('api/auth/register', body, config);
+
+      dispatch({
+        type: REGISTER_SUCCESS,
+        payload: res.data,
+      });
+      dispatch(loadUser());
+    } catch (error) {
+      dispatch({
+        type: REGISTER_FAIL,
+      });
+      dispatch(setalert(error.response.data.msg, 'danger'));
+    }
   };
-  const body = JSON.stringify({
-    username,
-    email,
-    password,
-  });
-
-  try {
-    const res = await axios.post('api/auth/register', body, config);
-
-    dispatch({
-      type: REGISTER_SUCCESS,
-      payload: res.data,
-    });
-    dispatch(loadUser());
-  } catch (error) {
-    dispatch({
-      type: REGISTER_FAIL,
-    });
-    dispatch(setalert(error.response.data.msg, 'danger'));
-  }
-};
 
 //Login
-export const login = ({ email, password }) => async (dispatch) => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-  const body = JSON.stringify({
-    email,
-    password,
-  });
+export const login =
+  ({ email, password }) =>
+  async (dispatch) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = JSON.stringify({
+      email,
+      password,
+    });
 
-  try {
-    const res = await axios.post('api/auth/login', body, config);
-    dispatch({
-      type: LOGIN_SUCCESS,
-      payload: res.data,
-    });
-    dispatch(loadUser());
-  } catch (error) {
-    dispatch({
-      type: LOGIN_FAIL,
-    });
-    dispatch(setalert(error.response.data.msg, 'danger'));
-  }
-};
+    try {
+      const res = await axios.post('api/auth/login', body, config);
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: res.data,
+      });
+      dispatch(loadUser());
+    } catch (error) {
+      dispatch({
+        type: LOGIN_FAIL,
+      });
+      dispatch(setalert(error.response.data.msg, 'danger'));
+    }
+  };
 
 //Logout
 export const logout = () => async (dispatch) => {
@@ -96,6 +101,7 @@ export const logout = () => async (dispatch) => {
   dispatch(clearbuddy());
   dispatch(clearfilesystem());
   dispatch(cleardrivesstate());
+  dispatch(clearchat());
   dispatch({
     type: LOGOUT,
   });

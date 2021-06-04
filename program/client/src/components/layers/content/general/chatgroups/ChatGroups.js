@@ -4,33 +4,30 @@ import { getchatgroups } from '../../../../../actions/drives';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import store from '../../../../../store/store';
-import { Button, Form, Row } from 'react-bootstrap';
+import { Button, Form, Row, Image } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-
-function ChatGroups({ creategroup, getchatgroups, adduser}) {
+import chat1 from '../../../../../img/chat1.png';
+import chat3 from '../../../../../img/chat3.png';
+function ChatGroups({
+  creategroup,
+  getchatgroups,
+  adduser,
+  drives: { adminper },
+}) {
   const [input, setInput] = useState('');
   const [alert, setAlert] = useState(null);
   const user_id = store.getState().auth.user._id;
   const username = store.getState().auth.user.username;
   const drive_id = store.getState().drives.drive._id;
   const drive = store.getState().drives.drive;
-  var create_permission = false;
-  if(store.getState().drives.adminper === null || store.getState().drives.adminper.createchat === true)
-  {
-     create_permission = true;
-  }
-  
+
   const button_cb = async (e) => {
     e.preventDefault();
-    if(input && user_id && username && drive_id)
-    {
+    if (input && user_id && username && drive_id) {
       creategroup(input, user_id, username, drive_id);
+    } else {
+      console.log('ERROR in ChatGroups component');
     }
-    else
-    {
-      console.log("ERROR in ChatGroups component");
-    }
-    
 
     setInput('');
   };
@@ -71,39 +68,39 @@ function ChatGroups({ creategroup, getchatgroups, adduser}) {
     <div className='createGroup'>
       {alert}
       <h1 className='drivegroupchat-title'>Chats Groups</h1>
-      {create_permission ?
-      <div className='chatgroupsform'>
-        <Form onSubmit={(e) => button_cb(e)}>
-          <Form.Row>
-            <Form.Group controlId='formGridField'>
-              <Form.Control
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder='Enter group name'
-                type='text'
-                required={true}
-                className=' mr-4 w-75'
-              />
-            </Form.Group>
-            <Button variant='info' className='mb-3' type='submit'>
-              Create group
-            </Button>
-          </Form.Row>
-        </Form>
-      </div>
-      : null}
+      {adminper === null || adminper.createchat ? (
+        <div className='chatgroupsform'>
+          <Form onSubmit={(e) => button_cb(e)}>
+            <Form.Row>
+              <Form.Group controlId='formGridField'>
+                <Form.Control
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder='Enter group name'
+                  type='text'
+                  required={true}
+                  className=' mr-4 w-75'
+                />
+              </Form.Group>
+              <Button variant='info' className='mb-3' type='submit'>
+                Create group
+              </Button>
+            </Form.Row>
+          </Form>
+        </div>
+      ) : null}
       <div className='joinchats'>
         {store.getState().drives.chatgroups
           ? store.getState().drives.chatgroups.map((data) => (
               <Row className='joinchat'>
-                <p>Join Chat: </p>
                 <Button
-                  variant='info'
+                  variant='light'
                   value={data}
                   onClick={(e) => enterchat(e.target.value)}
                 >
-                  {data[1]}
+                  <Image className='chatimg' title={data[1]} src={chat3} />
                 </Button>
+                <p className='mx-auto'>{data[1]}</p>
               </Row>
             ))
           : null}
@@ -116,6 +113,7 @@ ChatGroups.propTypes = {
   creategroup: PropTypes.func.isRequired,
   getchatgroups: PropTypes.func.isRequired,
   adduser: PropTypes.func.isRequired,
+  drives: PropTypes.object.isRequired,
 };
 const mapStateToProps = (state) => ({
   drives: state.drives,

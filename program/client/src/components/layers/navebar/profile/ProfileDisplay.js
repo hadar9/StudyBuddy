@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 function ProfileDisplay({ profiles: { profile } }) {
+   
   return (
     <div className='displayprofile text-center'>
       <Col>
@@ -12,19 +13,19 @@ function ProfileDisplay({ profiles: { profile } }) {
       </Col>
       <h1>{profile.user.username}</h1>
       <br></br>
-      <p style={{textAlign: 'center'}}>
+      <p style={{ textAlign: 'center' }}>
         <strong>First Name: </strong>
         {profile.firstname}
       </p>
-      <p style={{textAlign: 'center'}}>
+      <p style={{ textAlign: 'center' }}>
         <strong>Last Name: </strong>
         {profile.lastname}
       </p>
-      <p style={{textAlign: 'center'}}>
+      <p style={{ textAlign: 'center' }}>
         <strong>Attending: </strong>
         {profile.studyat}
       </p>
-      <p style={{textAlign: 'center'}}>
+      <p style={{ textAlign: 'center' }}>
         <strong>Study Field: </strong>
         {profile.studyfield}
       </p>

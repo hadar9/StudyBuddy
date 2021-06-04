@@ -30,7 +30,7 @@ function Add({ addbuddy, buddies: { searchinput }, selecteduser }) {
 }
 
 Add.propTypes = {
-  buddiess: PropTypes.object.isRequired,
+  buddies: PropTypes.object.isRequired,
   addbuddy: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({

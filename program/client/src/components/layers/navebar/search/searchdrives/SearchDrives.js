@@ -25,7 +25,7 @@ function SearchDrives({ drive: { searchdrives, drivessearchloading } }) {
             <h6 className='mr-3 mt-3'>{`drive buddies: ${pro.buddiescount}`}</h6>
             <div className='mr-3 mt-2'>{btn}</div>
             <h5 className='mr-3 mt-3'>{pro.driveowner.username} </h5>
-            <h1 className='mr-2'>{pro.drivename}</h1>
+            <h3 className='mr-2 mt-2'>{pro.drivename}</h3>
           </Row>
         </Fragment>
       );

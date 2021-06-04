@@ -48,14 +48,8 @@ function Navebar({
     { value: 'username', label: 'user name' },
     { value: 'drivename', label: 'drive name' },
   ];
-  const {
-    search,
-    byvalue,
-    bylabel,
-    showmyprofile,
-    showsearch,
-    component,
-  } = formData;
+  const { search, byvalue, bylabel, showmyprofile, showsearch, component } =
+    formData;
 
   const bychange = (selected) => {
     setForm({ ...formData, byvalue: selected.value, bylabel: selected.label });

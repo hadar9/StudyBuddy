@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 import DriveContent from './drivecontent/DriveContent';
 import Settings from './settings/Settings';
 import ChatGroups from '../general/chatgroups/ChatGroups';
-import RecucleBin from '../general/recyclebin/RecycleBin';
 import DriveBuddiesTabs from './drivebuddiestabs/DriveBuddiesTabs';
 
 function InsideDrive({ clearfilesystem, drives: { adminper } }) {
@@ -58,13 +57,6 @@ function InsideDrive({ clearfilesystem, drives: { adminper } }) {
               Settings
             </Button>
           ) : null}
-          <Button
-            value='Recyclebin'
-            onClick={(e) => setKey({ components: <RecucleBin /> })}
-            className='bg-dark text-light'
-          >
-            Recycle bin
-          </Button>
         </ButtonGroup>
       </div>
       <div className='content text-center'>{components}</div>
