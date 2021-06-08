@@ -11,7 +11,8 @@ function ChatMessage(props) {
     const content = props.msg.content;
     const name = props.msg.sender;
     const timestamp = props.msg.time;
-    if(content===null || content === "")
+    // console.log("msg props: ",props)
+    if(content===null || content === "" || typeof content === 'undefined')
     {
         return null;
     }

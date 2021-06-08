@@ -5,14 +5,13 @@ const Group = require('../../models/ChatGroup');
 const auth = require('../../middleware/auth');
 const User = require('../../models/User');
 const Pusher = require("pusher");
-const mongoose = require("mongoose");
 
 
 router.post('/leavegroup', auth, async (req,res)=>
 {   
     const user_id = req.body.user._id;
     const username = req.body.user.username;
-    const group_id = req.body.group.id;
+    const group_id = req.body.group;
 
     const group = await Group.findOneAndUpdate(
         {_id: group_id},
@@ -41,6 +40,7 @@ router.post('/creategroup', auth, async (req,res)=>
         { new: true });
     group.save();
     message.save();
+    res.json({drive: drive});
 });
 
 router.post('/adduser', auth, async (req,res)=>
@@ -60,8 +60,9 @@ router.post('/adduser', auth, async (req,res)=>
 router.post('/choosegroup', auth, async (req,res)=>
 {
     try{
+        const group = await Group.findById(req.body.group);
         var messages = await Message.findById(req.body.group)
-        res.json(messages);
+        res.json({messages: messages, group: group});
     }
     catch (err) {
         res.status(500).send(err, 'Server Error');
@@ -79,11 +80,11 @@ router.post('/findgroups',auth, async (req, res) => {
             {
                 if(user_id == groups[i].names[0])
                 {
-                    other_users.push([groups[i].group[1]._id, groups[i].names[1], groups[i]._id ])
+                    other_users.push([groups[i].group[1]._id, groups[i].names[1], groups[i]._id, groups[i].group[1].avatar ])
                 }
                 else
                 {
-                    other_users.push([groups[i].group[0]._id, groups[i].names[0], groups[i]._id ])
+                    other_users.push([groups[i].group[0]._id, groups[i].names[0], groups[i]._id, groups[i].group[0].avatar ])
                 }
             }
             else

@@ -405,14 +405,16 @@
   height: 100%;
 }
 .chatavatarheader {
-  right: 100%;
+  right: 75%;
+  margin-top: 25px;
 }
+
 .sidebarHeader {
   border-right: 1px solid lightgray;
 }
 
 .sidebarSearch {
-  margin-top: 20%;
+  margin-top: 32%;
   background-color: #f6f6f6;
 }
 
@@ -421,7 +423,15 @@
   outline-width: 0;
   margin-left: 10px;
 }
-
+.sidebarRight
+{
+  margin-right: 150px;
+  
+}
+.sidebarRight > h3 {
+    margin-left: -80px;
+  }
+  
 .sidebarChat {
   background-color: white;
   cursor: pointer;

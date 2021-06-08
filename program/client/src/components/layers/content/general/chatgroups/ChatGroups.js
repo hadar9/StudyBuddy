@@ -30,9 +30,13 @@ function ChatGroups({
     }
 
     setInput('');
-  };
+  };  
 
   function enterchat(data) {
+    if(data === null || typeof data === 'undefined')
+    {
+      return null;
+    }
     data = data.split(',');
     var grps = store.getState().chat.groups;
     for (var g in grps) {

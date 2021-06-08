@@ -7,6 +7,8 @@ import {
 } from '../../../actions/chat';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import store from '../../../store/store';
+
 
 function sidebarChat(props) {
   const username = props.username;
@@ -16,11 +18,11 @@ function sidebarChat(props) {
   async function select_chat() {
     await choosegroup(props.group_id);
     selectrecipient(username);
-    setcurrentgroupid(props.group_id, props.username);
+    
   }
   return (
     <div className='sidebarChat' onClick={select_chat}>
-      <Avatar style={{ position: 'absolute' }} src='' />
+      <Avatar style={{ position: 'absolute' }} src={props.avatar} />
       <div className='sidebarChatInfo'>
         <p>{username}</p>
       </div>

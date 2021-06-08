@@ -10,6 +10,7 @@ import {
   LEAVE_GROUP,
   CLEAR_CHAT,
 } from '../actions/types';
+import {getchatgroups} from './drives';
 
 export const leavegroup = (user, group) => async (dispatch) => {
   const config = {
@@ -70,14 +71,16 @@ export const creategroup =
       user,
       drive_id,
     });
-    console.log(body);
 
     try {
       const res = await axios.post('api/chat/creategroup', body, config);
-      console.log(res.data);
+      dispatch(
+        getchatgroups(res.data.drive._id),
+      );
       dispatch({
         type: CREATE_NEW_GROUP,
       });
+      
     } catch (error) {
       dispatch({
         type: MSG_ERROR,
@@ -85,11 +88,11 @@ export const creategroup =
     }
   };
 
-export const setcurrentgroupid = (id, groupname) => async (dispatch) => {
+export const setcurrentgroupid = (group) => async (dispatch) => {
   try {
     dispatch({
       type: SET_CURRENT_GROUP,
-      payload: { id: id, groupname: groupname },
+      payload: group,
     });
   } catch (error) {
     dispatch({
@@ -124,8 +127,13 @@ export const choosegroup = (group) => async (dispatch) => {
     const res = await axios.post('api/chat/choosegroup', body, config);
     dispatch({
       type: CHOOSE_GROUP,
-      payload: res.data,
+      payload: res.data.messages,
     });
+
+    dispatch(
+      setcurrentgroupid(res.data.group),
+    );
+
   } catch (error) {
     dispatch({
       type: MSG_ERROR,
@@ -144,6 +152,7 @@ export const findgroups = (user) => async (dispatch) => {
   });
   try {
     const res = await axios.post('api/chat/findgroups', body, config);
+    console.log(res.data)
     dispatch({
       type: GROUPS_FOUND,
       payload: res.data,
