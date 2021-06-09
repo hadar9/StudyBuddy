@@ -24,7 +24,7 @@ const initialState = {
   drive: {},
   driveloading: false,
   adminper: null,
-  chatgroups: null,
+  chatgroup: null,
   error: {},
 };
 
@@ -100,7 +100,7 @@ export default function drives(state = initialState, action) {
     case GET_CHAT_GROUPS:
         return {
           ...state,
-          chatgroups: payload,
+          chatgroup: payload,
         }
     default:
       return state;

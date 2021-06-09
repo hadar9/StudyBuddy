@@ -45,6 +45,7 @@ router.post('/creategroup', auth, async (req,res)=>
 
 router.post('/adduser', auth, async (req,res)=>
 {
+    
     try{
         const group = await Group.findOneAndUpdate(
             { _id: req.body.group_id }, 

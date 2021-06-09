@@ -8,10 +8,10 @@ function ChatMessage(props) {
     {
         msg_cls = msg_cls + " chatReciever"
     }
+    console.log("in ChatMessage", props)
     const content = props.msg.content;
     const name = props.msg.sender;
     const timestamp = props.msg.time;
-    // console.log("msg props: ",props)
     if(content===null || content === "" || typeof content === 'undefined')
     {
         return null;

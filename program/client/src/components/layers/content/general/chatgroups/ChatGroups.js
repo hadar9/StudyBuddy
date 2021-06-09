@@ -14,13 +14,17 @@ function ChatGroups({
   adduser,
   drives: { adminper },
 }) {
+  
   const [input, setInput] = useState('');
   const [alert, setAlert] = useState(null);
   const user_id = store.getState().auth.user._id;
   const username = store.getState().auth.user.username;
   const drive_id = store.getState().drives.drive._id;
   const drive = store.getState().drives.drive;
-
+  useEffect(() => {
+    getchatgroups(drive_id);
+  }, []);
+  const groups = store.getState().drives.chatgroup;
   const button_cb = async (e) => {
     e.preventDefault();
     if (input && user_id && username && drive_id) {
@@ -28,16 +32,16 @@ function ChatGroups({
     } else {
       console.log('ERROR in ChatGroups component');
     }
-
+    
     setInput('');
   };  
 
   function enterchat(data) {
+    console.log(data)
     if(data === null || typeof data === 'undefined')
     {
       return null;
     }
-    data = data.split(',');
     var grps = store.getState().chat.groups;
     for (var g in grps) {
       if (grps[g][1] === data[1]) {
@@ -52,6 +56,7 @@ function ChatGroups({
         return;
       }
     }
+    
     adduser(data[0], user_id, username);
     setAlert(
       <div class='alert alert-success alert-dismissible'>
@@ -63,10 +68,7 @@ function ChatGroups({
     );
   }
 
-  useEffect(() => {
-    getchatgroups(drive_id);
-    const groups = store.getState().drives.chatgroups;
-  }, []);
+  
 
   return (
     <div className='createGroup'>
@@ -94,13 +96,13 @@ function ChatGroups({
         </div>
       ) : null}
       <div className='joinchats'>
-        {store.getState().drives.chatgroups
-          ? store.getState().drives.chatgroups.map((data) => (
+        {groups
+          ? groups.map((data) => (
               <Row className='joinchat'>
                 <Button
                   variant='light'
                   value={data}
-                  onClick={(e) => enterchat(e.target.value)}
+                  onClick={() => enterchat(data)}
                 >
                   <Image className='chatimg' title={data[1]} src={chat3} />
                 </Button>

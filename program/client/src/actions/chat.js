@@ -35,6 +35,7 @@ export const leavegroup = (user, group) => async (dispatch) => {
   }
 };
 export const adduser = (group_id, user, username) => async (dispatch) => {
+  
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -45,7 +46,7 @@ export const adduser = (group_id, user, username) => async (dispatch) => {
     user,
     username,
   });
-
+  console.log(body)
   try {
     await axios.post('api/chat/adduser', body, config);
     dispatch({

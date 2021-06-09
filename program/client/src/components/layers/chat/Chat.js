@@ -1,10 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Avatar, IconButton } from '@material-ui/core';
-import {
-  Message,
-  SearchOutlined,
-  SettingsInputAntenna,
-} from '@material-ui/icons';
 import { send, findgroups, leavegroup  } from '../../../actions/chat';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -21,7 +15,7 @@ function Chat({
   const [input, setInput] = useState('');
   const sendMessage = async (e) => {
     e.preventDefault();
-    send(current_group.id, user.username, input);
+    send(store.getState().chat.current_group._id, user.username, input);
 
     setInput('');
   };
@@ -52,7 +46,6 @@ function Chat({
         <div>
         </div>
         <div className='chatHeaderInfo'>
-          {console.log(store.getState().chat)}
           <h3>{group ? (group.group_name
            ? group.group_name : group.recipient): null}</h3>
           {is_private == true ? <button type="button" class="btn btn-secondary" onClick={exitgroup} >Exit Group</button> : null}
